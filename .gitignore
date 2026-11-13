@@ -9,3 +9,7 @@ BU_Bench_V1.json
 BU_Bench_V2.json
 Stealth_Bench_V1.json
 benchmarks/*.json
+
+# Lexmount 1.1 local decrypted data and private run evidence
+BU_Bench_V1_1.json
+*.private.json

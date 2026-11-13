@@ -1,0 +1,47 @@
+{
+  "name": "Lexmount BU Bench 1.1",
+  "version": "1.1.0",
+  "upstream_official": false,
+  "upstream_repository": "https://github.com/browser-use/benchmark",
+  "upstream_commit": "77b4df339fe8fc293fb48896cfa1c73dd743af42",
+  "base_encrypted_sha256": "a93f3e5c019cb7853b4b497fcf05f3836a6dd2a7e0f53f038ae8558300bc096e",
+  "encrypted_sha256": "abef6adc2726ea67206afddc68ea60dd6daaa6658558188837e060c8d2e8c3e4",
+  "ordered_ids_sha256": "4db015e02742b97dde693f616d90ed7ae1a29428495cf1cfc618ae1bf29adda5",
+  "task_count": 100,
+  "eligible_count": 99,
+  "quarantined_ordinals": [
+    19
+  ],
+  "audited_ordinals": [
+    4,
+    11,
+    19,
+    41,
+    55,
+    61,
+    75,
+    81,
+    84,
+    86,
+    95
+  ],
+  "modified_prompt_ordinals": [
+    4,
+    11,
+    41,
+    55,
+    61,
+    81,
+    84,
+    86
+  ],
+  "corrected_reference_ordinals": [
+    84
+  ],
+  "partially_verified_ordinals": [
+    95
+  ],
+  "other_tasks_reaudited": false,
+  "order": "Original V1 report interleaving, stored once; never interleave again",
+  "release_date": "2026-11-13"
+}

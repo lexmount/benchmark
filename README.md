@@ -1,3 +1,5 @@
+> **Lexmount BU Bench 1.1（维护版，非上游官方版本）**：新增独立的加密题库、通用 Agent 接口、运行与判分入口。安装、单题/并发运行、自定义 Agent、异常恢复及指标口径见 [LEXMOUNT_V1_1.md](LEXMOUNT_V1_1.md)。上游原有 V1/V2 入口保留。
+
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/2ccdb752-22fb-41c7-8948-857fc1ad7e24"">
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/774a46d5-27a0-490c-b7d0-e65fcbbfa358">

@@ -1,14 +1,14 @@
 # Three Filtered Benchmarks
 
-集中提供三套筛选后的浏览器Agent评测集：BU-filter、Online-Mind2Web-filter、Odysseys-filter，共502个评测任务。
+集中提供三套筛选后的浏览器Agent评测集：BU-filter、Online-Mind2Web-filter、Odysseys-filter，共503个评测任务。
 
-本分支合入三个来源分支的完整目录，仅新增本README。三个子目录的代码、数据、配置、题文、rubric、prompt和判分流程均保持来源版本原样，分别使用各自的评测入口。
+本分支合入三个来源分支的完整目录。BU-filter 后续根据既有证据修订名单：暂挂第19题、恢复第46和70题，共88题；详见[修订依据](bu-filter/SELECTION_REVIEW.md)。其题文、prompt与判分流程保持原样，另外两个子目录保持来源版本原样，分别使用各自的评测入口。
 
 ## 题目与固定预算
 
 | 评测集 | 原始题数 | 排除题数 | 保留题数 | 每题模型回合 | 每题时间上限 | 5090教程与完整排除原因 |
 |---|---:|---:|---:|---:|---:|---|
-| BU-filter | 100 | 13 | **87** | **300** | **3600秒** | [BU-filter README](bu-filter/README.md) |
+| BU-filter | 100 | 12 | **88** | **300** | **3600秒** | [BU-filter README](bu-filter/README.md) |
 | Online-Mind2Web-filter | 300 | 53 | **247** | **100** | **3600秒** | [Online-Mind2Web-filter README](online-mind2web-filter/README.md) |
 | Odysseys-filter（V1） | 200 | 32 | **168** | **300** | **3600秒** | [Odysseys-filter README](odysseys-filter/README.md) |
 
@@ -31,7 +31,7 @@ odysseys-filter/
 
 | 评测集 | 配置 | 数据与排除记录 | 评测入口 |
 |---|---|---|---|
-| BU-filter | [config.json](bu-filter/config.json) | [data/](bu-filter/data/)；87题采用上游防索引加密格式 | [evaluate.py](bu-filter/evaluate.py) |
+| BU-filter | [config.json](bu-filter/config.json) | [data/](bu-filter/data/)；88题采用上游防索引加密格式 | [evaluate.py](bu-filter/evaluate.py) |
 | Online-Mind2Web-filter | [config.json](online-mind2web-filter/config.json) | [data/](online-mind2web-filter/data/)；247条原始JSONL记录 | [evaluate.py](online-mind2web-filter/evaluate.py) |
 | Odysseys-filter | [config.json](odysseys-filter/config.json) | [data/](odysseys-filter/data/)；168题及原rubric | [evaluate.py](odysseys-filter/evaluate.py) |
 
@@ -47,7 +47,7 @@ odysseys-filter/
 | Online-Mind2Web-filter | 原AgentTrek prompt与Status parser；保留原thinking/text/tool-call投影及最后一张可用截图 |
 | Odysseys-filter | 原官方逐rubric裁判；保留完整可见轨迹及全部截图 |
 
-三套的具体请求参数、重试、拒绝fallback、缓存及中断恢复规则，分别以子目录的冻结代码和教程为准。结果按各套原统计口径独立报告，分母分别为87、247、168，并标明产品提交与预算。筛选后的成绩使用对应filter名称；历史未筛选成绩单独标识，不拼接成新的全量成绩。
+三套的具体请求参数、重试、拒绝fallback、缓存及中断恢复规则，分别以子目录的冻结代码和教程为准。结果按各套原统计口径独立报告，分母分别为88、247、168，并标明产品提交与预算。筛选后的成绩使用对应filter名称；历史未筛选成绩单独标识，不拼接成新的全量成绩。
 
 ## 5090使用方式
 
@@ -81,12 +81,12 @@ cd benchmark
 | `online-mind2web-filter/` | [online-mind2web-filter](https://github.com/lexmount/benchmark/tree/online-mind2web-filter) | [`c41ba65`](https://github.com/lexmount/benchmark/commit/c41ba6540a625fdcf3a382506e6467b0051178a9) |
 | `odysseys-filter/` | [odysseys-filter](https://github.com/lexmount/benchmark/tree/odysseys-filter) | [`47f6e1c`](https://github.com/lexmount/benchmark/commit/47f6e1c727566b1cc72b8b2ce596c17f54f0faa2) |
 
-合并时逐目录核对Git tree对象，三个子目录与上述来源提交完全一致；各来源提交的历史也保留在合并分支中。以后来源分支的新提交需要另行合入。
+首次合并时逐目录核对Git tree对象，三个子目录与上述初始来源提交完全一致；各来源提交的历史也保留在合并分支中。当前 BU-filter 的名单与题数适配已按上述修订更新，其他两套目录不变。以后来源分支的新提交需要另行合入。
 
 来源分支已有的免费验证记录分别为：
 
-- BU-filter：[30项测试及原隔离探针](bu-filter/validation.json)。
+- BU-filter：[当前88题离线验证](bu-filter/validation.json)；原87题隔离探针见该记录中的历史版本链接。
 - Online-Mind2Web-filter：[9项离线测试及真实Chrome探针](online-mind2web-filter/VALIDATION.md)。
 - Odysseys-filter：[14项离线检查及隔离探针](odysseys-filter/validation.json)。
 
-本次聚合验证的是目录与来源版本一致性，未把上述历史检查表述为一次新的502题评测。
+初次聚合验证的是目录与来源版本一致性；BU 的本次名单修订仅执行离线核验，未运行新的503题评测。

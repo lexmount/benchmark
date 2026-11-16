@@ -15,9 +15,9 @@ from cryptography.fernet import Fernet, InvalidToken
 
 DATA_DIR = Path(__file__).resolve().parent / "data"
 BENCHMARK = "BU_FILTER"
-TASK_COUNT = 87
-MANIFEST_SHA256 = "58421b5b6da57e1a56d7119605baaeed3869dd316e1432b5f548985ec1839505"
-EXCLUDED_IDS = frozenset(['0a58ebe0-9d6c-4839-9b09-d909271bb1f9', '13cfb151-3b2c-4e4c-9632-d3145a4b63ad', '1bab296c-8836-453f-9008-5e5cae260cea', '1fd2d69b-5d3f-4d1e-8e29-4dddced1868b', '7966e6bd-f197-43d0-9ee5-88fab61c8c36', 'a4662c0f-1cb1-4208-a6bb-932735a3f007', 'a78f98be-efef-4d24-b826-c6d4f2cb93e6', 'd19f3978-9b9f-403f-a09c-936d41fd56fc', 'd61e1671-f68b-4c9a-bf8a-ef437f17901c', 'd919dc4d-dc69-431c-8af3-e52d849b9810', 'f2366e2e-ab84-4739-a493-3e81c091e00c', 'f924e084-8cd6-4ef2-8fb6-68277ffe68ea', 'fadd935f-d3dd-4c03-8366-bd7e7c146581'])
+TASK_COUNT = 88
+MANIFEST_SHA256 = "981ad8f408682289297f6d43b43c83a82b665dbd51e7877919c2f4320a5180a4"
+EXCLUDED_IDS = frozenset(['13cfb151-3b2c-4e4c-9632-d3145a4b63ad', '1bab296c-8836-453f-9008-5e5cae260cea', '1fd2d69b-5d3f-4d1e-8e29-4dddced1868b', '7966e6bd-f197-43d0-9ee5-88fab61c8c36', 'a4662c0f-1cb1-4208-a6bb-932735a3f007', 'd19f3978-9b9f-403f-a09c-936d41fd56fc', 'd61e1671-f68b-4c9a-bf8a-ef437f17901c', 'd7eea2b1-7d31-425e-977c-b803ffd28250', 'd919dc4d-dc69-431c-8af3-e52d849b9810', 'f2366e2e-ab84-4739-a493-3e81c091e00c', 'f924e084-8cd6-4ef2-8fb6-68277ffe68ea', 'fadd935f-d3dd-4c03-8366-bd7e7c146581'])
 TASK_19_ID = "d7eea2b1-7d31-425e-977c-b803ffd28250"
 
 
@@ -39,7 +39,7 @@ def _manifest() -> dict:
         raise DatasetError("BU-filter manifest checksum mismatch")
     manifest = json.loads(raw)
     if manifest["name"] != "BU-filter" or manifest["task_count"] != TASK_COUNT:
-        raise DatasetError("Only the fixed BU-filter 87-task dataset is supported")
+        raise DatasetError("Only the fixed BU-filter 88-task dataset is supported")
     return manifest
 
 
@@ -49,8 +49,8 @@ def _load() -> tuple[dict, list[dict]]:
     if _sha(excluded_raw) != manifest["exclusions_sha256"]:
         raise DatasetError("BU-filter exclusions checksum mismatch")
     excluded = json.loads(excluded_raw)
-    if len(excluded) != 13 or {row["task_id"] for row in excluded} != EXCLUDED_IDS:
-        raise DatasetError("BU-filter must exclude exactly the approved 13 task IDs")
+    if len(excluded) != 12 or {row["task_id"] for row in excluded} != EXCLUDED_IDS:
+        raise DatasetError("BU-filter must exclude exactly the reviewed 12 task IDs")
     encrypted = (DATA_DIR / "BU_FILTER.enc").read_bytes()
     if _sha(encrypted) != manifest["encrypted_sha256"]:
         raise DatasetError("BU-filter encrypted dataset checksum mismatch")
@@ -62,7 +62,7 @@ def _load() -> tuple[dict, list[dict]]:
         raise DatasetError("BU-filter encrypted dataset is invalid") from error
     expected = manifest["tasks"]
     if not isinstance(rows, list) or len(rows) != TASK_COUNT or len(expected) != TASK_COUNT:
-        raise DatasetError("BU-filter requires exactly 87 tasks")
+        raise DatasetError("BU-filter requires exactly 88 tasks")
     seen = set()
     excluded_ordinals = {row["original_ordinal"] for row in excluded}
     expected_ordinals = [n for n in range(1, 101) if n not in excluded_ordinals]
@@ -93,21 +93,21 @@ def _load() -> tuple[dict, list[dict]]:
         public = {key: row[key] for key in ("id", "instruction", "start_url")}
         if _sha(_canonical(public)) != record["actor_record_sha256"]:
             raise DatasetError("Actor task changed")
-    if TASK_19_ID not in seen or not any(row["ordinal"] == 19 and row["id"] == TASK_19_ID for row in rows):
-        raise DatasetError("Task 19 must remain in BU-filter")
+    if TASK_19_ID in seen or any(row["ordinal"] == 19 for row in rows):
+        raise DatasetError("Task 19 is quarantined until source evidence is restored")
     if sum(row["answer"] is not None for row in rows) != manifest["reference_answer_count"]:
         raise DatasetError("Judge reference count changed")
     return manifest, rows
 
 
 def load_tasks() -> list[dict]:
-    """Return 87 public records, with original ordinal but without judge answers."""
+    """Return 88 public records, with original ordinal but without judge answers."""
     _, rows = _load()
     return [{key: row[key] for key in ("ordinal", "id", "instruction", "start_url")} for row in rows]
 
 
 def load_judge_tasks() -> list[dict]:
-    """Return 87 full records. Never expose this result to an actor."""
+    """Return 88 full records. Never expose this result to an actor."""
     return _load()[1]
 
 
@@ -131,7 +131,7 @@ def validate_dataset() -> dict:
         "task_count": len(rows),
         "excluded_count": len(EXCLUDED_IDS),
         "reference_answer_count": manifest["reference_answer_count"],
-        "task_19_retained": True,
+        "task_19_retained": False,
         "manifest_sha256": MANIFEST_SHA256,
         "encrypted_sha256": manifest["encrypted_sha256"],
         "source_sha256": manifest["source_sha256"],

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "benchmark": "BU-filter",
-  "expected_tasks": 87,
+  "expected_tasks": 88,
   "actor_concurrency": 32,
   "judge_concurrency": 4,
   "browser_executable": "/opt/google/chrome/chrome",

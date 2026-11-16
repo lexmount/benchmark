@@ -2,7 +2,7 @@
 
 BU-filter 从 `df93e28b9aa1013523f39391dd4cb8a269dae585` 实际受测的BU-lexmount100题中，只删除用户指定的13个UUID，得到固定87题。剩余题文、起始URL、参考答案逐字保留，原题号不重排，第19题保留。
 
-**87题、300模型回合、3600秒固定不变。评测逻辑、流程、链路、prompt和其他配置沿用原df93。** 本包不启动付费评测，正式成绩需另外运行后产生。BU-filter是筛选后的自定义集合，其成绩不当作原始百题成绩。
+**87题、300模型回合、3600秒固定不变。评测逻辑、流程、链路、prompt和其他配置沿用原df93。** 本次交付未启动付费评测，正式成绩需另外运行后产生。BU-filter是筛选后的自定义集合，其成绩不当作原始百题成绩。
 
 ## 允许的变化与源码证明
 
@@ -167,7 +167,7 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
 - 调度：32 Actor／4 Judge独立动态补位；原继承进程计数、至少6GiB可用内存、0.75秒轮询。
 - 隔离：原bwrap挂载、clearenv、工作目录、stdin凭据。
 - 超时：Actor3900秒外层、Judge14400秒；TERM后5秒再KILL。
-- 判分：原DeepSeek low、16384输出、600秒请求超时、SDK2次重试及原两次逻辑技术恢复；仅内容拒绝走原GPT low fallback。合法0不触发fallback。
+- 判分：原DeepSeek low、16384输出、600秒请求超时、每次SDK最多2次传输重试，逻辑尝试最多2次（初次＋一次技术恢复）；仅内容拒绝走原GPT low fallback。合法0不触发fallback。
 - 证据与prompt：原native-visible-observations-v3、原39000字符选择、原末10张去重图、原官方二元裁判、原附加访问边界policy。
 
 ## 旧BU入口归档
@@ -178,7 +178,7 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
 
 ## 核验记录
 
-本次免费核验见 [validation.json](validation.json)：24项测试通过、87份公开任务文件与df93原件逐字节相同，原bwrap浏览器探针通过；未启动付费Actor或Judge评测。
+本次免费核验见 [validation.json](validation.json)：29项测试通过、87份公开任务文件与df93原件逐字节相同，原bwrap浏览器探针通过；未启动付费Actor或Judge评测。
 
 ## 来源
 

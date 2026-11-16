@@ -140,8 +140,12 @@ def verify_run(run):
         raise ValueError('Only the fixed 87-task run is supported')
     if {j['task_id'] for j in plan['jobs']}!=allowed.keys():raise ValueError('Run task set changed')
     for job in plan['jobs']:
+        task=allowed[job['task_id']]
+        if (job['suite']!='bu_v1' or job['ordinal']!=task['ordinal']
+                or Path(job['judge_folder'])!=run/'judges/bu_v1'/job['task_id']):
+            raise ValueError('Task or Judge output path differs from this frozen run')
         folder=Path(job['source_folder'])
-        if folder!=run/'runs/bu_v1'/job['task_id'] or read(folder/'task.json')!=actor_task(allowed[job['task_id']]):raise ValueError('Task input changed')
+        if folder!=run/'runs/bu_v1'/job['task_id'] or read(folder/'task.json')!=actor_task(task):raise ValueError('Task input changed')
         actor_cfg=read(folder/'actor-config.json')
         if actor_cfg['max_steps']!=300 or actor_cfg['timeout_seconds']!=3600:raise ValueError('Task budget changed')
     for name,digest in plan['file_sha256'].items():
@@ -190,7 +194,9 @@ def main():
     args=p.parse_args()
     if args.command=='verify':
         from strict_runtime import source_audit
-        print(json.dumps({'dataset':validate_dataset(),'config':config(),'original_runtime':source_audit()},ensure_ascii=False,indent=2))
+        from legacy.environment_bindings import verify_frozen
+        originals=verify_frozen()
+        print(json.dumps({'dataset':validate_dataset(),'config':config(),'original_runtime':source_audit(),'verified_package_source_files':len(originals['files'])},ensure_ascii=False,indent=2))
     elif args.command=='configure':
         path=Path(args.credentials_file).expanduser().resolve()
         if path.is_relative_to(HERE):raise ValueError('Credentials must stay outside the package')

@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-11-16T08:08:43.393944+00:00",
+  "verified_at": "2026-11-16T08:19:43.955391+00:00",
   "protocol": "frozen df93e28 evaluation chain",
   "dataset": {
     "name": "BU-filter",
@@ -61,9 +61,9 @@
       }
     }
   },
-  "frozen_original_files": 14,
+  "frozen_original_files": 12,
   "unit_tests": {
-    "passed": 24,
+    "passed": 29,
     "command": "python -m pytest -q tests"
   },
   "original_bwrap_probe": {
@@ -93,5 +93,13 @@
     "new 87-task paid evaluation",
     "prompt optimization",
     "Actor/Judge retry or recovery redesign"
+  ],
+  "verified_package_source_files": 14,
+  "configuration_sha256": "1e63b8db842d12a370b34236b6235828c53afa942d20fc8a55a21470980540df",
+  "credential_scan": "passed",
+  "packaging_regressions": [
+    "reject cross-run Judge folders",
+    "reject incorrect suite and ordinal",
+    "reject modifications to canonical fixed configuration"
   ]
 }

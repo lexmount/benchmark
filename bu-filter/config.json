@@ -27,5 +27,13 @@
     "refusal_fallback_model": "gpt-6.1-sol",
     "process_timeout_seconds": 14400
   },
-  "watchdog_grace_seconds": 300
+  "watchdog_grace_seconds": 300,
+  "evaluation_protocol": "df93e28 frozen runtime",
+  "isolation": "bwrap",
+  "feature_config": {
+    "preparation_fraction": 0.0,
+    "track_task_progress": false,
+    "public_source_lookup": true,
+    "review_answer": true
+  }
 }

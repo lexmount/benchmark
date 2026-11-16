@@ -1,0 +1,395 @@
+"""Run all 100 BU tasks with one frozen product and independent dynamic actor/judge pools."""
+
+import asyncio
+import fcntl
+import hashlib
+import json
+import os
+import signal
+import subprocess
+import sys
+import time
+from collections import Counter
+from pathlib import Path
+
+RUN = Path(__file__).resolve().parents[1]
+ROOT = RUN.parent
+PRODUCT = RUN / "product"
+ENV = PRODUCT / ".venv"
+CODE = ROOT / "code"
+SOURCE = PRODUCT / "src"
+LEGACY = ROOT.parents[1] / "tmp/bu-0x-5090-local-bu100-20261112/.venv/bin/python"
+DEPENDENCIES = ROOT / "research-recovery-1114/judge-dependencies"
+EXPECTED = {"bu_v1": 100}
+OLD = ROOT / "full-23ee669-1115"
+PREVIOUS = ROOT / "bu-research-f476c6b-1115"
+BUILD_FILE = Path(os.environ.get("NEW_BUILD", str(RUN / "build.json")))
+COMMIT = json.loads(BUILD_FILE.read_bytes())["commit"]
+sys.path.insert(0, str(CODE))
+
+
+def read(path):
+    return json.loads(Path(path).read_bytes())
+
+
+def write(path, value):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    pending = path.with_suffix(path.suffix + ".tmp")
+    pending.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
+    pending.replace(path)
+
+
+def sha(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def prepare():
+    assert not (RUN / "plan.json").exists(), "Preserve the existing run"
+    previous = read(OLD / "plan.json")
+    pause = read(OLD / "pause-bu-priority.json")
+    build = read(BUILD_FILE)
+    if BUILD_FILE != RUN / "build.json":
+        write(RUN / "build.json", build)
+    assert sha(OLD / "plan.json") == pause["plan_sha256"]
+    recent = read(PREVIOUS / "plan.json")
+    assert (PREVIOUS / "complete-all.json").is_file(), "Archive the preceding full run first"
+    assert recent["product_commit"] == build["previous"] and build["commit"] == COMMIT
+    assert build["engine_version"] == "1.0.3+lexmount.17"
+    assert "src/lexmount_browser_agent/engine/browser_use/agent/review.py" in build["source_sha256"]
+    assert read(OLD / "pause-final.json")["live"] == []
+    for source, digest in previous["file_sha256"].items():
+        assert sha(source) == digest, source
+    for name, digest in build["source_sha256"].items():
+        assert sha(PRODUCT / name) == digest, name
+    assert sha(RUN / "product.bundle") == build["bundle_sha256"]
+    assert subprocess.check_output(["git", "-C", PRODUCT, "rev-parse", "HEAD"], text=True).strip() == COMMIT
+    assert not subprocess.check_output(["git", "-C", PRODUCT, "status", "--porcelain"], text=True)
+    tasks = {"bu_v1": read(OLD / "task-data.json")["bu_v1"]}
+    assert len(tasks["bu_v1"]) == 100
+    write(RUN / "task-data.json", tasks)
+    jobs = []
+    for archived in previous["jobs"]:
+        if archived["suite"] != "bu_v1":
+            continue
+        tid = archived["task_id"]
+        assert "/" not in tid and ".." not in tid
+        before = Path(archived["source_folder"])
+        assert sha(before / "task.json") == archived["task_input_sha256"]
+        assert sha(before / "actor-config.json") == archived["actor_config_sha256"]
+        paired = next(j for j in recent["jobs"] if j["task_id"] == tid)
+        assert paired["ordinal"] == archived["ordinal"]
+        assert sha(Path(paired["source_folder"]) / "task.json") == archived["task_input_sha256"]
+        source = RUN / "runs" / "bu_v1" / tid
+        source.mkdir(parents=True, exist_ok=False)
+        (source / "task.json").write_bytes((before / "task.json").read_bytes())
+        assert set(read(source / "task.json")) == {"id", "instruction", "start_url"}
+        assert sha(source / "task.json") == archived["task_input_sha256"]
+        cfg = read(before / "actor-config.json")
+        assert cfg["max_steps"] == 100 and cfg["timeout_seconds"] == 3600 and cfg["fixed_viewport"]
+        cfg.update(source_folder=str(source), product=build)
+        cfg["feature_config"]["public_source_lookup"] = True
+        cfg["feature_config"]["review_answer"] = True
+        write(source / "actor-config.json", cfg)
+        jobs.append(
+            dict(
+                archived,
+                source_folder=str(source),
+                judge_folder=str(RUN / "judges" / "bu_v1" / tid),
+                actor_config_sha256=sha(source / "actor-config.json"),
+            )
+        )
+    assert sorted(j["ordinal"] for j in jobs) == list(range(1, 101))
+    assert len({j["task_id"] for j in jobs}) == 100
+    protocol = {k: v for k, v in previous["file_sha256"].items() if not Path(k).is_relative_to(OLD)}
+    frozen = [
+        RUN / "build.json",
+        RUN / "deployment.json",
+        RUN / "task-data.json",
+        RUN / "product.bundle",
+        OLD / "pause-final.json",
+        PREVIOUS / "plan.json",
+        PREVIOUS / "complete-all.json",
+        *(RUN / "driver").glob("*.py"),
+    ]
+    plan = dict(
+        previous,
+        product_commit=COMMIT,
+        created_at=time.time(),
+        counts=EXPECTED,
+        jobs=jobs,
+        new_actor_runs=100,
+        reused_actor_runs=0,
+        old_actor_runs=0,
+        comparison_commit=build["previous"],
+        comparison_commits=[previous["product_commit"], recent["product_commit"]],
+        actor_concurrency=32,
+        judge_concurrency=4,
+        identical_task_inputs=100,
+        public_lookup=True,
+        review_answer=True,
+        request_budget_includes_answer_review=True,
+        access_policy="Existing public-access boundary clarified explicitly after the prior violations. No identity, route, proxy or challenge-cookie manipulation after a site blocks access.",
+        material_boundary="Only one clean task workspace and the product enter each actor",
+        previous_plan_sha256=pause["plan_sha256"],
+        previous_research_plan_sha256=sha(PREVIOUS / "plan.json"),
+        file_sha256=protocol | {str(f): sha(f) for f in frozen},
+    )
+    write(RUN / "plan.json", plan)
+    write(RUN / "probes/candidate/actor-config.json", {"product": build})
+    print(
+        json.dumps(
+            {
+                "commit": COMMIT,
+                "jobs": len(jobs),
+                "anchor": plan["context_anchor"],
+                "frozen": len(plan["file_sha256"]),
+            }
+        ),
+        flush=True,
+    )
+
+
+def actor_command(folder, probe=False, semantic_probe=False):
+    command = [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-pid",
+        "--unshare-ipc",
+        "--unshare-uts",
+        "--proc",
+        "/proc",
+        "--dev",
+        "/dev",
+        "--tmpfs",
+        "/dev/shm",
+        "--tmpfs",
+        "/tmp",
+        "--dir",
+        "/home/wf",
+        "--dir",
+        "/run",
+    ]
+    for path in [
+        "/usr",
+        "/etc",
+        "/opt/google/chrome",
+        "/sys",
+        "/run/systemd/resolve",
+        "/home/wf/.local/share/uv/python",
+        str(ENV),
+        str(SOURCE),
+    ]:
+        command.extend(["--ro-bind", path, path])
+    for name in ["bin", "sbin", "lib", "lib32", "lib64", "libx32"]:
+        command.extend(["--symlink", "usr/" + name, "/" + name])
+    modules = [
+        "full_benchmarks",
+        "continue_evaluate",
+        "eval_billing",
+        "image_transport",
+        "judge_refusals_dedup",
+        "bu_lexmount_viewport",
+    ]
+    mounts = [(RUN / "driver/actor.py", "/public/actor.py")]
+    mounts += [(CODE / (name + ".py"), "/public/" + name + ".py") for name in modules]
+    for source, destination in mounts:
+        command.extend(["--ro-bind", str(source), destination])
+    command.extend(["--bind", str(folder), str(folder), "--chdir", str(folder), "--clearenv"])
+    env = {
+        "HOME": "/home/wf",
+        "PATH": str(ENV / "bin") + ":/usr/local/bin:/usr/bin:/bin",
+        "LANG": "C.UTF-8",
+        "PYTHONPATH": "/public",
+        "PYTHONUNBUFFERED": "1",
+        "BH_TELEMETRY": "0",
+        "ANONYMIZED_TELEMETRY": "false",
+        "LEXMOUNT_EVAL_ROOT": str(ROOT),
+        "EXPECTED_ARM": "candidate",
+    }
+    for name in ["HTTPS_PROXY", "HTTP_PROXY", "NO_PROXY", "https_proxy", "http_proxy", "no_proxy", "TZ"]:
+        if name in os.environ:
+            env[name] = os.environ[name]
+    if probe:
+        env["PROBE_ONLY"] = "1"
+    if semantic_probe:
+        env["SEMANTIC_PROBE_ONLY"] = "1"
+    for key, value in env.items():
+        command.extend(["--setenv", key, value])
+    return command + ["--", str(ENV / "bin/python"), "/public/actor.py", str(folder)]
+
+
+async def invoke(command, log_path, timeout, stdin=None):
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    with log_path.open("ab") as log:
+        process = await asyncio.create_subprocess_exec(
+            *command,
+            stdin=asyncio.subprocess.PIPE if stdin else asyncio.subprocess.DEVNULL,
+            stdout=log,
+            stderr=log,
+            start_new_session=True,
+        )
+        try:
+            await asyncio.wait_for(process.communicate(stdin), timeout)
+        except TimeoutError:
+            os.killpg(process.pid, signal.SIGTERM)
+            try:
+                await asyncio.wait_for(process.wait(), 5)
+            except TimeoutError:
+                os.killpg(process.pid, signal.SIGKILL)
+                await process.wait()
+            return 124
+        return process.returncode
+
+
+async def grade(job):
+    sys.path.insert(0, str(DEPENDENCIES))
+    import full_benchmarks as evaluator
+
+    task = next(t for t in read(RUN / "task-data.json")[job["suite"]] if t["id"] == job["task_id"])
+    folder = Path(job["source_folder"])
+    assert task["instruction"] == read(folder / "task.json")["instruction"]
+    result = await evaluator.judge(folder, job["suite"], task, Path(job["judge_folder"]))
+    print(result.get("status"), flush=True)
+
+
+async def run():
+    plan = read(RUN / "plan.json")
+    for path, digest in plan["file_sha256"].items():
+        assert sha(path) == digest, path
+    assert plan["product_commit"] == COMMIT and len(plan["jobs"]) == 100
+    assert plan["review_answer"] and plan["request_budget_includes_answer_review"]
+    assert (RUN / "probe-passed.json").is_file(), "Run the free isolated browser probe before dispatch"
+    assert read(RUN / "probe-passed.json")["product_commit"] == COMMIT
+    credentials = (ROOT / ".private/model.json").read_bytes()
+    public_config = read(ROOT / ".private/model.json")
+    assert public_config["model"] == "deepseek-v4.1-flash"
+    assert public_config.get("reasoning_effort", "high") == "high"
+    assert public_config.get("mode", "ultrafast") == "ultrafast"
+    actors, judges = asyncio.Semaphore(32), asyncio.Semaphore(4)
+    active = Counter()
+    state_file = RUN / "progress.json"
+    state = read(state_file) if state_file.exists() else {}
+
+    foreign = read(OLD / "pause-bu-priority.json")["in_flight"]
+
+    def inherited(role):
+        alive = []
+        for row in foreign:
+            try:
+                fields = Path(f"/proc/{row['pid']}/stat").read_text().rsplit(")", 1)[1].split()
+            except FileNotFoundError:
+                continue
+            if fields[0] not in ("Z", "X") and int(fields[19]) == row["start_ticks"]:
+                alive.append(row)
+        foreign[:] = alive
+        return sum(w["role"] == role for w in alive)
+
+    async def wait_capacity(role, limit):
+        while True:
+            live_foreign = inherited("actor" if role == "actor" else "judge")
+            if active[role] + live_foreign < limit:
+                if role == "judge":
+                    return
+                memory = next(
+                    x for x in Path("/proc/meminfo").read_text().splitlines() if x.startswith("MemAvailable:")
+                )
+                if int(memory.split()[1]) / 1048576 >= 6:
+                    return
+            await asyncio.sleep(0.75)
+
+    def event(job, phase, stage, **extra):
+        key = "/".join(("candidate", job["suite"], job["task_id"]))
+        entry = {"at": time.time(), "status": phase, "stage": stage, **extra}
+        state.setdefault(key, {})[stage] = entry
+        write(state_file, state)
+        with (RUN / "events.jsonl").open("a") as stream:
+            stream.write(
+                json.dumps({"key": key, "ordinal": job["ordinal"], "active": dict(active), **entry}) + "\n"
+            )
+        print(job["suite"], job["ordinal"], stage, phase, "active", dict(active), flush=True)
+
+    async def one(job):
+        folder = Path(job["source_folder"])
+        assert sha(folder / "task.json") == job["task_input_sha256"]
+        assert sha(folder / "actor-config.json") == job["actor_config_sha256"]
+        receipt = folder / "execution.json"
+        if not receipt.exists():
+            async with actors:
+                if (folder / "agent").exists():
+                    event(job, "interrupted_actor_preserved", "actor")
+                    return
+                await wait_capacity("actor", 32)
+                active["actor"] += 1
+                event(job, "started", "actor")
+                try:
+                    code = await invoke(actor_command(folder), folder / "worker.log", 3900, credentials)
+                finally:
+                    active["actor"] -= 1
+                if code or not receipt.exists():
+                    event(job, "actor_process_error", "actor", exit_code=code)
+                    return
+        event(job, "finished", "actor", native=read(receipt).get("status"))
+        destination = Path(job["judge_folder"])
+        packet = destination / ("judge-" + job["suite"] + ".json")
+        if packet.exists():
+            event(job, read(packet)["status"], "primary", preserved=True)
+            return
+        async with judges:
+            await wait_capacity("judge", 4)
+            active["judge"] += 1
+            event(job, "started", "primary")
+            try:
+                python = LEGACY if job["suite"] == "bu_v1" else ROOT / "envs/baseline/bin/python"
+                code = await invoke(
+                    [str(python), __file__, "judge", job["suite"], job["task_id"]],
+                    destination / "judge.log",
+                    14400,
+                )
+            finally:
+                active["judge"] -= 1
+            event(
+                job,
+                read(packet)["status"] if packet.exists() else "judge_process_error",
+                "primary",
+                exit_code=code,
+            )
+
+    await asyncio.gather(*(one(job) for job in plan["jobs"]))
+    assert all(
+        (Path(j["source_folder"]) / "execution.json").is_file()
+        and (Path(j["judge_folder"]) / "judge-bu_v1.json").is_file()
+        for j in plan["jobs"]
+    ), "missing receipts; inspect progress"
+    write(
+        RUN / "complete-all.json", {"finished_at": time.time(), "records": len(state), "active": dict(active)}
+    )
+
+
+if __name__ == "__main__":
+    command = sys.argv[1]
+    if command == "prepare":
+        prepare()
+    elif command == "probe":
+        subprocess.run(actor_command(RUN / "probes/candidate", probe=True), check=True, timeout=100)
+        write(
+            RUN / "probe-passed.json",
+            {"product_commit": COMMIT, "at": time.time(), "model_requests": 0, "benchmark_tasks": 0},
+        )
+    elif command == "semantic-probe":
+        credentials = (ROOT / ".private/model.json").read_bytes()
+        subprocess.run(
+            actor_command(RUN / "probes/candidate", semantic_probe=True),
+            input=credentials,
+            check=True,
+            timeout=180,
+        )
+    elif command == "judge":
+        job = next(
+            j for j in read(RUN / "plan.json")["jobs"] if (j["suite"], j["task_id"]) == tuple(sys.argv[2:4])
+        )
+        asyncio.run(grade(job))
+    elif command == "run":
+        with (RUN / "controller.lock").open("a") as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            asyncio.run(run())

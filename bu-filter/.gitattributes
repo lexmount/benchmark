@@ -1,5 +1,4 @@
-# Keep frozen source/input bytes stable across checkouts.
 * text=auto eol=lf
 data/BU_FILTER.enc -text
-# Upstream prompt contains intentional trailing spaces; preserve its exact hash.
-vendor/official_judge.py -whitespace
+# Frozen original source bytes take precedence over whitespace style.
+legacy/** -whitespace

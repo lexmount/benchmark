@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "baseline_product_commit": "df93e28b9aa1013523f39391dd4cb8a269dae585",
+  "files": {
+    "actor.py": {
+      "sha256": "1663bbaccd6e1491602d45a912b73c4a136ccc0f58c63bb997c6088eabf14b14",
+      "source_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/bu-df93e28-failed28-300steps-20261116/driver/actor.py",
+      "source_sha256": "1663bbaccd6e1491602d45a912b73c4a136ccc0f58c63bb997c6088eabf14b14",
+      "copied_verbatim": true
+    },
+    "reference/df93-actor.py.txt": {
+      "sha256": "18ce6913ee245199e7b48b45a9c356cef601e447e4d002dffcced41e38d9c076",
+      "source_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/bu-verified-review-df93e28-1115/driver/actor.py",
+      "source_sha256": "18ce6913ee245199e7b48b45a9c356cef601e447e4d002dffcced41e38d9c076",
+      "copied_verbatim": true
+    },
+    "reference/df93-run.py.txt": {
+      "sha256": "c64d11096834dcf3550b4009ab76d4c9e81d9ca957284897d90ad97cad4e6fc0",
+      "source_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/bu-verified-review-df93e28-1115/driver/run.py",
+      "source_sha256": "c64d11096834dcf3550b4009ab76d4c9e81d9ca957284897d90ad97cad4e6fc0",
+      "copied_verbatim": true
+    },
+    "upstream/judge.py": {
+      "sha256": "012d20a030383ce668f47a4c85bd428d933413471d18188fc5b599fe69e70333",
+      "source_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/benchmark/bu_bench_v1/upstream/judge.py",
+      "source_sha256": "012d20a030383ce668f47a4c85bd428d933413471d18188fc5b599fe69e70333",
+      "copied_verbatim": true
+    },
+    "code/full_benchmarks.py": {
+      "sha256": "7381526d9ac3e41439c428d31532d83adf9f82c58cc8639feeab9943e803c4f6",
+      "source_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/code/full_benchmarks.py",
+      "source_sha256": "7381526d9ac3e41439c428d31532d83adf9f82c58cc8639feeab9943e803c4f6",
+      "copied_verbatim": true
+    },
+    "code/continue_evaluate.py": {
+      "sha256": "90257f5c525499dab1a0c7830bf548d91c02ae0072686d623310ddb3af1ac60f",
+      "source_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/code/continue_evaluate.py",
+      "source_sha256": "90257f5c525499dab1a0c7830bf548d91c02ae0072686d623310ddb3af1ac60f",
+      "copied_verbatim": true
+    },
+    "code/eval_billing.py": {
+      "sha256": "03a2a566d678d0b17330b1cee7de60bbaabefb2de12d7759b206357484a4f07c",
+      "source_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/code/eval_billing.py",
+      "source_sha256": "03a2a566d678d0b17330b1cee7de60bbaabefb2de12d7759b206357484a4f07c",
+      "copied_verbatim": true
+    },
+    "code/image_transport.py": {
+      "sha256": "21ea9a23c3b6b7399f54e74e6bd0a1f028efb8494cda1c04940cefb6d86c2eb3",
+      "source_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/code/image_transport.py",
+      "source_sha256": "21ea9a23c3b6b7399f54e74e6bd0a1f028efb8494cda1c04940cefb6d86c2eb3",
+      "copied_verbatim": true
+    },
+    "code/judge_refusals_dedup.py": {
+      "sha256": "f6fad326b14aa6ca32a450675d561ca35ac87deafc888e214317bb9bc11b93e5",
+      "source_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/code/judge_refusals_dedup.py",
+      "source_sha256": "f6fad326b14aa6ca32a450675d561ca35ac87deafc888e214317bb9bc11b93e5",
+      "copied_verbatim": true
+    },
+    "code/bu_lexmount_viewport.py": {
+      "sha256": "72dcbc30728730c052cdf0be5f2ba79ebb7d622c812ebbb478f6db7f45db11a0",
+      "source_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/code/bu_lexmount_viewport.py",
+      "source_sha256": "72dcbc30728730c052cdf0be5f2ba79ebb7d622c812ebbb478f6db7f45db11a0",
+      "copied_verbatim": true
+    },
+    "code/evidence_adapter.py": {
+      "sha256": "e7ca6b50950e176e96b76337d7b428de9338f5b8deb8ea1ba64f14f6408b6abf",
+      "source_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/code/evidence_adapter.py",
+      "source_sha256": "e7ca6b50950e176e96b76337d7b428de9338f5b8deb8ea1ba64f14f6408b6abf",
+      "copied_verbatim": true
+    },
+    "code/evidence_ranges.py": {
+      "sha256": "d314d674907d92532fdcbd30cb90fd2b96c666024c8834b2520288a195c57a9f",
+      "source_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/code/evidence_ranges.py",
+      "source_sha256": "d314d674907d92532fdcbd30cb90fd2b96c666024c8834b2520288a195c57a9f",
+      "copied_verbatim": true
+    },
+    "__init__.py": {
+      "sha256": "130d753a560aea712209804704224a2633de659c1873ba41aaf1643ce4972d4c",
+      "adapter": true,
+      "scope": "path and frozen-source verification only"
+    },
+    "environment_bindings.py": {
+      "sha256": "065a04362a366e8db8bd15b5bdaed8624bf27be2196eca360bebef5bdeef5d82",
+      "adapter": true,
+      "scope": "path and frozen-source verification only"
+    }
+  },
+  "actor_budget_change": {
+    "baseline": "reference/df93-actor.py.txt",
+    "used": "actor.py",
+    "only_replacement": {
+      "before": "assert check_config.max_steps == 100 and check_config.timeout_seconds == 3600",
+      "after": "assert check_config.max_steps == 300 and check_config.timeout_seconds == 3600"
+    },
+    "complete_text_equivalence_after_one_replacement": true,
+    "diff": "--- df93-actor100\n+++ actor300\n@@ -79,7 +79,7 @@\n         **job[\"feature_config\"],\n     )\n     assert check_config.public_source_lookup and check_config.review_answer\n-    assert check_config.max_steps == 100 and check_config.timeout_seconds == 3600\n+    assert check_config.max_steps == 300 and check_config.timeout_seconds == 3600\n     original_read = baseline.read\n \n     def read(path):\n"
+  },
+  "actor_policy_sha256": "853bb13f8dd4cdfd8aac55acd1c351c1eb3830d47f789be925320d212e1b7d5a",
+  "frozen_symbols_sha256": {
+    "code/full_benchmarks.py": {
+      "worker": "b97f59f31558bda8877d4ee097880bdfa2e8dde70492973c172dc6d4b2c6e397",
+      "worker_impl": "0c8e91913438cd53c034e67fd411bfd3670623a9c8d02238ef4fb729c372de66",
+      "judge_model": "ece1571731403413d5c0976186c50c63620b714f93fa496a8fd844b59df36dc0",
+      "judge": "c19adf1e0d7f634d3c8404261a0e3bea25270c9101cdf731e49e6478a7d75d78",
+      "is_content_refusal": "4aeacb18e47d44adee3f387935be381db893b0fad6fabab0364b0c2ed1e9d261"
+    },
+    "reference/df93-run.py.txt": {
+      "actor_command": "fd0928dc2899414226cc6c8c4a3590ef9dc0b46acc8f6150d7873981e525a1b8",
+      "invoke": "00779e35434c29046ea8cb357fd5b1e3a21de016fc4160b9716192c51f6df6d5",
+      "grade": "33515fb482cb2be909948b01634fcb586548eec8f538e961359be0f6cc60576c",
+      "run": "2e3ad5f797057004196d9aa373de248d55045506c378b657cce61e66e2db5147"
+    }
+  },
+  "allowed_runtime_adaptation": "environment_bindings only rebinds paths and source checks; frozen worker/judge/transport bodies are unchanged"
+}

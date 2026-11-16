@@ -1,12 +1,23 @@
-# BU-filter：87题浏览器任务评测
+# BU-filter：87题，沿用df93e28原评测链路
 
-BU-filter 是项目内部固定的87题评测集：以 `df93e28b9aa1013523f39391dd4cb8a269dae585` 实际受测的 BU-lexmount 100题题文为唯一来源，只删除下表13个 task-id。剩余87条指令、起始URL和参考答案逐条保留，不重新编题、不重新编号。它是筛选后的自定义评测集，成绩不能直接当成原始 BU Bench v1 百题成绩。
+BU-filter 从 `df93e28b9aa1013523f39391dd4cb8a269dae585` 实际受测的BU-lexmount100题中，只删除用户指定的13个UUID，得到固定87题。剩余题文、起始URL、参考答案逐字保留，原题号不重排，第19题保留。
 
-默认使用 **300个模型回合、每题3600秒、DeepSeek high、本地隔离Chrome**。Actor 32并发、Judge 4并发，两个池独立动态补位。完整成绩始终以87题为分母；本次没有启动任何付费87题评测。
+**87题、300模型回合、3600秒固定不变。评测逻辑、流程、链路、prompt和其他配置沿用原df93。** 本包不启动付费评测，正式成绩需另外运行后产生。BU-filter是筛选后的自定义集合，其成绩不当作原始百题成绩。
 
-## 为什么是87题
+## 允许的变化与源码证明
 
-用户明确批准删除以下13题，原因涵盖访问阻断、任务边界或判分口径争议，以及多个混合问题。排除不表示它们全部是纯外因，也不把历史失败改成成功。`100 - 13 = 87`。原第19题不在删除名单中，仍保留；不继承旧loader的额外挂起逻辑。
+- 数据：100题只删下表13个ID，保留87题；不继承旧loader额外挂起第19题的逻辑。
+- 调度：从冻结原 `driver/run.py` 直接加载7个原函数；唯一AST变化是 `len(plan["jobs"]) == 100` 改为 `== 87`。`actor_command/invoke/grade`、32／4独立动态补位、内存准入、超时、恢复等原逻辑不改。
+- 回合：直接使用已受测的300回合Actor原件。它相对原df93 Actor的唯一文本差异是预算断言100改300；每题配置也为300／3600。
+- 打包：把原绝对目录绑定到本轮文件；原来检查旧百题文件的来源校验改为检查包内冻结源文件。该适配不改执行、取证或判分函数体。
+
+`evaluate.py verify` 输出逐函数AST对照；`legacy/provenance.json`记录原件SHA、允许差异及prompt哈希。附加评测policy逐字符保持原文，SHA256：`853bb13f8dd4cdfd8aac55acd1c351c1eb3830d47f789be925320d212e1b7d5a`。官方裁判、v3证据、主Judge与拒绝fallback函数都复用冻结原文件。
+
+初版曾使用新的外层封装，已在此版本撤换。当前入口不会调用初版的宿主Actor或自写恢复控制器。
+
+## 为什么删除这13题
+
+排除原因包括访问限制、任务或判分口径争议及混合问题，不表示全部是纯外因，也不把历史0分改成1分。只按以下13个ID删除：100−13＝87。
 
 | 原题号 | task-id | 任务 | 排除原因 |
 |---|---|---|---|
@@ -24,27 +35,41 @@ BU-filter 是项目内部固定的87题评测集：以 `df93e28b9aa1013523f39391
 | #092 | `f924e084-8cd6-4ef2-8fb6-68277ffe68ea` | 女性计算机研究生奖学金 | 未凑齐五个资格、金额及截止日期均有证据的项目；网站阻断也有影响。部分裁判将可申请范围收紧为“仅限”特定人群，存在口径争议。 |
 | #096 | `d919dc4d-dc69-431c-8af3-e52d849b9810` | 档案图片的标题与拍摄日期 | archive.org不可达是主因；代理取得的数据仍有图片筛选、拍摄日期缺失、API与网页排序不同，以及手写结果缺少观察证据的问题。 |
 
-## 包内文件
+## 文件与执行链路
 
-| 文件 | 用途 |
+```text
+evaluate.py：仅87题准备、文件路径绑定与独立汇总
+→ strict_runtime.py：直接加载冻结原调度函数
+→ 原actor_command：bwrap隔离、clearenv、凭据stdin
+→ 原300回合actor.py
+→ 原full_benchmarks.worker／worker_impl
+→ 所选冻结Agent产品
+→ 原evidence_adapter v3
+→ 原construct_judge_messages／JudgementResult
+→ 原DeepSeek low判分，原拒绝专用fallback
+```
+
+| 文件 | 内容 |
 |---|---|
-| `data/BU_FILTER.enc` | 恰好87条冻结任务及裁判参考答案，上游同类Fernet格式；避免明文题库被索引 |
-| `data/manifest.json` | 87个允许ID、原题号、逐题指令哈希、源文件哈希 |
-| `data/exclusions.json` | 上表13条排除原因的机器可读版本 |
-| `dataset.py` | 固定数据加载、允许列表与内容校验 |
-| `config.json` | 固定评测参数 |
-| `evaluate.py` | 核验、预检、动态调度、续跑与汇总 |
-| `actor.py` | 调用所选Agent产品，保存真实工具回执与截图 |
-| `judge.py` | 独立裁判进程、原始请求与判分存档 |
-| `vendor/` | 原有v3证据适配和冻结官方二元裁判；来源哈希见provenance |
-| `tests/` | 免费数据、调度、断点恢复和判分恢复测试 |
-| `ops/` | 5090旧BU入口归档工具，默认只展示计划 |
+| `data/BU_FILTER.enc` | 恰好87条冻结任务及裁判参考；沿用上游防索引加密格式 |
+| `data/manifest.json` | 原题号、87个ID、逐题指令哈希和源文件哈希 |
+| `data/exclusions.json` | 上表排除名单与原因 |
+| `dataset.py` | 固定数据校验、公开任务与裁判数据分离 |
+| `config.json` | 固定87／300／3600及其他原参数 |
+| `strict_runtime.py` | 原调度函数加载和唯一100→87的AST适配 |
+| `legacy/actor.py` | 受测300回合Actor原件 |
+| `legacy/reference/` | df93原100回合Actor及原调度源，仅作源码核验 |
+| `legacy/code/` | 原worker、judge、证据、视口、计费和传输模块 |
+| `legacy/upstream/judge.py` | 冻结官方二元裁判原件 |
+| `legacy/environment_bindings.py` | 文件路径与来源校验绑定，不修改原函数体 |
+| `tests/` | 数据、源码等价与原运行规则的免费测试 |
+| `ops/migrate_legacy.py` | 服务器旧BU入口归档工具，默认只展示计划 |
 
-加密格式用于防索引，不是访问权限或安全沙箱。控制进程只向每个Actor写入该题 `id / instruction / start_url` 三个字段，代码路径不把答案作为模型输入。模型生成的Python仍运行于所用OS账户；这里没有新增容器或文件权限隔离。
+加密用于避免题库被索引，不是安全权限。执行器按原bwrap隔离，只挂该题工作目录、产品src／env和公开评测模块；完整87题、参考答案、其他任务及凭据文件不挂入Actor。凭据经stdin送父Actor，不作为任务或prompt内容。
 
-## 5090：第一次安装
+## 5090安装与环境
 
-日常工作目录：`/data/wf/sxh/workspace/lexmount/exclusive-agent-eval`。本次交付已部署在该目录的 `bu-filter/`，下列克隆步骤只用于新安装。不要把整个旧评测树复制回来。
+日常目录：`/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/bu-filter`。本次已部署；以下克隆用于全新安装，已有目录不要重复复制。
 
 ```bash
 ssh wf@10.2.131.41
@@ -54,123 +79,105 @@ git clone --branch bu-filter --single-branch \
   /data/wf/sxh/workspace/lexmount/benchmark-bu-filter
 
 cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
+test ! -e bu-filter
 cp -a ../benchmark-bu-filter/bu-filter ./bu-filter
-
 uv venv --python 3.12 .venvs/bu-filter-control
-uv pip install --python .venvs/bu-filter-control/bin/python \
-  -r bu-filter/requirements-control.txt
+uv pip install --python .venvs/bu-filter-control/bin/python -r bu-filter/requirements-control.txt
 uv venv --python 3.12 .venvs/bu-filter-judge
-uv pip install --python .venvs/bu-filter-judge/bin/python \
-  -r bu-filter/requirements-judge.txt
+uv pip install --python .venvs/bu-filter-judge/bin/python -r bu-filter/requirements-judge.txt
 ```
 
-系统Chrome应位于 `/opt/google/chrome/chrome`。本次预检的版本及二进制哈希记在验证记录；若换浏览器，需要在新运行记录中保留版本差异。
+主机需要原评测使用的 `bwrap` 和 `/opt/google/chrome/chrome`。缺失会明确报错，不降级为宿主直接执行。裁判环境独立使用 `browser-use==0.13.14` 的消息类型，不覆盖产品环境。
 
-**待测Agent是独立产品仓库。** 将要测试的产品源码放到一个独立目录，按它自己的锁文件安装，不要把旧裁判的 `browser-use==0.13.14` 装进Agent环境。本次免费接入检查使用的原生基础版已放在：
+**产品接入保持df93启动器的原要求。** 它明确要求内置引擎、`public_source_lookup=True`、`review_answer=True`、`preparation_fraction=0.0`、`track_task_progress=False`。原生a-sb缺少这些接口时，预检会拒绝；本轮没有为兼容a-sb而改评测器，也没有给a-sb添加功能。产品内部prompt由受测产品版本决定，评测器不另作优化。
+
+本次严格接入验证使用的df93冻结产品已准备在以下位置：
 
 ```bash
-cd /data/wf/sxh/workspace/lexmount/agent-builds/native-a-sb-9cef722
+cd /data/wf/sxh/workspace/lexmount/agent-builds/df93e28
 uv sync --frozen --python 3.12
 ```
 
-后续测试 `bu-improve` 时，将下面命令的 `--agent-source` 和 `--agent-python` 替换为该产品实际部署的目录和环境。评测器不会自动开启或关闭产品的研究工具、保存策略或复核功能；这些属于待测版本本身。
+若使用其他兼容产品，请替换下面的源码及环境路径。正式准备阶段会复制本轮产品源码／锁文件，并创建本轮独立 `product/.venv`，保持原df93的bwrap挂载布局。
 
-## 配置凭据与免费核验
+## 私密配置
 
-凭据文件保存在评测包外：`.private/bu-filter-model.json`，权限0600。不要把真实密钥写入本仓库、命令行参数或聊天。已配置的5090不必重复执行configure。
+凭据放在包外 `.private/bu-filter-model.json`，权限0600；不要写入仓库或命令行密钥参数。5090已迁入原模型配置，通常无需重复配置。新安装可执行：
 
 ```bash
 cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
-
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py configure
-# 根据隐藏提示输入密钥；默认端点 https://llmapi.hk.lexmount.net/v1
+```
+
+按隐藏提示输入密钥，默认端点为 `https://llmapi.hk.lexmount.net/v1`。另有 `.private/bu-filter-capacity.json` 记录原调度器需要的其他评测PID／角色／start_ticks；本次由原准入元数据迁入。若全新主机确实没有其他评测，维护者可将其设置为 `{"in_flight": []}`；存在其他评测时不得假装为空。该记录不会作为任务或prompt传入模型。
+
+## 免费核验、准备与原隔离探针
+
+```bash
+cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
 
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py verify
+.venvs/bu-filter-judge/bin/python -m pytest -q bu-filter/tests
 
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py preflight \
-  --agent-source /data/wf/sxh/workspace/lexmount/agent-builds/native-a-sb-9cef722 \
-  --agent-python /data/wf/sxh/workspace/lexmount/agent-builds/native-a-sb-9cef722/.venv/bin/python \
+  --agent-source /data/wf/sxh/workspace/lexmount/agent-builds/df93e28 \
+  --agent-python /data/wf/sxh/workspace/lexmount/agent-builds/df93e28/.venv/bin/python \
   --judge-python /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/.venvs/bu-filter-judge/bin/python
 
-cd bu-filter
-../.venvs/bu-filter-judge/bin/python -m pytest -q tests
-```
-
-`verify`只检查数据与配置；`preflight`只检查导入路径、预算、Chrome和裁判依赖；单元测试使用模拟响应。它们不请求付费模型。预检应显示87题、13排除、300回合、3600秒和实际加载的产品路径。`--offline-smoke`是显式的中性本地页面检查，使用脚本模型，不是BU正式题目。
-
-## 正式运行87题
-
-以下命令会调用付费Actor和Judge。输出目录必须全新；每轮冻结本轮评测代码、数据、产品Python源码与锁文件，并记录实际导入版本。
-
-```bash
-cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
-
-.venvs/bu-filter-control/bin/python bu-filter/evaluate.py run \
-  --agent-source /data/wf/sxh/workspace/lexmount/agent-builds/native-a-sb-9cef722 \
-  --agent-python /data/wf/sxh/workspace/lexmount/agent-builds/native-a-sb-9cef722/.venv/bin/python \
+.venvs/bu-filter-control/bin/python bu-filter/evaluate.py prepare \
+  --agent-source /data/wf/sxh/workspace/lexmount/agent-builds/df93e28 \
+  --agent-python /data/wf/sxh/workspace/lexmount/agent-builds/df93e28/.venv/bin/python \
   --judge-python /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/.venvs/bu-filter-judge/bin/python \
-  --output /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/bu-filter-native-round1
+  --output /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/bu-filter-round1
+
+.venvs/bu-filter-control/bin/python bu-filter/evaluate.py probe \
+  --output /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/bu-filter-round1
 ```
 
-不传 `--ids` 就运行全部87题。调试某个保留任务时可以增加 `--ids 14` 或完整UUID；题号使用保留的原题号。13个排除题及未知ID一律拒绝。子集报告明确写selected_count，不能称87题完整成绩。
+以上不请求模型。prepare只生成87题计划、冻结文件和产品环境；probe运行原 `PROBE_ONLY` 隔离浏览器探针，并验证隐藏目录不可见。它不启动原脚本中的付费semantic-probe。输出目录必须全新。
 
-调度完成一题Actor后立刻释放Actor槽，下一题可以启动，Judge在另一个池排队。任务耗时不同不会导致固定批次等长尾。
+## 正式评测与续跑
 
-## 续跑与查看结果
+完成prepare和probe之后，下列命令才会启动付费的原Actor／Judge链路：
 
 ```bash
 cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
-
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py resume \
-  --output /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/bu-filter-native-round1
+  --output /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/bu-filter-round1
+```
 
+也可用 `run` 代替上方prepare命令中的 `prepare`，一次完成准备、原免费探针和正式执行。所有87题全量运行，不提供旧百题选择器。
+
+续跑规则直接继承原脚本：有execution就不重跑Actor；没有execution但有agent目录就保留中断；任何已有判分packet均保留，包括judge_error，不能用续跑反复改判。原脚本可能因missing receipts结束失败，必须保留原件排查；本包不新增另一套自动恢复流程。
+
+## 结果
+
+```bash
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py summarize \
-  --output /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/bu-filter-native-round1
+  --output /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/bu-filter-round1
 ```
 
-续跑复用已有执行和合法判分，包括合法0分；只启动尚未准入的Actor，并继续可恢复的判分。已经准入、却没有执行回执的中断Actor保留unknown，不会悄悄重跑。若需要一次新实验，另建输出目录并明确新实验范围。
+单次运行保存 `plan.json`、`task-data.json`（87题裁判数据）、`build.json`、`driver/`、`product/`、`frozen/`、`runs/bu_v1/<UUID>/`、`judges/bu_v1/<UUID>/`、`progress.json`、`events.jsonl` 和原 `complete-all.json`。独立summarize只读取原回执，不参与Actor／Judge执行。
 
-```text
-run.json / settings.json   本轮范围、配置、来源与哈希
-frozen/                   本轮评测代码、87题数据和产品源码
-runs/<UUID>/              公开任务输入、执行回执、模型原始请求、截图和日志
-judges/<UUID>/            judge.json、原始判词、请求响应和证据manifest
-events.jsonl              Actor/Judge准入、释放和控制异常
-summary.json              逐题状态、固定分母、通过/失败/未知与费用
-```
+87题都有合法判分时，成绩为通过数／87。判分未知单列，不填0，不移出分母，不拼接旧72题成绩。原complete-all只表示原脚本要求的回执文件存在，不等价于所有判分合法。
 
-完整87题全部有合法判分时，`full87_success_rate = passed / 87`。存在unknown时完整成功率为null，另报已确认下界与上界；访问阻断不会自动从分母移出。不填零伪装评分异常，不合并其他目录的历史成功。不可靠或缺失费用保持null，缓存token已经包含在输入token中，不能重复相加。
+## 其他参数保持原样
 
-## 保持不变的评测协议
+- Actor：DeepSeek high，ultrafast，300回合／3600秒；本地headless独立Chrome，1440×900。
+- 调度：32 Actor／4 Judge独立动态补位；原继承进程计数、至少6GiB可用内存、0.75秒轮询。
+- 隔离：原bwrap挂载、clearenv、工作目录、stdin凭据。
+- 超时：Actor3900秒外层、Judge14400秒；TERM后5秒再KILL。
+- 判分：原DeepSeek low、16384输出、600秒请求超时、SDK2次重试及原两次逻辑技术恢复；仅内容拒绝走原GPT low fallback。合法0不触发fallback。
+- 证据与prompt：原native-visible-observations-v3、原39000字符选择、原末10张去重图、原官方二元裁判、原附加访问边界policy。
 
-| 配置 | 值 |
-|---|---|
-| 主执行模型／推理 | deepseek-v4.1-flash／high |
-| 浏览器模式 | ultrafast、本地headless隔离Chrome、1440×900 |
-| 执行预算 | 300模型回合、3600秒；外层看门狗额外300秒 |
-| 并发 | Actor32、Judge4，独立动态补位 |
-| 主裁判／推理 | deepseek-v4.1-flash／low |
-| 裁判输出／超时 | 16384 token、600秒请求超时；子进程上限14400秒 |
-| 恢复限制 | SDK重试2；相同逻辑请求最多2次，仅技术错误恢复 |
-| 内容拒绝补判 | 仅主裁判内容拒绝时使用gpt-6.1-sol／low；合法0分与普通网络失败不触发 |
-| 评分 | 冻结官方V1二元JudgementResult，不换成V2分项rubric |
-| 证据 | native-visible-observations-v3，按代码及tool_call_id绑定真实回执，既有39000字符适配与官方末10张去重截图 |
+## 旧BU入口归档
 
-300回合不是300次鼠标动作，也不是全部HTTP请求的上限；上下文压缩、SDK重试和原生交付修复另行记账。网页访问／工作区边界指令沿用df93失败28题重跑时的原文，哈希记录在 `vendor/provenance.json`。
+日常BU入口只保留BU-filter。旧BU百题及纯BU历史运行迁入维护归档；旧名称通过兼容入口会报错。按用户澄清，Odysseys／Online-Mind2Web进程和数据保留，相关混合历史树及两份只读共享校验源兼容保留，不作为BU评测入口。
 
-## 旧BU入口与归档
+归档工具默认只展示计划；显式apply前会核对备份和活动进程，不停止混合评测。拥有同一OS账户或root权限仍可主动读取归档，本次没有建立跨账户权限隔离。
 
-日常BU评测只使用 `bu-filter/evaluate.py`。旧BU-bench 100题和BU-lexmount 100题入口退役，旧资料保存在评测根外的维护归档中，不作为日常任务源。旧名称经兼容入口传入会直接报错。
+## 来源
 
-按用户要求，Odysseys／Online-Mind2Web现有进程和数据保留。因此它们依赖的混合历史树，以及两个只读共享校验文件暂时保留；不能把这些共享依赖直接搬走导致其他评测失败。迁移清单、哈希和回滚依据保存在服务器的归档receipt里。
+87题来源SHA：`3c951b9543b49d5b06ee780d3b0df62fe5655102fbddb6ffce8773dc41fd0297`，见 `provenance-data.json`。原评测代码来源、逐文件SHA和预算唯一差异见 `legacy/provenance.json`。官方上游：[任务加载](https://github.com/lexmount/benchmark/blob/77b4df339fe8fc293fb48896cfa1c73dd743af42/evaluation.py#L67)、[原V1裁判](https://github.com/lexmount/benchmark/blob/77b4df339fe8fc293fb48896cfa1c73dd743af42/judge.py)。
 
-`ops/migrate_legacy.py` 默认只展示迁移计划；维护者核对现场后才可显式加 `--apply`。它不启动模型，不停止混合评测控制器。拥有同一OS账户或root权限的人仍能主动读取历史归档；本次交付限制日常入口和允许任务集合，没有建立账户级权限隔离。
-
-## 来源与可复用实现
-
-- 任务以df93实际冻结文件为准，源SHA256为 `3c951b9543b49d5b06ee780d3b0df62fe5655102fbddb6ffce8773dc41fd0297`。逐题继承证明见 `provenance-data.json` 和 `data/manifest.json`。
-- 加密布局沿用 [上游load_tasks](https://github.com/lexmount/benchmark/blob/77b4df339fe8fc293fb48896cfa1c73dd743af42/evaluation.py#L67)。任务范围过滤不改变Agent可见的页面观察或向它提供答案信息。
-- 二元判分直接复用 [construct_judge_messages / JudgementResult](https://github.com/lexmount/benchmark/blob/77b4df339fe8fc293fb48896cfa1c73dd743af42/judge.py)，实际冻结文件hash见 `vendor/provenance.json`。证据适配、截图和传输恢复复用5090已有实现；原外层driver硬编码100/28题、旧绝对路径和特定引擎，因此只适配了独立87题控制入口及产品参数。
-- 已检查的上游固定根目录与Lexmount1.1冻结源目录没有独立LICENSE文件；本包保留实际文件声明与来源记录，不额外宣称MIT等授权。
-
-运行记录含明文题文与裁判参考信息，仅留在本地或授权存储；不要提交到公开仓库，也不要用作模型训练数据。
+任务加密用于防索引而非权限。不要公开明文题库、参考答案、模型请求或运行记录，也不要把评测数据用于训练。保留源文件声明与实际来源；不新增未经核实的授权声明。

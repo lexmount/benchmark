@@ -1,39 +1,24 @@
 #!/usr/bin/env python3
-"""BU-filter controller: frozen 87-task allowlist, independent dynamic pools."""
+"""Prepare BU-filter data and invoke the frozen df93 evaluation runtime."""
 from __future__ import annotations
-
-import argparse
-import asyncio
-import fcntl
-import getpass
-import hashlib
-import json
-import os
+import argparse, asyncio, getpass, hashlib, json, os, shutil, subprocess, sys, time
 from pathlib import Path
-import shutil
-import signal
-import subprocess
-import sys
-import time
 from datetime import datetime, timezone
-from urllib.parse import urlsplit
-
 HERE = Path(__file__).resolve().parent
+CONFIG_SHA256 = '1e63b8db842d12a370b34236b6235828c53afa942d20fc8a55a21470980540df'
 sys.path.insert(0, str(HERE))
-from dataset import actor_task, load_tasks, validate_dataset
+from dataset import actor_task, load_judge_tasks, load_tasks, validate_dataset
 
 
 def read(path):
-    return json.loads(Path(path).read_text())
+    return json.loads(Path(path).read_bytes())
 
 
 def write(path, value):
-    path = Path(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(path.name + f'.{os.getpid()}.tmp')
+    path = Path(path); path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + '.tmp')
     temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n')
-    temporary.chmod(0o600)
-    temporary.replace(path)
+    temporary.chmod(0o600); temporary.replace(path)
 
 
 def sha(path):
@@ -41,431 +26,189 @@ def sha(path):
 
 
 def executable(path):
-    # Keep the venv/bin/python symlink: resolving it selects the base interpreter and loses the venv.
+    # Do not resolve venv/bin/python to its base interpreter.
     return Path(os.path.abspath(Path(path).expanduser()))
 
 
-def event(run, name, **fields):
-    with (Path(run) / 'events.jsonl').open('a') as stream:
-        stream.write(json.dumps({'at': datetime.now(timezone.utc).isoformat(),
-                                 'event': name, **fields}, ensure_ascii=False) + '\n')
-
-
-def config(path=HERE / 'config.json'):
-    value = read(path)
-    if value['benchmark'] != 'BU-filter' or value['expected_tasks'] != 87:
-        raise ValueError('Only the fixed BU-filter 87-task dataset is supported')
-    if value['agent']['max_steps'] != 300 or value['agent']['timeout_seconds'] != 3600:
-        raise ValueError('BU-filter uses exactly 300 model turns and 3600 seconds')
-    if value['agent']['model'] != 'deepseek-v4.1-flash' or value['agent']['reasoning_effort'] != 'high':
-        raise ValueError('The frozen Actor model/effort must remain DeepSeek high')
-    if value['agent']['mode'] != 'ultrafast':
-        raise ValueError('The frozen browser interaction mode is ultrafast')
-    if value['judge']['model'] != 'deepseek-v4.1-flash' or value['judge']['reasoning_effort'] != 'low':
-        raise ValueError('The primary Judge must remain DeepSeek low')
-    if value['judge']['refusal_fallback_model'] != 'gpt-6.1-sol':
-        raise ValueError('Only the archived refusal-only fallback is supported')
-    expected_judge = {'max_tokens': 16384, 'timeout_seconds': 600, 'sdk_retries': 2,
-                      'logical_attempts': 2, 'process_timeout_seconds': 14400}
-    if any(value['judge'].get(key) != expected for key, expected in expected_judge.items()):
-        raise ValueError('The archived Judge transport/recovery limits must remain unchanged')
-    if value['viewport'] != {'width': 1440, 'height': 900}:
-        raise ValueError('The frozen viewport is 1440 x 900')
-    for key in ('actor_concurrency', 'judge_concurrency'):
-        if type(value[key]) is not int or value[key] < 1:
-            raise ValueError(f'{key} must be a positive integer')
+def config(path=HERE/'config.json'):
+    value=read(path)
+    expected=read(HERE/'config.json')
+    if value!=expected or value['benchmark']!='BU-filter' or value['expected_tasks']!=87:
+        raise ValueError('Only the frozen BU-filter configuration is supported')
+    assert value['agent']['max_steps']==300 and value['agent']['timeout_seconds']==3600
     return value
 
 
-def select_tasks(selectors=None):
-    tasks = load_tasks()
-    if not selectors:
-        return tasks
-    selected = []
-    for selector in selectors:
-        matches = [task for task in tasks if selector == task['id'] or selector.lstrip('#0') == str(task['ordinal'])]
-        if len(matches) != 1:
-            raise ValueError(f'Task {selector!r} is not in BU-filter; excluded/unknown IDs cannot run')
-        if matches[0] in selected:
-            raise ValueError(f'Duplicate task selection: {selector}')
-        selected.append(matches[0])
-    wanted = {task['id'] for task in selected}
-    return [task for task in tasks if task['id'] in wanted]
-
-
-def files_digest(root):
-    root = Path(root)
-    return {str(path.relative_to(root)): sha(path) for path in sorted(root.rglob('*'))
-            if path.is_file() and '__pycache__' not in path.parts and path.suffix != '.pyc'}
-
-
-def verify_run(run):
-    run = Path(run)
-    plan = read(run / 'run.json')
-    if plan['benchmark'] != 'BU-filter' or plan['dataset_count'] != 87:
-        raise ValueError('This is not a BU-filter run')
-    canonical = {task['id']: task for task in load_tasks()}
-    selected = plan['selected_ids']
-    if (not selected or len(selected) != len(set(selected)) or not set(selected) <= canonical.keys()
-            or plan['selected_count'] != len(selected)
-            or plan['scope'] != ('full87' if len(selected) == 87 else 'subset')
-            or plan['ordinals'] != {task_id: canonical[task_id]['ordinal'] for task_id in selected}):
-        raise ValueError('Run selection is not a valid subset of the fixed BU-filter allowlist')
-    for task_id in selected:
-        if read(run / 'runs' / task_id / 'task.json') != actor_task(canonical[task_id]):
-            raise ValueError(f'Actor task payload changed: {task_id}')
-    if sha(run / 'settings.json') != plan['settings_sha256']:
-        raise ValueError('Run settings changed after freezing')
-    for tree, hashes in plan['frozen_files'].items():
-        for name, expected in hashes.items():
-            if sha(run / 'frozen' / tree / name) != expected:
-                raise ValueError(f'Frozen input changed: {tree}/{name}')
-    frozen = run / 'frozen' / 'harness'
-    # Validate the original manifest hash without importing a different process's dataset module.
-    if sha(frozen / 'data' / 'manifest.json') != plan['dataset_manifest_sha256']:
-        raise ValueError('Frozen dataset manifest changed')
-    return plan, read(run / 'settings.json')
-
-
-def public_credentials(path):
-    value = read(path)
-    if value.get('model', 'deepseek-v4.1-flash') != 'deepseek-v4.1-flash':
-        raise ValueError('Credential file model differs from frozen model')
-    if not value.get('api_key') or not value.get('base_url'):
-        raise ValueError('Credential file needs api_key and base_url')
-    if urlsplit(value['base_url']).scheme not in ('http', 'https'):
-        raise ValueError('Invalid model endpoint')
-    return {'endpoint_host': urlsplit(value['base_url']).hostname}
-
-
-def verified_grade(run, task_id):
-    """Accept only a receipt bound to this run's executed task and unchanged evidence."""
-    run = Path(run).resolve()
-    folder = run / 'runs' / task_id
-    output = run / 'judges' / task_id
-    try:
-        value = read(output / 'judge.json')
-        if (value.get('status') != 'judged' or type(value.get('score')) is not int
-                or value['score'] not in (0, 1) or value.get('task_id') != task_id
-                or value.get('benchmark') != 'BU-filter' or value.get('source_folder') != str(folder)
-                or value.get('evidence_version') != '1113-native-visible-observations-v3'):
-            return None
-        for name in ('execution.json', 'frames.json', 'agent/messages.json'):
-            if not (folder / name).is_file():
-                return None
-        raw_name = 'raw_gpt_grade' if value.get('raw_gpt_grade') and value.get('judge_model') == 'gpt-6.1-sol' else 'raw_deepseek_grade'
-        raw_path = Path(value[raw_name]).resolve()
-        if not raw_path.is_relative_to(output) or sha(raw_path) != value[raw_name + '_sha256']:
-            return None
-        raw = read(raw_path)
-        if (raw.get('status') != 'judged' or type(raw.get('score')) is not int or raw['score'] != value['score']
-                or raw.get('source_folder') != str(folder)
-                or raw.get('evidence_version') != value['evidence_version']
-                or raw.get('official_judge_sha256') != sha(run / 'frozen/harness/vendor/official_judge.py')):
-            return None
-        evidence = read(raw_path.parent / 'evidence-manifest.json')
-        if (evidence.get('source_folder') != str(folder) or evidence.get('suite') != 'bu_v1'
-                or evidence.get('version') != value['evidence_version']):
-            return None
-        sources = evidence['source_files']
-        if not {str(folder / name) for name in ('execution.json', 'frames.json', 'agent/messages.json')} <= sources.keys():
-            return None
-        for name, expected in sources.items():
-            path = Path(name).resolve()
-            if not path.is_relative_to(folder) or sha(path) != expected:
-                return None
-        for image in evidence.get('screenshots', []):
-            path = Path(image['path']).resolve()
-            if not path.is_relative_to(folder / 'screenshots') or sha(path) != image['sha256']:
-                return None
-        return value
-    except (OSError, ValueError, KeyError, TypeError):
-        return None
-
-
 def product_probe(source, python):
-    code = '''import sys,json,hashlib,inspect
+    code=r'''import sys,json,hashlib
 from pathlib import Path
 from importlib.metadata import version
-sys.path.insert(0,str(Path(sys.argv[1])/'src'))
-engine=Path(sys.argv[1])/'src/lexmount_browser_agent/engine'
-if (engine/'browser_use/__init__.py').is_file():sys.path.insert(0,str(engine))
-import lexmount_browser_agent, browser_use
+p=Path(sys.argv[1]);sys.path.insert(0,str(p/'src'));sys.path.insert(0,str(p/'src/lexmount_browser_agent/engine'))
+import lexmount_browser_agent,browser_use
 from lexmount_browser_agent import AgentConfig
-cfg=AgentConfig(api_key='offline-check-key',base_url='http://127.0.0.1/v1',model='deepseek-v4.1-flash',reasoning_effort='high',mode='ultrafast',max_steps=300,timeout_seconds=3600)
-installed=Path(browser_use.__file__).resolve().parent
-hashes={str(p.relative_to(installed)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(installed.rglob('*.py')) if '__pycache__' not in p.parts}
-packages={n:version(n) for n in ('browser-use','browser-harness','pydantic-ai-slim','pydantic','openai','httpx','cdp-use')}
-print(json.dumps({'product_import':lexmount_browser_agent.__file__,'browser_use_import':browser_use.__file__,'browser_use_version':version('browser-use'),'engine_files_sha256':hashes,'package_versions':packages,'max_steps':cfg.max_steps,'timeout_seconds':cfg.timeout_seconds,'mode':cfg.mode,'reasoning_effort':cfg.reasoning_effort}))
+cfg=AgentConfig(api_key='offline-probe-key',base_url='http://127.0.0.1/v1',model='deepseek-v4.1-flash',max_steps=300,timeout_seconds=3600,preparation_fraction=0.0,track_task_progress=False,public_source_lookup=True,review_answer=True)
+package=Path(lexmount_browser_agent.__file__).resolve().parent;engine=Path(browser_use.__file__).resolve().parent
+assert package==p/'src/lexmount_browser_agent'
+assert engine==package/'engine/browser_use'
+assert (engine/'agent/review.py').is_file()
+assert cfg.reasoning_effort=='high' and cfg.mode=='ultrafast'
+print(json.dumps({'product_import':str(package),'engine_source':str(engine),'engine_version':version('browser-use'),'model':cfg.model,'reasoning_effort':cfg.reasoning_effort,'mode':cfg.mode,'max_steps':cfg.max_steps,'timeout_seconds':cfg.timeout_seconds,'feature_config':{'preparation_fraction':0.0,'track_task_progress':False,'public_source_lookup':True,'review_answer':True},'versions':{n:version(n) for n in ['browser-use','browser-harness','pydantic-ai-slim','pydantic','openai','httpx','cdp-use']}}))
 '''
-    result = subprocess.run([str(python), '-c', code, str(source)], capture_output=True, text=True, timeout=60)
+    result=subprocess.run([str(executable(python)),'-c',code,str(source)],capture_output=True,text=True,timeout=60)
     if result.returncode:
-        raise RuntimeError('Product import/preflight failed; check the selected product environment: ' + result.stderr[-1200:])
-    proof = json.loads(result.stdout.strip().splitlines()[-1])
-    if not Path(proof['product_import']).resolve().is_relative_to(Path(source).resolve()):
-        raise ValueError('The selected Python imported a different product checkout')
-    return proof
+        raise RuntimeError('Product does not meet the unchanged df93 launcher/API requirements; no product or evaluation prompt was modified. '+result.stderr[-1000:])
+    return json.loads(result.stdout.strip().splitlines()[-1])
 
 
 def preflight(args):
-    cfg = config(args.config)
-    dataset = validate_dataset()
-    source = Path(args.agent_source).expanduser().resolve()
-    if not (source / 'src' / 'lexmount_browser_agent').is_dir():
-        raise ValueError('--agent-source must point to the product checkout containing src/')
-    credentials = Path(args.credentials_file).expanduser().resolve()
-    public = public_credentials(credentials)
-    browser = Path(args.browser or cfg['browser_executable']).resolve()
-    version = subprocess.run([str(browser), '--version'], check=True, capture_output=True, text=True, timeout=20).stdout.strip()
-    probe = product_probe(source, executable(args.agent_python))
-    # The scoring process uses the archived 0.x message types, never the Actor interpreter.
-    check = subprocess.run([str(executable(args.judge_python)), '-c',
-                            'import openai,httpx,cryptography;from browser_use.llm.messages import UserMessage;print("judge-import-ok")'],
-                           check=True, capture_output=True, text=True, timeout=60)
-    return {'dataset': dataset, 'product': probe, 'browser': {'path': str(browser), 'version': version, 'sha256': sha(browser)},
-            'judge_import': check.stdout.strip().splitlines()[-1], 'model': public}
+    cfg=config(args.config); data=validate_dataset()
+    source=Path(args.agent_source).expanduser().resolve()
+    proof=product_probe(source,args.agent_python)
+    browser=Path(cfg['browser_executable'])
+    if not shutil.which('bwrap'):
+        raise RuntimeError('Original df93 bwrap isolation is required')
+    browser_version=subprocess.check_output([str(browser),'--version'],text=True,timeout=20).strip()
+    subprocess.run([str(executable(args.judge_python)),'-c','from browser_use.llm.messages import UserMessage;import httpx,openai'],check=True,timeout=60)
+    credentials=read(args.credentials_file)
+    assert credentials['model']=='deepseek-v4.1-flash' and credentials.get('reasoning_effort','high')=='high'
+    assert credentials.get('mode','ultrafast')=='ultrafast'
+    return {'dataset':data,'product':proof,'browser':{'path':str(browser),'version':browser_version,'sha256':sha(browser)},'bwrap':shutil.which('bwrap'),'model_requests':0}
+
+
+def source_hashes(source):
+    source=Path(source)
+    return {str(p.relative_to(source)):sha(p) for p in sorted(source.rglob('*')) if p.is_file() and '.venv' not in p.parts and '__pycache__' not in p.parts and '.git' not in p.parts and p.suffix!='.pyc'}
+
+
+def product_commit(source):
+    stamp=Path(source)/'.source-commit'
+    if stamp.is_file():return stamp.read_text().strip()
+    return subprocess.check_output(['git','-C',str(source),'rev-parse','HEAD'],text=True).strip()
 
 
 def prepare(args):
-    proof = preflight(args)
-    cfg = config(args.config)
-    tasks = select_tasks(args.ids)
-    run = Path(args.output).expanduser().resolve()
-    run.mkdir(parents=True, exist_ok=False, mode=0o700)
-    frozen = run / 'frozen'
-    frozen.mkdir()
-    shutil.copytree(HERE, frozen / 'harness', ignore=shutil.ignore_patterns('.venv*', '__pycache__', '*.pyc', 'results', '.private', '.git'))
-    source = Path(args.agent_source).resolve()
-    product = frozen / 'product'
-    product.mkdir()
-    shutil.copytree(source / 'src', product / 'src', ignore=shutil.ignore_patterns('__pycache__', '*.pyc', '*.egg-info'))
-    for name in ('pyproject.toml', 'uv.lock'):
-        if (source / name).is_file():
-            shutil.copy2(source / name, product / name)
-    settings = {**cfg, 'product_source': str(product), 'agent_python': str(executable(args.agent_python)),
-                'judge_python': str(executable(args.judge_python)),
-                'credentials_file': str(Path(args.credentials_file).resolve()),
-                'browser_executable': proof['browser']['path'],
-                'expected_engine': {'version': proof['product']['browser_use_version'],
-                                    'files_sha256': proof['product']['engine_files_sha256'],
-                                    'package_versions': proof['product']['package_versions']}}
-    write(run / 'settings.json', settings)
-    plan = {'schema_version': 1, 'benchmark': 'BU-filter', 'dataset_count': 87,
-            'selected_count': len(tasks), 'scope': 'full87' if len(tasks) == 87 else 'subset',
-            'selected_ids': [task['id'] for task in tasks],
-            'ordinals': {task['id']: task['ordinal'] for task in tasks},
-            'created_at': datetime.now(timezone.utc).isoformat(),
-            'preflight': proof, 'settings_sha256': sha(run / 'settings.json'),
-            'dataset_manifest_sha256': sha(frozen / 'harness' / 'data' / 'manifest.json'),
-            'frozen_files': {'harness': files_digest(frozen / 'harness'), 'product': files_digest(product)},
-            'notes': ['Model rounds are not GUI actions or physical HTTP requests.',
-                      'No prior passes are merged into this run.', 'Only the fixed 87 task IDs are runnable.']}
-    write(run / 'run.json', plan)
-    for task in tasks:
-        folder = run / 'runs' / task['id']
-        write(folder / 'task.json', actor_task(task))
+    proof=preflight(args);cfg=config(args.config)
+    run=Path(args.output).expanduser().resolve();run.mkdir(parents=True,exist_ok=False,mode=0o700)
+    harness=run/'frozen/harness'
+    shutil.copytree(HERE,harness,ignore=shutil.ignore_patterns('__pycache__','*.pyc','.venv*','results','.git','.private'))
+    source=Path(args.agent_source).resolve();product=run/'product';product.mkdir()
+    shutil.copytree(source/'src',product/'src',ignore=shutil.ignore_patterns('__pycache__','*.pyc','*.egg-info'))
+    for name in ['pyproject.toml','uv.lock','README.md','.source-commit']:
+        if (source/name).is_file():shutil.copy2(source/name,product/name)
+    # Same dedicated product/.venv and src layout as the original run; no editable path outside bwrap.
+    subprocess.run(['uv','sync','--frozen','--python',str(executable(args.agent_python))],cwd=product,check=True)
+    installed=product_probe(product,product/'.venv/bin/python')
+    assert installed['versions']==proof['product']['versions'],'Product dependency versions changed while installing the frozen build'
+    build={'commit':product_commit(source),'engine_version':installed['engine_version'],'source_sha256':source_hashes(product)}
+    write(run/'build.json',build)
+    support=run/'support';support.mkdir()
+    credentials=read(args.credentials_file)
+    write(support/'.private/model.json',credentials)
+    capacity=Path(args.capacity_file)
+    if not capacity.is_file():raise FileNotFoundError('Capacity metadata is required; do not discard existing evaluators')
+    inflight=read(capacity)['in_flight']
+    write(support/'previous-capacity/pause-bu-priority.json',{'in_flight':inflight})
+    settings={'product_source':str(product),'agent_python':str(product/'.venv/bin/python'),'judge_python':str(executable(args.judge_python)),'credentials_file':str(support/'.private/model.json'),'agent':cfg['agent'],'judge':cfg['judge'],'browser_executable':cfg['browser_executable'],'viewport':cfg['viewport']}
+    write(run/'settings.json',settings)
+    tasks=[{k:t[k] for k in ['id','instruction','start_url','answer']} for t in load_judge_tasks()]
+    write(run/'task-data.json',{'bu_v1':tasks})
+    assert len(tasks)==87
+    jobs=[]
+    for task in load_tasks():
+        folder=run/'runs/bu_v1'/task['id'];folder.mkdir(parents=True)
+        write(folder/'task.json',actor_task(task))
+        actor_cfg={'source_folder':str(folder),'max_steps':300,'timeout_seconds':3600,'fixed_viewport':True,'feature_config':dict(installed['feature_config']),'product':build}
+        write(folder/'actor-config.json',actor_cfg)
+        jobs.append({'suite':'bu_v1','id':task['id'],'task_id':task['id'],'ordinal':task['ordinal'],'source_folder':str(folder),'judge_folder':str(run/'judges/bu_v1'/task['id']),'task_input_sha256':sha(folder/'task.json'),'actor_config_sha256':sha(folder/'actor-config.json'),'feature_config':actor_cfg['feature_config']})
+    driver=run/'driver';driver.mkdir()
+    shutil.copy2(harness/'legacy/actor.py',driver/'actor.py')
+    bootstrap="import sys\nfrom pathlib import Path\nr=Path(__file__).resolve().parents[1]\nsys.path.insert(0,str(r/'frozen/harness'))\nfrom strict_runtime import main\nmain(r)\n"
+    (driver/'run.py').write_text(bootstrap)
+    write(run/'probes/candidate/actor-config.json',{'product':build})
+    frozen=[run/'build.json',run/'task-data.json',run/'settings.json',*driver.glob('*.py'),*[harness/p for p in source_hashes(harness)],*[product/p for p in build['source_sha256']],*[Path(j['source_folder'])/name for j in jobs for name in ['task.json','actor-config.json']]]
+    plan={'schema_version':1,'benchmark':'BU-filter','product_commit':build['commit'],'created_at':time.time(),'counts':{'bu_v1':87},'jobs':jobs,'new_actor_runs':87,'reused_actor_runs':0,'old_actor_runs':0,'actor_concurrency':32,'judge_concurrency':4,'identical_task_inputs':87,'public_lookup':True,'review_answer':True,'request_budget_includes_answer_review':True,'file_sha256':{str(p):sha(p) for p in frozen},'dataset_manifest_sha256':sha(harness/'data/manifest.json'),'source_df93_commit':'df93e28b9aa1013523f39391dd4cb8a269dae585'}
+    write(run/'plan.json',plan)
     return run
 
 
-async def launch(command, log, timeout):
-    log = Path(log)
-    log.parent.mkdir(parents=True, exist_ok=True)
-    with log.open('ab') as stream:
-        process = await asyncio.create_subprocess_exec(*map(str, command), stdout=stream, stderr=stream,
-                                                      start_new_session=True)
-        try:
-            await asyncio.wait_for(process.wait(), timeout)
-            return {'returncode': process.returncode, 'pid': process.pid}
-        except (asyncio.TimeoutError, asyncio.CancelledError) as error:
-            try:
-                os.killpg(process.pid, signal.SIGTERM)
-                await asyncio.wait_for(process.wait(), 15)
-            except (ProcessLookupError, asyncio.TimeoutError):
-                try:
-                    os.killpg(process.pid, signal.SIGKILL)
-                except ProcessLookupError:
-                    pass
-                await process.wait()
-            if isinstance(error, asyncio.CancelledError):
-                raise
-            return {'returncode': process.returncode, 'pid': process.pid, 'timeout': True}
+def verify_run(run):
+    run=Path(run).resolve();plan=read(run/'plan.json')
+    allowed={t['id']:t for t in load_tasks()}
+    if plan.get('benchmark')!='BU-filter' or plan.get('counts')!={'bu_v1':87} or len(plan['jobs'])!=87:
+        raise ValueError('Only the fixed 87-task run is supported')
+    if {j['task_id'] for j in plan['jobs']}!=allowed.keys():raise ValueError('Run task set changed')
+    for job in plan['jobs']:
+        folder=Path(job['source_folder'])
+        if folder!=run/'runs/bu_v1'/job['task_id'] or read(folder/'task.json')!=actor_task(allowed[job['task_id']]):raise ValueError('Task input changed')
+        actor_cfg=read(folder/'actor-config.json')
+        if actor_cfg['max_steps']!=300 or actor_cfg['timeout_seconds']!=3600:raise ValueError('Task budget changed')
+    for name,digest in plan['file_sha256'].items():
+        if sha(name)!=digest:raise ValueError('Frozen source changed: '+name)
+    return plan
+
+
+def probe(run):
+    run=Path(run).resolve();verify_run(run)
+    code="import sys,subprocess;from pathlib import Path;r=Path(sys.argv[1]);sys.path.insert(0,str(r/'frozen/harness'));from strict_runtime import load_runtime;n=load_runtime(r);subprocess.run(n['actor_command'](r/'probes/candidate',probe=True),check=True,timeout=100)"
+    subprocess.run([str(executable(sys.executable)),'-c',code,str(run)],check=True,timeout=110)
+    write(run/'probe-passed.json',{'product_commit':read(run/'plan.json')['product_commit'],'at':time.time(),'model_requests':0,'benchmark_tasks':0})
 
 
 def summarize(run):
-    run = Path(run)
-    plan, settings = verify_run(run)
-    rows = []
-    for task_id in plan['selected_ids']:
-        execution_path = run / 'runs' / task_id / 'execution.json'
-        grade_path = run / 'judges' / task_id / 'judge.json'
-        execution = read(execution_path) if execution_path.exists() else None
-        grade = read(grade_path) if grade_path.exists() else None
-        valid = verified_grade(run, task_id)
-        state = 'pass' if valid and grade['score'] == 1 else 'fail' if valid else 'unknown' if execution or grade_path.exists() or (run / 'runs' / task_id / 'started.json').exists() else 'pending'
-        rows.append({'ordinal': plan['ordinals'][task_id], 'task_id': task_id, 'state': state,
-                     'execution_status': execution.get('status') if execution else None,
-                     'judge_status': grade.get('status') if grade else None,
-                     'receipt_valid': bool(valid),
-                     'judge_model': grade.get('judge_model') if grade else None,
-                     'wall_seconds': execution.get('wall_seconds') if execution else None,
-                     'usage': execution.get('usage') if execution else None,
-                     'cost_usd': execution.get('cost_usd') if execution else None})
-    counts = {state: sum(row['state'] == state for row in rows) for state in ('pass', 'fail', 'unknown', 'pending')}
-    total = len(rows)
-    complete = counts['unknown'] == 0 and counts['pending'] == 0
-    known_costs = [row['cost_usd'] for row in rows if row['cost_usd'] is not None]
-    result = {'benchmark': 'BU-filter', 'dataset_count': 87, 'scope': plan['scope'], 'selected_count': total,
-              'updated_at': datetime.now(timezone.utc).isoformat(), 'complete': complete, **counts,
-              'success_rate': counts['pass'] / total if complete and total else None,
-              'full87_success_rate': counts['pass'] / 87 if complete and total == 87 else None,
-              'confirmed_lower_bound': counts['pass'] / total if total else None,
-              'upper_bound': (counts['pass'] + counts['unknown'] + counts['pending']) / total if total else None,
-              'agent_cost_usd': sum(known_costs) if len(known_costs) == total else None,
-              'known_agent_cost_subtotal_usd': sum(known_costs) if known_costs else None,
-              'cost_unknown_tasks': total - len(known_costs), 'tasks': rows,
-              'scoring_note': 'Fixed denominator; no automatic infra exclusions and no merging historical passes.'}
-    write(run / 'summary.json', result)
-    return result
+    run=Path(run).resolve();plan=verify_run(run);rows=[]
+    for job in plan['jobs']:
+        execution=Path(job['source_folder'])/'execution.json';packet=Path(job['judge_folder'])/'judge-bu_v1.json'
+        grade=read(packet) if packet.is_file() else None
+        valid=bool(grade and grade.get('status')=='judged' and type(grade.get('score')) is int and grade['score'] in (0,1))
+        rows.append({'ordinal':job['ordinal'],'task_id':job['task_id'],'state':'pass' if valid and grade['score']==1 else 'fail' if valid else 'unknown' if packet.exists() or execution.exists() or (execution.parent/'agent').exists() else 'pending','judge_status':grade.get('status') if grade else None})
+    counts={s:sum(r['state']==s for r in rows) for s in ['pass','fail','unknown','pending']}
+    complete=not counts['unknown'] and not counts['pending']
+    value={'benchmark':'BU-filter','tasks':87,**counts,'complete':complete,'success_rate':counts['pass']/87 if complete else None,'confirmed_lower_bound':counts['pass']/87,'upper_bound':(counts['pass']+counts['unknown']+counts['pending'])/87,'rows':rows,'note':'Independent reporting only. The frozen original runtime preserves all existing judge packets, including errors; it never merges historical passes.'}
+    write(run/'summary.json',value);return value
 
 
-async def campaign(run):
-    run = Path(run)
-    plan, settings = verify_run(run)
-    lock = (run / 'controller.lock').open('a')
-    try:
-        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-    except BlockingIOError:
-        lock.close()
-        raise RuntimeError('A controller is already operating this run')
-    actor_slots = asyncio.Semaphore(settings['actor_concurrency'])
-    judge_slots = asyncio.Semaphore(settings['judge_concurrency'])
-    active = {'actor': 0, 'judge': 0}
-    harness = run / 'frozen' / 'harness'
-    event(run, 'controller_started', pid=os.getpid(), selected=len(plan['selected_ids']))
-
-    async def one(task_id):
-        folder = run / 'runs' / task_id
-        judge_folder = run / 'judges' / task_id
-        grade_file = judge_folder / 'judge.json'
-        if grade_file.exists():
-            if verified_grade(run, task_id) is not None:
-                event(run, 'valid_grade_reused', task_id=task_id)
-                return
-            old = read(grade_file)
-            if old.get('status') == 'judged':
-                event(run, 'invalid_grade_preserved', task_id=task_id)
-                return  # Preserve disputed evidence; never silently rerun a copied/mismatched receipt.
-        if not (folder / 'execution.json').exists():
-            # An admitted but interrupted Actor is unknown. Resume never reruns it silently.
-            if (folder / 'started.json').exists():
-                event(run, 'interrupted_actor_preserved', task_id=task_id)
-                return
-            async with actor_slots:
-                verify_run(run)
-                write(folder / 'started.json', {'started_at': datetime.now(timezone.utc).isoformat()})
-                active['actor'] += 1
-                event(run, 'actor_started', task_id=task_id, active=dict(active))
-                try:
-                    receipt = await launch([settings['agent_python'], harness / 'actor.py', '--folder', folder,
-                                            '--settings', run / 'settings.json'], folder / 'actor.log',
-                                           settings['agent']['timeout_seconds'] + settings['watchdog_grace_seconds'])
-                    write(folder / 'process.json', receipt)
-                finally:
-                    active['actor'] -= 1
-                    event(run, 'actor_released', task_id=task_id, active=dict(active))
-                    summarize(run)
-        # Actor slot has already been released: a slow Judge never holds it.
-        if not (folder / 'execution.json').exists():
-            event(run, 'actor_missing_execution', task_id=task_id)
-            return
-        async with judge_slots:
-            verify_run(run)
-            active['judge'] += 1
-            event(run, 'judge_started', task_id=task_id, active=dict(active))
-            try:
-                receipt = await launch([settings['judge_python'], harness / 'judge.py', '--folder', folder,
-                                        '--output', judge_folder, '--task-id', task_id, '--settings', run / 'settings.json'],
-                                       judge_folder / 'judge.log', settings['judge']['process_timeout_seconds'])
-                write(judge_folder / 'process.json', receipt)
-            finally:
-                active['judge'] -= 1
-                event(run, 'judge_released', task_id=task_id, active=dict(active))
-                summarize(run)
-
-    async def guarded(task_id):
-        try:
-            await one(task_id)
-        except asyncio.CancelledError:
-            raise
-        except Exception as error:
-            event(run, 'task_controller_error', task_id=task_id, error_type=type(error).__name__, message=str(error))
-
-    jobs = [asyncio.create_task(guarded(task_id)) for task_id in plan['selected_ids']]
-    try:
-        await asyncio.gather(*jobs)
-    finally:
-        for job in jobs:
-            if not job.done():
-                job.cancel()
-        await asyncio.gather(*jobs, return_exceptions=True)
-        event(run, 'controller_finished', active=dict(active))
-        summarize(run)
-        lock.close()
-
-
-def add_runtime_arguments(parser):
-    parser.add_argument('--config', default=str(HERE / 'config.json'))
-    parser.add_argument('--agent-source', required=True)
-    parser.add_argument('--agent-python', required=True)
-    parser.add_argument('--judge-python', required=True)
-    parser.add_argument('--credentials-file', default=str(HERE.parent / '.private' / 'bu-filter-model.json'))
-    parser.add_argument('--browser')
+def runtime_args(p):
+    p.add_argument('--config',default=str(HERE/'config.json'))
+    p.add_argument('--agent-source',required=True)
+    p.add_argument('--agent-python',required=True)
+    p.add_argument('--judge-python',required=True)
+    p.add_argument('--credentials-file',default=str(HERE.parent/'.private/bu-filter-model.json'))
+    p.add_argument('--capacity-file',default=str(HERE.parent/'.private/bu-filter-capacity.json'))
 
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    commands = parser.add_subparsers(dest='command', required=True)
-    commands.add_parser('verify', help='Offline dataset/config verification; no model requests')
-    credentials = commands.add_parser('configure', help='Store credentials outside this package; never commit them')
-    credentials.add_argument('--credentials-file', default=str(HERE.parent / '.private' / 'bu-filter-model.json'))
-    credentials.add_argument('--base-url', default='https://llmapi.hk.lexmount.net/v1')
-    check = commands.add_parser('preflight', help='Imports/Chrome/version check; no model requests')
-    add_runtime_arguments(check)
-    run = commands.add_parser('run', help='Start a new evaluation; model requests are billable')
-    add_runtime_arguments(run)
-    run.add_argument('--output', required=True)
-    run.add_argument('--ids', nargs='+', help='Optional BU-filter original ordinals or full UUIDs')
-    resume = commands.add_parser('resume', help='Resume pending work without rerunning finished or interrupted Actors')
-    resume.add_argument('--output', required=True)
-    summary = commands.add_parser('summarize', help='Read saved receipts without model requests')
-    summary.add_argument('--output', required=True)
-    args = parser.parse_args()
-    if args.command == 'verify':
-        print(json.dumps({'dataset': validate_dataset(), 'config': config()}, ensure_ascii=False, indent=2))
-    elif args.command == 'configure':
-        path = Path(args.credentials_file).expanduser().resolve()
-        if path.is_relative_to(HERE):
-            raise ValueError('Store credentials outside the versioned bu-filter/ package')
-        if path.exists():
-            raise FileExistsError('Credential file already exists; edit it in place for key rotation')
-        key = os.environ.get('OPENAI_API_KEY') or getpass.getpass('Model API key (hidden): ')
-        if not key or any(char.isspace() for char in key):
-            raise ValueError('API key must not be blank or contain whitespace')
-        write(path, {'api_key': key, 'base_url': args.base_url, 'model': 'deepseek-v4.1-flash'})
-        print(f'Credentials saved with mode 0600: {path}')
-    elif args.command == 'preflight':
-        print(json.dumps(preflight(args), ensure_ascii=False, indent=2))
-    elif args.command == 'run':
-        select_tasks(args.ids)  # Reject excluded IDs before any credential/model work.
-        target = prepare(args)
-        asyncio.run(campaign(target))
-        print(json.dumps(summarize(target), ensure_ascii=False, indent=2))
-    elif args.command == 'resume':
-        asyncio.run(campaign(Path(args.output).resolve()))
-        print(json.dumps(summarize(args.output), ensure_ascii=False, indent=2))
-    else:
-        print(json.dumps(summarize(args.output), ensure_ascii=False, indent=2))
+    p=argparse.ArgumentParser(description=__doc__);subs=p.add_subparsers(dest='command',required=True)
+    subs.add_parser('verify')
+    q=subs.add_parser('configure');q.add_argument('--credentials-file',default=str(HERE.parent/'.private/bu-filter-model.json'));q.add_argument('--base-url',default='https://llmapi.hk.lexmount.net/v1')
+    for name in ['preflight','prepare','run']:
+        q=subs.add_parser(name);runtime_args(q)
+        if name!='preflight':q.add_argument('--output',required=True)
+    for name in ['probe','resume','summarize']:
+        q=subs.add_parser(name);q.add_argument('--output',required=True)
+    args=p.parse_args()
+    if args.command=='verify':
+        from strict_runtime import source_audit
+        print(json.dumps({'dataset':validate_dataset(),'config':config(),'original_runtime':source_audit()},ensure_ascii=False,indent=2))
+    elif args.command=='configure':
+        path=Path(args.credentials_file).expanduser().resolve()
+        if path.is_relative_to(HERE):raise ValueError('Credentials must stay outside the package')
+        if path.exists():raise FileExistsError(path)
+        key=os.environ.get('OPENAI_API_KEY') or getpass.getpass('Model API key (hidden): ')
+        if not key:raise ValueError('Missing API key')
+        write(path,{'api_key':key,'base_url':args.base_url,'model':'deepseek-v4.1-flash'})
+        print('Private credentials saved with mode0600')
+    elif args.command=='preflight':print(json.dumps(preflight(args),ensure_ascii=False,indent=2))
+    elif args.command in ['prepare','run']:
+        run=prepare(args)
+        if args.command=='run':
+            probe(run)
+            subprocess.run([str(executable(sys.executable)),str(run/'driver/run.py'),'run'],check=True)
+        print(json.dumps({'run':str(run),'prepared_tasks':87,'actor_steps':300,'timeout_seconds':3600}))
+    elif args.command=='probe':probe(args.output)
+    elif args.command=='resume':
+        run=Path(args.output).resolve();verify_run(run)
+        subprocess.run([str(executable(sys.executable)),str(run/'driver/run.py'),'run'],check=True)
+    else:print(json.dumps(summarize(args.output),ensure_ascii=False,indent=2))
 
 
-if __name__ == '__main__':
-    main()
+if __name__=='__main__':main()

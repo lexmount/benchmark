@@ -75,20 +75,21 @@ def adapter(support=None):
 def verify():
     for name, digest in read(PACKAGE / 'frozen-files.json').items():
         assert sha(PACKAGE / name) == digest, 'Package changed: ' + name
-    for name, digest in read(PACKAGE / 'provenance.json')['original_file_sha256'].items():
+    provenance = read(PACKAGE / 'provenance.json')
+    for name, digest in (provenance['original_file_sha256'] | provenance['actor_max_files_sha256']).items():
         assert sha(PACKAGE / name) == digest, 'Original implementation changed: ' + name
     c = read(PACKAGE / 'config.json')
     assert (c['count'], c['max_steps'], c['timeout_seconds']) == (247, 100, 3600)
     assert (c['actor_concurrency'], c['judge_concurrency']) == (32, 4)
     assert c['fixed_viewport'] is False
-    assert c['feature_config'] == {'preparation_fraction': 0.0, 'track_task_progress': False}
-    assert (c['agent_model'], c['agent_reasoning'], c['mode']) == ('deepseek-v4.1-flash', 'high', 'ultrafast')
+    assert c['feature_config'] == {}
+    assert (c['agent_model'], c['agent_reasoning'], c['mode']) == ('deepseek-v4.1-flash', 'max', 'ultrafast')
     rows = tasks()
     a = adapter()
     a.verify()
     print(json.dumps({'dataset': c['dataset'], 'tasks': len(rows), 'excluded': 53,
                       'max_steps': 100, 'timeout_seconds': 3600,
-                      'dataset_sha256': a.DATASET_SHA256, 'original_sources_unchanged': True}))
+                      'dataset_sha256': a.DATASET_SHA256, 'actor_effort': 'max'}))
 
 def runtime(run_dir):
     run_dir = Path(run_dir).resolve()
@@ -105,6 +106,9 @@ def runtime(run_dir):
     counts = [n for n in ast.walk(run) if isinstance(n, ast.Constant) and n.value == 600]
     assert len(counts) == 1
     counts[0].value = 247
+    guard, = [node for node in run.body if isinstance(node, ast.Assert)
+              and ast.unparse(node.test) == "public_config.get('reasoning_effort', 'high') == 'high'"]
+    guard.test = ast.copy_location(ast.parse("public_config['reasoning_effort'] == 'max'", mode="eval").body, guard.test)
     scope = dict(globals(), RUN=run_dir, ROOT=support, PRODUCT=run_dir / 'product',
                  ENV=run_dir / 'product/.venv', SOURCE=run_dir / 'product/src',
                  CODE=support / 'code', DEPENDENCIES=support / 'code', LEGACY=None,
@@ -125,20 +129,19 @@ def preflight_run(run_dir):
         assert job['suite'] == SUITE
         c = read(Path(job['source_folder']) / 'actor-config.json')
         assert (c['max_steps'], c['timeout_seconds'], c['fixed_viewport']) == (100, 3600, False)
-        assert c['feature_config'] == {'preparation_fraction': 0.0, 'track_task_progress': False}
+        assert c['feature_config'] == {}
     return plan
 
 def prepare(run_dir, product_source, credentials, judge_python):
     verify()
     run_dir, product_source = Path(run_dir).resolve(), Path(product_source).resolve()
     assert not run_dir.exists(), 'Use a new run directory; existing evidence is preserved'
-    assert (product_source / 'src/lexmount_browser_agent/engine/browser_use').is_dir(), 'Requires the existing vendored-engine product API'
     assert shutil.which('bwrap') and Path('/opt/google/chrome/chrome').is_file()
     commit = subprocess.check_output(['git', '-C', str(product_source), 'rev-parse', 'HEAD'], text=True).strip()
     assert not subprocess.check_output(['git', '-C', str(product_source), 'status', '--porcelain', '--', 'src', 'pyproject.toml', 'uv.lock'], text=True), 'Product source must be clean'
     cfg = read(credentials)
     assert cfg['model'] == 'deepseek-v4.1-flash'
-    assert cfg.get('reasoning_effort', 'high') == 'high' and cfg.get('mode', 'ultrafast') == 'ultrafast'
+    assert cfg.get('mode', 'ultrafast') == 'ultrafast'
     assert cfg.get('api_key') and cfg.get('base_url')
     assert Path(judge_python).is_file()
     run_dir.mkdir(parents=True)
@@ -149,6 +152,7 @@ def prepare(run_dir, product_source, credentials, judge_python):
         shutil.copyfile(product_source / name, product / name)
     subprocess.run(['uv', 'sync', '--frozen', '--no-dev', '--python', '3.12'], cwd=product, check=True)
     engine = subprocess.check_output([str(product / '.venv/bin/python'), '-c', 'from importlib.metadata import version; print(version("browser-use"))'], text=True).strip()
+    assert engine == '1.0.4', 'Expected the locked official Browser Use 1.0.4 product'
     frozen_product = sorted(q for q in (product / 'src').rglob('*') if q.is_file() and '__pycache__' not in q.parts and not q.name.endswith('.pyc'))
     frozen_product += [product / 'pyproject.toml', product / 'uv.lock']
     build = {'commit': commit, 'engine_version': engine,
@@ -157,7 +161,7 @@ def prepare(run_dir, product_source, credentials, judge_python):
     support = run_dir / 'support'
     shutil.copytree(PACKAGE / 'legacy/code', support / 'code')
     (support / '.private').mkdir(mode=0o700)
-    shutil.copyfile(credentials, support / '.private/model.json')
+    write(support / '.private/model.json', dict(cfg, reasoning_effort='max'))
     (support / '.private/model.json').chmod(0o600)
     target_env = Path(judge_python).absolute().parent.parent
     # Preserve the original judge interpreter lookup, without depending on the old campaign tree.
@@ -191,7 +195,7 @@ def prepare(run_dir, product_source, credentials, judge_python):
     write(run_dir / 'plan.json', {'product_commit': commit, 'created_at': time.time(), 'context_anchor': datetime.now(UTC).isoformat(),
           'actor_concurrency': 32, 'judge_concurrency': 4, 'counts': {SUITE: 247},
           'new_actor_runs': 247, 'reused_actor_runs': 0, 'old_actor_runs': 0,
-          'agent_model': 'deepseek-v4.1-flash', 'agent_reasoning': 'high', 'mode': 'ultrafast',
+          'agent_model': 'deepseek-v4.1-flash', 'agent_reasoning': 'max', 'mode': 'ultrafast',
           'judge_reasoning': 'low', 'judge_protocol': config['judge_protocol'], 'seed': config['seed'],
           'jobs': jobs, 'file_sha256': {str(q): sha(q) for q in frozen}})
     write(run_dir / 'probes/candidate/actor-config.json', {'product': build})

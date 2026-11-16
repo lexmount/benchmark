@@ -30,7 +30,8 @@ def test_exact_168_and_original_content():
 def test_original_execution_functions_except_one_count_assertion():
     tree, audit = runtime._extracted_module()
     assert {k for k, v in audit['functions'].items() if not v['unchanged']} == {'run'}
-    change, = audit['approved_ast_changes']
+    change, effort = audit['approved_ast_changes']
+    assert (effort['before'], effort['after']) == ('high', 'max')
     assert (change['before'], change['after']) == (600, 168)
     original = ast.parse((PACKAGE / 'legacy/driver.py.txt').read_text())
     old = next(n for n in original.body if isinstance(n, ast.AsyncFunctionDef) and n.name == 'run')
@@ -38,12 +39,15 @@ def test_original_execution_functions_except_one_count_assertion():
     restored = deepcopy(new)
     comparison, = [n for n in ast.walk(restored) if isinstance(n, ast.Compare) and ast.unparse(n.left) == "len(plan['jobs'])"]
     comparison.comparators[0].value = 600
+    effort_check, = [n for n in restored.body if isinstance(n, ast.Assert)
+                     and ast.unparse(n.test) == "public_config['reasoning_effort'] == 'max'"]
+    effort_check.test = ast.parse("public_config.get('reasoning_effort', 'high') == 'high'", mode='eval').body
     assert ast.dump(old, include_attributes=False) == ast.dump(restored, include_attributes=False)
 
 
 def test_original_sources_and_policy():
     provenance = evaluate.read(PACKAGE / 'provenance.json')
-    for name, expected in provenance['original_files_sha256'].items():
+    for name, expected in (provenance['original_files_sha256'] | provenance['actor_max_files_sha256']).items():
         assert dataset.sha(PACKAGE / name) == expected
     tree = ast.parse((PACKAGE / 'legacy/actor.py').read_text())
     policy = next(ast.literal_eval(n.value) for n in tree.body if isinstance(n, ast.Assign)

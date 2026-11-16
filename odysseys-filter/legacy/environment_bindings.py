@@ -13,7 +13,7 @@ def install(run, support, code, judge_python):
     from dataset import sha
     support, code = Path(support).resolve(), Path(code).resolve()
     provenance = json.loads((PACKAGE / 'provenance.json').read_bytes())
-    originals = provenance['original_files_sha256']
+    originals = provenance['original_files_sha256'] | provenance['actor_max_files_sha256']
     for relative, expected in originals.items():
         if sha(PACKAGE / relative) != expected:
             raise ValueError('Frozen original changed: ' + relative)

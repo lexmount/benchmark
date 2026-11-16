@@ -1,5 +1,7 @@
 # online-mind2web-filter
 
+5090 使用新版时，从 `/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current` 运行下列命令。Actor 的每轮模型请求使用 DeepSeek max。
+
 从5090实际使用的Online-Mind2Web原始300题中，**仅移除指定的53个task-id，保留247题**。固定预算为**100模型回合、每题3600秒**。过滤不代表把失败改成通过；后续成绩分母固定247，不拼接旧成绩。
 
 数据来源：[用户确认的Notion排除表](https://app.notion.com/p/lexmount/41ae7e998fb28026a70bea84caf5cb15)，快照编辑时间见`data/exclusions.json`。本次使用5090原始JSONL，而不是重新下载另一版HF任务。保留行的JSONL字节、题文、起始网址、元数据及相对顺序完全不变。原序号仍为1—300中的原序号，不重新编号。
@@ -13,7 +15,7 @@
 | `data/tasks.jsonl` | 247个完整任务 |
 | `data/manifest.json` | 原300题哈希、新247题哈希、原序号及逐行哈希 |
 | `data/exclusions.json` | 53个删除ID、原因及Notion出处 |
-| `legacy/` | 原5090 Actor、采集器、裁判、prompt、流式请求器的逐字节副本；仅作为实现依赖 |
+| `legacy/` | 5090 Actor、采集器、裁判、prompt 和传输实现。Actor 的安装检查与推理强度有版本化适配 |
 | `provenance.json` / `frozen-files.json` | 冻结源码来源和完整性校验 |
 | `test_protocol.py` | 原离线判分测试；数据量断言改为247 |
 | `requirements-judge.txt` | 原裁判环境依赖闭包的精确版本 |
@@ -24,11 +26,11 @@
 
 | 项目 | 固定行为 |
 |---|---|
-| Agent | `deepseek-v4.1-flash`，`high`，`ultrafast` |
+| Agent | `deepseek-v4.1-flash`，`max`，`ultrafast` |
 | 执行 | 原生Agent；独立本地无头Chrome；每题独立bwrap沙箱 |
 | 预算 | 100模型回合，3600秒；原Actor外层看门狗3900秒 |
 | 并发 | Actor32、Judge4，独立动态槽位 |
-| 功能参数 | `preparation_fraction=0.0`、`track_task_progress=false` |
+| 功能参数 | 使用产品原生配置 |
 | 视口 | `fixed_viewport=false`，保留原Online默认；不套用BU固定视口 |
 | Actor prompt | 产品自身SYSTEM_PROMPT追加原Actor的public-web policy，文本不变 |
 | 轨迹 | 原ModelResponse thinking/text/tool-call投影；thought600字符、action300字符 |
@@ -50,7 +52,7 @@
 目标环境：Linux x86_64、Python3.12、`uv`、`bwrap`、`/opt/google/chrome/chrome`。模型通过既有API调用，不需要在5090显存内装载模型。机器已有Chrome/bwrap/uv时直接复用，不修改代理或GPU配置。
 
 ```bash
-cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
+cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current
 # 新机器首次取得分支；已有部署则直接进入下面的目录。
 git clone --single-branch --branch online-mind2web-filter https://github.com/lexmount/benchmark.git benchmark-online-mind2web-filter
 cd benchmark-online-mind2web-filter/online-mind2web-filter
@@ -72,7 +74,7 @@ uv pip sync --python .venv-judge/bin/python requirements-judge.txt
 
 准备一个**干净、兼容原Observer API的产品Git checkout**，包含`src/`、`pyproject.toml`和`uv.lock`。本包不绑定一个“永远最新”的产品版本，也不修改产品；prepare把选定源码复制到本次运行目录，按其`uv.lock`创建独立环境，记录提交、引擎版本和源文件哈希。兼容接口要求是已有vendored `browser_use.agent.service.Session`与`lexmount_browser_agent.run_task/AgentConfig`；`a-sb`原生发行版不能被默认为已兼容。
 
-凭证沿用既有私有JSON格式，必须位于仓库外或忽略的`.private/`中：`api_key`、`base_url`、`model=deepseek-v4.1-flash`，以及原有`reasoning_effort=high`、`mode=ultrafast`。不要把真实凭证写入教程或Git。
+凭证沿用既有私有JSON格式，必须位于仓库外或忽略的`.private/`中：`api_key`、`base_url`、`model=deepseek-v4.1-flash`，以及原有`reasoning_effort=max`、`mode=ultrafast`。不要把真实凭证写入教程或Git。
 
 ```bash
 # 改成你要测的干净产品checkout、既有凭证路径和全新运行目录。

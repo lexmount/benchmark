@@ -2,7 +2,7 @@
 
 集中提供三套筛选后的浏览器Agent评测集：BU-filter、Online-Mind2Web-filter、Odysseys-filter，共502个评测任务。
 
-本分支合入三个来源分支的完整目录，仅新增本README。三个子目录的代码、数据、配置、题文、rubric、prompt和判分流程均保持来源版本原样，分别使用各自的评测入口。
+当前执行 Agent 使用官方 browser-use 1.0.4 和 DeepSeek max。三套分别使用各自的原始题文、取证、预算和裁判协议，Judge 使用 low。5090 的新版入口位于评测工作目录的 `current/`。每次准备会把模型设置和产品提交冻结到独立运行目录。
 
 ## 题目与固定预算
 

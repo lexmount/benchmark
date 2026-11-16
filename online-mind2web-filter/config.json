@@ -7,12 +7,9 @@
   "actor_concurrency": 32,
   "judge_concurrency": 4,
   "agent_model": "deepseek-v4.1-flash",
-  "agent_reasoning": "high",
+  "agent_reasoning": "max",
   "mode": "ultrafast",
-  "feature_config": {
-    "preparation_fraction": 0.0,
-    "track_task_progress": false
-  },
+  "feature_config": {},
   "fixed_viewport": false,
   "browser_executable": "/opt/google/chrome/chrome",
   "judge_protocol": "AgentTrek_eval-native-5090-max2",

@@ -1,5 +1,7 @@
 # odysseys-filter：168题，300回合
 
+5090 使用新版时，从 `/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current` 运行下列命令。Actor 的每轮模型请求使用 DeepSeek max。
+
 本集合从Odysseys V1原始200题中，按用户在[Notion排除清单](https://app.notion.com/p/lexmount/41ae7e998fb28026a70bea84caf5cb15)确认的32个ID删除任务，保留168题。原题号不重排；保留题目的题文、起始URL、难度、参考长度、分类和全部rubric不改写。这里不包含Odysseys V2。
 
 **固定168题、300个模型回合、每题3600秒。** 评测沿用5090既有的原生Actor、worker、完整可见轨迹适配及官方逐rubric裁判，附加prompt不变。本分支只提供本目录，不提供旧200题入口。筛选后的成绩应标为odysseys-filter，不能当作原始200题成绩。
@@ -69,12 +71,12 @@ evaluate.py：168题校验和本轮打包
 - Odysseys每题预算200→300模型回合，3600秒保持不变。
 - 把原绝对文件路径、源码校验绑定到本包及本轮输出，准备文件按168题生成。
 
-`legacy/actor.py`、`legacy/code/`和官方裁判原件逐字节保存；SHA与附加policy哈希见`provenance.json`。`legacy/driver.py.txt`只作原函数源码对照，不能作为旧混合评测入口执行。没有修改受测Agent产品代码、系统prompt、rubric或判分prompt。
+Actor 的引擎校验与推理强度有版本化适配。原始 SHA、适配后 SHA 和附加 policy 哈希见 `provenance.json`。`legacy/driver.py.txt`只作原函数源码对照，不能作为旧混合评测入口执行。没有修改受测Agent产品代码、系统prompt、rubric或判分prompt。
 
 | 参数 | 固定值／沿用行为 |
 |---|---|
 | 任务数 | 168，固定ID集合 |
-| Actor | deepseek-v4.1-flash，high，ultrafast |
+| Actor | deepseek-v4.1-flash，max，ultrafast |
 | 回合／任务时限 | 300模型回合／3600秒；一个Python cell可包含多个浏览器动作 |
 | 浏览器 | 独立本地headless Chrome，`/opt/google/chrome/chrome` |
 | 视口 | 沿用原Odysseys设置，不启用BU专用固定视口 |
@@ -106,11 +108,11 @@ evaluate.py：168题校验和本轮打包
 ```bash
 ssh wf@10.2.131.41
 
-git clone --branch odysseys-filter --single-branch \
+git clone --branch codex-is-a-fool --single-branch \
   https://github.com/lexmount/benchmark.git \
   /data/wf/sxh/workspace/lexmount/benchmark-odysseys-filter
 
-cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
+cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current
 test ! -e odysseys-filter
 cp -a ../benchmark-odysseys-filter/odysseys-filter ./odysseys-filter
 uv venv --python 3.12 .venvs/odysseys-filter-judge
@@ -129,14 +131,14 @@ git -C /data/wf/sxh/workspace/lexmount/agent-builds/odysseys-filter-df93e28 \
   checkout --detach FETCH_HEAD
 ```
 
-控制器只依赖Python 3.12标准库；5090还需要`uv`、`bwrap`和原本地Chrome。Judge独立安装，不覆盖产品虚拟环境。受测产品要使用原Actor所支持的内置browser-use引擎及`save_answer`接口；不兼容版本会在准备或免费探针中报错，本包不为通过预检而修改产品。
+控制器只依赖Python 3.12标准库；5090还需要`uv`、`bwrap`和原本地Chrome。Judge独立安装，不覆盖产品虚拟环境。受测产品使用官方 browser-use 1.0.4，隔离探针校验实际加载的 worker 源码；不兼容版本会在准备或免费探针中报错，本包不为通过预检而修改产品。
 
-私密模型配置置于包外`.private/odysseys-filter-model.json`，权限0600，沿用原配置，只包含既有`api_key`、`base_url`、`model`、`reasoning_effort`和`mode`字段。模型、推理和模式应为`deepseek-v4.1-flash`、`high`、`ultrafast`。不要把密钥写入Git、命令行参数或README。需要首次配置时，可在服务器用编辑器填写该私密文件；迁移会从已有私密配置复制，不在终端输出值。
+私密模型配置置于包外`.private/odysseys-filter-model.json`，权限0600，沿用原配置，只包含既有`api_key`、`base_url`、`model`、`reasoning_effort`和`mode`字段。模型、推理和模式应为`deepseek-v4.1-flash`、`max`、`ultrafast`。不要把密钥写入Git、命令行参数或README。需要首次配置时，可在服务器用编辑器填写该私密文件；迁移会从已有私密配置复制，不在终端输出值。
 
 ## 先免费核验和准备
 
 ```bash
-cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
+cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current
 
 .venvs/odysseys-filter-judge/bin/python odysseys-filter/evaluate.py verify
 .venvs/odysseys-filter-judge/bin/python -m pytest -q odysseys-filter/tests
@@ -158,7 +160,7 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
 完成上述核验后，执行下面命令才会请求模型并产生费用：
 
 ```bash
-cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
+cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current
 .venvs/odysseys-filter-judge/bin/python odysseys-filter/evaluate.py run \
   --run-dir /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/odysseys-filter-round1
 ```

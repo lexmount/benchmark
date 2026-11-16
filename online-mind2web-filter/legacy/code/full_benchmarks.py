@@ -42,7 +42,7 @@ async def worker_impl(folder, max_steps, timeout, plan):
     from lexmount_browser_agent import AgentConfig, run_task
     task = read(folder / "task.json")
     cfg = read(ROOT / ".private/model.json")
-    assert cfg["model"] == "deepseek-v4.1-flash" and cfg.get("reasoning_effort", "high") == "high"
+    assert cfg["model"] == "deepseek-v4.1-flash" and cfg.get("reasoning_effort") == "max"
     job = next(j for j in plan["jobs"] if Path(j["source_folder"]).resolve() == folder)
     config = AgentConfig(**cfg, max_steps=max_steps, timeout_seconds=timeout, **job["feature_config"])
     browser = Browser("chromium", headless=True, executable_path=plan["browser_executable"])

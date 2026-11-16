@@ -1,5 +1,7 @@
 # BU-filter：87题，沿用df93e28原评测链路
 
+5090 使用新版时，从 `/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current` 运行下列命令。Actor 的每轮模型请求使用 DeepSeek max。
+
 BU-filter 从 `df93e28b9aa1013523f39391dd4cb8a269dae585` 实际受测的BU-lexmount100题中，只删除用户指定的13个UUID，得到固定87题。剩余题文、起始URL、参考答案逐字保留，原题号不重排，第19题保留。
 
 **87题、300模型回合、3600秒固定不变。评测逻辑、流程、链路、prompt和其他配置沿用原df93。** 本次交付未启动付费评测，正式成绩需另外运行后产生。BU-filter是筛选后的自定义集合，其成绩不当作原始百题成绩。
@@ -76,11 +78,11 @@ evaluate.py：仅87题准备、文件路径绑定与独立汇总
 ```bash
 ssh wf@10.2.131.41
 
-git clone --branch bu-filter --single-branch \
+git clone --branch codex-is-a-fool --single-branch \
   https://github.com/lexmount/benchmark.git \
   /data/wf/sxh/workspace/lexmount/benchmark-bu-filter
 
-cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
+cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current
 test ! -e bu-filter
 cp -a ../benchmark-bu-filter/bu-filter ./bu-filter
 uv venv --python 3.12.13 .venvs/bu-filter-control
@@ -115,7 +117,7 @@ uv pip sync --python .venvs/bu-filter-test/bin/python bu-filter/requirements-tes
 凭据放在包外 `.private/bu-filter-model.json`，权限0600；不要写入仓库或命令行密钥参数。5090已迁入原模型配置，通常无需重复配置。新安装可执行：
 
 ```bash
-cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
+cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py configure
 ```
 
@@ -124,7 +126,7 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
 ## 免费核验、准备与原隔离探针
 
 ```bash
-cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
+cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current
 
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py verify
 .venvs/bu-filter-test/bin/python -m pytest -q bu-filter/tests
@@ -151,7 +153,7 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
 完成prepare和probe之后，下列命令才会启动付费的原Actor／Judge链路：
 
 ```bash
-cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
+cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py resume \
   --output /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/bu-filter-round1
 ```

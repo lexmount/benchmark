@@ -14,7 +14,7 @@ job = json.loads((folder / 'actor-config.json').read_text())
 
 def verify_runtime():
     import hashlib
-    from importlib.metadata import version
+    from importlib.metadata import distribution, version
     import browser_use
     import lexmount_browser_agent
     expected = job['product']
@@ -28,7 +28,10 @@ def verify_runtime():
         path = project / name
         actual[name] = hashlib.sha256(path.read_bytes()).hexdigest()
         assert actual[name] == digest, name
-    assert engine == package / 'engine/browser_use'
+    assert engine == distribution('browser-use').locate_file('browser_use').resolve()
+    assert engine.is_relative_to(Path(sys.prefix)) and version('browser-use') == '1.0.4'
+    assert hashlib.sha256((engine / 'agent/loop.py').read_bytes()).hexdigest() == '1ec7859d76e3eb4bf0b8ddffebb835dd310bd4785ea5ae979f1d91c1faf5a135'
+    assert hashlib.sha256((engine / 'repl/worker.py').read_bytes()).hexdigest() == '79172a7c6907d3a7efbda61eef64c0aff7b1c369c1d237ecec980663cb01af28'
     assert version('browser-use') == expected['engine_version']
     baseline.write(folder / 'runtime-provenance.json', {
         'product_commit': expected['commit'], 'engine_version': version('browser-use'),
@@ -87,8 +90,9 @@ if __name__ == '__main__':
                 assert not out['error'] and 'Probe' in out['output']
                 assert not (baseline.ROOT/'.private/model.json').exists()
                 assert not (baseline.ROOT/'full-600-20261114').exists()
-                check = await repl.call('exec', "print('save_answer' in globals())", 20)
-                assert ('True' if os.environ['EXPECTED_ARM']=='candidate' else 'False') in check['output'], check
+                check = await repl.call('exec', "import hashlib, browser_use; from pathlib import Path; print(hashlib.sha256((Path(browser_use.__file__).parent/'repl/worker.py').read_bytes()).hexdigest())", 20)
+                assert '79172a7c6907d3a7efbda61eef64c0aff7b1c369c1d237ecec980663cb01af28' in check['output'], check
+                assert AgentConfig(api_key='offline', base_url='http://localhost').reasoning_effort == 'max'
                 print('isolated browser probe passed',os.environ['EXPECTED_ARM'],flush=True)
             finally:
                 if repl: await repl.close()

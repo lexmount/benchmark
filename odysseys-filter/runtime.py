@@ -58,6 +58,10 @@ def _extracted_module() -> tuple[ast.Module, dict]:
                             "expression": "len(plan['jobs'])", "before": 600, "after": 168})
     if len(changes) != 1:
         raise ValueError("Expected exactly one approved 5090 600-to-168 task-count adaptation")
+    guard, = [node for node in run.body if isinstance(node, ast.Assert)
+              and ast.unparse(node.test) == "public_config.get('reasoning_effort', 'high') == 'high'"]
+    guard.test = ast.copy_location(ast.parse("public_config['reasoning_effort'] == 'max'", mode="eval").body, guard.test)
+    changes.append({"function": "run", "line": guard.lineno, "before": "high", "after": "max"})
     extracted = ast.fix_missing_locations(ast.Module(body=selected, type_ignores=[]))
     audit = {
         "reference_sha256": REFERENCE_SHA256,

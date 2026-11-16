@@ -40,7 +40,7 @@ def verify(quiet=False):
         if sha(PACKAGE / relative) != expected:
             raise ValueError('Package content changed: ' + relative)
     provenance = read(PACKAGE / 'provenance.json')
-    for relative, expected in provenance['original_files_sha256'].items():
+    for relative, expected in (provenance['original_files_sha256'] | provenance['actor_max_files_sha256']).items():
         if sha(PACKAGE / relative) != expected:
             raise ValueError('Original implementation changed: ' + relative)
     config = read(PACKAGE / 'config.json')
@@ -52,7 +52,7 @@ def verify(quiet=False):
         raise ValueError('Unexpected execution-function changes')
     info = {'benchmark': 'odysseys-filter', 'tasks': len(rows), 'excluded': 32,
             'max_steps': 300, 'timeout_seconds': 3600,
-            'original_sources_unchanged': True, 'runtime_source_audit': audit}
+            'actor_effort': 'max', 'runtime_source_audit': audit}
     if not quiet:
         print(json.dumps(info, ensure_ascii=False))
     return info
@@ -88,7 +88,7 @@ def preflight_run(run_dir):
             raise ValueError('Actor configuration changed: ' + job['task_id'])
         if (config['max_steps'], config['timeout_seconds'], config['fixed_viewport']) != (300, 3600, False):
             raise ValueError('Actor budget or viewport differs from the approved configuration')
-        if config['feature_config'] != {'preparation_fraction': 0.0, 'track_task_progress': False}:
+        if config['feature_config'] != {}:
             raise ValueError('Original Odysseys feature configuration changed')
     return plan
 
@@ -99,16 +99,14 @@ def prepare(run_dir, product_source, credentials, judge_python):
     judge_python = Path(os.path.abspath(os.path.expanduser(judge_python)))
     if run_dir.exists():
         raise ValueError('Use a fresh output directory; existing evidence must be preserved')
-    if not (product_source / 'src/lexmount_browser_agent/engine/browser_use').is_dir():
-        raise ValueError('The preserved native Actor requires the existing vendored-engine product API')
     if not shutil.which('bwrap') or not Path('/opt/google/chrome/chrome').is_file():
         raise ValueError('The existing 5090 bwrap and local Chrome installation are required')
     commit = subprocess.check_output(['git', '-C', str(product_source), 'rev-parse', 'HEAD'], text=True).strip()
     if subprocess.check_output(['git', '-C', str(product_source), 'status', '--porcelain', '--', 'src', 'pyproject.toml', 'uv.lock'], text=True):
         raise ValueError('Product source and lockfile must be clean')
     cfg = read(credentials)
-    if cfg.get('model') != 'deepseek-v4.1-flash' or cfg.get('reasoning_effort', 'high') != 'high' or cfg.get('mode', 'ultrafast') != 'ultrafast':
-        raise ValueError('Use the original DeepSeek high / ultrafast model configuration')
+    if cfg.get('model') != 'deepseek-v4.1-flash' or cfg.get('mode', 'ultrafast') != 'ultrafast':
+        raise ValueError('Use the DeepSeek / ultrafast model configuration')
     if not cfg.get('api_key') or not cfg.get('base_url') or not judge_python.is_file():
         raise ValueError('External credentials and an installed judge environment are required')
     run_dir.mkdir(parents=True)
@@ -119,6 +117,7 @@ def prepare(run_dir, product_source, credentials, judge_python):
         shutil.copyfile(product_source / name, product / name)
     subprocess.run(['uv', 'sync', '--frozen', '--no-dev', '--python', '3.12'], cwd=product, check=True)
     engine = subprocess.check_output([str(product / '.venv/bin/python'), '-c', 'from importlib.metadata import version; print(version("browser-use"))'], text=True).strip()
+    assert engine == '1.0.4', 'Expected the locked official Browser Use 1.0.4 product'
     frozen_product = sorted(q for q in (product / 'src').rglob('*') if q.is_file() and '__pycache__' not in q.parts and not q.name.endswith('.pyc'))
     frozen_product += [product / 'pyproject.toml', product / 'uv.lock']
     build = {'commit': commit, 'engine_version': engine,
@@ -127,7 +126,7 @@ def prepare(run_dir, product_source, credentials, judge_python):
     support = run_dir / 'support'
     shutil.copytree(PACKAGE / 'legacy/code', support / 'code')
     (support / '.private').mkdir(mode=0o700)
-    shutil.copyfile(credentials, support / '.private/model.json')
+    write(support / '.private/model.json', dict(cfg, reasoning_effort='max'))
     (support / '.private/model.json').chmod(0o600)
     env = support / 'envs/baseline'
     env.parent.mkdir(parents=True)
@@ -166,7 +165,7 @@ def prepare(run_dir, product_source, credentials, judge_python):
           'context_anchor': datetime.now(timezone.utc).isoformat(),
           'actor_concurrency': 32, 'judge_concurrency': 4, 'counts': {SUITE: 168},
           'new_actor_runs': 168, 'reused_actor_runs': 0, 'old_actor_runs': 0,
-          'agent_model': 'deepseek-v4.1-flash', 'agent_reasoning': 'high', 'mode': 'ultrafast',
+          'agent_model': 'deepseek-v4.1-flash', 'agent_reasoning': 'max', 'mode': 'ultrafast',
           'judge_reasoning': 'low', 'judge_protocol': config['judge_protocol'], 'seed': config['seed'],
           'jobs': jobs, 'file_sha256': {str(q): sha(q) for q in frozen}})
     write(run_dir / 'probes/candidate/actor-config.json', {'product': build})

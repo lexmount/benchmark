@@ -11,17 +11,17 @@ ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location("bu_filter_dataset", ROOT / "dataset.py")
 dataset = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(dataset)
-EXCLUDED_ORDINALS = {11, 34, 39, 41, 46, 57, 61, 70, 76, 81, 86, 92, 96}
+EXCLUDED_ORDINALS = {11, 19, 34, 39, 41, 57, 61, 76, 81, 86, 92, 96}
 
 
 class DatasetTests(unittest.TestCase):
-    def test_exact_87_ids_and_original_ordinals(self):
+    def test_exact_88_ids_and_original_ordinals(self):
         rows = dataset.load_tasks()
-        self.assertEqual(len(rows), 87)
-        self.assertEqual(len({row["id"] for row in rows}), 87)
+        self.assertEqual(len(rows), 88)
+        self.assertEqual(len({row["id"] for row in rows}), 88)
         self.assertEqual([row["ordinal"] for row in rows], [n for n in range(1, 101) if n not in EXCLUDED_ORDINALS])
         self.assertFalse(dataset.EXCLUDED_IDS & {row["id"] for row in rows})
-        self.assertEqual(next(row["id"] for row in rows if row["ordinal"] == 19), dataset.TASK_19_ID)
+        self.assertNotIn(dataset.TASK_19_ID, {row["id"] for row in rows})
 
     def test_actor_never_receives_reference_answers(self):
         public = dataset.load_tasks()
@@ -73,8 +73,8 @@ class DatasetTests(unittest.TestCase):
 
     def test_validation_report_contains_no_task_or_gold_text(self):
         report = dataset.validate_dataset()
-        self.assertEqual((report["task_count"], report["excluded_count"]), (87, 13))
-        self.assertTrue(report["task_19_retained"])
+        self.assertEqual((report["task_count"], report["excluded_count"]), (88, 12))
+        self.assertFalse(report["task_19_retained"])
         self.assertNotIn("instruction", report)
         self.assertNotIn("answer", report)
 

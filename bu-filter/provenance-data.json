@@ -4,10 +4,10 @@
   "source_frozen_file_sha256": "3c951b9543b49d5b06ee780d3b0df62fe5655102fbddb6ffce8773dc41fd0297",
   "source_product_commit": "df93e28b9aa1013523f39391dd4cb8a269dae585",
   "source_task_count": 100,
-  "retained_task_count": 87,
-  "excluded_task_count": 13,
+  "retained_task_count": 88,
+  "excluded_task_count": 12,
   "retained_reference_answer_count": 37,
-  "construction": "Preserve each retained id/instruction/start_url/answer value verbatim; attach original ordinal; delete exactly the approved task IDs. No clock re-rendering and no implicit task-19 quarantine.",
+  "construction": "Preserve each retained id/instruction/start_url/answer value verbatim from the same 100-task df93 source; attach original ordinal; explicitly quarantine task 19 and restore tasks 46 and 70. No clock re-rendering.",
   "original_actor_fields": [
     "id",
     "instruction",
@@ -32,10 +32,28 @@
     "license_label_added": false
   },
   "output_hashes": {
-    "data/BU_FILTER.enc": "4fb79c34aaafc9feb96c781706efd3f07f248a7f67459fc0c2dd18d3f32f9990",
-    "data/exclusions.json": "326df1ba11fa816c2077650677c3f740ddbcf4cff774487ad1ad53cbc58d260a",
-    "data/manifest.json": "58421b5b6da57e1a56d7119605baaeed3869dd316e1432b5f548985ec1839505",
-    "dataset.py": "4b477e207b3b5da369d70857a19051748f349aa38a82233e92f0e3252242fbeb",
-    "tests/test_dataset.py": "9714929fe6a310b3d290a426f8a3fc87b80b45b9c6eec67ed34075e3b9b5a93d"
+    "data/BU_FILTER.enc": "9307eb8efbece831eba1fba3dfd440a13f38f172f8e0f2c21e70c286157ee69f",
+    "data/exclusions.json": "4ed465daba82a5788479ba0a3d876136bb5e88d66b4effdbd740ddb597040b0f",
+    "data/manifest.json": "981ad8f408682289297f6d43b43c83a82b665dbd51e7877919c2f4320a5180a4",
+    "dataset.py": "9146744ba990e4785ea234bf8ea5bbeea4344c1e3fcc913d61ebc35e559b781b",
+    "tests/test_dataset.py": "9afeaec9268f599080d2e92cedb274ea60fb556b60a9a0488a09720233898b96"
+  },
+  "source_archive_file": "/data/wf/sxh/workspace/lexmount/.archives/bu-before-filter-20261116/retired/tmp/bu103-helpers-20261114/bu-verified-review-df93e28-1115/task-data.json",
+  "selection_revision": {
+    "base_commit": "e9e5fef0131ba0495e827c2f1fc0e450bd531d03",
+    "previous_version": "1.0.0",
+    "version": "1.1.0",
+    "previous_task_count": 87,
+    "task_count": 88,
+    "newly_excluded_ordinals": [
+      19
+    ],
+    "restored_ordinals": [
+      46,
+      70
+    ],
+    "retained_unchanged_count": 86,
+    "all_retained_fields_equal_original_source": true,
+    "evidence": "SELECTION_REVIEW.md"
   }
 }

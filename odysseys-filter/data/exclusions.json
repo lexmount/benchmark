@@ -1,0 +1,200 @@
+{
+  "schema_version": 1,
+  "source_url": "https://app.notion.com/p/lexmount/41ae7e998fb28026a70bea84caf5cb15",
+  "decision": "User approved exclusion of these exact 32 Odysseys V1 tasks on 2026-11-16.",
+  "count": 32,
+  "rows": [
+    {
+      "original_ordinal": 5,
+      "task_id": "156e2acc95361db4145f5bc313abb63807750089",
+      "title": "退伍军人家庭福利与遗属年金",
+      "reason": "DFAS原页及表单反复出现DNS失败、连接关闭或Akamai Access Denied，存档路线又遇429。部分运行已从摘要找到正确表号，但无法取得题目要求的DFAS原页证据。"
+    },
+    {
+      "original_ordinal": 10,
+      "task_id": "39255449e341c41a589b8a4e17f073be3a4809c9",
+      "title": "Kobe球鞋发售与现货对比",
+      "reason": "Sole Collector域名反复无法解析；Sneaker News又持续停在Cloudflare安全验证。无法取得指定来源的发售日期和可核验原页，其他商家的现货信息不能补齐。"
+    },
+    {
+      "original_ordinal": 13,
+      "task_id": "4246dec196c9a3382b4224c7ec3a34a20be9f43f",
+      "title": "iPad Air M3低价套装比较",
+      "reason": "Target反复出现Press & Hold人机验证、页面不可用或空价格区；Slickdeals持续Cloudflare验证。无法在商品页确认最低配置、实际价格及精选优惠。"
+    },
+    {
+      "original_ordinal": 18,
+      "task_id": "67ad95421a303ad78cfcd8c3f5a7f6668d2c6a75",
+      "title": "比较奥古斯塔车源与两款车型配置",
+      "reason": "Edmunds反复403 Access Denied，Cars.com被Cloudflare阻断，CarGurus也存在访问限制。指定来源的车源、价格和配置条件无法核实。"
+    },
+    {
+      "original_ordinal": 19,
+      "task_id": "5632294e494e6e86eb94739235bfa2373b868868",
+      "title": "2020 Traverse前后刹车套件",
+      "reason": "部分运行已选对车型并进入刹车分类，但打开套件列表就触发RockAuto验证码，反复提交仍失败；另有持续连接超时。前后套件的品牌、型号及组件无法读取。"
+    },
+    {
+      "original_ordinal": 24,
+      "task_id": "fbcfa176b2e1aa42200d4f3adb66dcf0a6ca62ee",
+      "title": "创作者会员与ChatGPT订阅预算",
+      "reason": "Patreon会员页反复停在Cloudflare验证或连接重置；ChatGPT价格页也出现持续真人验证，价格卡不显示。无法核实实际会员档位并完成三方预算比较。"
+    },
+    {
+      "original_ordinal": 26,
+      "task_id": "e15345ed27f1933065af403601876e5f6597a943",
+      "title": "课堂测验、营销练习与仿生阅读",
+      "reason": "Google检索反复进入异常流量验证码，部分运行一直卡到图片挑战；备用检索及资源页也出现403、域名或连接错误。测验发现、阅读转换和模板收集因此未完成，另有模型中断。"
+    },
+    {
+      "original_ordinal": 30,
+      "task_id": "c6b29e8564a7ae86dc50a1f074bdc2b5abb3754a",
+      "title": "比较三家零售商现货宝可梦卡",
+      "reason": "Barnes & Noble反复出现Cloudflare连接验证、Access Denied或403，未能进入可读商品页；Walmart的直销、发货主体也未充分核实，无法完成三店现货比较。"
+    },
+    {
+      "original_ordinal": 32,
+      "task_id": "170314aa3a93c7ca6e959be7757cad178efc06dc",
+      "title": "高端迷你ITX电脑配置研究",
+      "reason": "Google反复验证码，WePC和B&H持续安全验证，部分推荐原文返回403或连接错误。无法集齐可读的指定年份推荐及GPU商品页；同时存在年份筛选和留页缺口。"
+    },
+    {
+      "original_ordinal": 34,
+      "task_id": "328ce861b58b2cf2e6da520040193710f95cfe56",
+      "title": "免费YouTube瑜伽入门计划",
+      "reason": "多轮Google检索始终被异常流量验证码拦截；一轮反复尝试公交车、消防栓图片挑战仍未通过，YouTube及备用检索也出现连接失败。另有一轮属于已取得视频但标题、链接配错。"
+    },
+    {
+      "original_ordinal": 44,
+      "task_id": "8e639395e157ea4df2747a4a873b5f610d70d180",
+      "title": "准备人物、古屋与猫照片绘画参考",
+      "reason": "Pinterest存在登录或持续连接障碍，Google图片被验证码拦截，Bored Panda返回CloudFront 403。指定来源的人物、古屋和猫照片无法完整取得，替代图片不能满足原站要求。"
+    },
+    {
+      "original_ordinal": 45,
+      "task_id": "82af9358ab6a0421057340a0c038498348f2b3ec",
+      "title": "比较低价手机套餐与Vodafone宽带名词",
+      "reason": "六次失分均遇MoneySavingExpert持续Cloudflare验证或403，套餐筛选器和结果列表始终不可见，无法确认最低价前三项。另有独立缺口：没有找到Vodafone“Xtra 40”的明确原文解释。"
+    },
+    {
+      "original_ordinal": 46,
+      "task_id": "63d68bb25e279fc22e6e3592d8ca59add33b6eb1",
+      "title": "汇总明尼阿波利斯家庭车并制作表格",
+      "reason": "Cars.com反复显示“Sorry, you have been blocked”，部分入口明确提示国家访问限制；Edmunds也受阻。无法从指定来源取得并核验十五条车源。"
+    },
+    {
+      "original_ordinal": 48,
+      "task_id": "8fcdeed84a0deb05342b07c26116792a5b6a6a3f",
+      "title": "奥斯汀Domain附近租房比较",
+      "reason": "Zillow反复Press & Hold验证或Access Denied，Apartments.com持续Akamai拒绝访问。指定平台上的房源、预算、卧室及设施条件无法共同核实。"
+    },
+    {
+      "original_ordinal": 55,
+      "task_id": "d3250da48cc778a40d11683a56fdfca962d6fe19",
+      "title": "家庭圣诞礼物组合与当日取货",
+      "reason": "九次失分主要卡在Kohl’s持续Akamai Access Denied／403，商品页始终打不开，无法确认两件25美元以内商品及今日自取。部分运行还遇Etsy或Walmart验证墙。"
+    },
+    {
+      "original_ordinal": 57,
+      "task_id": "78ddd1aab59eebace5f6f523d90012aa6c871c54",
+      "title": "匹兹堡Ophelia租住与购房比较",
+      "reason": "Apartments.com上的Ophelia指定房源页反复Access Denied，无法展示当前可租户型；另一次主要被WeatherTech持续Cloudflare封锁挡住。替代网站信息不能满足原页核验要求。"
+    },
+    {
+      "original_ordinal": 71,
+      "task_id": "46ecc9a5dce920d6c72198b4efb1a46855bac7d0",
+      "title": "比较礼服、休闲裤、皮靴与预算球鞋",
+      "reason": "Depop持续403，PrettyLittleThing出现CloudFront拒绝访问，其他商家也有页面不可用或访问限制。礼服和部分商品的型号、尺码、价格无法核实；另有选错球鞋型号的独立错误。"
+    },
+    {
+      "original_ordinal": 76,
+      "task_id": "cbe12703e129832feb5e7b56c4141476fb423338",
+      "title": "短篇游戏与浏览器益智游戏清单",
+      "reason": "Reddit反复网络安全封锁、登录墙或403，Poki在部分运行持续域名解析失败。RSS可补部分推荐文字，但无法取得要求的实际讨论帖和游戏页面。"
+    },
+    {
+      "original_ordinal": 78,
+      "task_id": "365c0ba179de85bd5821988800b5706137576c2a",
+      "title": "纽约时报、游戏、Reddit与SNAP简报",
+      "reason": "NYT文章反复真人验证或连接超时，Reddit持续网络安全封锁／403。无法在实际页面确认头条、栏目和评论，RSS及搜索摘要不足以满足原页要求。"
+    },
+    {
+      "original_ordinal": 79,
+      "task_id": "73c63095aeed43efb10a74eee7db7459c5ea9f84",
+      "title": "大急流城租房与廉价居住方案",
+      "reason": "Zillow反复显示Access Denied及Press & Hold挑战，多次操作仍无法进入房源列表。无法核实指定租金范围内的真实地址和月租。"
+    },
+    {
+      "original_ordinal": 84,
+      "task_id": "946321e8a9788f485d360f619127a2e7b7e1693a",
+      "title": "幼儿圣诞活动与Grinch美甲",
+      "reason": "Hobbycraft反复停在Cloudflare“Verify you are human”，Google检索也持续验证码。指定工艺活动、材料清单及Google发现路径无法完成，替代站活动不能补足。"
+    },
+    {
+      "original_ordinal": 85,
+      "task_id": "54c07bd8afe7d70cd55b716977d2c29f1b2a91e9",
+      "title": "圣诞礼物九项跨站清单",
+      "reason": "NYT礼品指南出现机器人封锁、空白或超时；Etsy反复连接重置、403或异常活动限制。清单常缺NYT推荐礼物和三款定制饰品。"
+    },
+    {
+      "original_ordinal": 87,
+      "task_id": "e20742e26a4d6f9c3d62a9d1cef634297bd4204f",
+      "title": "英国无麸质圣诞聚会与小礼物",
+      "reason": "Sainsbury’s反复Access Denied、解析失败或超时；部分运行M&S又返回错误页，Boots出现访问拒绝。实际菜谱及预算内礼物的商品、价格证据无法收齐。"
+    },
+    {
+      "original_ordinal": 89,
+      "task_id": "24c664186e6839e1a0a117041480ff143bf8c91a",
+      "title": "Tesla租赁、拖车与Zillow月租",
+      "reason": "Craigslist多个搜索和备用入口持续“Your request has been blocked”／403，Zillow也有验证封锁。无法取得三辆拖车和用于月供比较的指定租房。"
+    },
+    {
+      "original_ordinal": 90,
+      "task_id": "44f1e02116715d5fe313996811b358fe25bc3ee4",
+      "title": "多辆家庭汽车的配件选购",
+      "reason": "WeatherTech反复Cloudflare真人验证或“Sorry, you have been blocked”／403，无法使用车型选择器和读取适配商品页；部分还有Temu限制。存档或其他商家资料不能完成指定来源核验。"
+    },
+    {
+      "original_ordinal": 105,
+      "task_id": "8f005e9f09101dd540f1f666063483931e8faa59",
+      "title": "罗利家庭医保、儿科与托育比较",
+      "reason": "Blue Cross NC出现域名失败或406，Aetna概览、医生目录出现Access Denied，部分目录后端不可用。无法同时核实三家保险及罗利儿科搜索结果。"
+    },
+    {
+      "original_ordinal": 107,
+      "task_id": "1fd26abb3743ca1dfdc648af0fcab2c3a2def6e9",
+      "title": "匹兹堡至旧金山五种搬家方案",
+      "reason": "U-Haul页面被阻断或超时，U-Pack报价反复验证码且提交失败，PODS报价也有错误或403；Trustpilot、State Farm另有访问限制。五方案的真实报价及保险依据无法收齐。"
+    },
+    {
+      "original_ordinal": 110,
+      "task_id": "5d157ce3b5a1d2ecbd01bc29e8b2c0a309971c33",
+      "title": "Stanford附近二十套公寓表格",
+      "reason": "七次失分均有Apartments.com持续Akamai Access Denied，指定房源来源不可用。多轮CryptPad还持续加载、同步或WebSocket失败；另有一轮编辑器已加载但未填入数据。"
+    },
+    {
+      "original_ordinal": 127,
+      "task_id": "45408d6942b6c26bd37b4675e183993602b940bb",
+      "title": "英国七晚低价度假十六地比较",
+      "reason": "Skyscanner持续“Are you a person or a robot?”验证，多次尝试仍无法进入结果页；另有域名不可达运行。十六目的地的实际查询、报价扫描无法完成。"
+    },
+    {
+      "original_ordinal": 134,
+      "task_id": "591e86ed962faf5eddbee560c99b020b1c835aaf",
+      "title": "十六人高尔夫分组与公平赛制",
+      "reason": "USGA出现403，R&A等来源有404或DNS失败，Google、Bing又遇验证码。无法读足六份公开指导并核实差点、计分规则；这题同时含一般网络及文档故障，不能全部称为反爬。"
+    },
+    {
+      "original_ordinal": 159,
+      "task_id": "304ff89d7a6a6df597aafaf720ba11f6c49214c3",
+      "title": "祖母绿连衣裙十二款尺码核验",
+      "reason": "PrettyLittleThing反复CloudFront 403，Nordstrom出现异常活动限制，其他商店也有验证码、空白或超时。无法完成十二款商品的具体尺码和库存核验。"
+    },
+    {
+      "original_ordinal": 179,
+      "task_id": "8e358ff165d3ade4cabe8a64cc95b6058a9aa107",
+      "title": "Sierra Everyset十二码训练鞋性价比",
+      "reason": "Sierra首页、分类及商品入口反复返回“Something went wrong”错误页或403。基准商品的实际价格、颜色和12码库存始终未核实，其他鞋款比较无法补足这一前提。"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "upstream_commit": "837814633ef948479abb3d142458f0acdb73fa65",
+  "source_run": "full-23ee669-1115 (existing 5090 mixed-suite native evaluator)",
+  "source_product_commit": "23ee669ce507787fd4e7e55d996c0a8fa0ff2753",
+  "source_actor": "online-mind2web-filter/legacy/actor.py (verbatim original backup)",
+  "source_driver": "online-mind2web-filter/legacy/driver.py (verbatim original backup)",
+  "source_code_root": "tmp/bu103-helpers-20261114/code",
+  "original_files_sha256": {
+    "legacy/actor.py": "d9ee742530855ab7437b6b7f59a6b5cc4ac3d674ea1978127fdd83f4ab1761f4",
+    "legacy/code/bu_lexmount_viewport.py": "72dcbc30728730c052cdf0be5f2ba79ebb7d622c812ebbb478f6db7f45db11a0",
+    "legacy/code/continue_evaluate.py": "90257f5c525499dab1a0c7830bf548d91c02ae0072686d623310ddb3af1ac60f",
+    "legacy/code/eval_billing.py": "03a2a566d678d0b17330b1cee7de60bbaabefb2de12d7759b206357484a4f07c",
+    "legacy/code/evidence_adapter.py": "e7ca6b50950e176e96b76337d7b428de9338f5b8deb8ea1ba64f14f6408b6abf",
+    "legacy/code/evidence_ranges.py": "d314d674907d92532fdcbd30cb90fd2b96c666024c8834b2520288a195c57a9f",
+    "legacy/code/full_benchmarks.py": "7381526d9ac3e41439c428d31532d83adf9f82c58cc8639feeab9943e803c4f6",
+    "legacy/code/image_transport.py": "21ea9a23c3b6b7399f54e74e6bd0a1f028efb8494cda1c04940cefb6d86c2eb3",
+    "legacy/code/judge_refusals_dedup.py": "f6fad326b14aa6ca32a450675d561ca35ac87deafc888e214317bb9bc11b93e5",
+    "legacy/driver.py.txt": "b9aa47d416768ec957ebceda7ce4b26ac5e79ab56a615783b269ad4c197e2fe4",
+    "legacy/upstream/README.md": "ffbbc15712ee94ec6718756992e7fda72c0632b259e73db7e93dd2d34674dd80",
+    "legacy/upstream/scripts/python/run_full_trajectory_per_rubric.py": "736c3c20a6d1d00d6fa1ffb34ae2b7c7835618bea0fe735bab99d036ee26983f"
+  },
+  "actor_policy_sha256": "78b6898552d28c72bd8c5530cfb25905110e209890c86f51537c6f8b829ddfa9",
+  "approved_execution_changes": [
+    "Dataset: exact exclusion of the Notion-approved 32 IDs; 168 retained original rows",
+    "run() job count assertion 600 -> 168; extracted execution functions otherwise unchanged",
+    "Per-task max_steps 200 -> 300; timeout_seconds stays 3600",
+    "File paths and frozen-source verification bound to this self-contained package"
+  ],
+  "fixed_viewport": false,
+  "evidence_protocol": "1113-native-visible-observations-v3: all native interactions and all screenshots for Odysseys; no truncation",
+  "no_agent_product_changes": true
+}

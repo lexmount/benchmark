@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-11-16",
+  "benchmark": "odysseys-filter",
+  "tasks": 168,
+  "excluded": 32,
+  "max_steps": 300,
+  "timeout_seconds": 3600,
+  "original_source_commit": "837814633ef948479abb3d142458f0acdb73fa65",
+  "original_source_sha256": "0bb7081d740eb6237b72e7e33524cc9489e769c5e236ec54879a8eb06ebc48e0",
+  "dataset_sha256": "d218b47f4162e4ba32730f78e8b164b99e282fc779830e6cab106339f1e4cf52",
+  "retained_rows_identical_to_original": true,
+  "prepared_task_input_hashes_verified": 168,
+  "prepared_budget_configurations_verified": 168,
+  "source_audit": {
+    "reference_sha256": "b9aa47d416768ec957ebceda7ce4b26ac5e79ab56a615783b269ad4c197e2fe4",
+    "approved_ast_changes": [
+      {
+        "function": "run",
+        "line": 199,
+        "expression": "len(plan['jobs'])",
+        "before": 600,
+        "after": 168
+      }
+    ],
+    "functions": {
+      "read": {
+        "original_ast_sha256": "eb0c878a297a01fa18b6a88fe42a87f1bd560a02b2be04e7dc3baf9e9852aab4",
+        "runtime_ast_sha256": "eb0c878a297a01fa18b6a88fe42a87f1bd560a02b2be04e7dc3baf9e9852aab4",
+        "unchanged": true
+      },
+      "write": {
+        "original_ast_sha256": "e9c8b389d8f058ca0657d6a5b30c42309c82743a2db19d207fda2548b21ac4f9",
+        "runtime_ast_sha256": "e9c8b389d8f058ca0657d6a5b30c42309c82743a2db19d207fda2548b21ac4f9",
+        "unchanged": true
+      },
+      "sha": {
+        "original_ast_sha256": "82daf9a8840800fa4b1f26786e43bbffb24afd53ebb2d272f3678319873cd50c",
+        "runtime_ast_sha256": "82daf9a8840800fa4b1f26786e43bbffb24afd53ebb2d272f3678319873cd50c",
+        "unchanged": true
+      },
+      "actor_command": {
+        "original_ast_sha256": "5c7302ed4df5cafdfe22efb7a2cfcaa3173ec14914626555def105d33b902ac9",
+        "runtime_ast_sha256": "5c7302ed4df5cafdfe22efb7a2cfcaa3173ec14914626555def105d33b902ac9",
+        "unchanged": true
+      },
+      "invoke": {
+        "original_ast_sha256": "bc948f12394a994449a69491c81c3d37bba049fe42e24d75f1282fff5f916339",
+        "runtime_ast_sha256": "bc948f12394a994449a69491c81c3d37bba049fe42e24d75f1282fff5f916339",
+        "unchanged": true
+      },
+      "grade": {
+        "original_ast_sha256": "9bbd6055e72e900f2937b185eb69f433a781d5528569da792f4a317aaafbf518",
+        "runtime_ast_sha256": "9bbd6055e72e900f2937b185eb69f433a781d5528569da792f4a317aaafbf518",
+        "unchanged": true
+      },
+      "run": {
+        "original_ast_sha256": "4629addd1a35d34d06759007649b3eb33415b944d742d2c2861e489db61e47fb",
+        "runtime_ast_sha256": "135ef593029c0af81b16abcf02c442e444eaf40d1033eba2d9eb364df45cc02d",
+        "unchanged": false
+      }
+    }
+  },
+  "offline_tests_passed": 14,
+  "offline_tests_failed": 0,
+  "native_bwrap_browser_probe": "passed",
+  "probe_product_commit": "df93e28b9aa1013523f39391dd4cb8a269dae585",
+  "probe_engine_version": "1.0.3+lexmount.17",
+  "free_validation_run": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/odysseys-filter-release-validation-20261116",
+  "paid_evaluation_started": false,
+  "model_requests": 0,
+  "other_current_benchmarks_verify": {
+    "BU-filter": true,
+    "online-mind2web-filter": true
+  },
+  "legacy_entry_rejection_checks": [
+    "old task loader",
+    "old Actor entry"
+  ],
+  "migration": {
+    "complete": true,
+    "archived_directories": 383,
+    "same_inode_verified": 383,
+    "guarded_entries": 11,
+    "stopped_owned_old_processes": 3,
+    "remaining_old_odysseys_processes": 0,
+    "raw_receipt_on_5090": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/.archives/odysseys-before-filter-20261116/migration-receipt.json",
+    "other_benchmark_defaults_preserved": true,
+    "default_entry": "odysseys-filter/evaluate.py",
+    "mixed_historical_metadata": "Preserved for provenance; not an executable 200-task entry",
+    "boundary": "Hidden archive and retired entrypoints; not an OS permission boundary for the same account/root"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "scope": "BU-filter dataset construction only; no model or browser execution",
+  "source_frozen_file": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/bu-verified-review-df93e28-1115/task-data.json",
+  "source_frozen_file_sha256": "3c951b9543b49d5b06ee780d3b0df62fe5655102fbddb6ffce8773dc41fd0297",
+  "source_product_commit": "df93e28b9aa1013523f39391dd4cb8a269dae585",
+  "source_task_count": 100,
+  "retained_task_count": 87,
+  "excluded_task_count": 13,
+  "retained_reference_answer_count": 37,
+  "construction": "Preserve each retained id/instruction/start_url/answer value verbatim; attach original ordinal; delete exactly the approved task IDs. No clock re-rendering and no implicit task-19 quarantine.",
+  "original_actor_fields": [
+    "id",
+    "instruction",
+    "start_url"
+  ],
+  "published_public_loader_fields": [
+    "ordinal",
+    "id",
+    "instruction",
+    "start_url"
+  ],
+  "judge_only_field": "answer",
+  "storage_format": {
+    "upstream_source": "https://github.com/lexmount/benchmark/blob/77b4df339fe8fc293fb48896cfa1c73dd743af42/frameworks/__init__.py#L180",
+    "format": "base64(Fernet(sha256(BU_FILTER) as URL-safe base64 key).encrypt(JSON UTF-8))",
+    "purpose": "Preserve upstream anti-indexing/anti-training-publication convention; not access-control encryption"
+  },
+  "license_observation": {
+    "inspected_upstream_commit": "77b4df339fe8fc293fb48896cfa1c73dd743af42",
+    "upstream_root": "No LICENSE/COPYING/NOTICE file in the 37 root entries returned by GitHub contents API; LICENSE endpoint returned 404.",
+    "frozen_lexmount_1_1_source": "Only BU_Bench_V1_1.enc, lexmount_v1_1/data.py, lexmount_v1_1/manifest.json plus generated cache were present; no independent license file found there.",
+    "license_label_added": false
+  },
+  "output_hashes": {
+    "data/BU_FILTER.enc": "4fb79c34aaafc9feb96c781706efd3f07f248a7f67459fc0c2dd18d3f32f9990",
+    "data/exclusions.json": "326df1ba11fa816c2077650677c3f740ddbcf4cff774487ad1ad53cbc58d260a",
+    "data/manifest.json": "58421b5b6da57e1a56d7119605baaeed3869dd316e1432b5f548985ec1839505",
+    "dataset.py": "4b477e207b3b5da369d70857a19051748f349aa38a82233e92f0e3252242fbeb",
+    "tests/test_dataset.py": "9714929fe6a310b3d290a426f8a3fc87b80b45b9c6eec67ed34075e3b9b5a93d"
+  }
+}

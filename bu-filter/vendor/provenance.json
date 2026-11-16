@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "source_evaluation": "existing 5090 df93e28/failed28-300steps protocol",
+  "files": [
+    {
+      "destination": "vendor/evidence_adapter.py",
+      "source": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/code/evidence_adapter.py",
+      "source_sha256": "e7ca6b50950e176e96b76337d7b428de9338f5b8deb8ea1ba64f14f6408b6abf",
+      "change": "copied without modification"
+    },
+    {
+      "destination": "vendor/evidence_ranges.py",
+      "source": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/code/evidence_ranges.py",
+      "source_sha256": "d314d674907d92532fdcbd30cb90fd2b96c666024c8834b2520288a195c57a9f",
+      "change": "copied without modification"
+    },
+    {
+      "destination": "vendor/official_judge.py",
+      "source": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/benchmark/bu_bench_v1/upstream/judge.py",
+      "source_sha256": "012d20a030383ce668f47a4c85bd428d933413471d18188fc5b599fe69e70333",
+      "change": "copied without modification"
+    },
+    {
+      "destination": "vendor/viewport.py",
+      "source": "bu_lexmount_viewport.py",
+      "source_sha256": "72dcbc30728730c052cdf0be5f2ba79ebb7d622c812ebbb478f6db7f45db11a0",
+      "change": "reuse FixedViewport class verbatim; omit historical executable fixture and its absolute paths"
+    },
+    {
+      "destination": "vendor/billing.py",
+      "source": "eval_billing.py",
+      "source_sha256": "03a2a566d678d0b17330b1cee7de60bbaabefb2de12d7759b206357484a4f07c",
+      "change": "reuse only COST_HEADERS, META_HEADERS, _now, _number, _write, record_billing; omit unrelated pricing discovery and old private-config path"
+    }
+  ],
+  "actor_policy": {
+    "source": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/bu-df93e28-failed28-300steps-20261116/driver/actor.py",
+    "source_file_sha256": "1663bbaccd6e1491602d45a912b73c4a136ccc0f58c63bb997c6088eabf14b14",
+    "source_symbol": "policy",
+    "destination_symbol": "POLICY",
+    "text_sha256": "853bb13f8dd4cdfd8aac55acd1c351c1eb3830d47f789be925320d212e1b7d5a",
+    "identical_text_verified": true
+  }
+}

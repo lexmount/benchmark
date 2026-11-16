@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "benchmark": "BU-filter",
+  "expected_tasks": 87,
+  "actor_concurrency": 32,
+  "judge_concurrency": 4,
+  "browser_executable": "/opt/google/chrome/chrome",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "agent": {
+    "model": "deepseek-v4.1-flash",
+    "reasoning_effort": "high",
+    "mode": "ultrafast",
+    "max_steps": 300,
+    "timeout_seconds": 3600,
+    "max_context_chars": null
+  },
+  "judge": {
+    "model": "deepseek-v4.1-flash",
+    "reasoning_effort": "low",
+    "max_tokens": 16384,
+    "timeout_seconds": 600,
+    "sdk_retries": 2,
+    "logical_attempts": 2,
+    "refusal_fallback_model": "gpt-6.1-sol",
+    "process_timeout_seconds": 14400
+  },
+  "watchdog_grace_seconds": 300
+}

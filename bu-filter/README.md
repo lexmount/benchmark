@@ -195,7 +195,7 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
 
 ## 核验记录
 
-本次免费核验见 [validation.json](validation.json)：29项测试通过、87份公开任务文件与df93原件逐字节相同，原bwrap浏览器探针通过；未启动付费Actor或Judge评测。
+本次免费核验见 [validation.json](validation.json)：30项测试通过、87份公开任务文件与df93原件逐字节相同，原bwrap浏览器探针通过；未启动付费Actor或Judge评测。
 
 ## 来源
 

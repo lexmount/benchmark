@@ -70,3 +70,30 @@ def test_changed_canonical_configuration_cannot_validate_against_itself(tmp_path
     path.write_text(json.dumps(changed, ensure_ascii=False, indent=2) + "\n")
     with pytest.raises(ValueError, match="configuration checksum changed"):
         evaluate.config(path)
+
+
+def test_bu_archive_preserves_other_benchmarks():
+    from ops.migrate_legacy import bu_defaults
+    original = {
+        "schema_version": 1,
+        "default_bu_benchmark": "bu-lexmount",
+        "default_odysseys_benchmark": "odysseys-filter",
+        "operator_note": "Keep existing work",
+        "benchmarks": {
+            "bu-lexmount": {"task_count": 100},
+            "odysseys-filter": {"task_count": 168, "max_steps": 300},
+            "online-mind2web-filter": {"task_count": 247, "max_steps": 100},
+        },
+    }
+    merged = bu_defaults(original, "bu-filter/evaluate.py")
+    assert original["default_bu_benchmark"] == "bu-lexmount"
+    assert merged["default_bu_benchmark"] == "bu-filter"
+    assert "bu-lexmount" not in merged["benchmarks"]
+    for name in ["odysseys-filter", "online-mind2web-filter"]:
+        assert merged["benchmarks"][name] == original["benchmarks"][name]
+    assert merged["default_odysseys_benchmark"] == original["default_odysseys_benchmark"]
+    assert merged["operator_note"] == original["operator_note"]
+    assert merged["benchmarks"]["bu-filter"] == {
+        "task_count": 87, "max_steps": 300, "timeout_seconds": 3600,
+        "entry": "bu-filter/evaluate.py",
+    }

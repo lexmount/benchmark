@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-11-16T08:39:45.085158+00:00",
+  "verified_at": "2026-11-16T08:48:35.348727+00:00",
   "protocol": "frozen df93e28 evaluation chain",
   "dataset": {
     "name": "BU-filter",
@@ -63,7 +63,7 @@
   },
   "frozen_original_files": 12,
   "unit_tests": {
-    "passed": 29,
+    "passed": 30,
     "command": ".venvs/bu-filter-test/bin/python -m pytest -q bu-filter/tests"
   },
   "original_bwrap_probe": {
@@ -100,7 +100,8 @@
   "packaging_regressions": [
     "reject cross-run Judge folders",
     "reject incorrect suite and ordinal",
-    "reject modifications to canonical fixed configuration"
+    "reject modifications to canonical fixed configuration",
+    "preserve unrelated benchmark defaults during BU archival"
   ],
   "runtime_ast_python": "3.10.12",
   "environment": {

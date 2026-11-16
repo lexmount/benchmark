@@ -55,7 +55,7 @@ def test_actor300_is_only_one_budget_assertion_change_from_df93():
     after = "assert check_config.max_steps == 300 and check_config.timeout_seconds == 3600"
     assert original.count(before) == 1
     assert original.replace(before, after) == used
-    assert policy(original) == policy(used)
+    assert policy(original) == policy(used) == policy((ROOT / "actor.py").read_text())
     assert sha(policy(used).encode()) == "853bb13f8dd4cdfd8aac55acd1c351c1eb3830d47f789be925320d212e1b7d5a"
 
 

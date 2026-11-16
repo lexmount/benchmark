@@ -38,7 +38,7 @@ def fixture(parent, completed=()):
                 "judge_python": str(Path(parent) / "judge-venv/bin/python")}
     write(run / "settings.json", settings)
     write(run / "support/.private/model.json", {"model": "deepseek-v4.1-flash",
-          "reasoning_effort": "high", "mode": "ultrafast", "api_key": "offline-fixture-key"})
+          "reasoning_effort": "max", "mode": "ultrafast", "api_key": "offline-fixture-key"})
     write(run / "support/previous-capacity/pause-bu-priority.json", {"in_flight": []})
     jobs = []
     for task in TASKS:
@@ -54,7 +54,7 @@ def fixture(parent, completed=()):
                      "task_input_sha256": strict_runtime.hashlib.sha256((folder / "task.json").read_bytes()).hexdigest(),
                      "actor_config_sha256": strict_runtime.hashlib.sha256((folder / "actor-config.json").read_bytes()).hexdigest()})
     plan = {"product_commit": COMMIT, "file_sha256": {}, "jobs": jobs,
-            "review_answer": True, "request_budget_includes_answer_review": True}
+            "feature_config": {}, "agent_reasoning": "max"}
     write(run / "plan.json", plan)
     write(run / "probe-passed.json", {"product_commit": COMMIT, "model_requests": 0})
     for index in completed:
@@ -73,13 +73,13 @@ def fixture(parent, completed=()):
 
 
 class SourceIdentityTests(unittest.TestCase):
-    def test_all_functions_are_original_except_one_87_count_literal(self):
+    def test_controller_changes_only_count_and_actor_profile_checks(self):
         original = ast.parse(strict_runtime.REFERENCE.read_text())
         originals = {node.name: node for node in original.body
                      if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))}
         extracted, audit = strict_runtime._extracted_module()
         self.assertEqual([node.name for node in extracted.body], list(strict_runtime.FUNCTIONS))
-        self.assertEqual(len(audit["approved_ast_changes"]), 1)
+        self.assertEqual(len(audit["approved_ast_changes"]), 3)
         self.assertEqual(audit["approved_ast_changes"][0]["before"], 100)
         self.assertEqual(audit["approved_ast_changes"][0]["after"], 87)
         for node in extracted.body:
@@ -89,6 +89,14 @@ class SourceIdentityTests(unittest.TestCase):
                              and "len(plan['jobs']) == 100" in ast.unparse(item))
                 count = next(item for item in ast.walk(outer) if isinstance(item, ast.Constant) and item.value == 100)
                 count.value = 87
+                for statement in expected.body:
+                    if not isinstance(statement, ast.Assert):
+                        continue
+                    expression = ast.unparse(statement.test)
+                    if expression == "public_config.get('reasoning_effort', 'high') == 'high'":
+                        statement.test = ast.parse("public_config['reasoning_effort'] == 'max'", mode="eval").body
+                    elif expression == "plan['review_answer'] and plan['request_budget_includes_answer_review']":
+                        statement.test = ast.parse("plan['feature_config'] == {} and plan['agent_reasoning'] == 'max'", mode="eval").body
             self.assertEqual(ast.dump(node, include_attributes=False), ast.dump(expected, include_attributes=False))
         self.assertTrue(all(value["unchanged"] for name, value in audit["functions"].items() if name != "run"))
 

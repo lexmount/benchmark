@@ -1,7 +1,6 @@
 """Run the frozen df93 controller with the approved 87-task count adaptation.
 
-The original function ASTs are loaded from the preserved reference. Only the
-run() job-count assertion changes from 100 to 87. Runtime paths are bound to the
+The original function ASTs are loaded from the preserved reference. The task count and Actor profile assertions use the current fixed configuration. Runtime paths are bound to the
 new self-contained run; no scheduling, timeout, retry, or prompt logic is added.
 """
 from __future__ import annotations
@@ -58,6 +57,21 @@ def _extracted_module() -> tuple[ast.Module, dict]:
                             "expression": "len(plan['jobs'])", "before": 100, "after": 87})
     if len(changes) != 1:
         raise ValueError("Expected exactly one approved df93 100-to-87 task-count adaptation")
+    # Keep the original scheduler, admission and resume logic. Bind only the two product checks.
+    bindings = {
+        "plan['review_answer'] and plan['request_budget_includes_answer_review']":
+            "plan['feature_config'] == {} and plan['agent_reasoning'] == 'max'",
+        "public_config.get('reasoning_effort', 'high') == 'high'":
+            "public_config['reasoning_effort'] == 'max'",
+    }
+    for statement in run.body:
+        if isinstance(statement, ast.Assert) and (expression := ast.unparse(statement.test)) in bindings:
+            new = ast.parse(bindings[expression], mode="eval").body
+            statement.test = ast.copy_location(new, statement.test)
+            changes.append({"function": "run", "line": statement.lineno,
+                            "before": expression, "after": bindings[expression]})
+    if len(changes) != 3:
+        raise ValueError("Expected the task count and two Actor profile checks")
     extracted = ast.fix_missing_locations(ast.Module(body=selected, type_ignores=[]))
     audit = {
         "reference_sha256": REFERENCE_SHA256,

@@ -5,7 +5,7 @@
 - 本任务仅筛选任务、固定300回合并打包原评测器。不得改写Actor／Judge／取证／恢复函数或prompt；legacy原件必须通过来源SHA校验。
 - 只使用固定的87题；13个排除ID见data/exclusions.json，不恢复旧100题或额外排除第19题。
 - 保持题文、参考答案、评分提示和证据协议原样。执行器只接收本题id/instruction/start_url，不能读取评测答案。
-- 默认300模型回合、3600秒、DeepSeek high；Judge为DeepSeek low，仅内容拒绝按既有协议使用GPT低推理补判。
+- 默认300模型回合、3600秒、DeepSeek max；Judge为DeepSeek low，仅内容拒绝按既有协议使用GPT低推理补判。
 - 解释器与依赖见runtime-environment.json；测试依赖只装独立test环境，不混入Judge。
 - Actor32与Judge4独立动态补位。合法失败不重判；未知单列，不能自动填0或从分母删除。
 - verify、preflight、pytest均不调用付费模型；run和resume会调用模型，须遵从用户给定的评测范围。

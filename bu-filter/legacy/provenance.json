@@ -27,10 +27,11 @@
       "copied_verbatim": true
     },
     "code/full_benchmarks.py": {
-      "sha256": "7381526d9ac3e41439c428d31532d83adf9f82c58cc8639feeab9943e803c4f6",
+      "sha256": "40c1584731d6022ccbcb911a981ef0febb6147dc33af9596e9bc308a1a0d02b9",
       "source_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/tmp/bu103-helpers-20261114/code/full_benchmarks.py",
       "source_sha256": "7381526d9ac3e41439c428d31532d83adf9f82c58cc8639feeab9943e803c4f6",
-      "copied_verbatim": true
+      "copied_verbatim": false,
+      "adaptation": "Actor effort assertion now requires max. Worker observations and Judge are unchanged."
     },
     "code/continue_evaluate.py": {
       "sha256": "90257f5c525499dab1a0c7830bf548d91c02ae0072686d623310ddb3af1ac60f",
@@ -99,7 +100,7 @@
   "frozen_symbols_sha256": {
     "code/full_benchmarks.py": {
       "worker": "b97f59f31558bda8877d4ee097880bdfa2e8dde70492973c172dc6d4b2c6e397",
-      "worker_impl": "0c8e91913438cd53c034e67fd411bfd3670623a9c8d02238ef4fb729c372de66",
+      "worker_impl": "fd8ee95fe0ae09f145c55ae47a2d7df88ad753f500e6a71608dfad6aa00db110",
       "judge_model": "ece1571731403413d5c0976186c50c63620b714f93fa496a8fd844b59df36dc0",
       "judge": "c19adf1e0d7f634d3c8404261a0e3bea25270c9101cdf731e49e6478a7d75d78",
       "is_content_refusal": "4aeacb18e47d44adee3f387935be381db893b0fad6fabab0364b0c2ed1e9d261"

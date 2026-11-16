@@ -11,7 +11,7 @@
   },
   "agent": {
     "model": "deepseek-v4.1-flash",
-    "reasoning_effort": "high",
+    "reasoning_effort": "max",
     "mode": "ultrafast",
     "max_steps": 300,
     "timeout_seconds": 3600,
@@ -28,13 +28,8 @@
     "process_timeout_seconds": 14400
   },
   "watchdog_grace_seconds": 300,
-  "evaluation_protocol": "df93e28 frozen runtime",
+  "evaluation_protocol": "BU-filter native-visible-observations-v3",
   "isolation": "bwrap",
-  "feature_config": {
-    "preparation_fraction": 0.0,
-    "track_task_progress": false,
-    "public_source_lookup": true,
-    "review_answer": true
-  },
+  "feature_config": {},
   "controller_python": "/usr/bin/python3"
 }

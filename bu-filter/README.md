@@ -104,18 +104,11 @@ uv pip sync --python .venvs/bu-filter-test/bin/python bu-filter/requirements-tes
 
 历史记录能确认原调度器使用系统Python3.10及上述启动路径；3.10.12是同一路径的当前实测，不表示历史OS镜像完整冻结。
 
-完整版本见 `runtime-environment.json`。预检逐项核对Actor/Judge解释器及全部依赖；不符则拒绝启动。正式run/resume用原系统解释器启动调度循环。
+完整版本见 `runtime-environment.json`。预检核对Actor/Judge解释器、Judge依赖及Actor的官方引擎源码；不符则拒绝启动。正式run/resume用原系统解释器启动调度循环。
 
-**产品接入保持df93启动器的原要求。** 它明确要求内置引擎、`public_source_lookup=True`、`review_answer=True`、`preparation_fraction=0.0`、`track_task_progress=False`。原生a-sb缺少这些接口时，预检会拒绝；本轮没有为兼容a-sb而改评测器，也没有给a-sb添加功能。产品内部prompt由受测产品版本决定，评测器不另作优化。
+**当前产品接入使用官方 browser-use 1.0.4。** 预检核验官方发行包的 Python 源文件、产品源文件及冻结安装后的依赖。内层 Python worker 的导入另在隔离探针中核查。Actor 的 DeepSeek 动作和上下文压缩统一使用 max，实际发送值保存在每题请求日志。裁判继续使用 low。
 
-本次严格接入验证使用的df93冻结产品已准备在以下位置：
-
-```bash
-cd /data/wf/sxh/workspace/lexmount/agent-builds/df93e28
-uv sync --frozen --python 3.14.5
-```
-
-若使用其他兼容产品，请替换下面的源码及环境路径。正式准备阶段会复制本轮产品源码／锁文件，并创建本轮独立 `product/.venv`，保持原df93的bwrap挂载布局。
+使用当前产品分支的干净 checkout 作为下文的 `--agent-source`，并用 Python 3.14.5 执行 `uv sync --frozen`。准备阶段会在本轮目录建立独立产品环境。
 
 ## 私密配置
 
@@ -137,13 +130,13 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
 .venvs/bu-filter-test/bin/python -m pytest -q bu-filter/tests
 
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py preflight \
-  --agent-source /data/wf/sxh/workspace/lexmount/agent-builds/df93e28 \
-  --agent-python /data/wf/sxh/workspace/lexmount/agent-builds/df93e28/.venv/bin/python \
+  --agent-source /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool \
+  --agent-python /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool/.venv/bin/python \
   --judge-python /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/.venvs/bu-filter-judge/bin/python
 
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py prepare \
-  --agent-source /data/wf/sxh/workspace/lexmount/agent-builds/df93e28 \
-  --agent-python /data/wf/sxh/workspace/lexmount/agent-builds/df93e28/.venv/bin/python \
+  --agent-source /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool \
+  --agent-python /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool/.venv/bin/python \
   --judge-python /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/.venvs/bu-filter-judge/bin/python \
   --output /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/bu-filter-round1
 
@@ -180,7 +173,7 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
 
 ## 其他参数保持原样
 
-- Actor：DeepSeek high，ultrafast，300回合／3600秒；本地headless独立Chrome，1440×900。
+- Actor：DeepSeek max，ultrafast，300回合／3600秒；本地headless独立Chrome，1440×900。
 - 调度：32 Actor／4 Judge独立动态补位；原继承进程计数、至少6GiB可用内存、0.75秒轮询。
 - 隔离：原bwrap挂载、clearenv、工作目录、stdin凭据。
 - 超时：Actor3900秒外层、Judge14400秒；TERM后5秒再KILL。

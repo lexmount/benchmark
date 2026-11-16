@@ -5,7 +5,7 @@ import argparse, asyncio, getpass, hashlib, json, os, shutil, subprocess, sys, t
 from pathlib import Path
 from datetime import datetime, timezone
 HERE = Path(__file__).resolve().parent
-CONFIG_SHA256 = 'b9bcbc3aa0b8ca786f64014eac4741968bf626575990509151793cf29a5dc113'
+CONFIG_SHA256 = 'f9c7b483428901430e17434fe81a6725811f53ad6fc091fe37e4185ddda8a90d'
 sys.path.insert(0, str(HERE))
 from dataset import actor_task, load_judge_tasks, load_tasks, validate_dataset
 
@@ -45,20 +45,26 @@ def product_probe(source, python):
     code=r'''import sys,json,hashlib,platform
 from pathlib import Path
 from importlib.metadata import version,distributions
-p=Path(sys.argv[1]);sys.path.insert(0,str(p/'src'));sys.path.insert(0,str(p/'src/lexmount_browser_agent/engine'))
-import lexmount_browser_agent,browser_use
+p=Path(sys.argv[1]);sys.path.insert(0,str(p/'src'))
+import browser_use, lexmount_browser_agent
 from lexmount_browser_agent import AgentConfig
-cfg=AgentConfig(api_key='offline-probe-key',base_url='http://127.0.0.1/v1',model='deepseek-v4.1-flash',max_steps=300,timeout_seconds=3600,preparation_fraction=0.0,track_task_progress=False,public_source_lookup=True,review_answer=True)
-package=Path(lexmount_browser_agent.__file__).resolve().parent;engine=Path(browser_use.__file__).resolve().parent
+from importlib.metadata import distribution
+cfg=AgentConfig(api_key='offline-probe-key',base_url='http://127.0.0.1/v1')
+package=Path(lexmount_browser_agent.__file__).resolve().parent
+engine=Path(browser_use.__file__).resolve().parent
 assert package==p/'src/lexmount_browser_agent'
-assert engine==package/'engine/browser_use'
-assert (engine/'agent/review.py').is_file()
-assert cfg.reasoning_effort=='high' and cfg.mode=='ultrafast'
-print(json.dumps({'python_version':platform.python_version(),'all_versions':{d.metadata['Name'].lower().replace('_','-'):d.version for d in distributions()},'product_import':str(package),'engine_source':str(engine),'engine_version':version('browser-use'),'model':cfg.model,'reasoning_effort':cfg.reasoning_effort,'mode':cfg.mode,'max_steps':cfg.max_steps,'timeout_seconds':cfg.timeout_seconds,'feature_config':{'preparation_fraction':0.0,'track_task_progress':False,'public_source_lookup':True,'review_answer':True},'versions':{n:version(n) for n in ['browser-use','browser-harness','pydantic-ai-slim','pydantic','openai','httpx','cdp-use']}}))
+assert engine==distribution('browser-use').locate_file('browser_use').resolve()
+assert engine.is_relative_to(Path(sys.prefix)) and version('browser-use')=='1.0.4'
+hashes={str(f.relative_to(engine)):hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted(engine.rglob('*.py'))}
+fingerprint=hashlib.sha256(b''.join(k.encode()+bytes([0])+bytes.fromhex(v) for k,v in hashes.items())).hexdigest()
+# Python sources from the official 1.0.4 wheel locked in the product.
+assert fingerprint=='282b10117c542cd24815c98789be68e704f9b671b39103dc28220787dd449673'
+assert cfg.reasoning_effort=='max' and cfg.mode=='ultrafast' and cfg.model=='deepseek-v4.1-flash'
+print(json.dumps({'python_version':platform.python_version(),'all_versions':{d.metadata['Name'].lower().replace('_','-'):d.version for d in distributions()},'product_import':str(package),'engine_source':str(engine),'engine_version':version('browser-use'),'engine_files':hashes,'model':cfg.model,'reasoning_effort':cfg.reasoning_effort,'mode':cfg.mode,'feature_config':{},'versions':{n:version(n) for n in ['browser-use','browser-harness','pydantic-ai-slim','pydantic','openai','httpx','cdp-use']}}))
 '''
     result=subprocess.run([str(executable(python)),'-c',code,str(source)],capture_output=True,text=True,timeout=60)
     if result.returncode:
-        raise RuntimeError('Product does not meet the unchanged df93 launcher/API requirements; no product or evaluation prompt was modified. '+result.stderr[-1000:])
+        raise RuntimeError('Official 1.0.4 package or product import verification failed. '+result.stderr[-1000:])
     return json.loads(result.stdout.strip().splitlines()[-1])
 
 
@@ -68,7 +74,7 @@ def preflight(args):
     proof=product_probe(source,args.agent_python)
     environment=read(HERE/'runtime-environment.json')
     assert proof['python_version']==environment['actor']['python_version'], 'Actor Python differs from df93'
-    assert proof['all_versions']==environment['actor']['all_versions'], 'Actor dependencies differ from df93'
+    # Product dependencies are frozen by its own uv.lock; record and compare them again after installation.
     controller_version=subprocess.check_output([cfg['controller_python'],'-c','import platform;print(platform.python_version())'],text=True,timeout=20).strip()
     assert controller_version==environment['controller']['python_version'], 'Controller Python differs from df93'
     browser=Path(cfg['browser_executable'])
@@ -80,7 +86,7 @@ def preflight(args):
     assert judge_proof['python_version']==environment['judge']['python_version'], 'Judge Python differs from df93'
     assert judge_proof['all_versions']==environment['judge']['all_versions'], 'Judge dependencies differ from df93'
     credentials=read(args.credentials_file)
-    assert credentials['model']=='deepseek-v4.1-flash' and credentials.get('reasoning_effort','high')=='high'
+    assert credentials['model']=='deepseek-v4.1-flash'
     assert credentials.get('mode','ultrafast')=='ultrafast'
     return {'dataset':data,'product':proof,'controller_python_version':controller_version,'judge':judge_proof,'browser':{'path':str(browser),'version':browser_version,'sha256':sha(browser)},'bwrap':shutil.which('bwrap'),'model_requests':0}
 
@@ -109,11 +115,11 @@ def prepare(args):
     subprocess.run(['uv','sync','--frozen','--python',str(executable(args.agent_python))],cwd=product,check=True)
     installed=product_probe(product,product/'.venv/bin/python')
     assert installed['versions']==proof['product']['versions'] and installed['all_versions']==proof['product']['all_versions'] and installed['python_version']==proof['product']['python_version'],'Product dependency versions changed while installing the frozen build'
-    build={'commit':product_commit(source),'engine_version':installed['engine_version'],'source_sha256':source_hashes(product)}
+    build={'commit':product_commit(source),'engine_version':installed['engine_version'],'engine_files':installed['engine_files'],'source_sha256':source_hashes(product)}
     write(run/'build.json',build)
     support=run/'support';support.mkdir()
     credentials=read(args.credentials_file)
-    write(support/'.private/model.json',credentials)
+    write(support/'.private/model.json',dict(credentials, reasoning_effort=cfg['agent']['reasoning_effort']))
     capacity=Path(args.capacity_file)
     if not capacity.is_file():raise FileNotFoundError('Capacity metadata is required; do not discard existing evaluators')
     inflight=read(capacity)['in_flight']
@@ -131,12 +137,12 @@ def prepare(args):
         write(folder/'actor-config.json',actor_cfg)
         jobs.append({'suite':'bu_v1','id':task['id'],'task_id':task['id'],'ordinal':task['ordinal'],'source_folder':str(folder),'judge_folder':str(run/'judges/bu_v1'/task['id']),'task_input_sha256':sha(folder/'task.json'),'actor_config_sha256':sha(folder/'actor-config.json'),'feature_config':actor_cfg['feature_config']})
     driver=run/'driver';driver.mkdir()
-    shutil.copy2(harness/'legacy/actor.py',driver/'actor.py')
+    shutil.copy2(harness/'actor.py',driver/'actor.py')
     bootstrap="import sys\nfrom pathlib import Path\nr=Path(__file__).resolve().parents[1]\nsys.path.insert(0,str(r/'frozen/harness'))\nfrom strict_runtime import main\nmain(r)\n"
     (driver/'run.py').write_text(bootstrap)
     write(run/'probes/candidate/actor-config.json',{'product':build})
     frozen=[run/'build.json',run/'task-data.json',run/'settings.json',*driver.glob('*.py'),*[harness/p for p in source_hashes(harness)],*[product/p for p in build['source_sha256']],*[Path(j['source_folder'])/name for j in jobs for name in ['task.json','actor-config.json']]]
-    plan={'schema_version':1,'benchmark':'BU-filter','product_commit':build['commit'],'created_at':time.time(),'counts':{'bu_v1':87},'jobs':jobs,'new_actor_runs':87,'reused_actor_runs':0,'old_actor_runs':0,'actor_concurrency':32,'judge_concurrency':4,'identical_task_inputs':87,'public_lookup':True,'review_answer':True,'request_budget_includes_answer_review':True,'file_sha256':{str(p):sha(p) for p in frozen},'dataset_manifest_sha256':sha(harness/'data/manifest.json'),'source_df93_commit':'df93e28b9aa1013523f39391dd4cb8a269dae585'}
+    plan={'schema_version':1,'benchmark':'BU-filter','product_commit':build['commit'],'created_at':time.time(),'counts':{'bu_v1':87},'jobs':jobs,'new_actor_runs':87,'reused_actor_runs':0,'old_actor_runs':0,'actor_concurrency':32,'judge_concurrency':4,'identical_task_inputs':87,'agent_reasoning':'max','feature_config':{},'file_sha256':{str(p):sha(p) for p in frozen},'dataset_manifest_sha256':sha(harness/'data/manifest.json'),'source_df93_commit':'df93e28b9aa1013523f39391dd4cb8a269dae585'}
     write(run/'plan.json',plan)
     return run
 

@@ -109,7 +109,7 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py configure
 ```
 
-按隐藏提示输入密钥，默认端点为 `https://llmapi.hk.lexmount.net/v1`。另有 `.private/bu-filter-capacity.json` 记录原调度器需要的其他评测PID／角色／start_ticks；本次由原准入元数据迁入。若全新主机确实没有其他评测，维护者可将其设置为 `{"in_flight": []}`；存在其他评测时不得假装为空。该记录不会作为任务或prompt传入模型。
+按隐藏提示输入密钥，默认端点为 `https://litellm.local.lexmount.net/v1`。另有 `.private/bu-filter-capacity.json` 记录原调度器需要的其他评测PID／角色／start_ticks；本次由原准入元数据迁入。若全新主机确实没有其他评测，维护者可将其设置为 `{"in_flight": []}`；存在其他评测时不得假装为空。该记录不会作为任务或prompt传入模型。
 
 ## 免费核验、准备与原隔离探针
 
@@ -175,6 +175,10 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
 日常BU入口只保留BU-filter。旧BU百题及纯BU历史运行迁入维护归档；旧名称通过兼容入口会报错。按用户澄清，Odysseys／Online-Mind2Web进程和数据保留，相关混合历史树及两份只读共享校验源兼容保留，不作为BU评测入口。
 
 归档工具默认只展示计划；显式apply前会核对备份和活动进程，不停止混合评测。拥有同一OS账户或root权限仍可主动读取归档，本次没有建立跨账户权限隔离。
+
+## 核验记录
+
+本次免费核验见 [validation.json](validation.json)：24项测试通过、87份公开任务文件与df93原件逐字节相同，原bwrap浏览器探针通过；未启动付费Actor或Judge评测。
 
 ## 来源
 

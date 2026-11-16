@@ -31,6 +31,8 @@ def executable(path):
 
 
 def config(path=HERE/'config.json'):
+    if sha(path) != CONFIG_SHA256:
+        raise ValueError('The frozen BU-filter configuration checksum changed')
     value=read(path)
     expected=read(HERE/'config.json')
     if value!=expected or value['benchmark']!='BU-filter' or value['expected_tasks']!=87:
@@ -179,7 +181,7 @@ def runtime_args(p):
 def main():
     p=argparse.ArgumentParser(description=__doc__);subs=p.add_subparsers(dest='command',required=True)
     subs.add_parser('verify')
-    q=subs.add_parser('configure');q.add_argument('--credentials-file',default=str(HERE.parent/'.private/bu-filter-model.json'));q.add_argument('--base-url',default='https://llmapi.hk.lexmount.net/v1')
+    q=subs.add_parser('configure');q.add_argument('--credentials-file',default=str(HERE.parent/'.private/bu-filter-model.json'));q.add_argument('--base-url',default='https://litellm.local.lexmount.net/v1')
     for name in ['preflight','prepare','run']:
         q=subs.add_parser(name);runtime_args(q)
         if name!='preflight':q.add_argument('--output',required=True)

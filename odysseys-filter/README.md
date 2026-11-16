@@ -123,11 +123,11 @@ uv pip install --python .venvs/odysseys-filter-judge/bin/python \
 测试产品使用单独的干净Git检出，保留5090上已有的部署快照。首次准备示例产品可运行：
 
 ```bash
-git init /data/wf/sxh/workspace/lexmount/agent-builds/odysseys-filter-df93e28
-git -C /data/wf/sxh/workspace/lexmount/agent-builds/odysseys-filter-df93e28 \
+git init /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool
+git -C /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool \
   fetch --depth=1 https://github.com/lexmount/LexmountBrowserAgent.git \
   df93e28b9aa1013523f39391dd4cb8a269dae585
-git -C /data/wf/sxh/workspace/lexmount/agent-builds/odysseys-filter-df93e28 \
+git -C /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool \
   checkout --detach FETCH_HEAD
 ```
 
@@ -144,7 +144,7 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current
 .venvs/odysseys-filter-judge/bin/python -m pytest -q odysseys-filter/tests
 
 .venvs/odysseys-filter-judge/bin/python odysseys-filter/evaluate.py prepare \
-  --product /data/wf/sxh/workspace/lexmount/agent-builds/odysseys-filter-df93e28 \
+  --product /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool \
   --credentials .private/odysseys-filter-model.json \
   --judge-python /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/.venvs/odysseys-filter-judge/bin/python \
   --run-dir /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/odysseys-filter-round1

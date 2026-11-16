@@ -54,7 +54,7 @@
 ```bash
 cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current
 # 新机器首次取得分支；已有部署则直接进入下面的目录。
-git clone --single-branch --branch online-mind2web-filter https://github.com/lexmount/benchmark.git benchmark-online-mind2web-filter
+git clone --single-branch --branch codex-is-a-fool https://github.com/lexmount/benchmark.git benchmark-online-mind2web-filter
 cd benchmark-online-mind2web-filter/online-mind2web-filter
 uv venv --python 3.12 .venv-judge
 uv pip sync --python .venv-judge/bin/python requirements-judge.txt
@@ -65,14 +65,14 @@ uv pip sync --python .venv-judge/bin/python requirements-judge.txt
 当前5090部署的日常入口位于：
 
 ```text
-/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/online-mind2web-filter/evaluate.py
+/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current/online-mind2web-filter/evaluate.py
 ```
 
 日常使用该部署时，先`cd`到它的文件夹，再执行以下步骤。
 
 ## 创建一次评测
 
-准备一个**干净、兼容原Observer API的产品Git checkout**，包含`src/`、`pyproject.toml`和`uv.lock`。本包不绑定一个“永远最新”的产品版本，也不修改产品；prepare把选定源码复制到本次运行目录，按其`uv.lock`创建独立环境，记录提交、引擎版本和源文件哈希。兼容接口要求是已有vendored `browser_use.agent.service.Session`与`lexmount_browser_agent.run_task/AgentConfig`；`a-sb`原生发行版不能被默认为已兼容。
+准备一个**干净、兼容原Observer API的产品Git checkout**，包含`src/`、`pyproject.toml`和`uv.lock`。本包不绑定一个“永远最新”的产品版本，也不修改产品；prepare把选定源码复制到本次运行目录，按其`uv.lock`创建独立环境，记录提交、引擎版本和源文件哈希。当前接入校验官方 1.0.4 引擎、`Session` 取证回调和产品 `run_task/AgentConfig` 接口。
 
 凭证沿用既有私有JSON格式，必须位于仓库外或忽略的`.private/`中：`api_key`、`base_url`、`model=deepseek-v4.1-flash`，以及原有`reasoning_effort=max`、`mode=ultrafast`。不要把真实凭证写入教程或Git。
 

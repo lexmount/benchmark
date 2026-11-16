@@ -1,0 +1,253 @@
+#!/usr/bin/env python3
+"""247-task data/path wrapper around the frozen 5090 Online evaluator."""
+from __future__ import annotations
+import argparse
+import ast
+import asyncio
+from collections import Counter
+from datetime import datetime, timezone
+UTC = timezone.utc
+import fcntl
+import hashlib
+import importlib.util
+import json
+import os
+from pathlib import Path
+import random
+import signal
+import shutil
+import subprocess
+import sys
+import time
+from types import SimpleNamespace
+
+PACKAGE = Path(__file__).resolve().parent
+SUITE = 'online_mind2web'
+RUNTIME_FUNCTIONS = {'read', 'write', 'sha', 'actor_command', 'invoke', 'grade', 'run'}
+
+def read(path):
+    return json.loads(Path(path).read_bytes())
+
+def write(path, value):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    pending = path.with_suffix(path.suffix + '.tmp')
+    pending.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n')
+    pending.replace(path)
+
+def sha(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def load_module(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module
+
+def tasks():
+    manifest = read(PACKAGE / 'data/manifest.json')
+    lines = (PACKAGE / 'data/tasks.jsonl').read_bytes().splitlines(keepends=True)
+    assert sha(PACKAGE / 'data/tasks.jsonl') == manifest['dataset_sha256']
+    rows = [json.loads(line) for line in lines]
+    excluded = {r['task_id'] for r in read(PACKAGE / 'data/exclusions.json')['rows']}
+    assert len(rows) == len({r['task_id'] for r in rows}) == 247
+    assert len(excluded) == 53 and not excluded.intersection(r['task_id'] for r in rows)
+    assert len(manifest['tasks']) == 247
+    for line, row, original in zip(lines, rows, manifest['tasks']):
+        assert row['task_id'] == original['task_id']
+        assert hashlib.sha256(line).hexdigest() == original['original_line_sha256']
+    assert [r['original_ordinal'] for r in manifest['tasks']] == sorted(r['original_ordinal'] for r in manifest['tasks'])
+    return [{'id': r['task_id'], 'instruction': r['task_name'], 'start_url': r['website'],
+             'level': r['difficulty'], 'reference_length': r['metadata']['reference_length']}
+            for r in rows]
+
+def adapter(support=None):
+    sys.path.insert(0, str(PACKAGE / 'legacy/code'))
+    a = load_module('omw_adapter', PACKAGE / 'legacy/online-mind2web/omw_adapter.py')
+    a.EVAL = PACKAGE
+    a.HISTORY = PACKAGE / 'legacy/history'
+    a.DATASET = PACKAGE / 'data/tasks.jsonl'
+    a.DATASET_SHA256 = read(PACKAGE / 'data/manifest.json')['dataset_sha256']
+    a.ROOT = Path(support) if support else PACKAGE
+    return a
+
+def verify():
+    for name, digest in read(PACKAGE / 'frozen-files.json').items():
+        assert sha(PACKAGE / name) == digest, 'Package changed: ' + name
+    for name, digest in read(PACKAGE / 'provenance.json')['original_file_sha256'].items():
+        assert sha(PACKAGE / name) == digest, 'Original implementation changed: ' + name
+    c = read(PACKAGE / 'config.json')
+    assert (c['count'], c['max_steps'], c['timeout_seconds']) == (247, 100, 3600)
+    assert (c['actor_concurrency'], c['judge_concurrency']) == (32, 4)
+    assert c['fixed_viewport'] is False
+    assert c['feature_config'] == {'preparation_fraction': 0.0, 'track_task_progress': False}
+    assert (c['agent_model'], c['agent_reasoning'], c['mode']) == ('deepseek-v4.1-flash', 'high', 'ultrafast')
+    rows = tasks()
+    a = adapter()
+    a.verify()
+    print(json.dumps({'dataset': c['dataset'], 'tasks': len(rows), 'excluded': 53,
+                      'max_steps': 100, 'timeout_seconds': 3600,
+                      'dataset_sha256': a.DATASET_SHA256, 'original_sources_unchanged': True}))
+
+def runtime(run_dir):
+    run_dir = Path(run_dir).resolve()
+    support = run_dir / 'support'
+    os.environ['LEXMOUNT_EVAL_ROOT'] = str(support)
+    sys.path.insert(0, str(support / 'code'))
+    adapter(support)
+    source = PACKAGE / 'legacy/driver.py'
+    tree = ast.parse(source.read_text())
+    nodes = [n for n in tree.body if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name in RUNTIME_FUNCTIONS]
+    assert {n.name for n in nodes} == RUNTIME_FUNCTIONS
+    # The sole execution-body adaptation: mixed-suite count 600 -> filtered count 247.
+    run = next(n for n in nodes if n.name == 'run')
+    counts = [n for n in ast.walk(run) if isinstance(n, ast.Constant) and n.value == 600]
+    assert len(counts) == 1
+    counts[0].value = 247
+    scope = dict(globals(), RUN=run_dir, ROOT=support, PRODUCT=run_dir / 'product',
+                 ENV=run_dir / 'product/.venv', SOURCE=run_dir / 'product/src',
+                 CODE=support / 'code', DEPENDENCIES=support / 'code', LEGACY=None,
+                 COMMIT=read(run_dir / 'plan.json')['product_commit'],
+                 __file__=str(run_dir / 'driver/run.py'))
+    exec(compile(ast.Module(body=nodes, type_ignores=[]), str(source), 'exec'), scope)
+    return SimpleNamespace(**scope)
+
+def preflight_run(run_dir):
+    run_dir = Path(run_dir).resolve()
+    plan = read(run_dir / 'plan.json')
+    assert plan['counts'] == {SUITE: 247} and len(plan['jobs']) == 247
+    allowed = {t['id'] for t in tasks()}
+    assert {j['task_id'] for j in plan['jobs']} == allowed
+    for path, digest in plan['file_sha256'].items():
+        assert sha(path) == digest, path
+    for job in plan['jobs']:
+        assert job['suite'] == SUITE
+        c = read(Path(job['source_folder']) / 'actor-config.json')
+        assert (c['max_steps'], c['timeout_seconds'], c['fixed_viewport']) == (100, 3600, False)
+        assert c['feature_config'] == {'preparation_fraction': 0.0, 'track_task_progress': False}
+    return plan
+
+def prepare(run_dir, product_source, credentials, judge_python):
+    verify()
+    run_dir, product_source = Path(run_dir).resolve(), Path(product_source).resolve()
+    assert not run_dir.exists(), 'Use a new run directory; existing evidence is preserved'
+    assert (product_source / 'src/lexmount_browser_agent/engine/browser_use').is_dir(), 'Requires the existing vendored-engine product API'
+    assert shutil.which('bwrap') and Path('/opt/google/chrome/chrome').is_file()
+    commit = subprocess.check_output(['git', '-C', str(product_source), 'rev-parse', 'HEAD'], text=True).strip()
+    assert not subprocess.check_output(['git', '-C', str(product_source), 'status', '--porcelain', '--', 'src', 'pyproject.toml', 'uv.lock'], text=True), 'Product source must be clean'
+    cfg = read(credentials)
+    assert cfg['model'] == 'deepseek-v4.1-flash'
+    assert cfg.get('reasoning_effort', 'high') == 'high' and cfg.get('mode', 'ultrafast') == 'ultrafast'
+    assert cfg.get('api_key') and cfg.get('base_url')
+    assert Path(judge_python).is_file()
+    run_dir.mkdir(parents=True)
+    product = run_dir / 'product'
+    product.mkdir()
+    shutil.copytree(product_source / 'src', product / 'src', ignore=shutil.ignore_patterns('__pycache__', '*.pyc', '*.egg-info'))
+    for name in ('pyproject.toml', 'uv.lock'):
+        shutil.copyfile(product_source / name, product / name)
+    subprocess.run(['uv', 'sync', '--frozen', '--no-dev', '--python', '3.12'], cwd=product, check=True)
+    engine = subprocess.check_output([str(product / '.venv/bin/python'), '-c', 'from importlib.metadata import version; print(version("browser-use"))'], text=True).strip()
+    frozen_product = sorted(q for q in (product / 'src').rglob('*') if q.is_file() and '__pycache__' not in q.parts and not q.name.endswith('.pyc'))
+    frozen_product += [product / 'pyproject.toml', product / 'uv.lock']
+    build = {'commit': commit, 'engine_version': engine,
+             'source_sha256': {str(q.relative_to(product)): sha(q) for q in frozen_product}}
+    write(run_dir / 'build.json', build)
+    support = run_dir / 'support'
+    shutil.copytree(PACKAGE / 'legacy/code', support / 'code')
+    (support / '.private').mkdir(mode=0o700)
+    shutil.copyfile(credentials, support / '.private/model.json')
+    (support / '.private/model.json').chmod(0o600)
+    target_env = Path(judge_python).absolute().parent.parent
+    # Preserve the original judge interpreter lookup, without depending on the old campaign tree.
+    env = support / 'envs/baseline'
+    env.parent.mkdir(parents=True)
+    env.symlink_to(target_env, target_is_directory=True)
+    driver = run_dir / 'driver'
+    driver.mkdir()
+    shutil.copyfile(PACKAGE / 'legacy/actor.py', driver / 'actor.py')
+    (driver / 'run.py').write_text('import sys\nsys.path.insert(0, ' + repr(str(PACKAGE)) + ')\nimport evaluate\nevaluate.main([*sys.argv[1:], "--run-dir", ' + repr(str(run_dir)) + '])\n')
+    rows = tasks()
+    write(run_dir / 'task-data.json', {SUITE: rows})
+    ordinals = {x['task_id']: x['original_ordinal'] for x in read(PACKAGE / 'data/manifest.json')['tasks']}
+    pending = []
+    config = read(PACKAGE / 'config.json')
+    for task in rows:
+        tid = task['id']
+        assert '/' not in tid and '..' not in tid
+        folder = run_dir / 'runs' / SUITE / tid
+        write(folder / 'task.json', {name: task.get(name) for name in ('id', 'instruction', 'start_url')})
+        write(folder / 'actor-config.json', {'source_folder': str(folder), 'max_steps': 100, 'timeout_seconds': 3600,
+              'feature_config': config['feature_config'], 'fixed_viewport': False, 'product': build})
+        pending.append({'arm': 'candidate', 'suite': SUITE, 'task_id': tid, 'ordinal': ordinals[tid],
+                        'source_folder': str(folder), 'judge_folder': str(run_dir / 'judges' / SUITE / tid),
+                        'task_input_sha256': sha(folder / 'task.json'), 'actor_config_sha256': sha(folder / 'actor-config.json')})
+    random.Random(config['seed']).shuffle(pending)
+    jobs = list(reversed(pending))  # Same shuffle/pop order as the original one-suite scheduler.
+    frozen = [run_dir / 'build.json', run_dir / 'task-data.json', *driver.glob('*.py'), *sorted((support / 'code').glob('*.py'))]
+    frozen += [PACKAGE / name for name in read(PACKAGE / 'frozen-files.json')]
+    frozen += [PACKAGE / 'frozen-files.json', *frozen_product]
+    write(run_dir / 'plan.json', {'product_commit': commit, 'created_at': time.time(), 'context_anchor': datetime.now(UTC).isoformat(),
+          'actor_concurrency': 32, 'judge_concurrency': 4, 'counts': {SUITE: 247},
+          'new_actor_runs': 247, 'reused_actor_runs': 0, 'old_actor_runs': 0,
+          'agent_model': 'deepseek-v4.1-flash', 'agent_reasoning': 'high', 'mode': 'ultrafast',
+          'judge_reasoning': 'low', 'judge_protocol': config['judge_protocol'], 'seed': config['seed'],
+          'jobs': jobs, 'file_sha256': {str(q): sha(q) for q in frozen}})
+    write(run_dir / 'probes/candidate/actor-config.json', {'product': build})
+    preflight_run(run_dir)
+    print(json.dumps({'prepared': str(run_dir), 'jobs': 247, 'commit': commit, 'engine': engine}))
+
+def report(run_dir):
+    run_dir = Path(run_dir).resolve()
+    plan = preflight_run(run_dir)
+    totals = Counter()
+    rows = []
+    for job in sorted(plan['jobs'], key=lambda j: j['ordinal']):
+        packet = Path(job['judge_folder']) / ('judge-' + SUITE + '.json')
+        grade = read(packet) if packet.exists() else {}
+        score = grade.get('score') if grade.get('status') == 'judged' else None
+        state = 'pass' if score == 1 else 'fail' if score == 0 else 'unknown'
+        totals[state] += 1
+        rows.append({'original_ordinal': job['ordinal'], 'task_id': job['task_id'], 'status': grade.get('status', 'missing'), 'score': score})
+    result = {'tasks': 247, 'passed': totals['pass'], 'failed': totals['fail'], 'unknown': totals['unknown'],
+              'score_over_247': totals['pass'] / 247, 'rows': rows}
+    write(run_dir / 'report.json', result)
+    print(json.dumps({k: v for k, v in result.items() if k != 'rows'}))
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('command', choices=['verify', 'prepare', 'probe', 'run', 'report', 'judge'])
+    parser.add_argument('job', nargs='*')
+    parser.add_argument('--run-dir', type=Path)
+    parser.add_argument('--product', type=Path)
+    parser.add_argument('--credentials', type=Path)
+    parser.add_argument('--judge-python', type=Path, default=PACKAGE / '.venv-judge/bin/python')
+    args = parser.parse_args(argv)
+    if args.command == 'verify':
+        verify()
+        return
+    assert args.run_dir, '--run-dir is required'
+    if args.command == 'prepare':
+        assert args.product and args.credentials, '--product and --credentials are required'
+        prepare(args.run_dir, args.product, args.credentials, args.judge_python)
+        return
+    verify()
+    preflight_run(args.run_dir)
+    if args.command == 'report':
+        report(args.run_dir)
+        return
+    rt = runtime(args.run_dir)
+    if args.command == 'probe':
+        subprocess.run(rt.actor_command(args.run_dir.resolve() / 'probes/candidate', probe=True), check=True, timeout=100)
+    elif args.command == 'run':
+        with (args.run_dir / 'controller.lock').open('a') as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            asyncio.run(rt.run())
+    else:
+        assert len(args.job) == 2 and args.job[0] == SUITE
+        job = next(j for j in read(args.run_dir / 'plan.json')['jobs'] if (j['suite'], j['task_id']) == tuple(args.job))
+        asyncio.run(rt.grade(job))
+
+if __name__ == '__main__':
+    main()

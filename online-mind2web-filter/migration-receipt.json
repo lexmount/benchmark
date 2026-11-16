@@ -1,0 +1,217 @@
+{
+  "created_at": 1794816438.8681564,
+  "active": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/online-mind2web-filter",
+  "guarded": [
+    {
+      "path": "tmp/bu103-helpers-20261114/delivery-first-1115/driver/actor.py",
+      "original_sha256": "5a4769638b9db8843f1426ba2b30b19a257f9418b75dfa4dada0e957e14e4f31",
+      "retired_sha256": "43d59d7439fe231826046ba06ebd5281d7fc02c45a0a2651b3bb11e8d64579dc",
+      "kind": "actor"
+    },
+    {
+      "path": "tmp/bu103-helpers-20261114/delivery-first-1115/driver/run.py",
+      "original_sha256": "e994082262bf2892657631ea98e240fcb86e98937bae99ee13ac792e098a1212",
+      "retired_sha256": "616a77b1ca730ea66c3942a9bb0e9f0c67bc1184b7ac7bf65d1882718fcb9415",
+      "kind": "judge"
+    },
+    {
+      "path": "tmp/bu103-helpers-20261114/full-23ee669-1115/driver/actor.py",
+      "original_sha256": "d9ee742530855ab7437b6b7f59a6b5cc4ac3d674ea1978127fdd83f4ab1761f4",
+      "retired_sha256": "f9769000ea749a85dbdb2624ff90436515a1b3878ebddce37bf9d16c9314d3a9",
+      "kind": "actor"
+    },
+    {
+      "path": "tmp/bu103-helpers-20261114/full-23ee669-1115/driver/run.py",
+      "original_sha256": "b9aa47d416768ec957ebceda7ce4b26ac5e79ab56a615783b269ad4c197e2fe4",
+      "retired_sha256": "70bf5acab6f7fc70956fa5cc23df8d224ea7de931365f4f37cb08e4abdb3e3ed",
+      "kind": "judge"
+    },
+    {
+      "path": "tmp/bu103-helpers-20261114/research-recovery-1114/driver/actor.py",
+      "original_sha256": "990cc82c2725c15ee168ab1bdca94d67f2c5cc221f20005ed77eeff82e5b8333",
+      "retired_sha256": "e401c7738c313ad75960d9035b092acee650b0f9be718b50d161be9c00477238",
+      "kind": "actor"
+    },
+    {
+      "path": "tmp/bu103-helpers-20261114/verified-delivery-1115/driver/actor.py",
+      "original_sha256": "5a4769638b9db8843f1426ba2b30b19a257f9418b75dfa4dada0e957e14e4f31",
+      "retired_sha256": "43d59d7439fe231826046ba06ebd5281d7fc02c45a0a2651b3bb11e8d64579dc",
+      "kind": "actor"
+    }
+  ],
+  "archived": [
+    {
+      "source": "benchmark/OnlineMind2Web",
+      "archive": ".archives/online-mind2web-before-filter-20261116/retired/benchmark/OnlineMind2Web"
+    },
+    {
+      "source": "tmp/bu103-helpers-20261114/online-mind2web",
+      "archive": ".archives/online-mind2web-before-filter-20261116/retired/tmp/bu103-helpers-20261114/online-mind2web"
+    }
+  ],
+  "stopped": [
+    {
+      "pid": 2158409,
+      "start_ticks": "472965597"
+    },
+    {
+      "pid": 2164502,
+      "start_ticks": "472970266"
+    },
+    {
+      "pid": 2165381,
+      "start_ticks": "472970795"
+    },
+    {
+      "pid": 2166361,
+      "start_ticks": "472971326"
+    },
+    {
+      "pid": 2167288,
+      "start_ticks": "472971859"
+    },
+    {
+      "pid": 2211024,
+      "start_ticks": "472998997"
+    },
+    {
+      "pid": 2225393,
+      "start_ticks": "473007575"
+    },
+    {
+      "pid": 2251401,
+      "start_ticks": "473027601"
+    },
+    {
+      "pid": 2251403,
+      "start_ticks": "473027601"
+    },
+    {
+      "pid": 2251413,
+      "start_ticks": "473027601"
+    },
+    {
+      "pid": 2251416,
+      "start_ticks": "473027604"
+    },
+    {
+      "pid": 2251420,
+      "start_ticks": "473027605"
+    },
+    {
+      "pid": 2251421,
+      "start_ticks": "473027605"
+    },
+    {
+      "pid": 2251428,
+      "start_ticks": "473027609"
+    },
+    {
+      "pid": 2251432,
+      "start_ticks": "473027609"
+    },
+    {
+      "pid": 2251437,
+      "start_ticks": "473027609"
+    },
+    {
+      "pid": 2251438,
+      "start_ticks": "473027609"
+    },
+    {
+      "pid": 2251538,
+      "start_ticks": "473027619"
+    },
+    {
+      "pid": 2251540,
+      "start_ticks": "473027619"
+    },
+    {
+      "pid": 2251578,
+      "start_ticks": "473027624"
+    },
+    {
+      "pid": 2251680,
+      "start_ticks": "473027637"
+    },
+    {
+      "pid": 2318105,
+      "start_ticks": "473068658"
+    },
+    {
+      "pid": 2333728,
+      "start_ticks": "473081677"
+    },
+    {
+      "pid": 3620306,
+      "start_ticks": "473942726"
+    },
+    {
+      "pid": 3620310,
+      "start_ticks": "473942726"
+    },
+    {
+      "pid": 3620311,
+      "start_ticks": "473942726"
+    },
+    {
+      "pid": 3620313,
+      "start_ticks": "473942728"
+    },
+    {
+      "pid": 3620315,
+      "start_ticks": "473942728"
+    },
+    {
+      "pid": 3620320,
+      "start_ticks": "473942728"
+    },
+    {
+      "pid": 3620321,
+      "start_ticks": "473942728"
+    },
+    {
+      "pid": 3620342,
+      "start_ticks": "473942731"
+    },
+    {
+      "pid": 3620350,
+      "start_ticks": "473942731"
+    },
+    {
+      "pid": 3620358,
+      "start_ticks": "473942732"
+    },
+    {
+      "pid": 3620396,
+      "start_ticks": "473942735"
+    },
+    {
+      "pid": 3620781,
+      "start_ticks": "473942931"
+    },
+    {
+      "pid": 3643301,
+      "start_ticks": "473959907"
+    },
+    {
+      "pid": 3698254,
+      "start_ticks": "473996379"
+    },
+    {
+      "pid": 3698261,
+      "start_ticks": "473996379"
+    },
+    {
+      "pid": 3950312,
+      "start_ticks": "474180571"
+    }
+  ],
+  "preserved": [
+    "BU-filter",
+    "Odysseys processes and data",
+    "mixed historical trees and frozen task-data required by their live Odysseys judges"
+  ],
+  "boundary": "Entry retirement and hidden backup; not an OS permission boundary against the same account.",
+  "remaining_online_processes": []
+}

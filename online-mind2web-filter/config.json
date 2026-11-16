@@ -1,0 +1,23 @@
+{
+  "suite": "online_mind2web",
+  "dataset": "online-mind2web-filter",
+  "count": 247,
+  "max_steps": 100,
+  "timeout_seconds": 3600,
+  "actor_concurrency": 32,
+  "judge_concurrency": 4,
+  "agent_model": "deepseek-v4.1-flash",
+  "agent_reasoning": "high",
+  "mode": "ultrafast",
+  "feature_config": {
+    "preparation_fraction": 0.0,
+    "track_task_progress": false
+  },
+  "fixed_viewport": false,
+  "browser_executable": "/opt/google/chrome/chrome",
+  "judge_protocol": "AgentTrek_eval-native-5090-max2",
+  "judge_reasoning": "low",
+  "judge_max_tokens": 4096,
+  "judge_max_physical_POSTs": 2,
+  "seed": 2026111523
+}

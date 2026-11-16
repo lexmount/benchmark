@@ -1,0 +1,25 @@
+{
+  "source_run": "full-23ee669-1115",
+  "source_product_commit": "23ee669ce507787fd4e7e55d996c0a8fa0ff2753",
+  "source_engine": "1.0.3+lexmount.14",
+  "original_file_sha256": {
+    "legacy/actor.py": "d9ee742530855ab7437b6b7f59a6b5cc4ac3d674ea1978127fdd83f4ab1761f4",
+    "legacy/driver.py": "b9aa47d416768ec957ebceda7ce4b26ac5e79ab56a615783b269ad4c197e2fe4",
+    "legacy/online-mind2web/omw_adapter.py": "e635b1c82622e5c60988733e2ba1c76451f6d062539454a5d205e95602e1c533",
+    "legacy/code/eval_billing.py": "03a2a566d678d0b17330b1cee7de60bbaabefb2de12d7759b206357484a4f07c",
+    "legacy/code/image_transport.py": "21ea9a23c3b6b7399f54e74e6bd0a1f028efb8494cda1c04940cefb6d86c2eb3",
+    "legacy/code/continue_evaluate.py": "90257f5c525499dab1a0c7830bf548d91c02ae0072686d623310ddb3af1ac60f",
+    "legacy/code/bu_lexmount_viewport.py": "72dcbc30728730c052cdf0be5f2ba79ebb7d622c812ebbb478f6db7f45db11a0",
+    "legacy/code/full_benchmarks.py": "7381526d9ac3e41439c428d31532d83adf9f82c58cc8639feeab9943e803c4f6",
+    "legacy/code/judge_refusals_dedup.py": "f6fad326b14aa6ca32a450675d561ca35ac87deafc888e214317bb9bc11b93e5",
+    "legacy/history/native_evidence.py": "931c98ff45496dfcef04541609ca636270aaa43d8cee032fec046dcc25880055",
+    "legacy/history/judge.py": "757d1c52b9285a80955cacfd7598d86f39e43bf56665298234b32e995ad6df3c",
+    "legacy/history/source-reuse.json": "8451d674aa380eef285c75b2a465dec128da8fd639b9687d4a188242ae7d1c89",
+    "legacy/history/tools/upstream_remote_sdk_request.py": "9e697b85dcdb264e03668fd742960d1b102da582c4cca546f08e4616f76be7ca",
+    "legacy/history/upstream/om/onlinemind2web_judge.py": "b3964263e8bb5b57776c82ddd847d1d439fc37c5328bf99815a103c20722333a",
+    "legacy/history/upstream/om/evaluation_prompt.py": "8471ee56474347c2d176ea4e3d0c8aa9e8b140dd65ef6eacbb63c3b3e3df2809"
+  },
+  "source_dataset_sha256": "8343c23be98d6d63856e9b53ff3884222be099cc0f55ad5edb475176f54317ed",
+  "path_binding_only": true,
+  "driver_runtime_change": "Only the run() job-count assertion changes from 600 mixed-suite jobs to 247 Online jobs; prepare is dataset/path packaging. All selected execution functions otherwise retain the original AST."
+}

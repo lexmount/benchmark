@@ -1,0 +1,35 @@
+{
+  "protocol": "AgentTrek_eval-native-5090-max2",
+  "dataset": {
+    "path": "data/tasks.jsonl",
+    "sha256": "9cc8cd5eafb33e0e208aa4d02e0fa263be72d48f98e2e33a56ca1cb943a62623",
+    "count": 247,
+    "original_sha256": "8343c23be98d6d63856e9b53ff3884222be099cc0f55ad5edb475176f54317ed",
+    "excluded_count": 53
+  },
+  "files": {
+    "legacy/history/source-reuse.json": "8451d674aa380eef285c75b2a465dec128da8fd639b9687d4a188242ae7d1c89",
+    "legacy/history/native_evidence.py": "931c98ff45496dfcef04541609ca636270aaa43d8cee032fec046dcc25880055",
+    "legacy/history/judge.py": "757d1c52b9285a80955cacfd7598d86f39e43bf56665298234b32e995ad6df3c",
+    "legacy/history/upstream/om/onlinemind2web_judge.py": "b3964263e8bb5b57776c82ddd847d1d439fc37c5328bf99815a103c20722333a",
+    "legacy/history/upstream/om/evaluation_prompt.py": "8471ee56474347c2d176ea4e3d0c8aa9e8b140dd65ef6eacbb63c3b3e3df2809",
+    "legacy/history/tools/upstream_remote_sdk_request.py": "9e697b85dcdb264e03668fd742960d1b102da582c4cca546f08e4616f76be7ca"
+  },
+  "wire": {
+    "max_tokens": 4096,
+    "reasoning_effort": "low",
+    "seed": 42,
+    "max_physical_POSTs": 2,
+    "SDK_max_retries": 0,
+    "attempt_seconds": 150,
+    "stream_collector": "unchanged1112/upstream_remote_sdk_request.stream_completion"
+  },
+  "evidence": {
+    "thought_chars": 600,
+    "action_chars": 300,
+    "image": "last_available_frame_only",
+    "final_response_appended": false
+  },
+  "execution_rules": "",
+  "new_HF_revision": "research_archive_only_not_enabled"
+}

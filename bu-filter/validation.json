@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-11-16T08:19:43.955391+00:00",
+  "verified_at": "2026-11-16T08:39:45.085158+00:00",
   "protocol": "frozen df93e28 evaluation chain",
   "dataset": {
     "name": "BU-filter",
@@ -25,38 +25,38 @@
     ],
     "functions": {
       "read": {
-        "original_ast_sha256": "82a557094c86de72bf71a1162f871b0283a1862f9f39f7cc8f701149c8e9cad5",
-        "runtime_ast_sha256": "82a557094c86de72bf71a1162f871b0283a1862f9f39f7cc8f701149c8e9cad5",
+        "original_ast_sha256": "eb0c878a297a01fa18b6a88fe42a87f1bd560a02b2be04e7dc3baf9e9852aab4",
+        "runtime_ast_sha256": "eb0c878a297a01fa18b6a88fe42a87f1bd560a02b2be04e7dc3baf9e9852aab4",
         "unchanged": true
       },
       "write": {
-        "original_ast_sha256": "a703dcbec87433edddda070075614f740a7b87734f8831626bead765a2deb7c0",
-        "runtime_ast_sha256": "a703dcbec87433edddda070075614f740a7b87734f8831626bead765a2deb7c0",
+        "original_ast_sha256": "e9c8b389d8f058ca0657d6a5b30c42309c82743a2db19d207fda2548b21ac4f9",
+        "runtime_ast_sha256": "e9c8b389d8f058ca0657d6a5b30c42309c82743a2db19d207fda2548b21ac4f9",
         "unchanged": true
       },
       "sha": {
-        "original_ast_sha256": "f43200c2ab9413b67d32fb0f879a9b25c7d90b843e57a584062f8efed5e604e9",
-        "runtime_ast_sha256": "f43200c2ab9413b67d32fb0f879a9b25c7d90b843e57a584062f8efed5e604e9",
+        "original_ast_sha256": "ffe880be810faf403257f80df6fbb7783c81e8c8f9ad8bf39407ac4a986a5658",
+        "runtime_ast_sha256": "ffe880be810faf403257f80df6fbb7783c81e8c8f9ad8bf39407ac4a986a5658",
         "unchanged": true
       },
       "actor_command": {
-        "original_ast_sha256": "c0bc8bf1c6f35876cfba2d6613d12408d46afa4cffa4c6da79c4f69cb0bedc3d",
-        "runtime_ast_sha256": "c0bc8bf1c6f35876cfba2d6613d12408d46afa4cffa4c6da79c4f69cb0bedc3d",
+        "original_ast_sha256": "ed5bfdeaeeab95f9393061e1a703eeb0aa069c2fb42342aa916ffe514b98ab69",
+        "runtime_ast_sha256": "ed5bfdeaeeab95f9393061e1a703eeb0aa069c2fb42342aa916ffe514b98ab69",
         "unchanged": true
       },
       "invoke": {
-        "original_ast_sha256": "522728e203ef3292d38ef9fa5ff25e251529e575d85163cbad3fc59867471809",
-        "runtime_ast_sha256": "522728e203ef3292d38ef9fa5ff25e251529e575d85163cbad3fc59867471809",
+        "original_ast_sha256": "19e3102fffd7ccd6c98dae859e041ce5419c57d9149755b1d58afacb062e32c0",
+        "runtime_ast_sha256": "19e3102fffd7ccd6c98dae859e041ce5419c57d9149755b1d58afacb062e32c0",
         "unchanged": true
       },
       "grade": {
-        "original_ast_sha256": "28226c2f8c075e3970c85a57f7a454ae5c4f10f9e3e7985f9e0239bf26a12c51",
-        "runtime_ast_sha256": "28226c2f8c075e3970c85a57f7a454ae5c4f10f9e3e7985f9e0239bf26a12c51",
+        "original_ast_sha256": "9bbd6055e72e900f2937b185eb69f433a781d5528569da792f4a317aaafbf518",
+        "runtime_ast_sha256": "9bbd6055e72e900f2937b185eb69f433a781d5528569da792f4a317aaafbf518",
         "unchanged": true
       },
       "run": {
-        "original_ast_sha256": "085276021bb70b60dc7516a9381f78e545bfeea8afb21a5b5db649c61b26fa87",
-        "runtime_ast_sha256": "cd2851a4367609f91f9d74c63e5703fbc7fc1da367df822212e01e2eaf67b306",
+        "original_ast_sha256": "8d4176b477a7298449ef81665007e3f1ae84657c88826cebbd5294519e69d7af",
+        "runtime_ast_sha256": "6bf22f94c43440c2f35db4f74616d2a027ff0e6c874cddbf0d921749b16475cd",
         "unchanged": false
       }
     }
@@ -64,11 +64,11 @@
   "frozen_original_files": 12,
   "unit_tests": {
     "passed": 29,
-    "command": "python -m pytest -q tests"
+    "command": ".venvs/bu-filter-test/bin/python -m pytest -q bu-filter/tests"
   },
   "original_bwrap_probe": {
     "product_commit": "df93e28b9aa1013523f39391dd4cb8a269dae585",
-    "at": 1794816053.2552788,
+    "at": 1794818318.3590217,
     "model_requests": 0,
     "benchmark_tasks": 0
   },
@@ -95,11 +95,33 @@
     "Actor/Judge retry or recovery redesign"
   ],
   "verified_package_source_files": 14,
-  "configuration_sha256": "1e63b8db842d12a370b34236b6235828c53afa942d20fc8a55a21470980540df",
+  "configuration_sha256": "b9bcbc3aa0b8ca786f64014eac4741968bf626575990509151793cf29a5dc113",
   "credential_scan": "passed",
   "packaging_regressions": [
     "reject cross-run Judge folders",
     "reject incorrect suite and ordinal",
     "reject modifications to canonical fixed configuration"
-  ]
+  ],
+  "runtime_ast_python": "3.10.12",
+  "environment": {
+    "actor": {
+      "python": "3.14.5",
+      "matched_distributions": 69,
+      "exact_name_and_version_set": true
+    },
+    "judge": {
+      "python": "3.12.13",
+      "matched_distributions": 104,
+      "exact_name_and_version_set": true,
+      "test_packages_in_separate_environment": true
+    },
+    "controller": {
+      "executable": "/usr/bin/python3",
+      "current_python": "3.10.12",
+      "historical_minor_version": "3.10",
+      "historical_patch_version_verified": false,
+      "stdlib_only_load_verified": true
+    },
+    "mismatched_actor_python_rejected": true
+  }
 }

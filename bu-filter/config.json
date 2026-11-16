@@ -35,5 +35,6 @@
     "track_task_progress": false,
     "public_source_lookup": true,
     "review_answer": true
-  }
+  },
+  "controller_python": "/usr/bin/python3"
 }

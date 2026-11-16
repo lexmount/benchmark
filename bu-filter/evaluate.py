@@ -5,7 +5,7 @@ import argparse, asyncio, getpass, hashlib, json, os, shutil, subprocess, sys, t
 from pathlib import Path
 from datetime import datetime, timezone
 HERE = Path(__file__).resolve().parent
-CONFIG_SHA256 = '1e63b8db842d12a370b34236b6235828c53afa942d20fc8a55a21470980540df'
+CONFIG_SHA256 = 'b9bcbc3aa0b8ca786f64014eac4741968bf626575990509151793cf29a5dc113'
 sys.path.insert(0, str(HERE))
 from dataset import actor_task, load_judge_tasks, load_tasks, validate_dataset
 
@@ -42,9 +42,9 @@ def config(path=HERE/'config.json'):
 
 
 def product_probe(source, python):
-    code=r'''import sys,json,hashlib
+    code=r'''import sys,json,hashlib,platform
 from pathlib import Path
-from importlib.metadata import version
+from importlib.metadata import version,distributions
 p=Path(sys.argv[1]);sys.path.insert(0,str(p/'src'));sys.path.insert(0,str(p/'src/lexmount_browser_agent/engine'))
 import lexmount_browser_agent,browser_use
 from lexmount_browser_agent import AgentConfig
@@ -54,7 +54,7 @@ assert package==p/'src/lexmount_browser_agent'
 assert engine==package/'engine/browser_use'
 assert (engine/'agent/review.py').is_file()
 assert cfg.reasoning_effort=='high' and cfg.mode=='ultrafast'
-print(json.dumps({'product_import':str(package),'engine_source':str(engine),'engine_version':version('browser-use'),'model':cfg.model,'reasoning_effort':cfg.reasoning_effort,'mode':cfg.mode,'max_steps':cfg.max_steps,'timeout_seconds':cfg.timeout_seconds,'feature_config':{'preparation_fraction':0.0,'track_task_progress':False,'public_source_lookup':True,'review_answer':True},'versions':{n:version(n) for n in ['browser-use','browser-harness','pydantic-ai-slim','pydantic','openai','httpx','cdp-use']}}))
+print(json.dumps({'python_version':platform.python_version(),'all_versions':{d.metadata['Name'].lower().replace('_','-'):d.version for d in distributions()},'product_import':str(package),'engine_source':str(engine),'engine_version':version('browser-use'),'model':cfg.model,'reasoning_effort':cfg.reasoning_effort,'mode':cfg.mode,'max_steps':cfg.max_steps,'timeout_seconds':cfg.timeout_seconds,'feature_config':{'preparation_fraction':0.0,'track_task_progress':False,'public_source_lookup':True,'review_answer':True},'versions':{n:version(n) for n in ['browser-use','browser-harness','pydantic-ai-slim','pydantic','openai','httpx','cdp-use']}}))
 '''
     result=subprocess.run([str(executable(python)),'-c',code,str(source)],capture_output=True,text=True,timeout=60)
     if result.returncode:
@@ -66,15 +66,23 @@ def preflight(args):
     cfg=config(args.config); data=validate_dataset()
     source=Path(args.agent_source).expanduser().resolve()
     proof=product_probe(source,args.agent_python)
+    environment=read(HERE/'runtime-environment.json')
+    assert proof['python_version']==environment['actor']['python_version'], 'Actor Python differs from df93'
+    assert proof['all_versions']==environment['actor']['all_versions'], 'Actor dependencies differ from df93'
+    controller_version=subprocess.check_output([cfg['controller_python'],'-c','import platform;print(platform.python_version())'],text=True,timeout=20).strip()
+    assert controller_version==environment['controller']['python_version'], 'Controller Python differs from df93'
     browser=Path(cfg['browser_executable'])
     if not shutil.which('bwrap'):
         raise RuntimeError('Original df93 bwrap isolation is required')
     browser_version=subprocess.check_output([str(browser),'--version'],text=True,timeout=20).strip()
-    subprocess.run([str(executable(args.judge_python)),'-c','from browser_use.llm.messages import UserMessage;import httpx,openai'],check=True,timeout=60)
+    judge_code="from browser_use.llm.messages import UserMessage;import httpx,openai,platform,json;from importlib.metadata import distributions;print(json.dumps({'python_version':platform.python_version(),'all_versions':{d.metadata['Name'].lower().replace('_','-'):d.version for d in distributions()}}))"
+    judge_proof=json.loads(subprocess.check_output([str(executable(args.judge_python)),'-c',judge_code],text=True,timeout=60))
+    assert judge_proof['python_version']==environment['judge']['python_version'], 'Judge Python differs from df93'
+    assert judge_proof['all_versions']==environment['judge']['all_versions'], 'Judge dependencies differ from df93'
     credentials=read(args.credentials_file)
     assert credentials['model']=='deepseek-v4.1-flash' and credentials.get('reasoning_effort','high')=='high'
     assert credentials.get('mode','ultrafast')=='ultrafast'
-    return {'dataset':data,'product':proof,'browser':{'path':str(browser),'version':browser_version,'sha256':sha(browser)},'bwrap':shutil.which('bwrap'),'model_requests':0}
+    return {'dataset':data,'product':proof,'controller_python_version':controller_version,'judge':judge_proof,'browser':{'path':str(browser),'version':browser_version,'sha256':sha(browser)},'bwrap':shutil.which('bwrap'),'model_requests':0}
 
 
 def source_hashes(source):
@@ -100,7 +108,7 @@ def prepare(args):
     # Same dedicated product/.venv and src layout as the original run; no editable path outside bwrap.
     subprocess.run(['uv','sync','--frozen','--python',str(executable(args.agent_python))],cwd=product,check=True)
     installed=product_probe(product,product/'.venv/bin/python')
-    assert installed['versions']==proof['product']['versions'],'Product dependency versions changed while installing the frozen build'
+    assert installed['versions']==proof['product']['versions'] and installed['all_versions']==proof['product']['all_versions'] and installed['python_version']==proof['product']['python_version'],'Product dependency versions changed while installing the frozen build'
     build={'commit':product_commit(source),'engine_version':installed['engine_version'],'source_sha256':source_hashes(product)}
     write(run/'build.json',build)
     support=run/'support';support.mkdir()
@@ -110,7 +118,7 @@ def prepare(args):
     if not capacity.is_file():raise FileNotFoundError('Capacity metadata is required; do not discard existing evaluators')
     inflight=read(capacity)['in_flight']
     write(support/'previous-capacity/pause-bu-priority.json',{'in_flight':inflight})
-    settings={'product_source':str(product),'agent_python':str(product/'.venv/bin/python'),'judge_python':str(executable(args.judge_python)),'credentials_file':str(support/'.private/model.json'),'agent':cfg['agent'],'judge':cfg['judge'],'browser_executable':cfg['browser_executable'],'viewport':cfg['viewport']}
+    settings={'controller_python':cfg['controller_python'],'product_source':str(product),'agent_python':str(product/'.venv/bin/python'),'judge_python':str(executable(args.judge_python)),'credentials_file':str(support/'.private/model.json'),'agent':cfg['agent'],'judge':cfg['judge'],'browser_executable':cfg['browser_executable'],'viewport':cfg['viewport']}
     write(run/'settings.json',settings)
     tasks=[{k:t[k] for k in ['id','instruction','start_url','answer']} for t in load_judge_tasks()]
     write(run/'task-data.json',{'bu_v1':tasks})
@@ -210,12 +218,12 @@ def main():
         run=prepare(args)
         if args.command=='run':
             probe(run)
-            subprocess.run([str(executable(sys.executable)),str(run/'driver/run.py'),'run'],check=True)
+            subprocess.run([read(run/'settings.json')['controller_python'],str(run/'driver/run.py'),'run'],check=True)
         print(json.dumps({'run':str(run),'prepared_tasks':87,'actor_steps':300,'timeout_seconds':3600}))
     elif args.command=='probe':probe(args.output)
     elif args.command=='resume':
         run=Path(args.output).resolve();verify_run(run)
-        subprocess.run([str(executable(sys.executable)),str(run/'driver/run.py'),'run'],check=True)
+        subprocess.run([read(run/'settings.json')['controller_python'],str(run/'driver/run.py'),'run'],check=True)
     else:print(json.dumps(summarize(args.output),ensure_ascii=False,indent=2))
 
 

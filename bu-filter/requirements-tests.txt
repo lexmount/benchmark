@@ -1,0 +1,6 @@
+# Separate offline test environment; do not install these extras into the Judge runtime.
+-r requirements-judge.txt
+pytest==8.4.2
+iniconfig==2.3.1
+packaging==26.3
+pluggy==1.7.0

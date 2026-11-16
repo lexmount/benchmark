@@ -56,6 +56,8 @@ evaluate.py：仅87题准备、文件路径绑定与独立汇总
 | `data/exclusions.json` | 上表排除名单与原因 |
 | `dataset.py` | 固定数据校验、公开任务与裁判数据分离 |
 | `config.json` | 固定87／300／3600及其他原参数 |
+| `runtime-environment.json` | 原Actor／Judge全部依赖与解释器记录 |
+| `requirements-judge.txt`／`requirements-tests.txt` | 原Judge104项固定版本及独立测试环境 |
 | `strict_runtime.py` | 原调度函数加载和唯一100→87的AST适配 |
 | `legacy/actor.py` | 受测300回合Actor原件 |
 | `legacy/reference/` | df93原100回合Actor及原调度源，仅作源码核验 |
@@ -81,13 +83,28 @@ git clone --branch bu-filter --single-branch \
 cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
 test ! -e bu-filter
 cp -a ../benchmark-bu-filter/bu-filter ./bu-filter
-uv venv --python 3.12 .venvs/bu-filter-control
+uv venv --python 3.12.13 .venvs/bu-filter-control
 uv pip install --python .venvs/bu-filter-control/bin/python -r bu-filter/requirements-control.txt
-uv venv --python 3.12 .venvs/bu-filter-judge
-uv pip install --python .venvs/bu-filter-judge/bin/python -r bu-filter/requirements-judge.txt
+uv venv --python 3.12.13 .venvs/bu-filter-judge
+uv pip sync --python .venvs/bu-filter-judge/bin/python bu-filter/requirements-judge.txt
+uv venv --python 3.12.13 .venvs/bu-filter-test
+uv pip sync --python .venvs/bu-filter-test/bin/python bu-filter/requirements-tests.txt
 ```
 
 主机需要原评测使用的 `bwrap` 和 `/opt/google/chrome/chrome`。缺失会明确报错，不降级为宿主直接执行。裁判环境独立使用 `browser-use==0.13.14` 的消息类型，不覆盖产品环境。
+
+原df93的实际运行环境已逐项核对并保留：
+
+| 角色 | Python | 依赖 |
+|---|---|---|
+| 原调度循环 | 系统 `/usr/bin/python3`，3.10.12 | 仅标准库 |
+| Actor产品 | 3.14.5 | 原`uv.lock`，69项发行包 |
+| Judge | 3.12.13 | `requirements-judge.txt`固定原104项版本 |
+| 打包／免费测试 | 3.12.13 | 独立环境；测试依赖不装入Judge |
+
+历史记录能确认原调度器使用系统Python3.10及上述启动路径；3.10.12是同一路径的当前实测，不表示历史OS镜像完整冻结。
+
+完整版本见 `runtime-environment.json`。预检逐项核对Actor/Judge解释器及全部依赖；不符则拒绝启动。正式run/resume用原系统解释器启动调度循环。
 
 **产品接入保持df93启动器的原要求。** 它明确要求内置引擎、`public_source_lookup=True`、`review_answer=True`、`preparation_fraction=0.0`、`track_task_progress=False`。原生a-sb缺少这些接口时，预检会拒绝；本轮没有为兼容a-sb而改评测器，也没有给a-sb添加功能。产品内部prompt由受测产品版本决定，评测器不另作优化。
 
@@ -95,7 +112,7 @@ uv pip install --python .venvs/bu-filter-judge/bin/python -r bu-filter/requireme
 
 ```bash
 cd /data/wf/sxh/workspace/lexmount/agent-builds/df93e28
-uv sync --frozen --python 3.12
+uv sync --frozen --python 3.14.5
 ```
 
 若使用其他兼容产品，请替换下面的源码及环境路径。正式准备阶段会复制本轮产品源码／锁文件，并创建本轮独立 `product/.venv`，保持原df93的bwrap挂载布局。
@@ -117,7 +134,7 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
 cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval
 
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py verify
-.venvs/bu-filter-judge/bin/python -m pytest -q bu-filter/tests
+.venvs/bu-filter-test/bin/python -m pytest -q bu-filter/tests
 
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py preflight \
   --agent-source /data/wf/sxh/workspace/lexmount/agent-builds/df93e28 \

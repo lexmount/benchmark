@@ -26,12 +26,12 @@ def prepared_run(tmp_path):
         jobs.append({"suite": "bu_v1", "ordinal": task["ordinal"], "task_id": task["id"],
                      "source_folder": str(folder),
                      "judge_folder": str(run / "judges" / "bu_v1" / task["id"])})
-    plan = {"benchmark": "BU-filter", "counts": {"bu_v1": 87}, "jobs": jobs, "file_sha256": {}}
+    plan = {"benchmark": "BU-filter", "counts": {"bu_v1": 88}, "jobs": jobs, "file_sha256": {}}
     evaluate.write(run / "plan.json", plan)
     return run, plan
 
 
-def test_valid_87_task_packaging_passes_offline_validation(tmp_path):
+def test_valid_88_task_packaging_passes_offline_validation(tmp_path):
     run, plan = prepared_run(tmp_path)
     assert evaluate.verify_run(run) == plan
 
@@ -39,7 +39,7 @@ def test_valid_87_task_packaging_passes_offline_validation(tmp_path):
 @pytest.mark.parametrize("field", ["judge_folder", "suite", "ordinal"])
 def test_misbound_job_is_rejected_before_reporting_old_results(tmp_path, field):
     run, plan = prepared_run(tmp_path)
-    assert len(evaluate.verify_run(run)["jobs"]) == 87
+    assert len(evaluate.verify_run(run)["jobs"]) == 88
     job = plan["jobs"][0]
     if field == "judge_folder":
         old = tmp_path / "old-bu100-run" / job["task_id"]
@@ -94,6 +94,6 @@ def test_bu_archive_preserves_other_benchmarks():
     assert merged["default_odysseys_benchmark"] == original["default_odysseys_benchmark"]
     assert merged["operator_note"] == original["operator_note"]
     assert merged["benchmarks"]["bu-filter"] == {
-        "task_count": 87, "max_steps": 300, "timeout_seconds": 3600,
+        "task_count": 88, "max_steps": 300, "timeout_seconds": 3600,
         "entry": "bu-filter/evaluate.py",
     }

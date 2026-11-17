@@ -81,14 +81,14 @@ class SourceIdentityTests(unittest.TestCase):
         self.assertEqual([node.name for node in extracted.body], list(strict_runtime.FUNCTIONS))
         self.assertEqual(len(audit["approved_ast_changes"]), 3)
         self.assertEqual(audit["approved_ast_changes"][0]["before"], 100)
-        self.assertEqual(audit["approved_ast_changes"][0]["after"], 87)
+        self.assertEqual(audit["approved_ast_changes"][0]["after"], 88)
         for node in extracted.body:
             expected = copy.deepcopy(originals[node.name])
             if node.name == "run":
                 outer = next(item for item in expected.body if isinstance(item, ast.Assert)
                              and "len(plan['jobs']) == 100" in ast.unparse(item))
                 count = next(item for item in ast.walk(outer) if isinstance(item, ast.Constant) and item.value == 100)
-                count.value = 87
+                count.value = 88
                 for statement in expected.body:
                     if not isinstance(statement, ast.Assert):
                         continue
@@ -170,7 +170,7 @@ class OriginalBehaviorTests(unittest.IsolatedAsyncioTestCase):
                         finished.append(task_id)
                         if len([item for item in finished if item != first]) == 86:
                             short_actors_done.set()
-                        if len(finished) == 87:
+                        if len(finished) == 88:
                             all_actors_done.set()
                     else:
                         self.assertIsNone(stdin)
@@ -201,11 +201,11 @@ class OriginalBehaviorTests(unittest.IsolatedAsyncioTestCase):
                     await asyncio.wait_for(campaign, 5)
             self.assertEqual(timeouts, {"actor": {3900}, "judge": {14400}})
             self.assertTrue((run / "complete-all.json").is_file())
-            self.assertEqual(len(judged), 87)
+            self.assertEqual(len(judged), 88)
 
     async def test_original_six_gib_memory_admission_and_point75_poll(self):
         with tempfile.TemporaryDirectory() as temp:
-            run, plan, namespace = fixture(temp, range(1, 87))
+            run, plan, namespace = fixture(temp, range(1, 88))
             memory = {"available_kib": 5 * 1048576}
             sleeps = []
             real_sleep = asyncio.sleep
@@ -234,7 +234,7 @@ class OriginalBehaviorTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_any_existing_packet_is_preserved_even_if_judge_error(self):
         with tempfile.TemporaryDirectory() as temp:
-            run, plan, namespace = fixture(temp, range(87))
+            run, plan, namespace = fixture(temp, range(88))
             packet = Path(plan["jobs"][0]["judge_folder"]) / "judge-bu_v1.json"
             write(packet, {"status": "judge_error", "score": None})
             original = packet.read_bytes()
@@ -248,7 +248,7 @@ class OriginalBehaviorTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_original_interrupted_agent_dir_is_not_rerun_and_completion_asserts(self):
         with tempfile.TemporaryDirectory() as temp:
-            run, plan, namespace = fixture(temp, range(1, 87))
+            run, plan, namespace = fixture(temp, range(1, 88))
             folder = Path(plan["jobs"][0]["source_folder"])
             (folder / "agent").mkdir()
             invoke = AsyncMock(side_effect=AssertionError("Original interrupted Actor must not rerun"))

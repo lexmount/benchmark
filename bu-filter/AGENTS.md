@@ -3,7 +3,7 @@
 本目录是日常 BU 评测的唯一受支持入口。先阅读 README.md，再运行 evaluate.py verify。
 
 - 本任务仅筛选任务、固定300回合并打包原评测器。不得改写Actor／Judge／取证／恢复函数或prompt；legacy原件必须通过来源SHA校验。
-- 只使用固定的87题；13个排除ID见data/exclusions.json，不恢复旧100题或额外排除第19题。
+- 只使用固定的88题；12个排除ID见data/exclusions.json。按SELECTION_REVIEW.md暂挂第19题、恢复第46和70题，不恢复旧100题；后续名单变化必须带证据并同步清单、校验和及题数断言。
 - 保持题文、参考答案、评分提示和证据协议原样。执行器只接收本题id/instruction/start_url，不能读取评测答案。
 - 默认300模型回合、3600秒、DeepSeek max；Judge为DeepSeek low，仅内容拒绝按既有协议使用GPT低推理补判。
 - 解释器与依赖见runtime-environment.json；测试依赖只装独立test环境，不混入Judge。

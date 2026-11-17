@@ -138,7 +138,7 @@ def bu_defaults(current: dict, new_entry: str) -> dict:
     for name in list(benchmarks):
         if name.lower() in old_bu:
             del benchmarks[name]
-    benchmarks["bu-filter"] = {"task_count": 87, "max_steps": 300,
+    benchmarks["bu-filter"] = {"task_count": 88, "max_steps": 300,
                                "timeout_seconds": 3600, "entry": new_entry}
     return value
 
@@ -244,7 +244,7 @@ def main() -> None:
     defaults_file = root / "benchmark/defaults.json"
     current = json.loads(defaults_file.read_text()) if defaults_file.exists() else {}
     write_json(defaults_file, bu_defaults(current, str(args.new_entry)))
-    wrapper = '''"""Daily BU entry: only BU-filter. Legacy BU data is retired."""\nimport argparse, os, sys\nfrom pathlib import Path\np=argparse.ArgumentParser(add_help=False);p.add_argument('--benchmark',default='bu-filter')\na,rest=p.parse_known_args()\nif a.benchmark.lower()!='bu-filter':raise SystemExit('Legacy BU benchmarks are retired. Use BU-filter (87 tasks).')\nroot=Path(__file__).resolve().parents[1]\nentry=root/%r\npython=root/'.venvs/bu-filter-control/bin/python'\nif not python.is_file():raise SystemExit('BU-filter control environment is missing. Run its setup instructions.')\nos.execv(str(python),[str(python),str(entry),*rest])\n''' % str(args.new_entry)
+    wrapper = '''"""Daily BU entry: only BU-filter. Legacy BU data is retired."""\nimport argparse, os, sys\nfrom pathlib import Path\np=argparse.ArgumentParser(add_help=False);p.add_argument('--benchmark',default='bu-filter')\na,rest=p.parse_known_args()\nif a.benchmark.lower()!='bu-filter':raise SystemExit('Legacy BU benchmarks are retired. Use BU-filter (88 tasks).')\nroot=Path(__file__).resolve().parents[1]\nentry=root/%r\npython=root/'.venvs/bu-filter-control/bin/python'\nif not python.is_file():raise SystemExit('BU-filter control environment is missing. Run its setup instructions.')\nos.execv(str(python),[str(python),str(entry),*rest])\n''' % str(args.new_entry)
     (root / "benchmark/load_bu.py").write_text(wrapper)
     receipt["complete"] = True
     write_json(archive / "receipt.json", receipt)

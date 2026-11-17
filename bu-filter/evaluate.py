@@ -5,7 +5,7 @@ import argparse, asyncio, getpass, hashlib, json, os, shutil, subprocess, sys, t
 from pathlib import Path
 from datetime import datetime, timezone
 HERE = Path(__file__).resolve().parent
-CONFIG_SHA256 = 'f9c7b483428901430e17434fe81a6725811f53ad6fc091fe37e4185ddda8a90d'
+CONFIG_SHA256 = 'ab2c6fa950bca5d3d54ba8eeb30d4b9fd510ce95300f46d75d18fa3b8a8d0e2e'
 sys.path.insert(0, str(HERE))
 from dataset import actor_task, load_judge_tasks, load_tasks, validate_dataset
 
@@ -35,7 +35,7 @@ def config(path=HERE/'config.json'):
         raise ValueError('The frozen BU-filter configuration checksum changed')
     value=read(path)
     expected=read(HERE/'config.json')
-    if value!=expected or value['benchmark']!='BU-filter' or value['expected_tasks']!=87:
+    if value!=expected or value['benchmark']!='BU-filter' or value['expected_tasks']!=88:
         raise ValueError('Only the frozen BU-filter configuration is supported')
     assert value['agent']['max_steps']==300 and value['agent']['timeout_seconds']==3600
     return value
@@ -128,7 +128,7 @@ def prepare(args):
     write(run/'settings.json',settings)
     tasks=[{k:t[k] for k in ['id','instruction','start_url','answer']} for t in load_judge_tasks()]
     write(run/'task-data.json',{'bu_v1':tasks})
-    assert len(tasks)==87
+    assert len(tasks)==88
     jobs=[]
     for task in load_tasks():
         folder=run/'runs/bu_v1'/task['id'];folder.mkdir(parents=True)
@@ -142,7 +142,7 @@ def prepare(args):
     (driver/'run.py').write_text(bootstrap)
     write(run/'probes/candidate/actor-config.json',{'product':build})
     frozen=[run/'build.json',run/'task-data.json',run/'settings.json',*driver.glob('*.py'),*[harness/p for p in source_hashes(harness)],*[product/p for p in build['source_sha256']],*[Path(j['source_folder'])/name for j in jobs for name in ['task.json','actor-config.json']]]
-    plan={'schema_version':1,'benchmark':'BU-filter','product_commit':build['commit'],'created_at':time.time(),'counts':{'bu_v1':87},'jobs':jobs,'new_actor_runs':87,'reused_actor_runs':0,'old_actor_runs':0,'actor_concurrency':32,'judge_concurrency':4,'identical_task_inputs':87,'agent_reasoning':'max','feature_config':{},'file_sha256':{str(p):sha(p) for p in frozen},'dataset_manifest_sha256':sha(harness/'data/manifest.json'),'source_df93_commit':'df93e28b9aa1013523f39391dd4cb8a269dae585'}
+    plan={'schema_version':1,'benchmark':'BU-filter','product_commit':build['commit'],'created_at':time.time(),'counts':{'bu_v1':88},'jobs':jobs,'new_actor_runs':88,'reused_actor_runs':0,'old_actor_runs':0,'actor_concurrency':32,'judge_concurrency':4,'identical_task_inputs':88,'agent_reasoning':'max','feature_config':{},'file_sha256':{str(p):sha(p) for p in frozen},'dataset_manifest_sha256':sha(harness/'data/manifest.json'),'source_df93_commit':'df93e28b9aa1013523f39391dd4cb8a269dae585'}
     write(run/'plan.json',plan)
     return run
 
@@ -150,8 +150,8 @@ def prepare(args):
 def verify_run(run):
     run=Path(run).resolve();plan=read(run/'plan.json')
     allowed={t['id']:t for t in load_tasks()}
-    if plan.get('benchmark')!='BU-filter' or plan.get('counts')!={'bu_v1':87} or len(plan['jobs'])!=87:
-        raise ValueError('Only the fixed 87-task run is supported')
+    if plan.get('benchmark')!='BU-filter' or plan.get('counts')!={'bu_v1':88} or len(plan['jobs'])!=88:
+        raise ValueError('Only the fixed 88-task run is supported')
     if {j['task_id'] for j in plan['jobs']}!=allowed.keys():raise ValueError('Run task set changed')
     for job in plan['jobs']:
         task=allowed[job['task_id']]
@@ -183,7 +183,7 @@ def summarize(run):
         rows.append({'ordinal':job['ordinal'],'task_id':job['task_id'],'state':'pass' if valid and grade['score']==1 else 'fail' if valid else 'unknown' if packet.exists() or execution.exists() or (execution.parent/'agent').exists() else 'pending','judge_status':grade.get('status') if grade else None})
     counts={s:sum(r['state']==s for r in rows) for s in ['pass','fail','unknown','pending']}
     complete=not counts['unknown'] and not counts['pending']
-    value={'benchmark':'BU-filter','tasks':87,**counts,'complete':complete,'success_rate':counts['pass']/87 if complete else None,'confirmed_lower_bound':counts['pass']/87,'upper_bound':(counts['pass']+counts['unknown']+counts['pending'])/87,'rows':rows,'note':'Independent reporting only. The frozen original runtime preserves all existing judge packets, including errors; it never merges historical passes.'}
+    value={'benchmark':'BU-filter','tasks':88,**counts,'complete':complete,'success_rate':counts['pass']/88 if complete else None,'confirmed_lower_bound':counts['pass']/88,'upper_bound':(counts['pass']+counts['unknown']+counts['pending'])/88,'rows':rows,'note':'Independent reporting only. The frozen original runtime preserves all existing judge packets, including errors; it never merges historical passes.'}
     write(run/'summary.json',value);return value
 
 
@@ -225,7 +225,7 @@ def main():
         if args.command=='run':
             probe(run)
             subprocess.run([read(run/'settings.json')['controller_python'],str(run/'driver/run.py'),'run'],check=True)
-        print(json.dumps({'run':str(run),'prepared_tasks':87,'actor_steps':300,'timeout_seconds':3600}))
+        print(json.dumps({'run':str(run),'prepared_tasks':88,'actor_steps':300,'timeout_seconds':3600}))
     elif args.command=='probe':probe(args.output)
     elif args.command=='resume':
         run=Path(args.output).resolve();verify_run(run)

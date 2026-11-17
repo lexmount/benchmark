@@ -1,9 +1,9 @@
 {
   "name": "BU-filter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "upstream_official": false,
-  "task_count": 87,
-  "excluded_count": 13,
+  "task_count": 88,
+  "excluded_count": 12,
   "reference_answer_count": 37,
   "original_task_count": 100,
   "source_dataset": "Lexmount BU Bench 1.1 as actually executed by df93e28",
@@ -11,11 +11,11 @@
   "source_sha256": "3c951b9543b49d5b06ee780d3b0df62fe5655102fbddb6ffce8773dc41fd0297",
   "upstream_repository": "https://github.com/browser-use/benchmark",
   "upstream_commit": "77b4df339fe8fc293fb48896cfa1c73dd743af42",
-  "encrypted_sha256": "4fb79c34aaafc9feb96c781706efd3f07f248a7f67459fc0c2dd18d3f32f9990",
-  "exclusions_sha256": "326df1ba11fa816c2077650677c3f740ddbcf4cff774487ad1ad53cbc58d260a",
-  "ordered_ids_sha256": "78f89b882ad35dac45d10911d37fb16e1380ef49113dea670d48564a7bebcafd",
-  "order": "Keep df93e28 original evaluation ordinals; delete only the approved 13 IDs; never reinterleave or renumber",
-  "task_19_retained": true,
+  "encrypted_sha256": "9307eb8efbece831eba1fba3dfd440a13f38f172f8e0f2c21e70c286157ee69f",
+  "exclusions_sha256": "4ed465daba82a5788479ba0a3d876136bb5e88d66b4effdbd740ddb597040b0f",
+  "ordered_ids_sha256": "87cc8574cf71f124bce30935a4ce83535a8a9b34fac39450daf5bb7aa9af78df",
+  "order": "Keep df93e28 original evaluation ordinals; apply the reviewed 12-ID exclusion set; never reinterleave or renumber",
+  "task_19_retained": false,
   "tasks": [
     {
       "ordinal": 1,
@@ -118,12 +118,6 @@
       "id": "7db8369d-727b-485e-9d7a-e0f0ecdd964d",
       "instruction_sha256": "20598e354b82bf66b4ec767afdecb9967d3c64e89d0fa270a838110c537f2082",
       "actor_record_sha256": "f9a570fb1ec7cb5bfa203f85eb6d47a64dbef463a54d07d0ceb13396e2c0923f"
-    },
-    {
-      "ordinal": 19,
-      "id": "d7eea2b1-7d31-425e-977c-b803ffd28250",
-      "instruction_sha256": "27f90d280887f162ef2556963165815686589ea45d5c7e146fde2c085303219c",
-      "actor_record_sha256": "e46adf06d49b31caecfec4513309c013967189c7768a05ce8fd510ad98aa4616"
     },
     {
       "ordinal": 20,
@@ -264,6 +258,12 @@
       "actor_record_sha256": "eb7bab0dbe54d1fbc080fa465f695754ef22d8dfdcb8689a24c8bfb6f3da838a"
     },
     {
+      "ordinal": 46,
+      "id": "0a58ebe0-9d6c-4839-9b09-d909271bb1f9",
+      "instruction_sha256": "40c68fbc6b5f41f8282c14dbd40e17aaf566ab74aee2bab176515e322625ac56",
+      "actor_record_sha256": "392b583b1a76543da7e33718160d1c157fb383d5cb860fe6ca1c5b324e7f6e7f"
+    },
+    {
       "ordinal": 47,
       "id": "5eca85e0-4b4d-418e-ad1a-390dc68910d1",
       "instruction_sha256": "56dcb7660e8c2655c83d92bd301c898407a65d98e30485a2774d3ecc7427a1ec",
@@ -388,6 +388,12 @@
       "id": "0a32a0e6-6bd4-454f-b238-d7f650f71ab8",
       "instruction_sha256": "78a573c6731670dae1f6e9246d32638a1056c5fbe35762bd353ee699fb6a0965",
       "actor_record_sha256": "32044af2ef57e1d391305e0aafb0c839a5336ef5c1a831db2b103aea61e58109"
+    },
+    {
+      "ordinal": 70,
+      "id": "a78f98be-efef-4d24-b826-c6d4f2cb93e6",
+      "instruction_sha256": "0f4dc8b2331889ccf08b522c71a5dfd0feafc04d509d75ec11eeb3b574ff144a",
+      "actor_record_sha256": "81cc16da7e3760e71d1ab73374d24e5223e6e876b6eeb3eb076712b799ce6e03"
     },
     {
       "ordinal": 71,

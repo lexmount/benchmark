@@ -1,4 +1,4 @@
-"""Run the frozen df93 controller with the approved 87-task count adaptation.
+"""Run the frozen df93 controller with the approved 88-task count adaptation.
 
 The original function ASTs are loaded from the preserved reference. The task count and Actor profile assertions use the current fixed configuration. Runtime paths are bound to the
 new self-contained run; no scheduling, timeout, retry, or prompt logic is added.
@@ -52,11 +52,11 @@ def _extracted_module() -> tuple[ast.Module, dict]:
                 and node.left.args[0].value.id == "plan"
                 and isinstance(node.left.args[0].slice, ast.Constant)
                 and node.left.args[0].slice.value == "jobs"):
-            node.comparators[0] = ast.copy_location(ast.Constant(value=87), node.comparators[0])
+            node.comparators[0] = ast.copy_location(ast.Constant(value=88), node.comparators[0])
             changes.append({"function": "run", "line": node.lineno,
-                            "expression": "len(plan['jobs'])", "before": 100, "after": 87})
+                            "expression": "len(plan['jobs'])", "before": 100, "after": 88})
     if len(changes) != 1:
-        raise ValueError("Expected exactly one approved df93 100-to-87 task-count adaptation")
+        raise ValueError("Expected exactly one approved df93 100-to-88 task-count adaptation")
     # Keep the original scheduler, admission and resume logic. Bind only the two product checks.
     bindings = {
         "plan['review_answer'] and plan['request_budget_includes_answer_review']":

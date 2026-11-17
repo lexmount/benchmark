@@ -1,15 +1,16 @@
 {
-  "verified_at": "2026-11-16T08:48:35.348727+00:00",
+  "verified_at": "2026-11-16T11:18:08.369157+00:00",
+  "scope": "88-task selection correction; offline data/source/runtime-equivalence verification only",
   "protocol": "frozen df93e28 evaluation chain",
   "dataset": {
     "name": "BU-filter",
-    "version": "1.0.0",
-    "task_count": 87,
-    "excluded_count": 13,
+    "version": "1.1.0",
+    "task_count": 88,
+    "excluded_count": 12,
     "reference_answer_count": 37,
-    "task_19_retained": true,
-    "manifest_sha256": "58421b5b6da57e1a56d7119605baaeed3869dd316e1432b5f548985ec1839505",
-    "encrypted_sha256": "4fb79c34aaafc9feb96c781706efd3f07f248a7f67459fc0c2dd18d3f32f9990",
+    "task_19_retained": false,
+    "manifest_sha256": "981ad8f408682289297f6d43b43c83a82b665dbd51e7877919c2f4320a5180a4",
+    "encrypted_sha256": "9307eb8efbece831eba1fba3dfd440a13f38f172f8e0f2c21e70c286157ee69f",
     "source_sha256": "3c951b9543b49d5b06ee780d3b0df62fe5655102fbddb6ffce8773dc41fd0297"
   },
   "runtime_source_audit": {
@@ -20,7 +21,7 @@
         "line": 260,
         "expression": "len(plan['jobs'])",
         "before": 100,
-        "after": 87
+        "after": 88
       }
     ],
     "functions": {
@@ -56,73 +57,47 @@
       },
       "run": {
         "original_ast_sha256": "8d4176b477a7298449ef81665007e3f1ae84657c88826cebbd5294519e69d7af",
-        "runtime_ast_sha256": "6bf22f94c43440c2f35db4f74616d2a027ff0e6c874cddbf0d921749b16475cd",
+        "runtime_ast_sha256": "fda77eae93487703888a299b4973c7ff5d2a84cce8ede5c75023fd36522abda8",
         "unchanged": false
       }
     }
   },
-  "frozen_original_files": 12,
+  "runtime_ast_python": "3.10.12",
+  "verified_package_source_files": 14,
+  "configuration_sha256": "76b8d4168d5ace22d287d4d40be208bdd1555caf17b1f87836efa5f5585fe7be",
   "unit_tests": {
     "passed": 30,
-    "command": ".venvs/bu-filter-test/bin/python -m pytest -q bu-filter/tests"
+    "failed": 0,
+    "errors": 0,
+    "seconds": 2.275,
+    "host": "5090",
+    "python": "3.12.13",
+    "command": ".venvs/bu-filter-test/bin/python -m pytest -q bu-filter/tests",
+    "junit_xml_sha256": "7ea5c6f529f60095107b2f34f9add86a7f728361a93fdfac46cb4ddd4b5d5e5f"
   },
-  "original_bwrap_probe": {
-    "product_commit": "df93e28b9aa1013523f39391dd4cb8a269dae585",
-    "at": 1794818318.3590217,
-    "model_requests": 0,
-    "benchmark_tasks": 0
-  },
-  "task_payloads_byte_identical_to_df93": 87,
-  "actor_configs": {
-    "count": 87,
-    "max_steps": 300,
-    "timeout_seconds": 3600
-  },
-  "original_evaluator_code_files_match_df93_frozen_plan": 8,
-  "policy_sha256": "853bb13f8dd4cdfd8aac55acd1c351c1eb3830d47f789be925320d212e1b7d5a",
+  "task_records_equal_df93_source": 88,
+  "prior_rows_unchanged": 86,
+  "restored_original_ordinals": [
+    46,
+    70
+  ],
+  "quarantined_original_ordinals": [
+    19
+  ],
   "paid_model_requests": 0,
   "evaluation_tasks_executed": 0,
-  "product_profile": "unchanged df93-compatible launcher API; native a-sb adaptation not included",
-  "allowed_changes": [
-    "100 to 87 task selection",
-    "300-turn actor budget from the already evaluated rerun",
-    "3600-second limit retained",
-    "packaging paths and source-check bindings"
-  ],
+  "browser_probe_performed": false,
+  "old_deployed_package_changed": false,
+  "previous_validation": {
+    "url": "https://github.com/lexmount/benchmark/blob/e9e5fef0131ba0495e827c2f1fc0e450bd531d03/bu-filter/validation.json",
+    "task_count": 87,
+    "note": "Original bwrap probe and environment audit apply to the earlier 87-task package; not rerun or relabelled as current verification"
+  },
   "not_performed": [
-    "new 87-task paid evaluation",
-    "prompt optimization",
-    "Actor/Judge retry or recovery redesign"
-  ],
-  "verified_package_source_files": 14,
-  "configuration_sha256": "b9bcbc3aa0b8ca786f64014eac4741968bf626575990509151793cf29a5dc113",
-  "credential_scan": "passed",
-  "packaging_regressions": [
-    "reject cross-run Judge folders",
-    "reject incorrect suite and ordinal",
-    "reject modifications to canonical fixed configuration",
-    "preserve unrelated benchmark defaults during BU archival"
-  ],
-  "runtime_ast_python": "3.10.12",
-  "environment": {
-    "actor": {
-      "python": "3.14.5",
-      "matched_distributions": 69,
-      "exact_name_and_version_set": true
-    },
-    "judge": {
-      "python": "3.12.13",
-      "matched_distributions": 104,
-      "exact_name_and_version_set": true,
-      "test_packages_in_separate_environment": true
-    },
-    "controller": {
-      "executable": "/usr/bin/python3",
-      "current_python": "3.10.12",
-      "historical_minor_version": "3.10",
-      "historical_patch_version_verified": false,
-      "stdlib_only_load_verified": true
-    },
-    "mismatched_actor_python_rejected": true
-  }
+    "88-task paid evaluation",
+    "new browser capability or bwrap probe",
+    "product/preflight environment requalification",
+    "Actor/Judge/prompt/transport changes",
+    "production deployment"
+  ]
 }

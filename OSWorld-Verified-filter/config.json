@@ -14,7 +14,10 @@
   "runtime": {
     "provider": "docker",
     "docker_image_digest": "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9",
-    "concurrency": 1,
+    "concurrency": 4,
+    "reserve_memory_gib": 12,
+    "per_vm_admission_gib": 6,
+    "max_load_average": 24,
     "screen_size": [1920, 1080],
     "guest_python": "3.12.13",
     "bootstrap_timeout_seconds": 900,

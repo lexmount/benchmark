@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "started_at": "2026-11-17T10:11:03.251670+00:00",
+  "run_metadata_sha256": "5a6d9bde90de8cd858a41c121ed1e81c72f94cdb6be10de7da311bcedc739e84",
+  "evidence_errors": [],
+  "attempt_dir": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v2/probe-attempts/20261117T101103-ee9ac202",
+  "docker_image": {
+    "id": "sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9",
+    "repo_digests": [
+      "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9"
+    ],
+    "required_repo_digest": "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9"
+  },
+  "owned_container_ids": [
+    "384d7d96c73f606b037e8c82495e9faf03c392de3acc0226c37530d43ffc4ecd"
+  ],
+  "vm": {
+    "host": "localhost",
+    "server_port": 5000,
+    "chromium_port": 9222,
+    "container_id": "384d7d96c73f606b037e8c82495e9faf03c392de3acc0226c37530d43ffc4ecd"
+  },
+  "probe_task_id": "e1e75309-3ddb-4d09-92ec-de869c928143",
+  "probe_task_sha256": "b4e50fb023e16fff03a1e89f66a3f4140e4c6358a69113d63edb017062ec4c89",
+  "product_probe": {
+    "status": "passed",
+    "file_roundtrip": true,
+    "metadata": {
+      "python": "3.12.13 (main, Aug  7 2026, 02:25:39) [Clang 22.1.3 ]",
+      "executable": "/tmp/lexmount-osworld-5d62e6b1b2cf4ff99b63b00f85c318d0/product/.venv/bin/python",
+      "packages": {
+        "lexmount-browser-agent": "0.2.0",
+        "browser-use": "1.0.4",
+        "browser-harness": "0.1.13",
+        "pydantic-ai-slim": "2.66.0"
+      },
+      "sources": {
+        "product_runner": {
+          "path": "/tmp/lexmount-osworld-5d62e6b1b2cf4ff99b63b00f85c318d0/product/src/lexmount_browser_agent/runner.py",
+          "sha256": "0ded138a551bca30e65e75cdaed9f5d61cf8180f8acbbca97e98fbd18d08b064"
+        },
+        "product_config": {
+          "path": "/tmp/lexmount-osworld-5d62e6b1b2cf4ff99b63b00f85c318d0/product/src/lexmount_browser_agent/config.py",
+          "sha256": "5b89ef19fdb3ed974b3bdca3ac2425770b7b203de44d89beef65d19b4e418420"
+        },
+        "engine_service": {
+          "path": "/tmp/lexmount-osworld-5d62e6b1b2cf4ff99b63b00f85c318d0/product/.venv/lib/python3.12/site-packages/browser_use/agent/service.py",
+          "sha256": "77ea04a7dfddcabe3766145f178e99caf2cdce6b7cf20c36219fb234cae17dc3"
+        },
+        "engine_repl_worker": {
+          "path": "/tmp/lexmount-osworld-5d62e6b1b2cf4ff99b63b00f85c318d0/product/.venv/lib/python3.12/site-packages/browser_use/repl/worker.py",
+          "sha256": "79172a7c6907d3a7efbda61eef64c0aff7b1c369c1d237ecec980663cb01af28"
+        },
+        "engine_repl_session": {
+          "path": "/tmp/lexmount-osworld-5d62e6b1b2cf4ff99b63b00f85c318d0/product/.venv/lib/python3.12/site-packages/browser_use/repl/session.py",
+          "sha256": "f62584a3cd2a1c8d9c7b2d83f519c6c085b33a09220a0ececb5f90b5ed3c6f0a"
+        }
+      },
+      "uid": 1000,
+      "home": "/home/user",
+      "cwd": "/tmp/lexmount-osworld-5d62e6b1b2cf4ff99b63b00f85c318d0",
+      "browser_attached": true
+    },
+    "elapsed_seconds": 2.185987710952759
+  },
+  "cdp": {
+    "endpoint": "http://127.0.0.1:9222",
+    "browser": "Chrome/130.0.6723.58",
+    "port": 9222,
+    "started_additional_original_chrome": false,
+    "initial_active_window": "0x3200004",
+    "foreground_restored": null,
+    "window_control": "wmctrl+xprop",
+    "existing_browser_pids": []
+  },
+  "owned_vm_closed": true,
+  "owned_container_removal_verified": true,
+  "finished_at": "2026-11-17T10:22:37.958139+00:00"
+}

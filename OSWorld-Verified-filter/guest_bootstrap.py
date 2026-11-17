@@ -26,9 +26,14 @@ def digest(path: Path) -> str:
     return result.hexdigest()
 
 
-def unpack(archive: Path, root: Path) -> None:
+def unpack(archive: Path, root: Path, *, allowed_roots: set[str] | None = None) -> None:
     with tarfile.open(archive, "r:gz") as source:
         for member in source.getmembers():
+            parts = Path(member.name).parts
+            if ".." in parts:
+                raise RuntimeError("Unsafe runtime bundle member")
+            if allowed_roots is not None and (not parts or parts[0] not in allowed_roots):
+                raise RuntimeError("Unexpected offline asset member")
             destination = (root / member.name).resolve()
             if not destination.is_relative_to(root.resolve()) or member.issym() or member.islnk():
                 raise RuntimeError("Unsafe runtime bundle member")
@@ -105,6 +110,14 @@ def main() -> int:
         if digest(uv) != job["uv_binary_sha256"]:
             raise RuntimeError("Uploaded uv binary digest mismatch")
         uv.chmod(0o700)
+        offline = bool(job.get("runtime_assets_sha256"))
+        if offline:
+            assets = root / "offline-assets.tar.gz"
+            if digest(assets) != job["runtime_assets_sha256"]:
+                raise RuntimeError("Uploaded offline runtime assets digest mismatch")
+            unpack(assets, root, allowed_roots={"python", "uv-cache"})
+            state["runtime_assets_sha256"] = job["runtime_assets_sha256"]
+        state["install_mode"] = "offline" if offline else "online"
         environment = os.environ.copy()
         environment.update({"UV_CACHE_DIR": str(root / "uv-cache"),
                             "UV_PYTHON_INSTALL_DIR": str(root / "python"),
@@ -115,8 +128,13 @@ def main() -> int:
             environment.pop(key, None)
         state.update(stage="installing", phase="install", phase_started_at_epoch=time.time())
         atomic_json(state_path, state)
-        returncode = run_child([str(uv), "sync", "--frozen", "--no-dev", "--python",
-                                job["guest_python"], "--project", str(root / "product")],
+        install = [str(uv), "sync", "--frozen", "--no-dev", "--python",
+                   job["guest_python"], "--project", str(root / "product")]
+        if offline:
+            # Apply offline only to installation, not to the Actor's environment
+            # or later task code/network capabilities.
+            install.append("--offline")
+        returncode = run_child(install,
                                root=root, environment=environment,
                                timeout=job["bootstrap_timeout_seconds"], log_name="install.log")
         if returncode:

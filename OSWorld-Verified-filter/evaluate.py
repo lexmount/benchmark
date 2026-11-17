@@ -136,6 +136,19 @@ def prepare(args) -> dict:
     vm = args.vm_image.resolve()
     check(vm.is_file(), "VM image does not exist")
     config = read_json(ROOT / "config.json")
+    assets = args.runtime_assets.resolve() if args.runtime_assets is not None else None
+    asset_sha = None
+    if assets is not None:
+        with tarfile.open(assets, "r:gz") as stream:
+            roots = set()
+            for member in stream.getmembers():
+                name = Path(member.name)
+                check(not name.is_absolute() and ".." not in name.parts, "Unsafe runtime asset path")
+                check(not member.issym() and not member.islnk(), "Runtime assets must materialize symlinks")
+                check(member.isdir() or member.isfile(), "Unsupported runtime asset member")
+                roots.add(name.parts[0])
+            check(roots == {"python", "uv-cache"}, "Runtime assets must contain python/ and uv-cache/ only")
+        asset_sha = digest(assets)
     folder = args.run_dir.resolve()
     folder.mkdir(parents=True, exist_ok=False, mode=0o700)
     archive_git(upstream, UPSTREAM, folder / "upstream")
@@ -148,6 +161,8 @@ def prepare(args) -> dict:
         stream.add(uv, arcname="uv")
         for name in ("guest_bootstrap.py", "guest_actor.py"):
             stream.add(folder / "harness" / name, arcname=name)
+        if assets is not None:
+            stream.add(assets, arcname="offline-assets.tar.gz")
     # Deliberately hash the QCOW2 itself once; a ZIP receipt is not its checksum.
     vm_sha = digest(vm)
     stat = vm.stat()
@@ -166,6 +181,8 @@ def prepare(args) -> dict:
               "vm_image_size": stat.st_size, "vm_image_mtime_ns": stat.st_mtime_ns,
               "guest_root": "/tmp/lexmount-osworld-" + uuid.uuid4().hex,
               "protocol": config["protocol"], "prepared_by": str(ROOT)}
+    if asset_sha is not None:
+        record.update(runtime_assets_sha256=asset_sha, runtime_assets_source=str(assets))
     write_json(folder / "run.json", record)
     write_json(folder / "frozen-files.json", {
         "run.json": digest(folder / "run.json"),
@@ -244,6 +261,7 @@ def main() -> int:
     command.add_argument("--agent-source", type=Path, required=True)
     command.add_argument("--agent-commit", required=True, help="Full product commit")
     command.add_argument("--uv-binary", type=Path, required=True)
+    command.add_argument("--runtime-assets", type=Path, help="Optional verified portable Python/uv cache tar.gz")
     command.add_argument("--vm-image", type=Path, required=True)
     command.add_argument("--run-dir", type=Path, required=True)
     for name in ("probe", "run", "report"):

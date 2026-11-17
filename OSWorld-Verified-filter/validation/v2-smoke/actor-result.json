@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "status": "finished",
+  "instruction_sha256": "4b5497349b4c66fb85025100ccbde6375828e0843c0c3ac586f6d587b10d0dae",
+  "appended_environment_context": "\n\nOSWorld task environment:\nYou are running inside the task's Ubuntu virtual machine, sharing its files and original Chrome profile. Task inputs remain at their original paths. Save deliverables at the exact paths requested in the task; your product workspace is only a separate scratch directory.\nThe initial desktop screenshot is available at /tmp/lexmount-osworld-5d62e6b1b2cf4ff99b63b00f85c318d0/initial.png.\nKeep all constraints in the original instruction, including any specified application, terminal or GUI operation. Python access does not waive those requirements. Use only task-visible inputs; do not seek evaluator code or reference answers. Do not reset the VM or stop its existing Chrome browser.\n",
+  "effective_prompt_sha256": "192f580c23a3a072662a79f77578a6e78ace8b671918d56e578d591f51a064cf",
+  "metadata": {
+    "python": "3.12.13 (main, Aug  7 2026, 02:25:39) [Clang 22.1.3 ]",
+    "executable": "/tmp/lexmount-osworld-5d62e6b1b2cf4ff99b63b00f85c318d0/product/.venv/bin/python",
+    "packages": {
+      "lexmount-browser-agent": "0.2.0",
+      "browser-use": "1.0.4",
+      "browser-harness": "0.1.13",
+      "pydantic-ai-slim": "2.66.0"
+    },
+    "sources": {
+      "product_runner": {
+        "path": "/tmp/lexmount-osworld-5d62e6b1b2cf4ff99b63b00f85c318d0/product/src/lexmount_browser_agent/runner.py",
+        "sha256": "0ded138a551bca30e65e75cdaed9f5d61cf8180f8acbbca97e98fbd18d08b064"
+      },
+      "product_config": {
+        "path": "/tmp/lexmount-osworld-5d62e6b1b2cf4ff99b63b00f85c318d0/product/src/lexmount_browser_agent/config.py",
+        "sha256": "5b89ef19fdb3ed974b3bdca3ac2425770b7b203de44d89beef65d19b4e418420"
+      },
+      "engine_service": {
+        "path": "/tmp/lexmount-osworld-5d62e6b1b2cf4ff99b63b00f85c318d0/product/.venv/lib/python3.12/site-packages/browser_use/agent/service.py",
+        "sha256": "77ea04a7dfddcabe3766145f178e99caf2cdce6b7cf20c36219fb234cae17dc3"
+      },
+      "engine_repl_worker": {
+        "path": "/tmp/lexmount-osworld-5d62e6b1b2cf4ff99b63b00f85c318d0/product/.venv/lib/python3.12/site-packages/browser_use/repl/worker.py",
+        "sha256": "79172a7c6907d3a7efbda61eef64c0aff7b1c369c1d237ecec980663cb01af28"
+      },
+      "engine_repl_session": {
+        "path": "/tmp/lexmount-osworld-5d62e6b1b2cf4ff99b63b00f85c318d0/product/.venv/lib/python3.12/site-packages/browser_use/repl/session.py",
+        "sha256": "f62584a3cd2a1c8d9c7b2d83f519c6c085b33a09220a0ececb5f90b5ed3c6f0a"
+      }
+    },
+    "uid": 1000,
+    "home": "/home/user",
+    "cwd": "/tmp/lexmount-osworld-5d62e6b1b2cf4ff99b63b00f85c318d0"
+  },
+  "result": {
+    "schema_version": 1,
+    "status": "completed",
+    "text": "Renamed the directory from “todo_list_Jan_1” to “todo_list_Jan_2” at /home/user/Desktop/todo_list_Jan_2. Verified the old path no longer exists and the renamed directory remains present.",
+    "agent_success": true,
+    "partial": null,
+    "error": null,
+    "cleanup_errors": [],
+    "usage": {
+      "input": 19909,
+      "output": 1219,
+      "cache_read": 15616,
+      "cache_write": 0,
+      "requests": 5
+    },
+    "cost_usd": null,
+    "model_turns": 5,
+    "loop_seconds": 11.31518353399997,
+    "wall_seconds": 11.977633518999994,
+    "model_http_requests": 5,
+    "artifacts": [],
+    "cost_source": "unknown"
+  },
+  "elapsed_seconds": 13.491209745407104
+}

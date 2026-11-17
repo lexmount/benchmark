@@ -47,11 +47,14 @@ evaluate.py prepare：冻结76题、官方完整源码、产品源码、uv、配
 |---|---|
 | Actor | `deepseek-v4.1-flash`，`reasoning_effort=max`，`mode=default` |
 | 每题预算 | **300模型回合／3600秒**；一回合可执行多次浏览器操作 |
-| 初始并发 | **1个VM串行**；不套用其他三套的32 Actor／4 Judge |
+| 正式并发上限 | **4个独立VM进程**；免费probe仍只开1个VM，不套用其他三套的32 Actor／4 Judge |
+| 资源准入 | 每次派发读取实际MemAvailable与1分钟负载；预留12GiB，按每个在途／新VM额外6GiB保守准入，负载超过24暂停新派发 |
 | 安装准备 | 每题单独最多900秒，不计入原生Agent的3600秒任务预算 |
 | VM | 官方Ubuntu QCOW2，原Chrome、桌面应用和原题路径；1920×1080 |
 | 评分 | 官方 `DesktopEnv.evaluate()`；不使用额外的LLM Judge |
 | 结束与恢复 | 每题回执独占写入；续跑保留已有结果，不择优重判 |
+
+并行调度复用官方[每题独立VM进程池模式](https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/scripts/python/run_multienv_autoglm.py#L513)。父进程独占整轮锁，spawn子进程各自持有VM、工作目录和评分状态；最多4题在途，完成后动态补位。资源不足时等候，不停止其他评测。自有VM清理失败或worker崩溃时停止新派发，保留原件，不自动把失败重新跑一遍。
 
 配置见 [config.json](config.json)。这些是本项目新集合的预算，不是OSWorld官方统一步数。原生Agent的模型回合、REPL调用、浏览器动作和OSWorld外层步骤应分开解释。修改产品、配置、任务、镜像或执行桥接后应创建新的运行目录，不能续跑并称作同一轮。
 
@@ -71,7 +74,8 @@ Python REPL与Chrome都在VM内运行，避免“宿主机Python看不到远程�
     ├── osworld76-runtime/
     │   ├── OSWorld/                         # 完整官方5123bfdb git checkout
     │   ├── product/                         # 干净的指定Lexmount产品git checkout
-    │   └── .venv/                           # 独立host OSWorld控制／评分环境
+    │   ├── .venv/                           # 独立host OSWorld控制／评分环境
+    │   └── offline-assets/                  # 已验证的managed Python＋原uv依赖缓存
     └── results/osworld76-<版本>-<时间>/
         ├── run.json                         # 产品／上游提交、预算、VM/uv哈希
         ├── frozen-files.json                # 所有冻结文件的逐文件SHA256
@@ -159,8 +163,9 @@ sudo -u wf -g docker -- docker info
 
 ```bash
 python3 - <<'PY'
-import getpass, json, os
+import getpass, json, os, sys
 from pathlib import Path
+sys.stdin = open('/dev/tty')
 folder = Path('/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/.private')
 folder.mkdir(mode=0o700, exist_ok=True)
 path = folder / 'osworld76-model.json'
@@ -188,12 +193,25 @@ python3 -m unittest discover -s "$BENCH/tests" -v
 
 找出真正的Linux uv二进制。**`/snap/bin/uv`可能是snap启动器，不能打包给VM**；`--uv-binary`必须指向能够直接执行 `--version` 并输出 `uv ...` 的实际ELF文件。
 
+首次或更换产品锁文件时，先按[离线资产教程](RUNTIME_ASSETS.md)用已验证的 `build_runtime_assets.py` 构建一次缓存。5090本次已生成 `osworld76-runtime/offline-assets/runtime-assets.tar.gz`，不需要逐题重复下载；资产仅含Python和uv缓存，不含venv、任务或模型密钥。
+
+首次安装且该资产尚不存在时运行以下命令；本次5090已完成，可跳过。已有完整输出会拒绝覆盖，更换产品时使用新的资产目录并相应调整下方 `--runtime-assets` 路径。
+
+```bash
+"$RUNTIME/.venv/bin/python" "$BENCH/build_runtime_assets.py" \
+  --agent-source "$RUNTIME/product" \
+  --work-dir "$RUNTIME/offline-assets" \
+  --uv-binary "$RUNTIME/bin/uv" \
+  --python-installation /home/wf/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu
+```
+
 ```bash
 python3 "$BENCH/evaluate.py" prepare \
   --osworld-root "$RUNTIME/OSWorld" \
   --agent-source "$RUNTIME/product" \
   --agent-commit efbe54895f289388d13842fd6fccc151ee1697ea \
   --uv-binary "$RUNTIME/bin/uv" \
+  --runtime-assets "$RUNTIME/offline-assets/runtime-assets.tar.gz" \
   --vm-image /data/wf/sxh/workspace/osworld-browseruse-plus-20261028/vm_data/Ubuntu.qcow2 \
   --run-dir "$RUN"
 ```
@@ -209,7 +227,7 @@ sudo -u wf -g docker -- xvfb-run -a -s '-screen 0 1920x1080x24' \
   "$RUNTIME/.venv/bin/python" "$BENCH/evaluate.py" probe --run-dir "$RUN"
 ```
 
-它检查初始化、guest依赖、同VM文件读写和真实浏览器连接，不调用模型，不生成任务成绩。`probe.json`必须明确通过才能正式执行。安装、CDP、文件路径或原桌面状态失败时先排查，不能标成Agent答错。
+它用首道入选Chrome题的原配置检查初始化、guest依赖、同VM文件读写和真实浏览器连接，不执行该题、不调用模型、不生成任务成绩。带缓存时仍使用原 `uv sync --frozen`，仅安装命令增加 `--offline`；Actor访问模型和网站的网络保持原样。`probe.json`必须明确通过才能正式执行。安装、CDP、文件路径或原桌面状态失败时先排查，不能标成Agent答错。
 
 ## 5. 正式评测、初步试跑和续跑
 
@@ -248,9 +266,11 @@ python3 "$BENCH/evaluate.py" report --run-dir "$RUN" > "$RUN/report.json"
 未判、缺失或技术无效回执单列。当合法评分不足76题时，`full_76_mean_score`为`null`，仅给出已合法评分样本的平均分和覆盖率，不能把缺失当0或缩分母声称完整成绩。逐题查看：
 
 - `receipt.json`：原题SHA、产品状态、官方终止动作、原score、错误类别和时间。
-- `actor.json`与原生Actor输出包：模型回合、耗时、费用、任务回答、程序和浏览器轨迹。
+- `actor-result.json`与原生Actor输出包：模型回合、耗时、费用、任务回答、程序和浏览器轨迹。
 - `initial.png`／`final.png`／`recording.mp4`：桌面证据；证据失败需披露。
 - `events.jsonl`：VM、准备、Actor、评分和清理各阶段，定位问题发生在哪一层。
+
+部分官方getter／metric会把内部网络或解析异常转为0，例如 `get_pdf_from_url()` 参考生成失败后可能留下占位PDF，随后 `compare_pdfs()` 返回0。本入口保留原grader，不擅自改分；因此外层可捕获的技术无分与官方返回的0仍需结合原日志、缓存和证据分析，不能声称所有0都已排除基础设施影响。
 
 注意已有Writer／Calc／VS Code窗口：官方 `postconfig` 常会激活窗口并保存。后台直接改磁盘文件若没有同步打开的文档缓冲，修改可能被覆盖。终端题还可能检查GUI终端或真实shell历史；REPL打印不等于满足要求。不能删除这些检查来制造通过。
 

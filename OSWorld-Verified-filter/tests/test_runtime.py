@@ -66,6 +66,30 @@ class GuestBootstrapTests(unittest.TestCase):
         state = json.loads((self.root / "bootstrap-state.json").read_text())
         return result, state, child
 
+    def add_offline_assets(self, members=None):
+        assets = io.BytesIO()
+        with tarfile.open(fileobj=assets, mode="w:gz") as stream:
+            for name, raw in (members or {
+                "python/cpython-3.12.13-linux-x86_64/bin/python3": b"dummy cached python",
+                "uv-cache/wheels-v5/example/data": b"dummy cached wheel",
+            }).items():
+                member = tarfile.TarInfo(name)
+                member.size = len(raw)
+                stream.addfile(member, io.BytesIO(raw))
+        raw_assets = assets.getvalue()
+        bundle = self.root / "runtime-bundle.tar.gz"
+        with tarfile.open(bundle) as stream:
+            original = [(member, stream.extractfile(member).read()) for member in stream.getmembers()]
+        with tarfile.open(bundle, "w:gz") as stream:
+            for member, raw in original:
+                stream.addfile(member, io.BytesIO(raw))
+            member = tarfile.TarInfo("offline-assets.tar.gz")
+            member.size = len(raw_assets)
+            stream.addfile(member, io.BytesIO(raw_assets))
+        self.job.update(bundle_sha256=bootstrap.digest(bundle),
+                        runtime_assets_sha256=hashlib.sha256(raw_assets).hexdigest())
+        self.job_path.write_text(json.dumps(self.job))
+
     def test_install_failure_is_failed_bootstrap_not_an_actor_rejection(self):
         result, state, child = self.invoke([9])
         self.assertEqual(result, 1)
@@ -95,6 +119,61 @@ class GuestBootstrapTests(unittest.TestCase):
         self.assertNotIn(self.key, repr(child.call_args_list))
         self.assertNotIn("OPENAI_API_KEY", install.kwargs["environment"])
         self.assertNotIn("OPENAI_MODEL", install.kwargs["environment"])
+        self.assertEqual(state["install_mode"], "online")
+        self.assertNotIn("--offline", install.args[0])
+
+    def test_matching_assets_make_only_installation_offline_and_preserve_actor_network(self):
+        self.add_offline_assets()
+        with mock.patch.dict(os.environ):
+            os.environ.pop("UV_OFFLINE", None)
+            result, state, child = self.invoke([0, 0])
+        self.assertEqual(result, 0)
+        self.assertEqual(state["install_mode"], "offline")
+        self.assertEqual(state["runtime_assets_sha256"], self.job["runtime_assets_sha256"])
+        self.assertEqual(child.call_count, 2)
+        install, actor = child.call_args_list
+        self.assertIn("--offline", install.args[0])
+        self.assertIn("--frozen", install.args[0])
+        self.assertNotIn("--offline", actor.args[0])
+        self.assertNotIn("UV_OFFLINE", install.kwargs["environment"])
+        self.assertNotIn("UV_OFFLINE", actor.kwargs["environment"])
+        self.assertEqual(Path(actor.args[0][0]).resolve(), (self.root / "product/.venv/bin/python").resolve())
+        self.assertNotIn(self.key, repr(child.call_args_list))
+        self.assertTrue((self.root / "python/cpython-3.12.13-linux-x86_64/bin/python3").is_file())
+        self.assertTrue((self.root / "uv-cache/wheels-v5/example/data").is_file())
+        with tarfile.open(self.root / "actor-output.tar.gz") as archive:
+            self.assertFalse(any(n.startswith(("python/", "uv-cache/", "offline-assets.tar.gz"))
+                                 for n in archive.getnames()))
+
+    def test_wrong_assets_sha_fails_before_install_or_actor_is_started(self):
+        self.add_offline_assets()
+        self.job["runtime_assets_sha256"] = "f" * 64
+        self.job_path.write_text(json.dumps(self.job))
+        result, state, child = self.invoke([])
+        self.assertEqual(result, 1)
+        self.assertEqual(state["stage"], "failed")
+        self.assertIn("offline runtime assets digest mismatch", state["error"])
+        child.assert_not_called()
+        self.assertFalse((self.root / "python").exists())
+        self.assertNotIn("score", state)
+
+    def test_offline_assets_cannot_replace_product_or_actor_code(self):
+        self.add_offline_assets({"python/cached": b"valid but must not be partly extracted",
+                                 "product/pyproject.toml": b"attacker replacement"})
+        result, state, child = self.invoke([])
+        self.assertEqual(result, 1)
+        self.assertIn("Unexpected offline asset member", state["error"])
+        child.assert_not_called()
+        self.assertFalse((self.root / "python/cached").exists())
+        self.assertEqual((self.root / "product/pyproject.toml").read_bytes(), b"[project]\nname='test'\n")
+
+    def test_offline_asset_allowed_prefix_cannot_escape_to_another_root(self):
+        self.add_offline_assets({"python/../product/pyproject.toml": b"attacker replacement"})
+        result, state, child = self.invoke([])
+        self.assertEqual(result, 1)
+        self.assertEqual(state["stage"], "failed")
+        child.assert_not_called()
+        self.assertEqual((self.root / "product/pyproject.toml").read_bytes(), b"[project]\nname='test'\n")
 
     def test_wrong_uploaded_bundle_is_rejected_before_install(self):
         (self.root / "runtime-bundle.tar.gz").write_bytes(b"corrupt upload")
@@ -289,6 +368,9 @@ class HostRunFailureTests(unittest.TestCase):
         self.metadata = {"task_count": 76, "upstream_commit": runtime.UPSTREAM_COMMIT,
                          "harness_root": str(ROOT), "guest_root": "/tmp/lexmount-test-owned-guest",
                          "config": json.loads((ROOT / "config.json").read_text())}
+        # These pre-existing tests exercise the single-VM execution contract.
+        # Parallel admission and process lifecycle have separate tests below.
+        self.metadata["config"]["runtime"]["concurrency"] = 1
         (self.run_dir / "run.json").write_text(json.dumps(self.metadata))
         (self.run_dir / "probe.json").write_text(json.dumps({
             "status": "passed", "run_metadata_sha256": runtime._digest(self.run_dir / "run.json")}))
@@ -470,7 +552,7 @@ class HostRunFailureTests(unittest.TestCase):
 
 class OwnedDockerLifecycleTests(unittest.TestCase):
     @contextmanager
-    def fake_upstream(self, *, remove_on_close):
+    def fake_upstream(self, *, remove_on_close, constructor_error=False, removal_error=False):
         with tempfile.TemporaryDirectory() as temporary:
             upstream = Path(temporary)
             captured, lookups, instances = {}, [], []
@@ -478,7 +560,13 @@ class OwnedDockerLifecycleTests(unittest.TestCase):
             container.image = types.SimpleNamespace(id="sha256:test-image", reload=lambda: None,
                 attrs={"RepoDigests": [runtime.DOCKER_IMAGE_DIGEST]})
             container.removed = False
-            container.remove = lambda **kwargs: setattr(container, "removed", True)
+            container.remove_requests = []
+            def remove(**kwargs):
+                container.remove_requests.append(kwargs)
+                if removal_error:
+                    raise RuntimeError("Docker removal denied")
+                container.removed = True
+            container.remove = remove
 
             class NotFound(Exception):
                 pass
@@ -501,6 +589,8 @@ class OwnedDockerLifecycleTests(unittest.TestCase):
                     self.provider = Provider()
                     self.provider.client = types.SimpleNamespace(containers=types.SimpleNamespace(get=get))
                     self.provider.container = self.provider._create_container(ports={"5000/tcp": 15000})
+                    if constructor_error:
+                        raise RuntimeError("constructor failed after owned create")
                     self.vm_ip, self.server_port, self.chromium_port = "127.0.0.1", 15000, 19222
                     instances.append(self)
                 def close(self):
@@ -542,9 +632,40 @@ class OwnedDockerLifecycleTests(unittest.TestCase):
                 else:
                     self.assertTrue(any("remain after provider close" in e for e in receipt["evidence_errors"]))
 
+    def test_constructor_failure_cleans_its_owned_id_and_preserves_original_error(self):
+        with self.fake_upstream(remove_on_close=False, constructor_error=True) as data:
+            metadata, folder, container, captured, lookups, instances = data
+            receipt = {"task_id": "sample-task", "evidence_errors": []}
+            previous = Path.cwd()
+            with self.assertRaisesRegex(RuntimeError, "constructor failed after owned create"):
+                with runtime._environment(metadata, folder, receipt):
+                    self.fail("A failed constructor cannot yield an environment")
+            self.assertEqual(Path.cwd(), previous)
+            self.assertEqual(receipt["owned_container_ids"], [container.id])
+            self.assertTrue(receipt["owned_vm_closed"])
+            self.assertTrue(receipt["owned_container_removal_verified"])
+            self.assertTrue(container.removed)
+            self.assertEqual(len(container.remove_requests), 1)
+            self.assertTrue(container.remove_requests[0].get("force"))
+            self.assertTrue(lookups)
+            self.assertEqual(set(lookups), {container.id})
+
+    def test_constructor_failure_with_failed_cleanup_is_not_claimed_closed(self):
+        with self.fake_upstream(remove_on_close=False, constructor_error=True, removal_error=True) as data:
+            metadata, folder, container, captured, lookups, instances = data
+            receipt = {"task_id": "sample-task", "evidence_errors": []}
+            with self.assertRaisesRegex(RuntimeError, "constructor failed after owned create"):
+                with runtime._environment(metadata, folder, receipt):
+                    self.fail("A failed constructor cannot yield an environment")
+            self.assertFalse(receipt["owned_vm_closed"])
+            self.assertFalse(container.removed)
+            self.assertTrue(any("cleanup" in error for error in receipt["evidence_errors"]))
+            self.assertTrue(container.remove_requests)
+            self.assertEqual(set(lookups), {container.id})
+
 
 class ExistingChromeTests(unittest.TestCase):
-    def invoke_guest_cdp_code(self, *, reachable):
+    def invoke_guest_cdp_code(self, *, reachable, flattened=False):
         """Execute the real emitted guest inspection code against a fake /proc and CDP endpoint."""
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -557,11 +678,16 @@ class ExistingChromeTests(unittest.TestCase):
                 runtime._ensure_cdp(env, {"guest_root": str(root)})
 
             class Process:
-                name = "217"
+                def __init__(self, name, raw):
+                    self.name, self.raw = name, raw
                 def __truediv__(self, name):
-                    return types.SimpleNamespace(read_bytes=lambda: b"/usr/bin/google-chrome\0--remote-debugging-port=1337\0")
+                    return types.SimpleNamespace(read_bytes=lambda: self.raw)
+            processes = ([Process("217", b"/opt/google/chrome/chrome --remote-debugging-port=1337\0"),
+                          Process("218", b"/opt/google/chrome/chrome --type=renderer --remote-debugging-port=1337\0")]
+                         if flattened else
+                         [Process("217", b"/usr/bin/google-chrome\0--remote-debugging-port=1337\0")])
             fake_pathlib = types.ModuleType("pathlib")
-            fake_pathlib.Path = lambda value: (types.SimpleNamespace(iterdir=lambda: [Process()])
+            fake_pathlib.Path = lambda value: (types.SimpleNamespace(iterdir=lambda: processes)
                                               if value == "/proc" else Path(value))
             fake_shutil = types.ModuleType("shutil")
             fake_shutil.which = lambda name: "/usr/bin/" + name if name in {"xprop", "wmctrl", "google-chrome"} else None
@@ -572,16 +698,22 @@ class ExistingChromeTests(unittest.TestCase):
             fake_subprocess.DEVNULL, fake_subprocess.STDOUT = -3, -2
             request = types.ModuleType("urllib.request")
             if reachable:
-                request.urlopen = mock.Mock(side_effect=lambda *a, **kw: io.StringIO(json.dumps({
-                    "webSocketDebuggerUrl": "ws://127.0.0.1:1337/devtools/browser/existing",
-                    "Browser": "Chrome/test"})))
+                def urlopen(url, **kwargs):
+                    if ":1337/" not in url:
+                        raise OSError("not the original Chrome's port")
+                    return io.StringIO(json.dumps({
+                        "webSocketDebuggerUrl": "ws://127.0.0.1:1337/devtools/browser/existing",
+                        "Browser": "Chrome/test"}))
+                request.urlopen = mock.Mock(side_effect=urlopen)
             else:
                 request.urlopen = mock.Mock(side_effect=OSError("CDP unavailable"))
             urllib = types.ModuleType("urllib")
             urllib.__path__ = []
             urllib.request = request
+            fake_time = types.ModuleType("time")
+            fake_time.sleep = mock.Mock()
             modules = {"pathlib": fake_pathlib, "shutil": fake_shutil, "subprocess": fake_subprocess,
-                       "urllib": urllib, "urllib.request": request}
+                       "urllib": urllib, "urllib.request": request, "time": fake_time}
             output = io.StringIO()
             with mock.patch.dict(sys.modules, modules), redirect_stdout(output):
                 try:
@@ -602,8 +734,45 @@ class ExistingChromeTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "refusing to restart"):
             self.invoke_guest_cdp_code(reachable=False)
 
+    def test_flattened_main_cmdline_preserves_pid_and_1337_without_renderer_confusion(self):
+        result = self.invoke_guest_cdp_code(reachable=True, flattened=True)
+        self.assertEqual(result["endpoint"], "http://127.0.0.1:1337")
+        self.assertEqual(result["existing_browser_pids"], [217])
+        self.assertFalse(result["started_additional_original_chrome"])
+
+    def test_flattened_existing_main_without_cdp_is_not_silently_restarted(self):
+        with self.assertRaisesRegex(RuntimeError, "refusing to restart"):
+            self.invoke_guest_cdp_code(reachable=False, flattened=True)
+
 
 class GuestTransportTests(unittest.TestCase):
+    def test_optional_offline_asset_identity_is_passed_in_private_job_only(self):
+        for offline in (False, True):
+            with self.subTest(offline=offline), tempfile.TemporaryDirectory() as temporary:
+                folder = Path(temporary)
+                bundle = folder / "runtime-bundle.tar.gz"
+                bundle.write_bytes(b"frozen runtime bundle")
+                metadata = {"guest_root": "/tmp/lexmount-test-guest", "bundle_path": str(bundle),
+                            "uv_binary_sha256": "1" * 64, "harness_root": str(ROOT),
+                            "config": {"runtime": {"guest_python": "3.12.13",
+                                "bootstrap_timeout_seconds": 30, "actor_grace_seconds": 10}}}
+                if offline:
+                    metadata["runtime_assets_sha256"] = "2" * 64
+                private_key = "test-private-launch-key-8521"
+                uploaded = {}
+                def upload(env, path, destination):
+                    if destination.endswith("/job.json"):
+                        uploaded.update(json.loads(path.read_text()))
+                        self.assertEqual(path.stat().st_mode & 0o777, 0o600)
+                with mock.patch.object(runtime, "_upload", side_effect=upload), \
+                        mock.patch.object(runtime, "_execute", return_value={"pid": 712}) as execute:
+                    pid = runtime._launch_job(None, metadata, folder, "actor",
+                        {"endpoint": "http://127.0.0.1:1337"}, {"api_key": private_key}, "Original task")
+                self.assertEqual(pid, 712)
+                self.assertEqual(uploaded.get("runtime_assets_sha256"), "2" * 64 if offline else None)
+                self.assertEqual(uploaded["actor_config"]["api_key"], private_key)
+                self.assertNotIn(private_key, repr(execute.call_args_list))
+
     def test_failed_command_is_not_mistaken_for_success(self):
         private_key = "test-transport-secret-06128"
         response = mock.Mock()

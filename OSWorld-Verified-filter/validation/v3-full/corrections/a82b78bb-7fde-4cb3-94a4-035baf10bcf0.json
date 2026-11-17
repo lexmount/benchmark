@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "kind": "bookmark-reference-yuke-alias-v1-retained-folder",
+  "task_id": "a82b78bb-7fde-4cb3-94a4-035baf10bcf0",
+  "run_dir": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3",
+  "created_at": "2026-11-17T14:23:34.217934+00:00",
+  "status": "corrected",
+  "original_score": 0.0,
+  "score": 1.0,
+  "old_rule_on_retained_folder_score": 0.0,
+  "model_calls": 0,
+  "vm_starts": 0,
+  "actor_rerun": false,
+  "getter_replayed": false,
+  "input_kind": "retained_pre_cleanup_complete_folder_projection",
+  "original_post_cleanup_full_getter_input_retained": false,
+  "metric": "is_expected_bookmarks",
+  "metric_source_sha256": "0c3f983fe8cdc8905abb6558a963850237e201646ed4667df0428f88ef4593ef",
+  "source_provenance": {
+    "repair_version": "bookmark-reference-yuke-alias-v1",
+    "repair_source_sha256": "80692d2a62ece1883e4f1309840afc4a63679f310071ab893baa12f1313bf855",
+    "task_id": "a82b78bb-7fde-4cb3-94a4-035baf10bcf0",
+    "upstream_commit": "5123bfdbbc34b947bcffcff564abc62d0ab7072d",
+    "alias": "https://www.cs.utexas.edu/~yukez/",
+    "author_group_index": 2,
+    "metric_unchanged": "desktop_env.evaluators.metrics.chrome.is_expected_bookmarks",
+    "independent_sources": [
+      {
+        "url": "https://minedojo.org/",
+        "observed_at": "2026-11-17T13:01:11+00:00",
+        "status": 200,
+        "bytes": 32652,
+        "sha256": "0b62e8ce5a4c5d93e0c1d570ef04bd0d017a0ece879727ceaa4b90cc0da3460e",
+        "finding": "Yuke Zhu author anchor links to the exact alias"
+      },
+      {
+        "url": "https://www.cs.utexas.edu/~yukez/",
+        "status": 200,
+        "bytes": 165,
+        "sha256": "41549ecb02fc1c2a5a98e31d1af5e44baeaad8f5867070089e733a56331c632d",
+        "finding": "HTML meta refresh to https://yukezhu.me (not an HTTP redirect)"
+      }
+    ],
+    "historical_evidence_boundary": "Complete retained pre-cleanup folder observations, not the unretained post-cleanup full getter input"
+  },
+  "artifact_bindings": {
+    "actor-output.tar.gz": "f0f3e1b80a2629a3537a5d4fff03e63976b9ea36f16fa9fb520867c56292cdcc",
+    "final.png": "566778835c163c292f6605cb85a65e2d18733fc225a35cb02d403710c3b4fa51",
+    "actor-result.json": "1a1275c5b723411773b3ee2a2caec7a4be6c81b350db441b5dc964b731a0ef9c",
+    "messages_member": "actor-output/messages.json",
+    "messages_member_sha256": "70d79c02b20271772f903febb4170e8c0567a948523c0366c912c354c1fa89ca",
+    "verification_member": "actor-output/workspace/bookmarks_verification.json",
+    "verification_member_sha256": "4e00b745ac52f163e6c037e425644d3c09270eb33f986396b42ae5793140fb54"
+  },
+  "run_metadata_sha256": "78618a67a05802b47e40f55e37a31ed8e6c4776ef98c42b1ac1bd43f1b2fa0d6",
+  "original_receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a82b78bb-7fde-4cb3-94a4-035baf10bcf0/receipt.json",
+  "original_receipt_sha256": "f30edf1b9fbb9e9d2aec8f7c842fe3f3615da3067a3c1f8810c2ab273e9ae034",
+  "task_sha256": "291a5194b255ba22f157d4f0cf24144e221f4bd5b28cd60fce28a687918e0097",
+  "evidence": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-bookmark-reference-repair-v1/terminal-evidence.json",
+  "evidence_sha256": "a41ea68b240589137868627031ac73091bd5292d55a720e656e271d2910a6af0",
+  "reference_rule": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-bookmark-reference-repair-v1/reference-rule.json",
+  "reference_rule_sha256": "98af546ba5968250695d6c335acf3544424f78a5faf8d8d22e448f44f0d19570",
+  "folder_projection": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-bookmark-reference-repair-v1/retained-folder-projection.json",
+  "folder_projection_sha256": "4339a132dc25c004f56d08185fdbb9c575d9fb7a556c93600e0b55a116d6b494",
+  "repair_sources_sha256": {
+    "bookmark_reference_repair.py": "80692d2a62ece1883e4f1309840afc4a63679f310071ab893baa12f1313bf855",
+    "repair_bookmark_reference.py": "165f869e0cad47f0ddd36caf59adb1afb38d0cdd60889d7e4e9906221b0564c3"
+  },
+  "evidence_errors": [],
+  "boundary": "Uses complete retained pre-cleanup disk-folder and native browser API observations; the original full post-cleanup getter input was not retained. Only the Yuke URL alias is added; original metric and original zero remain unchanged."
+}

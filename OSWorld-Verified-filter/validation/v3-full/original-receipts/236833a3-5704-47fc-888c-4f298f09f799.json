@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "task_id": "236833a3-5704-47fc-888c-4f298f09f799",
+  "category": "browser_file",
+  "source_domain": "multi_apps",
+  "task_sha256": "90d235cb7c84329eb6dcd4b3c34e79352d2284e75e686711a5fa20115755b234",
+  "started_at": "2026-11-17T13:07:33.218235+00:00",
+  "status": "evaluation_error",
+  "score": null,
+  "budget": {
+    "model": "deepseek-v4.1-flash",
+    "reasoning_effort": "max",
+    "mode": "default",
+    "max_steps": 300,
+    "timeout_seconds": 3600,
+    "request_timeout_seconds": 120
+  },
+  "evidence_errors": [],
+  "owned_container_ids": [
+    "d0d86a88e451843a6d919275ebdce67e13d8d9eabc4b578a063b61e4002ad8bf"
+  ],
+  "docker_image": {
+    "id": "sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9",
+    "repo_digests": [
+      "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9"
+    ],
+    "required_repo_digest": "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9"
+  },
+  "vm": {
+    "host": "localhost",
+    "server_port": 5011,
+    "chromium_port": 9228,
+    "container_id": "d0d86a88e451843a6d919275ebdce67e13d8d9eabc4b578a063b61e4002ad8bf"
+  },
+  "actor_status": "completed",
+  "agent_success": true,
+  "official_terminal_action": "DONE",
+  "owned_vm_closed": true,
+  "owned_container_removal_verified": true,
+  "error_type": "RuntimeError",
+  "error": "Postconfig setup failed",
+  "finished_at": "2026-11-17T13:18:39.811782+00:00",
+  "elapsed_seconds": 666.5935456730076
+}

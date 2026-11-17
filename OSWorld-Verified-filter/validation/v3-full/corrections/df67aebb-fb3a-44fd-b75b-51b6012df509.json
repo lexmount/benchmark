@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "kind": "archived-file-evaluation-recovery-v1",
+  "task_id": "df67aebb-fb3a-44fd-b75b-51b6012df509",
+  "run_dir": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3",
+  "created_at": "2026-11-17T13:58:08.046457+00:00",
+  "status": "corrected",
+  "score": 1.0,
+  "original_status": "evaluation_error",
+  "original_score": null,
+  "model_calls": 0,
+  "vm_starts": 0,
+  "actor_rerun": false,
+  "getter_replayed": false,
+  "input_kind": "retained_original_vm_file_getter",
+  "run_metadata_sha256": "78618a67a05802b47e40f55e37a31ed8e6c4776ef98c42b1ac1bd43f1b2fa0d6",
+  "task_sha256": "251bbe40cfd9918577f18a93c50c6d301d232c436ebd1f8284e625aa186cdecc",
+  "original_receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/df67aebb-fb3a-44fd-b75b-51b6012df509/receipt.json",
+  "original_receipt_sha256": "4160c9823840caa5148b71d1e45c3ba5ec24e08ca529238bf3b45f648a3566f4",
+  "actual": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-bib-reference-recovery-v1/actual.bib",
+  "actual_sha256": "1bc0b5d4ca6d7610ea2967d69b6fc28cdabe5af90ee02192aa6bf7d49d2422e2",
+  "actual_source": {
+    "kind": "retained_original_vm_file_getter",
+    "original_actual": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/df67aebb-fb3a-44fd-b75b-51b6012df509/official-cache/df67aebb-fb3a-44fd-b75b-51b6012df509/references.bib",
+    "original_actual_sha256": "1bc0b5d4ca6d7610ea2967d69b6fc28cdabe5af90ee02192aa6bf7d49d2422e2",
+    "actual_sha256": "1bc0b5d4ca6d7610ea2967d69b6fc28cdabe5af90ee02192aa6bf7d49d2422e2"
+  },
+  "actual_evidence": null,
+  "reference": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-bib-reference-recovery-v1/reference.bib",
+  "reference_provenance": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-bib-reference-recovery-v1/reference-provenance.json",
+  "metric": "compare_text_file",
+  "options": {
+    "ignore_blanks": true,
+    "ignore_lines": [
+      "^[ \\t]*timestamp[ \\t]*=[ \\t]*\\{[^{}\\r\\n]*\\},?[ \\t]*$"
+    ]
+  },
+  "repair_sources_sha256": {
+    "repair_file_evaluation.py": "c707ffa634ed82874020f9f644b4c1c75c26c23b4c6f63163bca7231637e3245",
+    "repair_pdf_reference.py": "094b756b01d25fd23dc968fee705dfa090d31254fb34a2cf7a2ca22dfe7ac7c9"
+  },
+  "evidence_errors": [],
+  "reference_sha256": "056bde761437cad00b0207133f32ccbe6186decdbd621c6890c7b2c9ae373580",
+  "reference_format": {
+    "bytes": 9081,
+    "sha256": "056bde761437cad00b0207133f32ccbe6186decdbd621c6890c7b2c9ae373580",
+    "bibtex_entries": 6
+  },
+  "reference_provenance_sha256": "a2d71149bb4a16cfabc00dffa6d6a7fef2325600197a23bd4c944f65cb639d2b",
+  "metric_source_sha256": "41519f82cc130de6ea7aa1df64379be42c126cf21a1251186af09f053a054129",
+  "finished_at": "2026-11-17T13:58:11.785268+00:00"
+}

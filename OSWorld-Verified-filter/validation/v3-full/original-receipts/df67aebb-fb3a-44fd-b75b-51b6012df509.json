@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "task_id": "df67aebb-fb3a-44fd-b75b-51b6012df509",
+  "category": "browser_file",
+  "source_domain": "multi_apps",
+  "task_sha256": "251bbe40cfd9918577f18a93c50c6d301d232c436ebd1f8284e625aa186cdecc",
+  "started_at": "2026-11-17T13:05:40.843796+00:00",
+  "status": "evaluation_error",
+  "score": null,
+  "budget": {
+    "model": "deepseek-v4.1-flash",
+    "reasoning_effort": "max",
+    "mode": "default",
+    "max_steps": 300,
+    "timeout_seconds": 3600,
+    "request_timeout_seconds": 120
+  },
+  "evidence_errors": [],
+  "owned_container_ids": [
+    "9cac551a2aff667d815fcca84c77a25adecbb77e7bbe7b3ae14b14f51785790d"
+  ],
+  "docker_image": {
+    "id": "sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9",
+    "repo_digests": [
+      "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9"
+    ],
+    "required_repo_digest": "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9"
+  },
+  "vm": {
+    "host": "localhost",
+    "server_port": 5002,
+    "chromium_port": 9223,
+    "container_id": "9cac551a2aff667d815fcca84c77a25adecbb77e7bbe7b3ae14b14f51785790d"
+  },
+  "actor_status": "completed",
+  "agent_success": true,
+  "official_terminal_action": "DONE",
+  "owned_vm_closed": true,
+  "owned_container_removal_verified": true,
+  "error_type": "SSLError",
+  "error": "HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/multi_apps/df67aebb-fb3a-44fd-b75b-51b6012df509/references.bib (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)')))",
+  "finished_at": "2026-11-17T13:11:04.513623+00:00",
+  "elapsed_seconds": 323.66983094700845
+}

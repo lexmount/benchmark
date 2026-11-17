@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "kind": "scholar-reference-cross-official-source-v1",
+  "task_id": "5990457f-2adb-467b-a4af-5c857c92d762",
+  "run_dir": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3",
+  "created_at": "2026-11-17T14:34:22.416083+00:00",
+  "status": "corrected",
+  "original_status": "evaluation_error",
+  "original_score": null,
+  "score": 1.0,
+  "model_calls": 0,
+  "vm_starts": 0,
+  "online_requests": 0,
+  "actor_rerun": false,
+  "getter_replayed": false,
+  "original_ui_reference_getter_succeeded": false,
+  "input_kind": "retained_original_result_getter_cache_reparsed_with_original_pandas_semantics",
+  "reference_kind": "cross_official_source_reconstruction",
+  "pdf_binary_verified": false,
+  "pdf_validation_status": "official_api_registered_link_only_binary_not_verified",
+  "identity": {
+    "scholar_profile_id": "WLN3QrAAAAAJ",
+    "title": "Deep learning",
+    "scholar_authors": "Y LeCun, Y Bengio, G Hinton",
+    "scholar_journal": "nature 521 (7553), 436-444, 2015",
+    "year": 2015,
+    "publisher_doi": "10.1038/nature14539",
+    "publisher_authors": [
+      "LeCun, Yann",
+      "Bengio, Yoshua",
+      "Hinton, Geoffrey"
+    ],
+    "hal_id": "hal-04206682",
+    "hal_authors": [
+      "Yann Lecun",
+      "Yoshua Bengio",
+      "Geoffrey Hinton"
+    ],
+    "hal_registered_pdf_url": "https://hal.science/hal-04206682/document",
+    "hal_record_uri": "https://hal.science/hal-04206682v1",
+    "pdf_binary_verified": false,
+    "pdf_validation_status": "official_api_registered_link_only_binary_not_verified"
+  },
+  "actual_source": {
+    "kind": "retained_original_result_getter_cache_reparsed_with_original_pandas_semantics",
+    "original_actual": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5990457f-2adb-467b-a4af-5c857c92d762/official-cache/5990457f-2adb-467b-a4af-5c857c92d762/researchers.xlsx",
+    "actual_sha256": "2ae13d431a1c64e5d19e0e9718d2a81122dfd4156024dd0942a64bd16f515466",
+    "actual_bytes": 6128
+  },
+  "options": {
+    "type": "list",
+    "ignore_case": true
+  },
+  "metric": "literal_match",
+  "metric_source_sha256": "da85cbad0241062f372455dd5ecb977ff780f018350910e9dbb506710d8f6284",
+  "file_getter_source_sha256": "42fb0e108721fc292e209fa66403085868c3bacc2c91ce5f003cd44191eac5c6",
+  "run_metadata_sha256": "78618a67a05802b47e40f55e37a31ed8e6c4776ef98c42b1ac1bd43f1b2fa0d6",
+  "task_sha256": "08506eeb229896ae63a270e252f9bd5c3ce73e3ba044e9c88b416eab6ea3d847",
+  "original_receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5990457f-2adb-467b-a4af-5c857c92d762/receipt.json",
+  "original_receipt_sha256": "ea47f470c8ea9a9378ed654808bffe8727a6d38f22a3d23b86784ba5a98a2679",
+  "primary_sources": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-scholar-cross-source-reference-v1/primary-sources.json",
+  "primary_sources_sha256": "8912de4713449ab462ca2cccef0a229dc655805291c966ecaa05aa8a64f18c0f",
+  "expected": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-scholar-cross-source-reference-v1/expected.json",
+  "expected_sha256": "b642ee0151388f09e89130ca5ce7b9798fddfa49aabbe7ea906ae265723b5387",
+  "actual_last_row": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-scholar-cross-source-reference-v1/actual-last-row.json",
+  "actual_last_row_sha256": "b642ee0151388f09e89130ca5ce7b9798fddfa49aabbe7ea906ae265723b5387",
+  "repair_sources_sha256": {
+    "repair_scholar_reference.py": "e6cdfce1d5b032cd76a85011eea6d2ec6830aa8efae9c8c0d480304126d283bd",
+    "repair_pdf_reference.py": "094b756b01d25fd23dc968fee705dfa090d31254fb34a2cf7a2ca22dfe7ac7c9"
+  },
+  "evidence_errors": [],
+  "boundary": "Reconstructs five fields from a later original Google Scholar profile snapshot and the PDF field from an independently DOI-queried HAL record matched to the Nature publisher. Original UI getter failure and original null score remain. The registered PDF link binary was not verified. No Actor output or static backup supplied reference values."
+}

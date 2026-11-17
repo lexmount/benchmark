@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task_id": "23393935-50c7-4a86-aeea-2b78fd089c5c",
+  "category": "local_file",
+  "source_domain": "os",
+  "task_sha256": "9682045d7f9f3e73ecd29dafd485aa4376b02d75de13502d2a3eeb0f42341bf5",
+  "started_at": "2026-11-17T13:11:05.972116+00:00",
+  "status": "scored",
+  "score": 1.0,
+  "budget": {
+    "model": "deepseek-v4.1-flash",
+    "reasoning_effort": "max",
+    "mode": "default",
+    "max_steps": 300,
+    "timeout_seconds": 3600,
+    "request_timeout_seconds": 120
+  },
+  "evidence_errors": [],
+  "owned_container_ids": [
+    "a4626200af0aad9f3ba462f85c41afbd95e919d36c50975dfbbad97de7a46271"
+  ],
+  "docker_image": {
+    "id": "sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9",
+    "repo_digests": [
+      "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9"
+    ],
+    "required_repo_digest": "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9"
+  },
+  "vm": {
+    "host": "localhost",
+    "server_port": 5000,
+    "chromium_port": 9223,
+    "container_id": "a4626200af0aad9f3ba462f85c41afbd95e919d36c50975dfbbad97de7a46271"
+  },
+  "actor_status": "completed",
+  "agent_success": true,
+  "official_terminal_action": "DONE",
+  "owned_vm_closed": true,
+  "owned_container_removal_verified": true,
+  "finished_at": "2026-11-17T13:13:38.549637+00:00",
+  "elapsed_seconds": 152.5775181499921
+}

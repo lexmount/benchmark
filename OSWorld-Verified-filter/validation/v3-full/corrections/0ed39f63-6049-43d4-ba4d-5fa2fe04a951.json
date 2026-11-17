@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "kind": "technical-actor-retry-v1",
+  "task_id": "0ed39f63-6049-43d4-ba4d-5fa2fe04a951",
+  "run_dir": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3",
+  "retry_run_dir": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-technical-retry-0ed39-v1",
+  "created_at": "2026-11-17T14:34:25.290123+00:00",
+  "actor_rerun": true,
+  "original_score": null,
+  "score": 1.0,
+  "status": "technical_retry_recorded",
+  "original_receipt_unchanged": true,
+  "original_output_rejudged": false,
+  "snapshot": {
+    "original": {
+      "run_dir": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3",
+      "run_metadata_sha256": "78618a67a05802b47e40f55e37a31ed8e6c4776ef98c42b1ac1bd43f1b2fa0d6",
+      "frozen_inventory_sha256": "704cd8ce0cdaaa4b5dffb95b30e205663f16d4ef576d048e97d815b9c3842661",
+      "task_sha256": "ba53fb30a0d1064b46a68babbad9b082bb79b7228788c4643fca828c17c075ff",
+      "receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0ed39f63-6049-43d4-ba4d-5fa2fe04a951/receipt.json",
+      "receipt_sha256": "664ac0cef4bbe023d609426e7c2b94131f7c2a9accdb1381c4f1b73bd0c485d9",
+      "actor_result_sha256": "3fc6d8c098c021e0b44d044caf7784df788a7b29e608250dc03ae89e3d09ab97",
+      "actor_archive_sha256": "5476e0b9ad6107b2c146c6252ee4a535b588db91f7211aa9f9f99b932f54f0ea",
+      "public_actor_run_member_sha256": "cef8f5fa488300665a23464c8b11603d9bc4a070d979b0baf01dc0869a8bc1c5",
+      "probe_sha256": "e470837d256e1b770bc893c6fa716cb1ca8e94c11ce9552eacf5208c6717af38",
+      "native_status": "error",
+      "status": "actor_error",
+      "score": null,
+      "model_turns": 5,
+      "model_http_requests": 6,
+      "wall_seconds": 58.201814661
+    },
+    "retry": {
+      "run_dir": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-technical-retry-0ed39-v1",
+      "run_metadata_sha256": "4e6095df8f9c58930f75921b6b52039136d4fd7e0cefe770ba5a4c518e38258c",
+      "frozen_inventory_sha256": "9b5a6b627a206411e11dd969cd49d6c3d59b5c044e5b4aa5e9fdd6188f467a86",
+      "task_sha256": "ba53fb30a0d1064b46a68babbad9b082bb79b7228788c4643fca828c17c075ff",
+      "receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-technical-retry-0ed39-v1/tasks/0ed39f63-6049-43d4-ba4d-5fa2fe04a951/receipt.json",
+      "receipt_sha256": "29494c1698d8d01929d7be7bdb56ed4f20b5d1d48996389992601b7c2a9920e1",
+      "actor_result_sha256": "66aa09286ee569679126bb55079b665174558c1573f4c2dced804246fdc10fa1",
+      "actor_archive_sha256": "7a6913f46ace698c36c9a7e643b97e99f5a7bbddf892c73d5539c977bd95eed8",
+      "public_actor_run_member_sha256": "541c757638553e986e08a7203fdc514ee0da58e3e37e6cf05ca5d4e862e0cac1",
+      "probe_sha256": "337f237c45d5ffca0d8a7203e2d812bf0f47e4f7d4b2d428937e48467f95e3c6",
+      "native_status": "completed",
+      "status": "scored",
+      "score": 1.0,
+      "model_turns": 22,
+      "model_http_requests": 22,
+      "wall_seconds": 101.941228313
+    },
+    "agent_commit": "efbe54895f289388d13842fd6fccc151ee1697ea",
+    "upstream_commit": "5123bfdbbc34b947bcffcff564abc62d0ab7072d",
+    "benchmark_commit": "d38423ca2f18c3c4b2be0be0957ec93baa0d0add",
+    "actor_budget": {
+      "model": "deepseek-v4.1-flash",
+      "reasoning_effort": "max",
+      "mode": "default",
+      "max_steps": 300,
+      "timeout_seconds": 3600,
+      "request_timeout_seconds": 120
+    },
+    "public_actor_config_sha256": "ce4084280c98f3295550976258d5bc6cc305ddc85b9b8beeb5b4687742b78476",
+    "source_inventory_sha256": "d7d2acb39cc516163e9561d31713e46e8a49194f2cfe4b7c5441067dd880ec39",
+    "runtime_bundle_normalized_member_inventory_sha256": "2083807740c7deba3643d565320aab3b4f6151c3694a673d3bfc50cca8599582",
+    "runtime_bundle_original_member_inventory_sha256": "2083807740c7deba3643d565320aab3b4f6151c3694a673d3bfc50cca8599582",
+    "runtime_bundle_retry_member_inventory_sha256": "666024c013f2000cddca0610c14c3e8c9a57f96431d73925f64fb075060ffa33",
+    "runtime_bundle_allowed_metadata_differences": [
+      {
+        "member": "guest_actor.py",
+        "original_mode": 420,
+        "retry_mode": 436,
+        "original_mode_octal": "0o644",
+        "retry_mode_octal": "0o664",
+        "size": 5569,
+        "unchanged_sha256": "fe884502cb86918a43b62062c50f595f36da1bf11eb66c8e813cbe6bd9f675b6",
+        "allowed_difference": "Only the group-write bit0644<->0664 for the audited guest_actor.py bytes; no executable,setuid or world-write change."
+      }
+    ],
+    "bundle_permission_policy": "Exact member paths/content/types/sizes/modes except the disclosed0644<->0664 group-write bit on the audited5569byte guest_actor.py blob.",
+    "engine_signature": {
+      "python": "3.12.13 (main, Jun 23 2026, 15:18:55) [Clang 22.1.3 ]",
+      "packages": {
+        "lexmount-browser-agent": "0.2.0",
+        "browser-use": "1.0.4",
+        "browser-harness": "0.1.13",
+        "pydantic-ai-slim": "2.66.0"
+      },
+      "sources": {
+        "product_runner": "0ded138a551bca30e65e75cdaed9f5d61cf8180f8acbbca97e98fbd18d08b064",
+        "product_config": "5b89ef19fdb3ed974b3bdca3ac2425770b7b203de44d89beef65d19b4e418420",
+        "engine_service": "77ea04a7dfddcabe3766145f178e99caf2cdce6b7cf20c36219fb234cae17dc3",
+        "engine_repl_worker": "79172a7c6907d3a7efbda61eef64c0aff7b1c369c1d237ecec980663cb01af28",
+        "engine_repl_session": "f62584a3cd2a1c8d9c7b2d83f519c6c085b33a09220a0ececb5f90b5ed3c6f0a"
+      },
+      "uid": 1000,
+      "home": "/home/user"
+    },
+    "allowed_derived_metadata_differences": [
+      "bundle_path",
+      "bundle_sha256",
+      "created_at",
+      "guest_root",
+      "harness_root",
+      "osworld_root",
+      "prepared_by"
+    ]
+  },
+  "verifier_sha256": "7124a12d6d686d1a921f2ab9a5815c3f6405aadbf25e076c1e87c62b45a0eb8c",
+  "boundary": "A separately authorized new Actor attempt after a provider image-download error; not a regrade of the original output and not a retry of a legal original zero."
+}

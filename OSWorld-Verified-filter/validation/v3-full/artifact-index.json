@@ -1,0 +1,2890 @@
+{
+  "e1e75309-3ddb-4d09-92ec-de869c928143": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/receipt.json",
+      "size_bytes": 1442,
+      "sha256": "8e3402c3cfd59cdd2fd638be23ad31e0c4133bec4d0422c9da9899a25cd86020"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/actor-result.json",
+      "size_bytes": 4031,
+      "sha256": "2b09e8161f72703a997ab6614dd27fab54a80d815a9ff35218add6e409c216c1"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/actor-output.tar.gz",
+      "size_bytes": 14016504,
+      "sha256": "f5af6a6ce96bcb6fef11cbc44c2f726e48d70ceb651753ec50584614349b9262"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/initial.png",
+      "size_bytes": 81540,
+      "sha256": "9e6a17442156683149ba4651fcbdcda0289f913336e4f12fa1f437aa39872136"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/final.png",
+      "size_bytes": 227267,
+      "sha256": "0b5e2a9ff4fe145132851d54fbe784f71076c3d0a33528e86c9f83c42d86720e"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "a1fedf35a1b14a718decf2a8d53e2ac8ff0b08fc2a342c5779d824b159466f0b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/recording.mp4",
+      "size_bytes": 6497904,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "fc6d8143-9452-4171-9459-7f515143419a": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/fc6d8143-9452-4171-9459-7f515143419a/receipt.json",
+      "size_bytes": 1436,
+      "sha256": "deaafc7d89c191698af2df7a631bb292173ce5782563548ca2e5854bc46d802c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/fc6d8143-9452-4171-9459-7f515143419a/actor-result.json",
+      "size_bytes": 10665,
+      "sha256": "44e03a50da1d259b3f51b6b1fd605ad0ae47beec1635f15871007b6cc71491f2"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/fc6d8143-9452-4171-9459-7f515143419a/actor-output.tar.gz",
+      "size_bytes": 7732873,
+      "sha256": "47086b391a886fbfcbb389f72a1f02ee396e6b8e6128b8cbd9f199c4867e57d8"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/fc6d8143-9452-4171-9459-7f515143419a/initial.png",
+      "size_bytes": 95190,
+      "sha256": "458d08c1b723e9a8b255f6dce54c9e0e74df47f76c4af539103f4867a502853e"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/fc6d8143-9452-4171-9459-7f515143419a/final.png",
+      "size_bytes": 103213,
+      "sha256": "dac1cb8bff948ca919525555a6a3a68de9ff245b64813945283c6f4d868397bb"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/fc6d8143-9452-4171-9459-7f515143419a/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "6ff9795c330a55d2280fcb891f0bbf3c47944e54b2265429134c088ecdaf9884"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/fc6d8143-9452-4171-9459-7f515143419a/recording.mp4",
+      "size_bytes": 4689054,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "a96b564e-dbe9-42c3-9ccf-b4498073438a": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a96b564e-dbe9-42c3-9ccf-b4498073438a/receipt.json",
+      "size_bytes": 1435,
+      "sha256": "601b687fdcba99fe6317f69155443cdaba6fa620e3607a901926e62d1b00f58e"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a96b564e-dbe9-42c3-9ccf-b4498073438a/actor-result.json",
+      "size_bytes": 3754,
+      "sha256": "f7b701c5bca325b218609d60e59ad18411498ab5176982692591d242356aed1e"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a96b564e-dbe9-42c3-9ccf-b4498073438a/actor-output.tar.gz",
+      "size_bytes": 213236,
+      "sha256": "92878d321f1a695da334e0cc021be33c5cb0e7eca7dba16b58f6f61f234f93e0"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a96b564e-dbe9-42c3-9ccf-b4498073438a/initial.png",
+      "size_bytes": 109403,
+      "sha256": "5dc824dea182a4b865985fe1f48156560cb8ff6f1c1556c9aec1c747d6be1196"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a96b564e-dbe9-42c3-9ccf-b4498073438a/final.png",
+      "size_bytes": 186005,
+      "sha256": "c110748d57c491da629e7a1de1d6b632cb5d393fa9b1647ffc826c662886f53c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a96b564e-dbe9-42c3-9ccf-b4498073438a/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "f433a590566d1a44b363128eb920158f95ae3154fafda8e6b89f56277fae2933"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a96b564e-dbe9-42c3-9ccf-b4498073438a/recording.mp4",
+      "size_bytes": 3639484,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "1704f00f-79e6-43a7-961b-cedd3724d5fd": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/1704f00f-79e6-43a7-961b-cedd3724d5fd/receipt.json",
+      "size_bytes": 1436,
+      "sha256": "fc442432e9eb903e837f27e783e349699bc6bbded647aeebaa08a8b6f79e2b88"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/1704f00f-79e6-43a7-961b-cedd3724d5fd/actor-result.json",
+      "size_bytes": 4666,
+      "sha256": "8763815dee4f558daf41f4eadc9e6e6f4482cec390f0f86924f59680d80dcd52"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/1704f00f-79e6-43a7-961b-cedd3724d5fd/actor-output.tar.gz",
+      "size_bytes": 18241162,
+      "sha256": "b29c6b25ff63c4c579fd0ff7fffb26abe59dcedbd6d02d696d48f234c15b687d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/1704f00f-79e6-43a7-961b-cedd3724d5fd/initial.png",
+      "size_bytes": 132512,
+      "sha256": "04bbfeb91080c7cee74003519b47407125c5dc95f94fa6f1e9212528a19238be"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/1704f00f-79e6-43a7-961b-cedd3724d5fd/final.png",
+      "size_bytes": 488908,
+      "sha256": "df83fbf46493d3235d810e897106391a7b004fd9639abdbc29ea0e6c8a1a23dd"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/1704f00f-79e6-43a7-961b-cedd3724d5fd/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "46934a1d41285f37ef4edaf925c0c1c6b4676eb02d7d9ff7e071f140785fe219"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/1704f00f-79e6-43a7-961b-cedd3724d5fd/recording.mp4",
+      "size_bytes": 3539470,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "f3b19d1e-2d48-44e9-b4e1-defcae1a0197": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f3b19d1e-2d48-44e9-b4e1-defcae1a0197/receipt.json",
+      "size_bytes": 1435,
+      "sha256": "4031f4d9bf2f15d382fd46ea45894bd2f92a0f770681376d38e53ea7536618cb"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f3b19d1e-2d48-44e9-b4e1-defcae1a0197/actor-result.json",
+      "size_bytes": 5085,
+      "sha256": "c818c34459dd5cdcff6df10898f9347d0f9e627d877c02fed347ee999eb2996c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f3b19d1e-2d48-44e9-b4e1-defcae1a0197/actor-output.tar.gz",
+      "size_bytes": 5441159,
+      "sha256": "fc6825e8a2a30c8f3ab2c792000528dfda2238d738738a92559b9ec162dd976d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f3b19d1e-2d48-44e9-b4e1-defcae1a0197/initial.png",
+      "size_bytes": 104672,
+      "sha256": "87ed8abc46b03b04934ba89270bb55135e618500206c954ef5686d346dad5241"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f3b19d1e-2d48-44e9-b4e1-defcae1a0197/final.png",
+      "size_bytes": 772888,
+      "sha256": "8670276b628523741dd952be9d8ab9b0add9e5d59e3579fd2aa785b8b6b290cb"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f3b19d1e-2d48-44e9-b4e1-defcae1a0197/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "4f91281bad681bfbb4272fc9594062e7b891d2adaef1e55bbc00ea0a532fa96b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f3b19d1e-2d48-44e9-b4e1-defcae1a0197/recording.mp4",
+      "size_bytes": 5923385,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "82bc8d6a-36eb-4d2d-8801-ef714fb1e55a": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82bc8d6a-36eb-4d2d-8801-ef714fb1e55a/receipt.json",
+      "size_bytes": 1436,
+      "sha256": "b32a6a5620a61fddeed6ab1438bd51cd36afbfb4d88dadb499640a63913fba94"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82bc8d6a-36eb-4d2d-8801-ef714fb1e55a/actor-result.json",
+      "size_bytes": 7858,
+      "sha256": "0ccc8217a1811239be460b979539533b2127aedd39e1f0137280f46a2e3d7ea1"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82bc8d6a-36eb-4d2d-8801-ef714fb1e55a/actor-output.tar.gz",
+      "size_bytes": 57539478,
+      "sha256": "f170798da353b4e8448f83597a7ee7211312c3f7b1482e1ca78926935d071e73"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82bc8d6a-36eb-4d2d-8801-ef714fb1e55a/initial.png",
+      "size_bytes": 103802,
+      "sha256": "31f20d91f121792162a9d6d7cbfbb308a638ef15bb085718a0fb05f555384a96"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82bc8d6a-36eb-4d2d-8801-ef714fb1e55a/final.png",
+      "size_bytes": 159867,
+      "sha256": "5402b17c0a32fa2efaa08fcc72a2b37e9f0f9cf1ec723145e08c7aa927c6bf20"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82bc8d6a-36eb-4d2d-8801-ef714fb1e55a/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "0afaafe1e790798d8023c9c2cfce6ee092c4a629cc3c26ef7adf4c006421332b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82bc8d6a-36eb-4d2d-8801-ef714fb1e55a/recording.mp4",
+      "size_bytes": 4448252,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "47543840-672a-467d-80df-8f7c3b9788c9": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/47543840-672a-467d-80df-8f7c3b9788c9/receipt.json",
+      "size_bytes": 1435,
+      "sha256": "18b5c1baa337f1f9533c51923ad9435ebaa360007e77e366f49ec1b5d3d839b4"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/47543840-672a-467d-80df-8f7c3b9788c9/actor-result.json",
+      "size_bytes": 9553,
+      "sha256": "a795200e16a3d1e708e81e915cf828656bd918ce71a3d925decbed3d813b283f"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/47543840-672a-467d-80df-8f7c3b9788c9/actor-output.tar.gz",
+      "size_bytes": 137167270,
+      "sha256": "68d32f0f388a7339f66f13d6da132a99267f8984f63c1627b5d6214a0e095114"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/47543840-672a-467d-80df-8f7c3b9788c9/initial.png",
+      "size_bytes": 1490075,
+      "sha256": "6e7ad34f4a098b795e040dd4a4079acf42e6ff315f5b812b5b57460e64b5060a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/47543840-672a-467d-80df-8f7c3b9788c9/final.png",
+      "size_bytes": 367247,
+      "sha256": "b5ce420016acbd0b165ad43a09d4e6e30667d79bb141ff84270d17f93c3e2cdf"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/47543840-672a-467d-80df-8f7c3b9788c9/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "c69efc3650af093dcd642ca31db9e1789c508a59ba9ba903f15842df495cea05"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/47543840-672a-467d-80df-8f7c3b9788c9/recording.mp4",
+      "size_bytes": 11235887,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "c1fa57f3-c3db-4596-8f09-020701085416": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c1fa57f3-c3db-4596-8f09-020701085416/receipt.json",
+      "size_bytes": 1434,
+      "sha256": "17bb77ce67c7f26edf264057a65b91e49dabc71336d2a37594884939828076de"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c1fa57f3-c3db-4596-8f09-020701085416/actor-result.json",
+      "size_bytes": 4951,
+      "sha256": "3697a8f487e9f4909d9d96c982ffe9ecc3893c72ad5c068ca0749b226b006d72"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c1fa57f3-c3db-4596-8f09-020701085416/actor-output.tar.gz",
+      "size_bytes": 2372391,
+      "sha256": "fd1dfe1bc3eaa4c3951dde8a963d209978bc5a13416fcf5ecd22d27242d2c556"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c1fa57f3-c3db-4596-8f09-020701085416/initial.png",
+      "size_bytes": 78273,
+      "sha256": "543b139790b952e4be75ca53114c4ea0cc5a1965167e481d8b67b0f4254499cc"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c1fa57f3-c3db-4596-8f09-020701085416/final.png",
+      "size_bytes": 194421,
+      "sha256": "0f8414886d3238a854a2c08516849a86c23237a88ff824f4663ff9342e032db7"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c1fa57f3-c3db-4596-8f09-020701085416/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "b580484228b47244350f23a2fefcdbec956a0095e4c1c2eb9bd560460ae0c250"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c1fa57f3-c3db-4596-8f09-020701085416/recording.mp4",
+      "size_bytes": 3810045,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "6c4c23a1-42a4-43cc-9db1-2f86ff3738cc": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6c4c23a1-42a4-43cc-9db1-2f86ff3738cc/receipt.json",
+      "size_bytes": 1435,
+      "sha256": "b9707ef95a58d73302b21c5230652655a4b6cf366a8275c44851c01975cb1baa"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6c4c23a1-42a4-43cc-9db1-2f86ff3738cc/actor-result.json",
+      "size_bytes": 19433,
+      "sha256": "3c808a3cc9bc47e091082857a75c77fedf8fa4a59ffa4642bef263657561345c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6c4c23a1-42a4-43cc-9db1-2f86ff3738cc/actor-output.tar.gz",
+      "size_bytes": 44451584,
+      "sha256": "d33d8a8084982791f814d6c8730b23d4c831004f08db28b3ca9d358be40cac72"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6c4c23a1-42a4-43cc-9db1-2f86ff3738cc/initial.png",
+      "size_bytes": 77850,
+      "sha256": "6972f23d4f96ca3b8b1e131d717ec79a96455ecb313ac4dac3a2e42035690a9a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6c4c23a1-42a4-43cc-9db1-2f86ff3738cc/final.png",
+      "size_bytes": 232328,
+      "sha256": "990aaa85ef67b54aeb0493e9bf294d78e1e0d78214cf4317f247f7529a81d1d5"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6c4c23a1-42a4-43cc-9db1-2f86ff3738cc/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "71da719b09756df4d1229f45c75cda1fcade26c39b8f128e87b6dcc0e283e2d0"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6c4c23a1-42a4-43cc-9db1-2f86ff3738cc/recording.mp4",
+      "size_bytes": 8630239,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "f79439ad-3ee8-4f99-a518-0eb60e5652b0": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f79439ad-3ee8-4f99-a518-0eb60e5652b0/receipt.json",
+      "size_bytes": 1436,
+      "sha256": "4a66f2d506cb05d5451c821f24261b672518b292a0d481f4b635354091e14792"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f79439ad-3ee8-4f99-a518-0eb60e5652b0/actor-result.json",
+      "size_bytes": 4329,
+      "sha256": "b39c240015757ddca72454ffc9ae0375ceb13eae22b0e0369bfb5a6c3610b528"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f79439ad-3ee8-4f99-a518-0eb60e5652b0/actor-output.tar.gz",
+      "size_bytes": 19691269,
+      "sha256": "7f7c46b70b0affb4a5861f1b623c54e1ce7a4167ab5e4c1ea51121bbf90bd991"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f79439ad-3ee8-4f99-a518-0eb60e5652b0/initial.png",
+      "size_bytes": 78849,
+      "sha256": "232eb155f9875f36a6427c885c5f3c488195480b666a86e5a61a2ec21b483b70"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f79439ad-3ee8-4f99-a518-0eb60e5652b0/final.png",
+      "size_bytes": 233421,
+      "sha256": "8356519f4c5b65d8112f20aba1b374662c414a4252b55bf58f96c1936fb96cd1"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f79439ad-3ee8-4f99-a518-0eb60e5652b0/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "529cf7eacae0503762b3760a6aeaed9cfd7b806cb102eaf7ce20cc9a3e7f4ed6"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f79439ad-3ee8-4f99-a518-0eb60e5652b0/recording.mp4",
+      "size_bytes": 8792052,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "b7895e80-f4d1-4648-bee0-4eb45a6f1fa8": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b7895e80-f4d1-4648-bee0-4eb45a6f1fa8/receipt.json",
+      "size_bytes": 1434,
+      "sha256": "0277224e0fb9ae1b75a0dc5f7e40a72681a8de3960f173fe1873b1631f597d35"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b7895e80-f4d1-4648-bee0-4eb45a6f1fa8/actor-result.json",
+      "size_bytes": 5272,
+      "sha256": "1695f685ae07ddb71ac1801a9caa19381139e10f32fdbb2a8bc89e9ef56d98d5"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b7895e80-f4d1-4648-bee0-4eb45a6f1fa8/actor-output.tar.gz",
+      "size_bytes": 12443647,
+      "sha256": "c6189391f40facdef7a6fdbfe5e1998f3c46695aba474c8628f2b20fcd0ca8f6"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b7895e80-f4d1-4648-bee0-4eb45a6f1fa8/initial.png",
+      "size_bytes": 77537,
+      "sha256": "c1b230b8fc1abb71550f7e131280f151cb9f329903911eba2d71df6f14cc6044"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b7895e80-f4d1-4648-bee0-4eb45a6f1fa8/final.png",
+      "size_bytes": 1170649,
+      "sha256": "6d6bf4b06163c9944aaba2217e6210d07b5c255d9d6276eba62ddacea2c7ac6c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b7895e80-f4d1-4648-bee0-4eb45a6f1fa8/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "bf75f2e953796df9d12c6b50826e2a16109f773323ed72f63e419e26fbb07fba"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b7895e80-f4d1-4648-bee0-4eb45a6f1fa8/recording.mp4",
+      "size_bytes": 12345235,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "9f3f70fc-5afc-4958-a7b7-3bb4fcb01805": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/9f3f70fc-5afc-4958-a7b7-3bb4fcb01805/receipt.json",
+      "size_bytes": 1437,
+      "sha256": "bd386781f5a4a119b8ed503202c28579ef0515369219262398d588fd1edf46b6"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/9f3f70fc-5afc-4958-a7b7-3bb4fcb01805/actor-result.json",
+      "size_bytes": 4678,
+      "sha256": "f40c0fa9455d52e6dd454a5f547ffa3ea1172ac3e76fa79e8d7b92b2e4ede10d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/9f3f70fc-5afc-4958-a7b7-3bb4fcb01805/actor-output.tar.gz",
+      "size_bytes": 22094759,
+      "sha256": "5a4061d8536c4269bda3ed7dbc862c6be14264998034a959a24b33722629261b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/9f3f70fc-5afc-4958-a7b7-3bb4fcb01805/initial.png",
+      "size_bytes": 95568,
+      "sha256": "613959b9ff182ccd6f7dac6903883a545956fe3bdd0b6126fb10ef4efe811dd2"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/9f3f70fc-5afc-4958-a7b7-3bb4fcb01805/final.png",
+      "size_bytes": 98417,
+      "sha256": "a41e279e67d01bed1dde8f66ede141666045673fc03076b9fe924b54aecc9458"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/9f3f70fc-5afc-4958-a7b7-3bb4fcb01805/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "a4b231522fb32569d7b475991198a3a97a20622d4bbbfc24f6a151041984160c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/9f3f70fc-5afc-4958-a7b7-3bb4fcb01805/recording.mp4",
+      "size_bytes": 1645390,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "7f52cab9-535c-4835-ac8c-391ee64dc930": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7f52cab9-535c-4835-ac8c-391ee64dc930/receipt.json",
+      "size_bytes": 1433,
+      "sha256": "77b895257b1eedafbf7f7872cc1e112f9f9d6265fa77b1d9d98414d888f6d707"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7f52cab9-535c-4835-ac8c-391ee64dc930/actor-result.json",
+      "size_bytes": 5390,
+      "sha256": "c2fe7edb088f5493f1e6c32d4e234d33df63901049378674fcb0d062ea8ea3a6"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7f52cab9-535c-4835-ac8c-391ee64dc930/actor-output.tar.gz",
+      "size_bytes": 38414454,
+      "sha256": "5289e75d098a8e69dc635f7b14f5ccc634a465812074412b688d7fac5177d51f"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7f52cab9-535c-4835-ac8c-391ee64dc930/initial.png",
+      "size_bytes": 81695,
+      "sha256": "9205924b77af01b032cd03af0380114530049cf1e43c448d37e0c4d8daaae05b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7f52cab9-535c-4835-ac8c-391ee64dc930/final.png",
+      "size_bytes": 463738,
+      "sha256": "f4fc0b27fcf2fad55719f54da1143e8cfafcbe6ff65d986023c3b12098490e40"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7f52cab9-535c-4835-ac8c-391ee64dc930/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "aeb2346f504ee352c0e8354e83cc634ef0270226d8fe068333f340697edfebc2"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7f52cab9-535c-4835-ac8c-391ee64dc930/recording.mp4",
+      "size_bytes": 6440729,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "82279c77-8fc6-46f6-9622-3ba96f61b477": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82279c77-8fc6-46f6-9622-3ba96f61b477/receipt.json",
+      "size_bytes": 1436,
+      "sha256": "a2f5cb82da3e6177fd3f92b88b29e7f5b77dd6c49bcbb386e6fd5b842363e478"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82279c77-8fc6-46f6-9622-3ba96f61b477/actor-result.json",
+      "size_bytes": 12069,
+      "sha256": "511c133d5e6d558b976558f01c66a1ed66de2d0865e7ab600e2aaf5c63ffcdf9"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82279c77-8fc6-46f6-9622-3ba96f61b477/actor-output.tar.gz",
+      "size_bytes": 45623414,
+      "sha256": "06eaaf95b99f90bcb0e4f400959a05ac8da381e707ca39c63b681d3e2b0f6115"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82279c77-8fc6-46f6-9622-3ba96f61b477/initial.png",
+      "size_bytes": 150198,
+      "sha256": "7e98bec90e381170964a2762c95aac85d32ec7fd52aa12ba298f9bc582a7f0b2"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82279c77-8fc6-46f6-9622-3ba96f61b477/final.png",
+      "size_bytes": 159905,
+      "sha256": "dd229bae5871a2024c42a7c9c6ff523237311166a4ea4c6be1339363fc89335b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82279c77-8fc6-46f6-9622-3ba96f61b477/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "ac1c12598457c2a1b83d532af04f51b1779e56360c9306326bbb87ba7cafa762"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82279c77-8fc6-46f6-9622-3ba96f61b477/recording.mp4",
+      "size_bytes": 4406446,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "2888b4e6-5b47-4b57-8bf5-c73827890774": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/2888b4e6-5b47-4b57-8bf5-c73827890774/receipt.json",
+      "size_bytes": 1435,
+      "sha256": "f240867a9f6512307ea6082b217ed259cf857531527b10e1ba611d7fe4e1bb65"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/2888b4e6-5b47-4b57-8bf5-c73827890774/actor-result.json",
+      "size_bytes": 3934,
+      "sha256": "e7cc088bbdd73f4b1c2d9bb55dfb4f5c226259db0a1bf25f5c1a78e6a1dba047"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/2888b4e6-5b47-4b57-8bf5-c73827890774/actor-output.tar.gz",
+      "size_bytes": 36556536,
+      "sha256": "9eb1e2412b03d84987ab6f2a6fcf302f6090d78c09e740b23e98c97504bf0126"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/2888b4e6-5b47-4b57-8bf5-c73827890774/initial.png",
+      "size_bytes": 76913,
+      "sha256": "d1540740ef7ae13dc5cbe9b4eecd5a63abe9ae7cd739044f9869a1ec3f00d23d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/2888b4e6-5b47-4b57-8bf5-c73827890774/final.png",
+      "size_bytes": 472004,
+      "sha256": "e610d3aac0033be08dab4b114023234205295e7f5c5cd953c326e7e723264369"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/2888b4e6-5b47-4b57-8bf5-c73827890774/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "a5b787f70b9d80d31592880b84cabb729d930910e0809f3122827be19456a43b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/2888b4e6-5b47-4b57-8bf5-c73827890774/recording.mp4",
+      "size_bytes": 8511762,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "b4f95342-463e-4179-8c3f-193cd7241fb2": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b4f95342-463e-4179-8c3f-193cd7241fb2/receipt.json",
+      "size_bytes": 1435,
+      "sha256": "d532928f171f94e0251766cc8539c71465faa4504c6d5559aa42f918fbbb9f15"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b4f95342-463e-4179-8c3f-193cd7241fb2/actor-result.json",
+      "size_bytes": 8280,
+      "sha256": "c4e647561fb436c0586ebd2b36ba92052b8e7ef7ad7c1a64bb43c06a69f4043a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b4f95342-463e-4179-8c3f-193cd7241fb2/actor-output.tar.gz",
+      "size_bytes": 25995908,
+      "sha256": "8bc5fd21e2e3334b6e81ebe000fa466640f8b04c63aeed62919f48d88211e07d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b4f95342-463e-4179-8c3f-193cd7241fb2/initial.png",
+      "size_bytes": 77424,
+      "sha256": "cef5c2adffce0294f0d889f2f756e069d4f020f7680c5b80db65256fbaec9d6d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b4f95342-463e-4179-8c3f-193cd7241fb2/final.png",
+      "size_bytes": 171657,
+      "sha256": "8a054802d7d16881d49ec0a1ed9d51a219b88762a2dd75205549733cec61fccb"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b4f95342-463e-4179-8c3f-193cd7241fb2/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "77c53cca58533e438d1d5173ad700990412d5d6ea7e283155ef5da407fc77808"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b4f95342-463e-4179-8c3f-193cd7241fb2/recording.mp4",
+      "size_bytes": 12414626,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "f5d96daf-83a8-4c86-9686-bada31fc66ab": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f5d96daf-83a8-4c86-9686-bada31fc66ab/receipt.json",
+      "size_bytes": 1436,
+      "sha256": "2d12e44e2a5dac70b71d38601057e65875f42b14220f24d326cc4fa453623e05"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f5d96daf-83a8-4c86-9686-bada31fc66ab/actor-result.json",
+      "size_bytes": 19312,
+      "sha256": "eb3c2e1607183d490051183da5e70a1808da05e68fb85da20b2d72523211e62a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f5d96daf-83a8-4c86-9686-bada31fc66ab/actor-output.tar.gz",
+      "size_bytes": 5192357,
+      "sha256": "f89fa51af7df265a704d60cc924a653491ce95401c3ceb3f598d144678f12659"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f5d96daf-83a8-4c86-9686-bada31fc66ab/initial.png",
+      "size_bytes": 76832,
+      "sha256": "3a9e754e2a025465d69edba3e2cffa090fb081dac2a2b296a8417bb7cfa4be6b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f5d96daf-83a8-4c86-9686-bada31fc66ab/final.png",
+      "size_bytes": 172813,
+      "sha256": "358b3cfe59eae796043d0da1c7f374da4110447c8959d1ad203deec658ddf108"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f5d96daf-83a8-4c86-9686-bada31fc66ab/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "ae85fc4230580ef9140205a0d80b222492fac728e8e80d91a99f7a81c449ac4b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f5d96daf-83a8-4c86-9686-bada31fc66ab/recording.mp4",
+      "size_bytes": 5199633,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "121ba48f-9e17-48ce-9bc6-a4fb17a7ebba": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/121ba48f-9e17-48ce-9bc6-a4fb17a7ebba/receipt.json",
+      "size_bytes": 1436,
+      "sha256": "ea1f38c9c2b0af93445adf4465046f628a0b2ded97ffe91de2809eeafb29639b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/121ba48f-9e17-48ce-9bc6-a4fb17a7ebba/actor-result.json",
+      "size_bytes": 3827,
+      "sha256": "7c9015fce8dec9a836c1df94d095d374849bf9bd412f9ecd0ff3d0589cb6338a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/121ba48f-9e17-48ce-9bc6-a4fb17a7ebba/actor-output.tar.gz",
+      "size_bytes": 21295425,
+      "sha256": "ea8d418896c9a3a8c5c385834976cd8113f686b7cafdc05a3613d9fec0e632c3"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/121ba48f-9e17-48ce-9bc6-a4fb17a7ebba/initial.png",
+      "size_bytes": 106332,
+      "sha256": "2061cc1b2c94950b3f5786aa91a7a4861da11ea93b06de1bec704256f13047f9"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/121ba48f-9e17-48ce-9bc6-a4fb17a7ebba/final.png",
+      "size_bytes": 560477,
+      "sha256": "88807c9be442cf508877be17c4c551de3dea96c0b6042203e469ac1d09609a9f"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/121ba48f-9e17-48ce-9bc6-a4fb17a7ebba/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "fb90162232c3dbfe52817836f502e6ef902217a3dd53e5bfb8a7a261fb077895"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/121ba48f-9e17-48ce-9bc6-a4fb17a7ebba/recording.mp4",
+      "size_bytes": 2920941,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "368d9ba4-203c-40c1-9fa3-da2f1430ce63": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/368d9ba4-203c-40c1-9fa3-da2f1430ce63/receipt.json",
+      "size_bytes": 1435,
+      "sha256": "2b6b3c0c17f324bd7003fa12e9039c2e23e96c5241f15b0e5a983141e023222c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/368d9ba4-203c-40c1-9fa3-da2f1430ce63/actor-result.json",
+      "size_bytes": 8807,
+      "sha256": "9a06e1f82058354c17e7f905724ba28cd799cb65e4e727ce6af3eb6c5df55cb0"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/368d9ba4-203c-40c1-9fa3-da2f1430ce63/actor-output.tar.gz",
+      "size_bytes": 14705803,
+      "sha256": "a8c0e23d54828c9e249330b7811a3a7969decf9350dc491804985784299b80fd"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/368d9ba4-203c-40c1-9fa3-da2f1430ce63/initial.png",
+      "size_bytes": 81905,
+      "sha256": "79b29b544e3b0147b547eb20621addf451750e137f1790f9c2a9c43041088c36"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/368d9ba4-203c-40c1-9fa3-da2f1430ce63/final.png",
+      "size_bytes": 575747,
+      "sha256": "7a1fa3b744644e086cbadb191ecc365cb25f19fadc4a0adc949831802c0224c4"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/368d9ba4-203c-40c1-9fa3-da2f1430ce63/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "e289242f2364a3f2539f104feae0df34916ad759b526af39fcf786d6c20fa81e"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/368d9ba4-203c-40c1-9fa3-da2f1430ce63/recording.mp4",
+      "size_bytes": 8564657,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "59155008-fe71-45ec-8a8f-dc35497b6aa8": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/59155008-fe71-45ec-8a8f-dc35497b6aa8/receipt.json",
+      "size_bytes": 1433,
+      "sha256": "a77b272c68607d379620a50c6a926adbdc35d658878e494e93569a3bfb5b2d8b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/59155008-fe71-45ec-8a8f-dc35497b6aa8/actor-result.json",
+      "size_bytes": 4337,
+      "sha256": "0457f5e429c20beb29a338e6ca7be9bc964d2bca404e48ad894eca8bff61e912"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/59155008-fe71-45ec-8a8f-dc35497b6aa8/actor-output.tar.gz",
+      "size_bytes": 5869105,
+      "sha256": "360b581d1efe3d99392b55b21dc7f58e5ddfc2abf8804a9942a22a9c21ae7588"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/59155008-fe71-45ec-8a8f-dc35497b6aa8/initial.png",
+      "size_bytes": 79771,
+      "sha256": "1d859b64f111f94df9057e744fa6f22ab20b3df97367223875c85c0eaad798ae"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/59155008-fe71-45ec-8a8f-dc35497b6aa8/final.png",
+      "size_bytes": 211369,
+      "sha256": "17623e90e48ae16bf6ba856892c098fa978731aa917772321ce4678d8962432a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/59155008-fe71-45ec-8a8f-dc35497b6aa8/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "993accda9eefa9badaef284efc70dab53553cc30de1d2d81cfd6a583bcaa6a34"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/59155008-fe71-45ec-8a8f-dc35497b6aa8/recording.mp4",
+      "size_bytes": 1898189,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "a728a36e-8bf1-4bb6-9a03-ef039a5233f0": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a728a36e-8bf1-4bb6-9a03-ef039a5233f0/receipt.json",
+      "size_bytes": 1435,
+      "sha256": "5e483649de3449cd181043a0b00d933790d31a2a4211052f6cf91f6b3c1436b6"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a728a36e-8bf1-4bb6-9a03-ef039a5233f0/actor-result.json",
+      "size_bytes": 8760,
+      "sha256": "84c054e0a37dc42f58a002edc8486073b4e0c3e597b9649b1e1bda938989e3f4"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a728a36e-8bf1-4bb6-9a03-ef039a5233f0/actor-output.tar.gz",
+      "size_bytes": 7594331,
+      "sha256": "35f160d6a827bfc338e1dc164f26b4aa62b1da3e920d0704feb1697c2639ba80"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a728a36e-8bf1-4bb6-9a03-ef039a5233f0/initial.png",
+      "size_bytes": 79157,
+      "sha256": "5732a6da3a28a7bd22e681fb3b9fd7b0d4462168140f8fb43b714b41c291f452"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a728a36e-8bf1-4bb6-9a03-ef039a5233f0/final.png",
+      "size_bytes": 269271,
+      "sha256": "08a7882752222ded97b3cd6513d9661fcd92be0e10475932164338b8db882694"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a728a36e-8bf1-4bb6-9a03-ef039a5233f0/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "12d69ee179651feed8bd72bf7ead614ec4d3359fe7f24fd1481c4626f6b9ca39"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a728a36e-8bf1-4bb6-9a03-ef039a5233f0/recording.mp4",
+      "size_bytes": 6237496,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "b070486d-e161-459b-aa2b-ef442d973b92": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b070486d-e161-459b-aa2b-ef442d973b92/receipt.json",
+      "size_bytes": 1436,
+      "sha256": "f36d83989accfee80d5de58598e409add8a8e6132a5d8f8e0499bb3bf2c3d41b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b070486d-e161-459b-aa2b-ef442d973b92/actor-result.json",
+      "size_bytes": 4625,
+      "sha256": "386776a904d29da9a54f80b30710e7dd3a6fcf3ab649718f14d4969cf32b3c17"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b070486d-e161-459b-aa2b-ef442d973b92/actor-output.tar.gz",
+      "size_bytes": 2106964,
+      "sha256": "c9a478e0f3f5cf6b50105a17562a0a049204d688c4917560f8f460ba4bd5e4cb"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b070486d-e161-459b-aa2b-ef442d973b92/initial.png",
+      "size_bytes": 80455,
+      "sha256": "1c98437d95fbb436d8aed50a0c0e8aa2da5647ff80d3db5079b793e5f501dec7"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b070486d-e161-459b-aa2b-ef442d973b92/final.png",
+      "size_bytes": 1651760,
+      "sha256": "332dcb6932e7e6a96e53790e71df2f29a24bf7f41d9a2fc070f65510c9336800"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b070486d-e161-459b-aa2b-ef442d973b92/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "264561842101b747924a3c51ac10eab61a413c82d3d7adae29a1ffa7c79ff3cc"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b070486d-e161-459b-aa2b-ef442d973b92/recording.mp4",
+      "size_bytes": 2531395,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "0d8b7de3-e8de-4d86-b9fd-dd2dce58a217": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0d8b7de3-e8de-4d86-b9fd-dd2dce58a217/receipt.json",
+      "size_bytes": 1436,
+      "sha256": "416468ab98086026a348d12544b846e242026c2a4ea3d01879f393dc0cac8215"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0d8b7de3-e8de-4d86-b9fd-dd2dce58a217/actor-result.json",
+      "size_bytes": 3926,
+      "sha256": "716e6ec0e55ce372b30631e09fffd61f121e44d24b8368619bf58ee5f3f73029"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0d8b7de3-e8de-4d86-b9fd-dd2dce58a217/actor-output.tar.gz",
+      "size_bytes": 12620050,
+      "sha256": "986324a87886c2c6a03a0c8982910c5aa85468f728c09b0e8eae2dad935a6a11"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0d8b7de3-e8de-4d86-b9fd-dd2dce58a217/initial.png",
+      "size_bytes": 79765,
+      "sha256": "7e306cfe613cb226cc185d80303b03fae98404e7e05c9320319b608d4c57297c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0d8b7de3-e8de-4d86-b9fd-dd2dce58a217/final.png",
+      "size_bytes": 219607,
+      "sha256": "5b1f21b3e422a17cde0e48011a61733a9d5ad163d3f6891af5d96df2306df76d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0d8b7de3-e8de-4d86-b9fd-dd2dce58a217/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "0923c82e166c7dbcce126858bd8a86e9b167fd08c5a3fa05cbb7ddb45b41001e"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0d8b7de3-e8de-4d86-b9fd-dd2dce58a217/recording.mp4",
+      "size_bytes": 1732583,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "9f935cce-0a9f-435f-8007-817732bfc0a5": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/9f935cce-0a9f-435f-8007-817732bfc0a5/receipt.json",
+      "size_bytes": 1435,
+      "sha256": "e9f514be2682cd4c1fd59aa2572f863239ee85ea13f3fc2fc176889ec86ab369"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/9f935cce-0a9f-435f-8007-817732bfc0a5/actor-result.json",
+      "size_bytes": 3753,
+      "sha256": "38f0d2ed8592016fbb5113e6feb8d5fe2f0e59ba8bda92714ba2294cfc0b6b3b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/9f935cce-0a9f-435f-8007-817732bfc0a5/actor-output.tar.gz",
+      "size_bytes": 35135432,
+      "sha256": "6d74bc7f0558ebb2afad179756032c2c5c2d06b52d35acb0831ecff14a51a99d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/9f935cce-0a9f-435f-8007-817732bfc0a5/initial.png",
+      "size_bytes": 79675,
+      "sha256": "0e8dc38b5e6d731f80ffff5508fd5a6643eeb6c4d8462eb14085aaf1531fbd39"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/9f935cce-0a9f-435f-8007-817732bfc0a5/final.png",
+      "size_bytes": 197712,
+      "sha256": "19c1d9c1301578d3dc49a49f60b5bb5b012c7bac977406756d6fba562821c83f"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/9f935cce-0a9f-435f-8007-817732bfc0a5/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "0ff6090608b2baa28dbfce5a32d57a6f388a0d1981d05666b2ce0171979f62a3"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/9f935cce-0a9f-435f-8007-817732bfc0a5/recording.mp4",
+      "size_bytes": 2104279,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "f0b971a1-6831-4b9b-a50e-22a6e47f45ba": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f0b971a1-6831-4b9b-a50e-22a6e47f45ba/receipt.json",
+      "size_bytes": 1435,
+      "sha256": "b0734129de569fe5ce30a24775428455e6b02795536de68591712875bd640a94"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f0b971a1-6831-4b9b-a50e-22a6e47f45ba/actor-result.json",
+      "size_bytes": 5918,
+      "sha256": "91066e9c44aa5a17ad92cca2df3e021bdd64d4b7f3b3501f13f4b660cedc1827"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f0b971a1-6831-4b9b-a50e-22a6e47f45ba/actor-output.tar.gz",
+      "size_bytes": 4311455,
+      "sha256": "2c72b3a2e53823e3699d72b552e0ef9b0f18bab74032ca82ecb22592695613a9"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f0b971a1-6831-4b9b-a50e-22a6e47f45ba/initial.png",
+      "size_bytes": 80447,
+      "sha256": "c5f0d08e5cd9ea48cad253efbc89cb15c63518ca93bd607c7c91f3fe36884d0c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f0b971a1-6831-4b9b-a50e-22a6e47f45ba/final.png",
+      "size_bytes": 855691,
+      "sha256": "e23de9a8b636a2797beff0174d906f4eb3dd9f849ed1ccd50f4945fafd974d65"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f0b971a1-6831-4b9b-a50e-22a6e47f45ba/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "97843182deb37bd65165b8650f7bd75faed313c5e726827956f2333cbf2b2127"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f0b971a1-6831-4b9b-a50e-22a6e47f45ba/recording.mp4",
+      "size_bytes": 2135818,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "cabb3bae-cccb-41bd-9f5d-0f3a9fecd825": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/cabb3bae-cccb-41bd-9f5d-0f3a9fecd825/receipt.json",
+      "size_bytes": 1435,
+      "sha256": "2d72698c99c77b878557921bc344ae734773d832c74a082ff53218ccd456c49a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/cabb3bae-cccb-41bd-9f5d-0f3a9fecd825/actor-result.json",
+      "size_bytes": 4021,
+      "sha256": "774b3d5c467618fdee8ca49bac701a124165397b21e2da5beabf0be2caf56cee"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/cabb3bae-cccb-41bd-9f5d-0f3a9fecd825/actor-output.tar.gz",
+      "size_bytes": 72173783,
+      "sha256": "b074b23735d0d12f71ffa91f5d91cbb49e3f50b5a5137709069305272fb2ce82"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/cabb3bae-cccb-41bd-9f5d-0f3a9fecd825/initial.png",
+      "size_bytes": 95690,
+      "sha256": "0edaa57a8eaf8a6daf1a8e98d4cf3694053334e565584f0f90284361b6e40eee"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/cabb3bae-cccb-41bd-9f5d-0f3a9fecd825/final.png",
+      "size_bytes": 327239,
+      "sha256": "f717f17732121657e13eed81bac05e8d38e4af5127438349f31c5b95afe8c9ff"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/cabb3bae-cccb-41bd-9f5d-0f3a9fecd825/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "989d10570e85f54e8730bb280e8e911640ce7c84446ace2658c7e7aee08a2ec0"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/cabb3bae-cccb-41bd-9f5d-0f3a9fecd825/recording.mp4",
+      "size_bytes": 3629622,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "3680a5ee-6870-426a-a997-eba929a0d25c": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/3680a5ee-6870-426a-a997-eba929a0d25c/receipt.json",
+      "size_bytes": 1446,
+      "sha256": "2593fef675d9b01434d5ecb5e4b68088e1228047a257b87a980f72b282e8cec5"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/3680a5ee-6870-426a-a997-eba929a0d25c/actor-result.json",
+      "size_bytes": 4062,
+      "sha256": "ac7d049a53d9fa24f87e5d9349dfc57c465c131525cf5a4cda6549033cbae601"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/3680a5ee-6870-426a-a997-eba929a0d25c/actor-output.tar.gz",
+      "size_bytes": 18287703,
+      "sha256": "3cf8274f4bdbc63b254758b9e29b4efe16a2f7c9d16d0ebd514deed83da1a59a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/3680a5ee-6870-426a-a997-eba929a0d25c/initial.png",
+      "size_bytes": 77875,
+      "sha256": "7a5f3d5940e6160499ddaa02a25a5a1c14d369bc6055d6f65391173d45deaa03"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/3680a5ee-6870-426a-a997-eba929a0d25c/final.png",
+      "size_bytes": 201739,
+      "sha256": "10f6e50f0f36d8bd386eb4e2e988883448a9ff56ffc19924606c949371821369"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/3680a5ee-6870-426a-a997-eba929a0d25c/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "8c62c9a317b847c37a46563e0eb04bb593dfd968eb5601c4d292c10fdfb84f87"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/3680a5ee-6870-426a-a997-eba929a0d25c/recording.mp4",
+      "size_bytes": 2793227,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "e135df7c-7687-4ac0-a5f0-76b74438b53e": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e135df7c-7687-4ac0-a5f0-76b74438b53e/receipt.json",
+      "size_bytes": 1448,
+      "sha256": "d45f216fd5034352a0ef70dc3db64a500b06b7a249e0ed1f209162b37faf37d7"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e135df7c-7687-4ac0-a5f0-76b74438b53e/actor-result.json",
+      "size_bytes": 4662,
+      "sha256": "18e8367f3d025448fdf19634efc4d44596f921ea2b0faa8511ae92dadbf0084c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e135df7c-7687-4ac0-a5f0-76b74438b53e/actor-output.tar.gz",
+      "size_bytes": 240429478,
+      "sha256": "275e8563d0eb4c7eec62d79c7fb0ca5ea76da9bfdcbbcb0dd8c800150a392944"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e135df7c-7687-4ac0-a5f0-76b74438b53e/initial.png",
+      "size_bytes": 479167,
+      "sha256": "11c983e27bb730e6ebe193cbf54d304b0c433415f533f572b2ebf86f9f39858a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e135df7c-7687-4ac0-a5f0-76b74438b53e/final.png",
+      "size_bytes": 99087,
+      "sha256": "14e5f83e16c3af16d64045389c696dd812870215b85da7bd8e366a27ab21dd80"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e135df7c-7687-4ac0-a5f0-76b74438b53e/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "e9af058e7bb737e8ea23d29c484b83efbd2a54ddce20d4086febab7df7aba2a7"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e135df7c-7687-4ac0-a5f0-76b74438b53e/recording.mp4",
+      "size_bytes": 16436307,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "ee9a3c83-f437-4879-8918-be5efbb9fac7": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ee9a3c83-f437-4879-8918-be5efbb9fac7/receipt.json",
+      "size_bytes": 1446,
+      "sha256": "00f259dc189d0149cff9f8da716b286952e6194ad0efeff32e4eb26ede584039"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ee9a3c83-f437-4879-8918-be5efbb9fac7/actor-result.json",
+      "size_bytes": 4299,
+      "sha256": "478106485f0aa624ab5a0dad864281d23b0e5d479c3ced3312873772ba8e5d1e"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ee9a3c83-f437-4879-8918-be5efbb9fac7/actor-output.tar.gz",
+      "size_bytes": 5185563,
+      "sha256": "d482c073b99e4e5850bfefab6a2679998253d48b8a6e8989065e74801deaf740"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ee9a3c83-f437-4879-8918-be5efbb9fac7/initial.png",
+      "size_bytes": 82973,
+      "sha256": "fcf114cbbb68152d223b397712896e471cc477190be58f77a2c1c5feb2ecd519"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ee9a3c83-f437-4879-8918-be5efbb9fac7/final.png",
+      "size_bytes": 99417,
+      "sha256": "7333d4d4d94359e39a3e86802af98718ca7ee2fc16822f71a242da3c15df9e7d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ee9a3c83-f437-4879-8918-be5efbb9fac7/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "c84626bcf966234795c03a4a47f7350e990c47e6c05544ee630cbd9fcb0715bf"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ee9a3c83-f437-4879-8918-be5efbb9fac7/recording.mp4",
+      "size_bytes": 2689348,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "f7dfbef3-7697-431c-883a-db8583a4e4f9": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f7dfbef3-7697-431c-883a-db8583a4e4f9/receipt.json",
+      "size_bytes": 1461,
+      "sha256": "48e76d0a087cd9037fa6e330caac9b8e1f9c7d13f3ccaa8f5c50f3bc43969330"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f7dfbef3-7697-431c-883a-db8583a4e4f9/actor-result.json",
+      "size_bytes": 3812,
+      "sha256": "b4ea2a33ae6c9a22d57fab7ba273cb2900271afc7af3d7d66f96ba761c980f6d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f7dfbef3-7697-431c-883a-db8583a4e4f9/actor-output.tar.gz",
+      "size_bytes": 7410837,
+      "sha256": "781742b416f6d52e2958b9074bbaaade4ec0795997fe2ae85b6177fd5924beec"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f7dfbef3-7697-431c-883a-db8583a4e4f9/initial.png",
+      "size_bytes": 78163,
+      "sha256": "6d326c5b264bbaef317b5a321a9f0f9bce1988caa5261abf90a750a0e5f3f78d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f7dfbef3-7697-431c-883a-db8583a4e4f9/final.png",
+      "size_bytes": 190572,
+      "sha256": "1b53c64cbb96cd1f91958ca27a61f1b45349f1543f331f66140e1d9e4c14f500"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f7dfbef3-7697-431c-883a-db8583a4e4f9/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "7b750d3d82d524d1fcd5aff670db1a7bc6563176d7270a1bf3918a7480045ba8"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f7dfbef3-7697-431c-883a-db8583a4e4f9/recording.mp4",
+      "size_bytes": 5619003,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "f8cfa149-d1c1-4215-8dac-4a0932bad3c2": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f8cfa149-d1c1-4215-8dac-4a0932bad3c2/receipt.json",
+      "size_bytes": 1447,
+      "sha256": "f79ea8adacd5e927b0702ad7d22892b47f3f55caad6614a71783df257554de4a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f8cfa149-d1c1-4215-8dac-4a0932bad3c2/actor-result.json",
+      "size_bytes": 5556,
+      "sha256": "da3b1597ec892e863064fcfa9a715d9a060193cb2e4e44f6629ef1c83365a403"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f8cfa149-d1c1-4215-8dac-4a0932bad3c2/actor-output.tar.gz",
+      "size_bytes": 27273566,
+      "sha256": "91858427bfb4705b65a9baf388f173cb5208bd8eb2e652c042b69f521a30b9a7"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f8cfa149-d1c1-4215-8dac-4a0932bad3c2/initial.png",
+      "size_bytes": 231250,
+      "sha256": "ca50eb93b716d60c968f089f2ef5f8c4451d1043ee3d738f3864a301d1041d6a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f8cfa149-d1c1-4215-8dac-4a0932bad3c2/final.png",
+      "size_bytes": 248601,
+      "sha256": "706dd5c7c0bad0e9efb31190ce31bebea3b8fa1f282a24e7b59a6dc8efbc9d4e"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f8cfa149-d1c1-4215-8dac-4a0932bad3c2/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "ad4d6b41ae00936885fdea7439c1326cfbff4899869e439b4b5b223c6af75d6f"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f8cfa149-d1c1-4215-8dac-4a0932bad3c2/recording.mp4",
+      "size_bytes": 4727719,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "da52d699-e8d2-4dc5-9191-a2199e0b6a9b": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/da52d699-e8d2-4dc5-9191-a2199e0b6a9b/receipt.json",
+      "size_bytes": 1448,
+      "sha256": "3ff40c92b37d04d18ffc9d772a1b5132ec752ed3df30e64830658f6248977f76"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/da52d699-e8d2-4dc5-9191-a2199e0b6a9b/actor-result.json",
+      "size_bytes": 5586,
+      "sha256": "04d53b01c0769d274c8f29313c7e6103288f54984a27fe80508a96cd661a1f74"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/da52d699-e8d2-4dc5-9191-a2199e0b6a9b/actor-output.tar.gz",
+      "size_bytes": 9434754,
+      "sha256": "81d84f1f405743c645951f84e4e837fc01f543412fe15b3032bfa9907e4e15fb"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/da52d699-e8d2-4dc5-9191-a2199e0b6a9b/initial.png",
+      "size_bytes": 204238,
+      "sha256": "b99188efefdb579e2258c8c1024c971184971294ce91cf1e1f2b3d0096cc4e1c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/da52d699-e8d2-4dc5-9191-a2199e0b6a9b/final.png",
+      "size_bytes": 115946,
+      "sha256": "e6940784d89d39a648aa2ed06e87e4008021229b75e41d08de7278bb72278ed2"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/da52d699-e8d2-4dc5-9191-a2199e0b6a9b/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "6f35ca77bf5a2d3ba7c2f48d5226bb56c94bff532d9b7db801a414ed8d647eb2"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/da52d699-e8d2-4dc5-9191-a2199e0b6a9b/recording.mp4",
+      "size_bytes": 6931811,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "74d5859f-ed66-4d3e-aa0e-93d7a592ce41": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/74d5859f-ed66-4d3e-aa0e-93d7a592ce41/receipt.json",
+      "size_bytes": 1448,
+      "sha256": "c59133db08ef743bb5259215d0ef6d3cf4320570bf53b1bb316220b93808b303"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/74d5859f-ed66-4d3e-aa0e-93d7a592ce41/actor-result.json",
+      "size_bytes": 6309,
+      "sha256": "af966e87d9d9e67c1ebc02a51fb1fe2dd9b063f7d36d318d534227910baef439"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/74d5859f-ed66-4d3e-aa0e-93d7a592ce41/actor-output.tar.gz",
+      "size_bytes": 6077145,
+      "sha256": "fbaa9896cc024faaae6887c719f7effce3b86de4e02cc8ef969bd1520c659ce6"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/74d5859f-ed66-4d3e-aa0e-93d7a592ce41/initial.png",
+      "size_bytes": 104463,
+      "sha256": "8cca6494a24ede50fea89cd0512158d77b170dd7484f8ab5666fdfd72b5f3ac9"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/74d5859f-ed66-4d3e-aa0e-93d7a592ce41/final.png",
+      "size_bytes": 102834,
+      "sha256": "ff2cedd8f1cf0a2c49c7ad151f7ab68db4aed095c31eab687aedf35083783ca1"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/74d5859f-ed66-4d3e-aa0e-93d7a592ce41/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "4147d536be763304086b2b9b7cb9b3356327de467777c04a0bc8a76406b2da7a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/74d5859f-ed66-4d3e-aa0e-93d7a592ce41/recording.mp4",
+      "size_bytes": 2097005,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "acb0f96b-e27c-44d8-b55f-7cb76609dfcd": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/acb0f96b-e27c-44d8-b55f-7cb76609dfcd/receipt.json",
+      "size_bytes": 1448,
+      "sha256": "8ca2059f903e279ff9709ba0d7f7cf0b1c2afba2dfd4b371b5050bb2e5df8adc"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/acb0f96b-e27c-44d8-b55f-7cb76609dfcd/actor-result.json",
+      "size_bytes": 3628,
+      "sha256": "45510e6d9555f68e0c988874d88f7bb56548fa5e01ea09940f770aca057531c2"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/acb0f96b-e27c-44d8-b55f-7cb76609dfcd/actor-output.tar.gz",
+      "size_bytes": 112837,
+      "sha256": "9772381bfd2aeca677e38dd461fd037035b37ff7d000aba091256158cb245540"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/acb0f96b-e27c-44d8-b55f-7cb76609dfcd/initial.png",
+      "size_bytes": 100738,
+      "sha256": "38a27cee49b4284359f231dce711a44ead27f63a0a28a749bb7154280ab8b1ba"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/acb0f96b-e27c-44d8-b55f-7cb76609dfcd/final.png",
+      "size_bytes": 113625,
+      "sha256": "14d8e83a261a30759bd588d9ecf89a1426faa901f0d1e25ebd5f9c82cac6af51"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/acb0f96b-e27c-44d8-b55f-7cb76609dfcd/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "90378fd55964b2609cf8045d665132a748ecf5d0acfe3c8c26a3b654149097fc"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/acb0f96b-e27c-44d8-b55f-7cb76609dfcd/recording.mp4",
+      "size_bytes": 501175,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "68a25bd4-59c7-4f4d-975e-da0c8509c848": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/68a25bd4-59c7-4f4d-975e-da0c8509c848/receipt.json",
+      "size_bytes": 1449,
+      "sha256": "46c87a7630153973e4502009e1c630f9f987c2388ed999da1f94034969d5dc1c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/68a25bd4-59c7-4f4d-975e-da0c8509c848/actor-result.json",
+      "size_bytes": 5432,
+      "sha256": "abe4e8f29cc1c388ba93c42f02c9107164b19eb245fc91df708dfef29d7131f3"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/68a25bd4-59c7-4f4d-975e-da0c8509c848/actor-output.tar.gz",
+      "size_bytes": 4021728,
+      "sha256": "bebf5c27468539b08e44b73810e27de8cd9f2b8bc13d3b8495183d9ae14e78e9"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/68a25bd4-59c7-4f4d-975e-da0c8509c848/initial.png",
+      "size_bytes": 200420,
+      "sha256": "45512eb17a887ab2fd2969a66baf49136e345ed90af1ede68ea2c8dc21bd6ca6"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/68a25bd4-59c7-4f4d-975e-da0c8509c848/final.png",
+      "size_bytes": 104295,
+      "sha256": "0e3323b203b8dd5fbefbd9ebbbf272f03934b3eef20161fdd6deba4c18523dab"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/68a25bd4-59c7-4f4d-975e-da0c8509c848/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "f2eb50e596fd566fb5e75b14f1b9a10b5671ff1afa1f84728330496d87fc0e3a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/68a25bd4-59c7-4f4d-975e-da0c8509c848/recording.mp4",
+      "size_bytes": 1911893,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "c7c1e4c3-9e92-4eba-a4b8-689953975ea4": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c7c1e4c3-9e92-4eba-a4b8-689953975ea4/receipt.json",
+      "size_bytes": 1448,
+      "sha256": "35055c1dc513defc3c450675e053346a4d41872056180ee80e59bd7fbe399fcc"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c7c1e4c3-9e92-4eba-a4b8-689953975ea4/actor-result.json",
+      "size_bytes": 5857,
+      "sha256": "4cea0c58d60dbb2e578342eaa4afb3060ae6140b932f9841efc184ce9e953097"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c7c1e4c3-9e92-4eba-a4b8-689953975ea4/actor-output.tar.gz",
+      "size_bytes": 35158671,
+      "sha256": "2f5b75bac05be2d324092462d314c1b0e1ed17d635e8e1199885225c4a40b5b4"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c7c1e4c3-9e92-4eba-a4b8-689953975ea4/initial.png",
+      "size_bytes": 169820,
+      "sha256": "3df5e00b3e076ebb0e6b610701443a37cb474b144c04389b17e39f3166822dd0"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c7c1e4c3-9e92-4eba-a4b8-689953975ea4/final.png",
+      "size_bytes": 179193,
+      "sha256": "104e70d369b3168d262ed342d3dbe1b036899f8de1adc52ae745a75e2b14a3e5"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c7c1e4c3-9e92-4eba-a4b8-689953975ea4/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "be89dbb02134be588483c4e628b5de5c0f7c32387bb2b12fbcfbafc07bc263dc"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c7c1e4c3-9e92-4eba-a4b8-689953975ea4/recording.mp4",
+      "size_bytes": 5848077,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "d1acdb87-bb67-4f30-84aa-990e56a09c92": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/d1acdb87-bb67-4f30-84aa-990e56a09c92/receipt.json",
+      "size_bytes": 1448,
+      "sha256": "8435b49aa5463bbd51e48bf4ccc8bed7af50bdfd16f75a53b144becfce806704"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/d1acdb87-bb67-4f30-84aa-990e56a09c92/actor-result.json",
+      "size_bytes": 4720,
+      "sha256": "8b2ec0a6a3b87385d51b4fd03113f27010c8c2287480ceee6d40469a7e2cd74a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/d1acdb87-bb67-4f30-84aa-990e56a09c92/actor-output.tar.gz",
+      "size_bytes": 153877711,
+      "sha256": "313bdbe2e44e8f5dd952dc86a4a1086ff670147a368871d864fe56fefa537561"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/d1acdb87-bb67-4f30-84aa-990e56a09c92/initial.png",
+      "size_bytes": 147557,
+      "sha256": "3476ed9588a60b89feb59294e9428584aacaafd8412c8296bf17f44743db5392"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/d1acdb87-bb67-4f30-84aa-990e56a09c92/final.png",
+      "size_bytes": 104578,
+      "sha256": "c6e825a13d98a016c866a70d38d67a1845ef2ab7d4da5252f6f71e8909815148"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/d1acdb87-bb67-4f30-84aa-990e56a09c92/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "3bd3678f29a4d3a6c11d547cd937860489d362562b57772968e4b290e5e66c57"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/d1acdb87-bb67-4f30-84aa-990e56a09c92/recording.mp4",
+      "size_bytes": 9066998,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "deec51c9-3b1e-4b9e-993c-4776f20e8bb2": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/deec51c9-3b1e-4b9e-993c-4776f20e8bb2/receipt.json",
+      "size_bytes": 1448,
+      "sha256": "fa8ee8d521ee82f77491fe21c0ffb85dbd8aa653a59315b78794c740b7025a7a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/deec51c9-3b1e-4b9e-993c-4776f20e8bb2/actor-result.json",
+      "size_bytes": 8035,
+      "sha256": "c4f25457933c253b044be47f6b35955ccd98d23f4b5444c009262246959d5343"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/deec51c9-3b1e-4b9e-993c-4776f20e8bb2/actor-output.tar.gz",
+      "size_bytes": 20736287,
+      "sha256": "aefc2c7a3c977f00c57d4e6d7e75fbaed3997949236ec85f87ef2e9b77e30b40"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/deec51c9-3b1e-4b9e-993c-4776f20e8bb2/initial.png",
+      "size_bytes": 153484,
+      "sha256": "2100fb9a2558d4747b50ea9b69d4bc857feaba9e1fa04726ca6ee38d2c5991ec"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/deec51c9-3b1e-4b9e-993c-4776f20e8bb2/final.png",
+      "size_bytes": 112174,
+      "sha256": "2e026a0c83744fc348b1a47a4bc561fe7c1c8d2bdc74291b873c1e97c29693ae"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/deec51c9-3b1e-4b9e-993c-4776f20e8bb2/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "3e44f81077e8a27e43bb8d2ca8682e62002ee6c1e9100914d4515aa53bc28d0b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/deec51c9-3b1e-4b9e-993c-4776f20e8bb2/recording.mp4",
+      "size_bytes": 3765686,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "337d318b-aa07-4f4f-b763-89d9a2dd013f": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/337d318b-aa07-4f4f-b763-89d9a2dd013f/receipt.json",
+      "size_bytes": 1447,
+      "sha256": "caa1e0c5873f4fe4af038db44e74ea9530d57dc35ba6ca6e019ed355abf3a59f"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/337d318b-aa07-4f4f-b763-89d9a2dd013f/actor-result.json",
+      "size_bytes": 8403,
+      "sha256": "af66d24eb261341ba20406c0643cd052b31c8c43a250160de149e85dbb7db774"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/337d318b-aa07-4f4f-b763-89d9a2dd013f/actor-output.tar.gz",
+      "size_bytes": 14551920,
+      "sha256": "0b2c87a369703e13020e802c7139058aa80b5feef31e1eeeab9a3478dae197b3"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/337d318b-aa07-4f4f-b763-89d9a2dd013f/initial.png",
+      "size_bytes": 1692867,
+      "sha256": "cb3e49bcfc283d72c1a9cc4dfd26ab48e8a7f2bbbcf7803ed43d7ec8ce228bba"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/337d318b-aa07-4f4f-b763-89d9a2dd013f/final.png",
+      "size_bytes": 112209,
+      "sha256": "e2e099c1a471737f38fb023a909c90c1c62b6bb65265ab509c770a31b0228da5"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/337d318b-aa07-4f4f-b763-89d9a2dd013f/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "6e66df2ecc7ab2ee9541b77f62e8db28d4e17238286958e41f6f95ec12f6877e"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/337d318b-aa07-4f4f-b763-89d9a2dd013f/recording.mp4",
+      "size_bytes": 1825430,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "82e3c869-49f6-4305-a7ce-f3e64a0618e7": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82e3c869-49f6-4305-a7ce-f3e64a0618e7/receipt.json",
+      "size_bytes": 1446,
+      "sha256": "9473e8e398fcaee74ecdf1372feb74bbf74e7ae5983f43ad3924ea3f25b65b96"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82e3c869-49f6-4305-a7ce-f3e64a0618e7/actor-result.json",
+      "size_bytes": 5395,
+      "sha256": "0c4b43f4d0a8f6411e7529938d177ec28878c136cc56e21c92d8edcab43898e2"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82e3c869-49f6-4305-a7ce-f3e64a0618e7/actor-output.tar.gz",
+      "size_bytes": 302880863,
+      "sha256": "de2d5933ef1e987ee6b2f20a0bbf22d7b2442a51d949459ad1594a9e79e25a70"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82e3c869-49f6-4305-a7ce-f3e64a0618e7/initial.png",
+      "size_bytes": 1670610,
+      "sha256": "9f8347135807cd72ea10e4685358642ae4695c3f00614c3cfabea5df874f5d1b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82e3c869-49f6-4305-a7ce-f3e64a0618e7/final.png",
+      "size_bytes": 285383,
+      "sha256": "4c2d18e689f33ddba86e123568ffd9091705ee6ef4b6c3456dd024a9916d58e4"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82e3c869-49f6-4305-a7ce-f3e64a0618e7/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "b219a4b7c1dd5aaf9b4dd26586261c2ee53cf08a549f928843e4fcec1420cb18"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/82e3c869-49f6-4305-a7ce-f3e64a0618e7/recording.mp4",
+      "size_bytes": 1956063,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "869de13e-bef9-4b91-ba51-f6708c40b096": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/869de13e-bef9-4b91-ba51-f6708c40b096/receipt.json",
+      "size_bytes": 1446,
+      "sha256": "0122cfa9e39fea2b53d423acd53d01bef7c1a26f11d95cbafd1c00e4943f72ac"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/869de13e-bef9-4b91-ba51-f6708c40b096/actor-result.json",
+      "size_bytes": 5395,
+      "sha256": "e713feb7ac5bd6a4f7ae7b04e507c917715edca0ad7298762dd9a01b8944c238"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/869de13e-bef9-4b91-ba51-f6708c40b096/actor-output.tar.gz",
+      "size_bytes": 40373223,
+      "sha256": "0376b3d4afc1768db9aa9bc6a14d79f325cb7740a779b7bf653f138aff030679"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/869de13e-bef9-4b91-ba51-f6708c40b096/initial.png",
+      "size_bytes": 1753438,
+      "sha256": "01b2c975a7091c5ab957145afdf2cfec03f8fe47d1c328cefdb2573dbc2f8efc"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/869de13e-bef9-4b91-ba51-f6708c40b096/final.png",
+      "size_bytes": 103719,
+      "sha256": "d90e7ffd104d0feacd5c8448f0dfeda63d86379b5d72b366cea8b191ad14159f"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/869de13e-bef9-4b91-ba51-f6708c40b096/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "e8d5328ab8e543334c36dee5cd38a252ca038c745584259ebb2cfded02085269"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/869de13e-bef9-4b91-ba51-f6708c40b096/recording.mp4",
+      "size_bytes": 1396939,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "e2392362-125e-4f76-a2ee-524b183a3412": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e2392362-125e-4f76-a2ee-524b183a3412/receipt.json",
+      "size_bytes": 1446,
+      "sha256": "144001de272d447a17a220dc7971b4f3ce48d6b2d7188fb3329d72b373e7614d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e2392362-125e-4f76-a2ee-524b183a3412/actor-result.json",
+      "size_bytes": 4297,
+      "sha256": "935b21d2fbdaec46f6e17527b324862264b5c5e02b2c165594b01527634649b6"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e2392362-125e-4f76-a2ee-524b183a3412/actor-output.tar.gz",
+      "size_bytes": 4372869,
+      "sha256": "6e94759d77986285bd9f6cab04112fdfc04c1950ff53dbf95b237d516bd0f204"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e2392362-125e-4f76-a2ee-524b183a3412/initial.png",
+      "size_bytes": 90371,
+      "sha256": "d303ed360e98b8b8f8ed5d89a9b9b4af58c4718f6c3fd171b8d9412d5e3e37ee"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e2392362-125e-4f76-a2ee-524b183a3412/final.png",
+      "size_bytes": 343651,
+      "sha256": "8f09586f660ac516747cb8d037724276ca9fda38d9453108c1a0ae946845861c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e2392362-125e-4f76-a2ee-524b183a3412/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "ccf828ce269e3f9e0a645a063d4497173da15d8345e8db6fc2e2390abebfdf80"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e2392362-125e-4f76-a2ee-524b183a3412/recording.mp4",
+      "size_bytes": 2372975,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "26660ad1-6ebb-4f59-8cba-a8432dfe8d38": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/26660ad1-6ebb-4f59-8cba-a8432dfe8d38/receipt.json",
+      "size_bytes": 1449,
+      "sha256": "59eb767c7ca855ea6872b5c185c791e6a2948791b1338691c10b767a8d3e4a4c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/26660ad1-6ebb-4f59-8cba-a8432dfe8d38/actor-result.json",
+      "size_bytes": 4861,
+      "sha256": "18e2d02c3ac627e90309c324d5b19076150f453a271a4fd7a0311c7b32534f22"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/26660ad1-6ebb-4f59-8cba-a8432dfe8d38/actor-output.tar.gz",
+      "size_bytes": 1399636,
+      "sha256": "5a09b2f4616c0bcd6014cb49b82c3bac676413b79f624104ae114d9dcef6473a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/26660ad1-6ebb-4f59-8cba-a8432dfe8d38/initial.png",
+      "size_bytes": 116843,
+      "sha256": "dc0013224fd16d3c0c3d839d08fd9e9b2ff88a41c236c0c52db48a2b1d0cdb2c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/26660ad1-6ebb-4f59-8cba-a8432dfe8d38/final.png",
+      "size_bytes": 188739,
+      "sha256": "b784194384a794ef6d7fbda2c38ec9cbaa7d62d38dcd9ecf45a5607bd6be1728"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/26660ad1-6ebb-4f59-8cba-a8432dfe8d38/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "9ee03c2b97f1eac2d328cd9249a0b18ca4029f3b31e9d42af4663fa3970d2060"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/26660ad1-6ebb-4f59-8cba-a8432dfe8d38/recording.mp4",
+      "size_bytes": 4618974,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "a82b78bb-7fde-4cb3-94a4-035baf10bcf0": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a82b78bb-7fde-4cb3-94a4-035baf10bcf0/receipt.json",
+      "size_bytes": 1447,
+      "sha256": "f30edf1b9fbb9e9d2aec8f7c842fe3f3615da3067a3c1f8810c2ab273e9ae034"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a82b78bb-7fde-4cb3-94a4-035baf10bcf0/actor-result.json",
+      "size_bytes": 4271,
+      "sha256": "1a1275c5b723411773b3ee2a2caec7a4be6c81b350db441b5dc964b731a0ef9c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a82b78bb-7fde-4cb3-94a4-035baf10bcf0/actor-output.tar.gz",
+      "size_bytes": 34548850,
+      "sha256": "f0f3e1b80a2629a3537a5d4fff03e63976b9ea36f16fa9fb520867c56292cdcc"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a82b78bb-7fde-4cb3-94a4-035baf10bcf0/initial.png",
+      "size_bytes": 542163,
+      "sha256": "e772028dc52111063b181f2670f4fccbcc5786193e363e9e74f1bf13ed6c69dc"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a82b78bb-7fde-4cb3-94a4-035baf10bcf0/final.png",
+      "size_bytes": 549032,
+      "sha256": "566778835c163c292f6605cb85a65e2d18733fc225a35cb02d403710c3b4fa51"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a82b78bb-7fde-4cb3-94a4-035baf10bcf0/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "e0a806341175f4f7e426b0cec1812c2093db3be4f316515e7a858860db0147d0"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a82b78bb-7fde-4cb3-94a4-035baf10bcf0/recording.mp4",
+      "size_bytes": 5316625,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "36037439-2044-4b50-b9d1-875b5a332143": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/36037439-2044-4b50-b9d1-875b5a332143/receipt.json",
+      "size_bytes": 1450,
+      "sha256": "74e775cc8e4e3b4ddab96d388697c208534b5c3aed269beaf5d08461f19938c1"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/36037439-2044-4b50-b9d1-875b5a332143/actor-result.json",
+      "size_bytes": 3981,
+      "sha256": "75e70d0f5baef53bb83c02fc8133fe45f2e6b997ec01c5577c4593d38fa548b8"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/36037439-2044-4b50-b9d1-875b5a332143/actor-output.tar.gz",
+      "size_bytes": 67624170,
+      "sha256": "d3004975190fd6d0faecc6c23929accb966b565e8c8ce56b62533e1b1d05c5e1"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/36037439-2044-4b50-b9d1-875b5a332143/initial.png",
+      "size_bytes": 395505,
+      "sha256": "13a24b88367addee939a90e77af998ff805610dd190c6233e12766f9d9d4f9d1"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/36037439-2044-4b50-b9d1-875b5a332143/final.png",
+      "size_bytes": 397950,
+      "sha256": "9813c27e27a3eb7089d86b0ed3729a150b55c7a953b0fb7ec02de29337d3b41b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/36037439-2044-4b50-b9d1-875b5a332143/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "70856e14aca547efedc04269e44d15536cf4ac4e710382b1609ab10b2e41b9ed"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/36037439-2044-4b50-b9d1-875b5a332143/recording.mp4",
+      "size_bytes": 3429510,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "716a6079-22da-47f1-ba73-c9d58f986a38": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/716a6079-22da-47f1-ba73-c9d58f986a38/receipt.json",
+      "size_bytes": 1447,
+      "sha256": "e791bace47bd8d90d8b6215b950d1568355dab10ee3d4dc4f2679254f6fb1057"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/716a6079-22da-47f1-ba73-c9d58f986a38/actor-result.json",
+      "size_bytes": 3419,
+      "sha256": "277f95e38ec32a4f16d5c0b698138d4ca2e25a1887278b0ef5a1227e6fa7bc9d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/716a6079-22da-47f1-ba73-c9d58f986a38/actor-output.tar.gz",
+      "size_bytes": 18655605,
+      "sha256": "1742c75e8e686750073a9c90274d77514aab26aaa6db8defeb0ac40947f4fd60"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/716a6079-22da-47f1-ba73-c9d58f986a38/initial.png",
+      "size_bytes": 1668904,
+      "sha256": "fac027e831a55a09438afd9f6955766b38fd7a8d84cb76f72c0418a8ca48a9f4"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/716a6079-22da-47f1-ba73-c9d58f986a38/final.png",
+      "size_bytes": 112738,
+      "sha256": "bd6f8a74bc5a4e54e287694bee7ba36263efe37ff94d080b009c1265890b11ff"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/716a6079-22da-47f1-ba73-c9d58f986a38/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "44f570a2a819368c81e01ff0d3d00b7f6b3266f7ff690ae765c38b92985b1e7a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/716a6079-22da-47f1-ba73-c9d58f986a38/recording.mp4",
+      "size_bytes": 675886,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "6f4073b8-d8ea-4ade-8a18-c5d1d5d5aa9a": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6f4073b8-d8ea-4ade-8a18-c5d1d5d5aa9a/receipt.json",
+      "size_bytes": 1448,
+      "sha256": "0525bda72deb6b1f78ba004832ea23b57eef75a8f1a839811e3ba31f2758cc65"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6f4073b8-d8ea-4ade-8a18-c5d1d5d5aa9a/actor-result.json",
+      "size_bytes": 20867,
+      "sha256": "2441d3806c403f65a791fbc800f2a32ceb473b0ae7bc89f071d6371809d6cd50"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6f4073b8-d8ea-4ade-8a18-c5d1d5d5aa9a/actor-output.tar.gz",
+      "size_bytes": 10190172,
+      "sha256": "71584845bf9145f721c8f60f16de80d3d181974d958c29f3edacf198ef0dbeb0"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6f4073b8-d8ea-4ade-8a18-c5d1d5d5aa9a/initial.png",
+      "size_bytes": 185393,
+      "sha256": "5df970d4ae88fc587f3d352e89022afd5c27f95b1a1543f418a8804a77b7415c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6f4073b8-d8ea-4ade-8a18-c5d1d5d5aa9a/final.png",
+      "size_bytes": 112221,
+      "sha256": "ef1bf316c2bc9244529ddad45e1d165d8cef746a75ab96668fcf0982328bc5e8"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6f4073b8-d8ea-4ade-8a18-c5d1d5d5aa9a/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "b1f63650850971a5f6e6897ed00335e3fe3cd7990283c807152f9eac7dc60f34"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6f4073b8-d8ea-4ade-8a18-c5d1d5d5aa9a/recording.mp4",
+      "size_bytes": 2041453,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "da922383-bfa4-4cd3-bbad-6bebab3d7742": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/da922383-bfa4-4cd3-bbad-6bebab3d7742/receipt.json",
+      "size_bytes": 1447,
+      "sha256": "ccbfcacb8aec745775b4e8a056ac9dbbc52af3bbfe101016f10a57007f9c0dfa"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/da922383-bfa4-4cd3-bbad-6bebab3d7742/actor-result.json",
+      "size_bytes": 4077,
+      "sha256": "1e5ed9603da4b0fb9696e46993b451252aa58f91abb74964e55753acb59d60f1"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/da922383-bfa4-4cd3-bbad-6bebab3d7742/actor-output.tar.gz",
+      "size_bytes": 9991401,
+      "sha256": "aaf11e3d9d2c14383168198e5e6d46567f0725bd8238a202b390c093ec9475f7"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/da922383-bfa4-4cd3-bbad-6bebab3d7742/initial.png",
+      "size_bytes": 235637,
+      "sha256": "4ed285571cf8dc1f222b88c46f8d9ed082f41c73b83ed570dd7844adcdb9455d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/da922383-bfa4-4cd3-bbad-6bebab3d7742/final.png",
+      "size_bytes": 220867,
+      "sha256": "0d2e27958ac783efd0696d7b12ae148e5c024359bed96f4039b2f9a4c8956a1d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/da922383-bfa4-4cd3-bbad-6bebab3d7742/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "b96e6c8aed1f9b8a76d8d025bf0b20eb011eae42e6a61bbc9454ba421b92e845"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/da922383-bfa4-4cd3-bbad-6bebab3d7742/recording.mp4",
+      "size_bytes": 2636521,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "8df7e444-8e06-4f93-8a1a-c5c974269d82": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/8df7e444-8e06-4f93-8a1a-c5c974269d82/receipt.json",
+      "size_bytes": 1447,
+      "sha256": "4d1c213b166e2c54ba55c61ae87223019d427b393e11af51912660b42dd3f6c4"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/8df7e444-8e06-4f93-8a1a-c5c974269d82/actor-result.json",
+      "size_bytes": 4718,
+      "sha256": "f08c353fa06c55a8784255f3db7965932e2f01be26decf79106d98e04419ce6a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/8df7e444-8e06-4f93-8a1a-c5c974269d82/actor-output.tar.gz",
+      "size_bytes": 5404383,
+      "sha256": "896486febc669c3ff1588d61fe79d30d08c9a195ef5f6944bf7b35cd9d26a444"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/8df7e444-8e06-4f93-8a1a-c5c974269d82/initial.png",
+      "size_bytes": 147566,
+      "sha256": "ba84487e4f7b1cfc5f6b53e257aa9a170627995e54d52bbbe2ebf2ace86d7715"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/8df7e444-8e06-4f93-8a1a-c5c974269d82/final.png",
+      "size_bytes": 112264,
+      "sha256": "9fc230a6b59bc72c9ebc8c92a943d9fb1ba0581e034043a8e040c1d30ef86438"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/8df7e444-8e06-4f93-8a1a-c5c974269d82/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "7ce6e4c5c19b7d3f9680ced1c86bc544d9882a1590e129eb44389dee6abbf8d1"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/8df7e444-8e06-4f93-8a1a-c5c974269d82/recording.mp4",
+      "size_bytes": 993582,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "aad10cd7-9337-4b62-b704-a857848cedf2": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/aad10cd7-9337-4b62-b704-a857848cedf2/receipt.json",
+      "size_bytes": 1449,
+      "sha256": "6dbd94e8609897a20fcfae609a7829e031a90958a220a7ac0fd4192f19a68590"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/aad10cd7-9337-4b62-b704-a857848cedf2/actor-result.json",
+      "size_bytes": 64280,
+      "sha256": "b8c4add9e878f1df8f9286038e0955bce12175c90ca5bf6ae016a8c82aafce29"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/aad10cd7-9337-4b62-b704-a857848cedf2/actor-output.tar.gz",
+      "size_bytes": 25899501,
+      "sha256": "966b64906d920034a987dd39db0e96012cb0bea07b1d71c4b213ebe6a301d5ca"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/aad10cd7-9337-4b62-b704-a857848cedf2/initial.png",
+      "size_bytes": 244807,
+      "sha256": "5476a1ae51deab27e4f16c15c44a9836320e94e1d1fd6f8e59932bcad3ca52a5"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/aad10cd7-9337-4b62-b704-a857848cedf2/final.png",
+      "size_bytes": 256130,
+      "sha256": "f798edc9cacabcf989cc914630d1d6d40d6ec08813ddfd89997ce984bf9f940a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/aad10cd7-9337-4b62-b704-a857848cedf2/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "33c9472f57bd779df3610997cb340eacc506402e5fb1b603836bea57cae4154d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/aad10cd7-9337-4b62-b704-a857848cedf2/recording.mp4",
+      "size_bytes": 6846879,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "3e3fc409-bff3-4905-bf16-c968eee3f807": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/3e3fc409-bff3-4905-bf16-c968eee3f807/receipt.json",
+      "size_bytes": 1449,
+      "sha256": "1fdf516d115d106753764ecf176110ab8634d44f6693eea018198d6e1b20d052"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/3e3fc409-bff3-4905-bf16-c968eee3f807/actor-result.json",
+      "size_bytes": 23943,
+      "sha256": "0ab938f18ab963c2d8aa53e4804b92ca95e1c909929ef047c85013ac65008e03"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/3e3fc409-bff3-4905-bf16-c968eee3f807/actor-output.tar.gz",
+      "size_bytes": 123169609,
+      "sha256": "24b5897c5880e1dd1e1c1fb3e4d2c3c20900b182cf787c1ff8168dfd271b1375"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/3e3fc409-bff3-4905-bf16-c968eee3f807/initial.png",
+      "size_bytes": 591106,
+      "sha256": "04be856ef957a3b5125930fc37f38e089da1bf6dbe1e7993273035fa0337ab0b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/3e3fc409-bff3-4905-bf16-c968eee3f807/final.png",
+      "size_bytes": 565026,
+      "sha256": "c032cb6e9bf27581e1a1f47cc4eedc7c7a09b7971803b795578b0a2642ecfc6f"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/3e3fc409-bff3-4905-bf16-c968eee3f807/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "e2f0524f0293375eec073127c3bf88d95b59e10fdebeac370efc2912f237d32b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/3e3fc409-bff3-4905-bf16-c968eee3f807/recording.mp4",
+      "size_bytes": 5593670,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "5990457f-2adb-467b-a4af-5c857c92d762": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5990457f-2adb-467b-a4af-5c857c92d762/receipt.json",
+      "size_bytes": 1754,
+      "sha256": "ea47f470c8ea9a9378ed654808bffe8727a6d38f22a3d23b86784ba5a98a2679"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5990457f-2adb-467b-a4af-5c857c92d762/actor-result.json",
+      "size_bytes": 4816,
+      "sha256": "b366e9fa8a4195e90e69d44fe3324f078668c8168f431c60a16605cc24494dc5"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5990457f-2adb-467b-a4af-5c857c92d762/actor-output.tar.gz",
+      "size_bytes": 58104574,
+      "sha256": "0f5fc28e77499fc5d74aa29c629eb360b4b4e0ed0639c38fb9d6459af7600924"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5990457f-2adb-467b-a4af-5c857c92d762/initial.png",
+      "size_bytes": 112120,
+      "sha256": "3c05d8d700b9eea833c081df67f1c1f075e8e246372c366c4da52052bda3752a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5990457f-2adb-467b-a4af-5c857c92d762/final.png",
+      "size_bytes": 311036,
+      "sha256": "e002eecbef78c6dd50406c7f8063ceacf00380fba7b12e957bf325f34f757cee"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5990457f-2adb-467b-a4af-5c857c92d762/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "561bd40f10742a1f093ecce767fcf01f06f1fe3ea945bb8e848c917b746a4f6a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5990457f-2adb-467b-a4af-5c857c92d762/recording.mp4",
+      "size_bytes": 6584346,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "7ff48d5b-2df2-49da-b500-a5150ffc7f18": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7ff48d5b-2df2-49da-b500-a5150ffc7f18/receipt.json",
+      "size_bytes": 1448,
+      "sha256": "c91b2747d4f88f5c2c7d0a15e46f101c9604c7604e616fa53b6ee6285b69b0aa"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7ff48d5b-2df2-49da-b500-a5150ffc7f18/actor-result.json",
+      "size_bytes": 5493,
+      "sha256": "f0ae8eb5e4ce0052442bff348856e00a7f680381d091c4b395ad5689d3d27f60"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7ff48d5b-2df2-49da-b500-a5150ffc7f18/actor-output.tar.gz",
+      "size_bytes": 14210911,
+      "sha256": "a5dfd78fc45385fdc3005b1a677b1759da2d5b96764049147abb9c3af2fe0e4d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7ff48d5b-2df2-49da-b500-a5150ffc7f18/initial.png",
+      "size_bytes": 128445,
+      "sha256": "ff3228b58993f14bff37a07ad3ceafac8393178c8845b957a24fc43210c150cd"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7ff48d5b-2df2-49da-b500-a5150ffc7f18/final.png",
+      "size_bytes": 262486,
+      "sha256": "ef1f2750299895bedde3816c2735adddb07cbb90b5210364aa4d8ca011433047"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7ff48d5b-2df2-49da-b500-a5150ffc7f18/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "b4ed0dac889a8bb410e7a81e8712bb17e51746d9463a91013adb7c354f9c2b14"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7ff48d5b-2df2-49da-b500-a5150ffc7f18/recording.mp4",
+      "size_bytes": 4049184,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "dd60633f-2c72-42ba-8547-6f2c8cb0fdb0": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/dd60633f-2c72-42ba-8547-6f2c8cb0fdb0/receipt.json",
+      "size_bytes": 1449,
+      "sha256": "48d116b38674f40746f32398d959c283419b73194aaee27cdf1535d9c4f6c57d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/dd60633f-2c72-42ba-8547-6f2c8cb0fdb0/actor-result.json",
+      "size_bytes": 4484,
+      "sha256": "8b1f9ae985fb92ed7006b931ef83693157df6d34e9fa45f579313b537dfd0b40"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/dd60633f-2c72-42ba-8547-6f2c8cb0fdb0/actor-output.tar.gz",
+      "size_bytes": 5795032,
+      "sha256": "888e92f80719aeb0888eabe5ff8f788366cf481e9e51108f89203b48965bd538"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/dd60633f-2c72-42ba-8547-6f2c8cb0fdb0/initial.png",
+      "size_bytes": 84947,
+      "sha256": "660c4fb8dd982785a8c0c6955e33917699004aa1c1236dbb434468d6d3a6d341"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/dd60633f-2c72-42ba-8547-6f2c8cb0fdb0/final.png",
+      "size_bytes": 244544,
+      "sha256": "1c02412f056c6d4f28f9f5dfb21a216dec2ffbdcab6ff347cd6d0d839c3ae18a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/dd60633f-2c72-42ba-8547-6f2c8cb0fdb0/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "ffdd535c23db22b10d5c6788ff09e0bf275e4be284ab05fafa8d926ec2ca1255"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/dd60633f-2c72-42ba-8547-6f2c8cb0fdb0/recording.mp4",
+      "size_bytes": 6362240,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "ce2b64a2-ddc1-4f91-8c7d-a88be7121aac": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ce2b64a2-ddc1-4f91-8c7d-a88be7121aac/receipt.json",
+      "size_bytes": 1448,
+      "sha256": "5965991b2c7f71f67cdb663ebbb3364b1e276adb9f1ae80ce48d82877b9fc3cc"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ce2b64a2-ddc1-4f91-8c7d-a88be7121aac/actor-result.json",
+      "size_bytes": 5884,
+      "sha256": "4d683d6bc7192f53e0d4517c8e78d74f5c6c76179a60cff999b8c1f5c45e9de8"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ce2b64a2-ddc1-4f91-8c7d-a88be7121aac/actor-output.tar.gz",
+      "size_bytes": 149257043,
+      "sha256": "93218f2492aad343b2ad51617e80a9d2d3b60845fe9788adad66d8d4092f79dc"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ce2b64a2-ddc1-4f91-8c7d-a88be7121aac/initial.png",
+      "size_bytes": 1669176,
+      "sha256": "ec9db7aefc353006e3893860799d3def516f1717233c83197abc18009e363b35"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ce2b64a2-ddc1-4f91-8c7d-a88be7121aac/final.png",
+      "size_bytes": 669160,
+      "sha256": "91bb8e165da9930ffe83184140718574f299345fd66196f42e37f9c349aefa1a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ce2b64a2-ddc1-4f91-8c7d-a88be7121aac/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "986c0983562d14aa7d616ddff9b1dd7a2830696b070fbb3fca2a97fecb18f985"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ce2b64a2-ddc1-4f91-8c7d-a88be7121aac/recording.mp4",
+      "size_bytes": 6846900,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "788b3701-3ec9-4b67-b679-418bfa726c22": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/788b3701-3ec9-4b67-b679-418bfa726c22/receipt.json",
+      "size_bytes": 1448,
+      "sha256": "33a334b899afe84cc6d38b1d3e20cdc6515128c4b606a9f92288046d03d3294c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/788b3701-3ec9-4b67-b679-418bfa726c22/actor-result.json",
+      "size_bytes": 4448,
+      "sha256": "d47854b04f149385547ba7145a7a220593d009b26e9b2ca013526e3c2f69b561"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/788b3701-3ec9-4b67-b679-418bfa726c22/actor-output.tar.gz",
+      "size_bytes": 35585184,
+      "sha256": "a55cfeee4cddc542c2d56d9503a668d13a7fa9d1635e3497c4a6c12c0979c314"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/788b3701-3ec9-4b67-b679-418bfa726c22/initial.png",
+      "size_bytes": 1351059,
+      "sha256": "3dba05d21ad44c8f5087df9fc69f387560b15b0d173f5acd197ee633daaec6ee"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/788b3701-3ec9-4b67-b679-418bfa726c22/final.png",
+      "size_bytes": 146024,
+      "sha256": "4e629f7ccc652bc79173c97da5cd045a354cc62ae1619fbdbdec2b833020fc27"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/788b3701-3ec9-4b67-b679-418bfa726c22/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "4bc394e5e85a688f69adbd196a0cca56679630441c45e1da9a556089e0511176"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/788b3701-3ec9-4b67-b679-418bfa726c22/recording.mp4",
+      "size_bytes": 4749857,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "42d25c08-fb87-4927-8b65-93631280a26f": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/42d25c08-fb87-4927-8b65-93631280a26f/receipt.json",
+      "size_bytes": 1447,
+      "sha256": "2b7830b5ebee60afd026d3bba59be7b2e2f89ec71c714f125971d55259e3acae"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/42d25c08-fb87-4927-8b65-93631280a26f/actor-result.json",
+      "size_bytes": 13414,
+      "sha256": "3d7fb9be7f420fd33b6befb43461a9f785c33e6eada10d1169f87c072dc10c23"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/42d25c08-fb87-4927-8b65-93631280a26f/actor-output.tar.gz",
+      "size_bytes": 13464253,
+      "sha256": "1c7403d76ebc899b0f8ebfec30cb28e5435070f8901adba5482ce2fe2e40db9d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/42d25c08-fb87-4927-8b65-93631280a26f/initial.png",
+      "size_bytes": 117929,
+      "sha256": "59b17bb1d49fda706c51ad323b7289245b57e7037ff8e2c05c099c8abb571749"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/42d25c08-fb87-4927-8b65-93631280a26f/final.png",
+      "size_bytes": 113976,
+      "sha256": "a7b9d7bbae10a420d3c039b6151a2c3fdbe989154e3ba48e22aa6925a2dcfccf"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/42d25c08-fb87-4927-8b65-93631280a26f/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "56e85710f5364acaa43f7b278b8c125fb51196913cf51980f9b0c86fb1add14f"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/42d25c08-fb87-4927-8b65-93631280a26f/recording.mp4",
+      "size_bytes": 2498242,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "7f35355e-02a6-45b5-b140-f0be698bcf85": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7f35355e-02a6-45b5-b140-f0be698bcf85/receipt.json",
+      "size_bytes": 1447,
+      "sha256": "5780781659748a6750a84f73f6e1556825794cf76eaa0dfa21dc26efbfb30151"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7f35355e-02a6-45b5-b140-f0be698bcf85/actor-result.json",
+      "size_bytes": 4013,
+      "sha256": "bf7ae1d8f03ac166f2e144076f55bb8715beebf76d3786d25b11cb5fd4e771e7"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7f35355e-02a6-45b5-b140-f0be698bcf85/actor-output.tar.gz",
+      "size_bytes": 20258076,
+      "sha256": "5207ed885f4da8bdd4c47810a3e97f38592889339d403ed66d7a31d50b067b58"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7f35355e-02a6-45b5-b140-f0be698bcf85/initial.png",
+      "size_bytes": 253990,
+      "sha256": "03c465858718eb5eea622505dae3bd3157257a6998832579dbffe1929c1d7ae4"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7f35355e-02a6-45b5-b140-f0be698bcf85/final.png",
+      "size_bytes": 111878,
+      "sha256": "19c119af2af117cbae598f108ef612763683088e95c17d643c804e449841ce83"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7f35355e-02a6-45b5-b140-f0be698bcf85/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "4bde304fb164b0f0910f7708aa69ec8b67ebcc15726bf66cc9b09f14e299c61a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7f35355e-02a6-45b5-b140-f0be698bcf85/recording.mp4",
+      "size_bytes": 7072687,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "0e5303d4-8820-42f6-b18d-daf7e633de21": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0e5303d4-8820-42f6-b18d-daf7e633de21/receipt.json",
+      "size_bytes": 1448,
+      "sha256": "2a63d13145fb7cb6ffe253682b57b14fff4f41941b80eb4058e68964835b96b1"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0e5303d4-8820-42f6-b18d-daf7e633de21/actor-result.json",
+      "size_bytes": 7555,
+      "sha256": "0ba0b012837fd7a127968f5edc4a2e77dd4e9a98bf3a3df122d73f38db81b93a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0e5303d4-8820-42f6-b18d-daf7e633de21/actor-output.tar.gz",
+      "size_bytes": 33852671,
+      "sha256": "bcc15313f30f7e316bc8928d25366499ca7f2318dda4a493a0d9161cfed65488"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0e5303d4-8820-42f6-b18d-daf7e633de21/initial.png",
+      "size_bytes": 101578,
+      "sha256": "288fcabe24cfbf0793d2a79bb583597ee0a1e1349cfa812ff8a14e5c48c4467a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0e5303d4-8820-42f6-b18d-daf7e633de21/final.png",
+      "size_bytes": 598579,
+      "sha256": "76168356b56e6c19ca8a253f927a29d9013b7338ac14050cd368d85b56d49106"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0e5303d4-8820-42f6-b18d-daf7e633de21/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "60a59b88315c9e9d099c14af7acd42e283018537b7325a1e770717009148e1ae"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0e5303d4-8820-42f6-b18d-daf7e633de21/recording.mp4",
+      "size_bytes": 4757788,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "df67aebb-fb3a-44fd-b75b-51b6012df509": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/df67aebb-fb3a-44fd-b75b-51b6012df509/receipt.json",
+      "size_bytes": 1835,
+      "sha256": "4160c9823840caa5148b71d1e45c3ba5ec24e08ca529238bf3b45f648a3566f4"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/df67aebb-fb3a-44fd-b75b-51b6012df509/actor-result.json",
+      "size_bytes": 4945,
+      "sha256": "fdb3c59e546abcfa77ee67986bd7940425cb75f41b9792792d028118513ee0ad"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/df67aebb-fb3a-44fd-b75b-51b6012df509/actor-output.tar.gz",
+      "size_bytes": 3780789,
+      "sha256": "ec7db5e1aaebcf8d32cda24dafb0a82b76442efee8a6643b370a3b034d8ba9e2"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/df67aebb-fb3a-44fd-b75b-51b6012df509/initial.png",
+      "size_bytes": 112843,
+      "sha256": "a0e5f95392302aca352bfb26a8b6da8bf2936ce8d7e69e70f41a1afafa9f25b7"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/df67aebb-fb3a-44fd-b75b-51b6012df509/final.png",
+      "size_bytes": 308684,
+      "sha256": "b77d7fd6492e51bbadaab3f29acaf7200089cb950729dd3eb08673deb0cb2ff5"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/df67aebb-fb3a-44fd-b75b-51b6012df509/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "130b3165ab8cfbe6d38748edf619ec3eb5c6be16e7c9d71ef9cec9b68d42d1b5"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/df67aebb-fb3a-44fd-b75b-51b6012df509/recording.mp4",
+      "size_bytes": 6997447,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "5df7b33a-9f77-4101-823e-02f863e1c1ae": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5df7b33a-9f77-4101-823e-02f863e1c1ae/receipt.json",
+      "size_bytes": 1446,
+      "sha256": "240b39ca18f91e3473416909fc9b3a8daeea7102bc97eef55e6cb3da862442c2"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5df7b33a-9f77-4101-823e-02f863e1c1ae/actor-result.json",
+      "size_bytes": 4320,
+      "sha256": "e6592b561b9252e3a9801857ff310b796cf09017fdffc95da983bcac3d350941"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5df7b33a-9f77-4101-823e-02f863e1c1ae/actor-output.tar.gz",
+      "size_bytes": 30707108,
+      "sha256": "140d970d1b229c44632e365db7c9ff1ede5e926b536549a043040a198359699e"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5df7b33a-9f77-4101-823e-02f863e1c1ae/initial.png",
+      "size_bytes": 1085590,
+      "sha256": "c0ca26626745adcaf90a05c7a55a488e5b35f25917548e5141f1acedf0619b9c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5df7b33a-9f77-4101-823e-02f863e1c1ae/final.png",
+      "size_bytes": 165999,
+      "sha256": "a25b84611c9c37a091fa6aabd3c34184e80db1792c6a6efcef538c9579cc4e0a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5df7b33a-9f77-4101-823e-02f863e1c1ae/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "595d3829cb8f6ac9e5106602c20b6c902d7d4a44a7abecf4d3294920424229f9"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5df7b33a-9f77-4101-823e-02f863e1c1ae/recording.mp4",
+      "size_bytes": 2530193,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "236833a3-5704-47fc-888c-4f298f09f799": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/236833a3-5704-47fc-888c-4f298f09f799/receipt.json",
+      "size_bytes": 1529,
+      "sha256": "3a79bfc9c32e159edca4736370ba291f674aeca7dd6af06a4e168779171a0a44"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/236833a3-5704-47fc-888c-4f298f09f799/actor-result.json",
+      "size_bytes": 6093,
+      "sha256": "fea92232fade5a37e91d87ea77d8beb2910bffb3f24456f93057d4c3c2488cb6"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/236833a3-5704-47fc-888c-4f298f09f799/actor-output.tar.gz",
+      "size_bytes": 19694901,
+      "sha256": "37638d41510dfd77604b792a0663079eca336847f03088d22da1c1ee6687a4e6"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/236833a3-5704-47fc-888c-4f298f09f799/initial.png",
+      "size_bytes": 279798,
+      "sha256": "4807a89884c3a78ef1f36bbd360a6eab3227a655500fa3529b0e65d3d2687300"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/236833a3-5704-47fc-888c-4f298f09f799/final.png",
+      "size_bytes": 252755,
+      "sha256": "5a1d488837a781947e754e6b49b4997be9c5ba7b0e3dcdf4921349e3db79f767"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/236833a3-5704-47fc-888c-4f298f09f799/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "eeaba54fa4a923b37efdcd516e390a60c1fe62ca9778e6d67542b6bbcf0625c7"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/236833a3-5704-47fc-888c-4f298f09f799/recording.mp4",
+      "size_bytes": 7972264,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "67890eb6-6ce5-4c00-9e3d-fb4972699b06": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/67890eb6-6ce5-4c00-9e3d-fb4972699b06/receipt.json",
+      "size_bytes": 1449,
+      "sha256": "74dee355b174b8f8498875f9deb403bafc0e13f3124857bd68dc60983ac949ca"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/67890eb6-6ce5-4c00-9e3d-fb4972699b06/actor-result.json",
+      "size_bytes": 7001,
+      "sha256": "95587871be709a097fe077d64c1fa24a266bf43ad2c5cdc11927a732edb708e8"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/67890eb6-6ce5-4c00-9e3d-fb4972699b06/actor-output.tar.gz",
+      "size_bytes": 26383923,
+      "sha256": "4f178249e7e95ab5ce3b51f437baf02e1a3bf4d1724e2876c8c2cba32578e43d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/67890eb6-6ce5-4c00-9e3d-fb4972699b06/initial.png",
+      "size_bytes": 77595,
+      "sha256": "9f6acdd24ad318e332ad9fd8b8107f61a41784c62cd8037593a9521e0d89e16e"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/67890eb6-6ce5-4c00-9e3d-fb4972699b06/final.png",
+      "size_bytes": 218659,
+      "sha256": "1ba7eb33a74ceff55f9a0e64d608c8c665c896104ee023c6facfc6f4a4b06e47"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/67890eb6-6ce5-4c00-9e3d-fb4972699b06/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "15491d44fa646f030dfc48233c3ae93e88e06572a82d30ad99360859e40b2d58"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/67890eb6-6ce5-4c00-9e3d-fb4972699b06/recording.mp4",
+      "size_bytes": 8109451,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "5ea617a3-0e86-4ba6-aab2-dac9aa2e8d57": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5ea617a3-0e86-4ba6-aab2-dac9aa2e8d57/receipt.json",
+      "size_bytes": 1439,
+      "sha256": "1c322a46a8a2fcf3b273efd58aa388f78962590b0614e5648c02ba47d7c4bdb6"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5ea617a3-0e86-4ba6-aab2-dac9aa2e8d57/actor-result.json",
+      "size_bytes": 4021,
+      "sha256": "79aef7589ee03744a6f6bbfe5f804f3d4c053e5bcad839e0b2d90ccbc72b389d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5ea617a3-0e86-4ba6-aab2-dac9aa2e8d57/actor-output.tar.gz",
+      "size_bytes": 25768201,
+      "sha256": "79fcc8c0352ef5533e6d05e657d0afda0cadbac2da1b9dc3d769018a960a2d82"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5ea617a3-0e86-4ba6-aab2-dac9aa2e8d57/initial.png",
+      "size_bytes": 1669937,
+      "sha256": "69af950aae2f322c90922859341e42c674d72ec8fe5e0addff337d96c45f4c43"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5ea617a3-0e86-4ba6-aab2-dac9aa2e8d57/final.png",
+      "size_bytes": 103595,
+      "sha256": "f313016e8fd1774d2840b320e99efef30162ecb6560fd3507b4350db56cac170"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5ea617a3-0e86-4ba6-aab2-dac9aa2e8d57/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "bc1f94f38ecfefe88a5888a125098cf461b42ee615992dedce4483a9fd538fd4"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5ea617a3-0e86-4ba6-aab2-dac9aa2e8d57/recording.mp4",
+      "size_bytes": 865436,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "e0df059f-28a6-4169-924f-b9623e7184cc": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e0df059f-28a6-4169-924f-b9623e7184cc/receipt.json",
+      "size_bytes": 1439,
+      "sha256": "f38d1b9e8e77869503f18b8995d288f4e24eab20a311dd1cf1b483f68a86e81f"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e0df059f-28a6-4169-924f-b9623e7184cc/actor-result.json",
+      "size_bytes": 3511,
+      "sha256": "c9fcc17b7b4ad8734b0f9072a6fc16a4fc41fd9e97ed933bbab1a61672c100e4"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e0df059f-28a6-4169-924f-b9623e7184cc/actor-output.tar.gz",
+      "size_bytes": 1685094,
+      "sha256": "d6fbd15af787f2148ef6f6a860c58aec4feae008a95e7ce14f017b169df1f04a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e0df059f-28a6-4169-924f-b9623e7184cc/initial.png",
+      "size_bytes": 1670527,
+      "sha256": "145eae7d971406a8882a600d820b20192a029b41dcbd8e909b63fa036039966f"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e0df059f-28a6-4169-924f-b9623e7184cc/final.png",
+      "size_bytes": 103639,
+      "sha256": "05aa953ceab4562f5a4dfd1a3ade9b68007e4292b15d0722e53105f4a4f66f13"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e0df059f-28a6-4169-924f-b9623e7184cc/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "1d850b69f788d9566de4133991a1bc9d2211745569209f2828574172c8e44008"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e0df059f-28a6-4169-924f-b9623e7184cc/recording.mp4",
+      "size_bytes": 781109,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "23393935-50c7-4a86-aeea-2b78fd089c5c": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/23393935-50c7-4a86-aeea-2b78fd089c5c/receipt.json",
+      "size_bytes": 1438,
+      "sha256": "5730131f7ce1f774fca5ac1e31188cfcaaa4be6a9a7917cde9220cb3e31b6a57"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/23393935-50c7-4a86-aeea-2b78fd089c5c/actor-result.json",
+      "size_bytes": 3846,
+      "sha256": "ce3963354c47d3c70b8501247986dd1ba3af00942c102f04b3bbf4a990d659f0"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/23393935-50c7-4a86-aeea-2b78fd089c5c/actor-output.tar.gz",
+      "size_bytes": 1799686,
+      "sha256": "e43870c32f12ffec81751f132c4d2b39fc9669da10c0972e47a8cf83421bd3dc"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/23393935-50c7-4a86-aeea-2b78fd089c5c/initial.png",
+      "size_bytes": 1670208,
+      "sha256": "cf38de8fc7b5f60aa62f0dd1f50da5ede4b3403e7ba2f27bef91f46fecdac96c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/23393935-50c7-4a86-aeea-2b78fd089c5c/final.png",
+      "size_bytes": 118425,
+      "sha256": "e274505337fbd34a7d3bab71bb936b763db02c78c989c24e013f0ad17b15ac9a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/23393935-50c7-4a86-aeea-2b78fd089c5c/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "b5f05dcfe5106f1a8170e04a22b1d20ed3b717d24354d8d7b8168f7340919da4"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/23393935-50c7-4a86-aeea-2b78fd089c5c/recording.mp4",
+      "size_bytes": 939250,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "4783cc41-c03c-4e1b-89b4-50658f642bd5": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4783cc41-c03c-4e1b-89b4-50658f642bd5/receipt.json",
+      "size_bytes": 1439,
+      "sha256": "c78c65816e509bc39b8f0687d9cea8a508903705da384609212d401a4239938a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4783cc41-c03c-4e1b-89b4-50658f642bd5/actor-result.json",
+      "size_bytes": 3836,
+      "sha256": "04fd82677d9192d66f97e28dfc2dcd16ab6a418e9bd5149f714e73ec16435b1f"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4783cc41-c03c-4e1b-89b4-50658f642bd5/actor-output.tar.gz",
+      "size_bytes": 27625740,
+      "sha256": "7a730e095066910a51cef70a6846296e0964aec00925770b858a04ba379e39d8"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4783cc41-c03c-4e1b-89b4-50658f642bd5/initial.png",
+      "size_bytes": 1425324,
+      "sha256": "3bc93f546b95e1cb82908471393bd42181e8e54725bb0e7ef5d9df33d1dbf2fd"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4783cc41-c03c-4e1b-89b4-50658f642bd5/final.png",
+      "size_bytes": 119048,
+      "sha256": "db4b11db9036d5057c25f18a00e75fab27d45387de5540cecd328d08f03cb02a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4783cc41-c03c-4e1b-89b4-50658f642bd5/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "ae350f3d49eeac6a93e8e118c72b3d98763d20e58d12ffc96ccdb56ec8452648"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4783cc41-c03c-4e1b-89b4-50658f642bd5/recording.mp4",
+      "size_bytes": 1632793,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "5c1075ca-bb34-46a3-a7a0-029bd7463e79": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5c1075ca-bb34-46a3-a7a0-029bd7463e79/receipt.json",
+      "size_bytes": 1438,
+      "sha256": "81e9c9351f9aa09cbd65fa15cf4d7f249710618a4b95ddf1b9d6eb660e9332ce"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5c1075ca-bb34-46a3-a7a0-029bd7463e79/actor-result.json",
+      "size_bytes": 5681,
+      "sha256": "775feb4a26f2d1150a140c5f74ab3e84623eb036741374b8fa0185411505a902"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5c1075ca-bb34-46a3-a7a0-029bd7463e79/actor-output.tar.gz",
+      "size_bytes": 15989322,
+      "sha256": "c659b4703fd1dd7c227440ccf6eeec5603df9370c07709d0b2ffe5cbd9b245e3"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5c1075ca-bb34-46a3-a7a0-029bd7463e79/initial.png",
+      "size_bytes": 1433213,
+      "sha256": "67fc6b3e7940e47aa82655c3420a97563bf74f41fd2e2e65d6fc41d15db7c0cc"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5c1075ca-bb34-46a3-a7a0-029bd7463e79/final.png",
+      "size_bytes": 118874,
+      "sha256": "f59220db463fba6db9541c19d18de762d06cffb9ed069b9364cd5668fdbe0a2b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5c1075ca-bb34-46a3-a7a0-029bd7463e79/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "638d1f82a2f9fc31961ad71e023c364305b9347d838825347695f54029b2cdf5"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5c1075ca-bb34-46a3-a7a0-029bd7463e79/recording.mp4",
+      "size_bytes": 1286543,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "5ced85fc-fa1a-4217-95fd-0fb530545ce2": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5ced85fc-fa1a-4217-95fd-0fb530545ce2/receipt.json",
+      "size_bytes": 1439,
+      "sha256": "47faf8e20b6dcb1fe72e97d36ccfbf7bde2eaa7405a96206db475af651b47866"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5ced85fc-fa1a-4217-95fd-0fb530545ce2/actor-result.json",
+      "size_bytes": 3658,
+      "sha256": "561f09a6a79ca1fc5a2e86a8535198f5025358c730173127c0cbf1bf6787ac58"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5ced85fc-fa1a-4217-95fd-0fb530545ce2/actor-output.tar.gz",
+      "size_bytes": 10164755,
+      "sha256": "ca1568be64b9cba3aa10f32ebcde05df4b4c4268c2038ca2b316c848ceb21b5c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5ced85fc-fa1a-4217-95fd-0fb530545ce2/initial.png",
+      "size_bytes": 1669447,
+      "sha256": "b66b8a608907c5b72497687073568d1162064e71d63f563c18f3bf523e0bc5d6"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5ced85fc-fa1a-4217-95fd-0fb530545ce2/final.png",
+      "size_bytes": 118101,
+      "sha256": "580e969c04e8a3683bd45b72d5d0d3537d772411f50089cedf09366151c3e975"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5ced85fc-fa1a-4217-95fd-0fb530545ce2/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "591a599ee522a636b3e3ec38f72445882a21183c284d1eaa51e1f9d89128299d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/5ced85fc-fa1a-4217-95fd-0fb530545ce2/recording.mp4",
+      "size_bytes": 617868,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "37887e8c-da15-4192-923c-08fa390a176d": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/37887e8c-da15-4192-923c-08fa390a176d/receipt.json",
+      "size_bytes": 1438,
+      "sha256": "0b4d322ec151f2484bd0e46e8485c0909ecf12681791abc49eebabbeabeec77c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/37887e8c-da15-4192-923c-08fa390a176d/actor-result.json",
+      "size_bytes": 4813,
+      "sha256": "d690a94af2132070f1527caa9b2f0238d3320c721371555e66bbea713e5778f0"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/37887e8c-da15-4192-923c-08fa390a176d/actor-output.tar.gz",
+      "size_bytes": 47948372,
+      "sha256": "b571ce2ca79f8b1698d2ec71bdc92275648f835e4202a315854ed1043780bea3"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/37887e8c-da15-4192-923c-08fa390a176d/initial.png",
+      "size_bytes": 1425721,
+      "sha256": "635dd05d6b03c42d8324f489cbfbfc7ca312008d3cfd47dc933c02ae83820ccf"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/37887e8c-da15-4192-923c-08fa390a176d/final.png",
+      "size_bytes": 118409,
+      "sha256": "8fcdf2cdafafae8b576e98532826fe6b296920d05eb503c7dc69aa7239ba77ca"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/37887e8c-da15-4192-923c-08fa390a176d/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "6e94f68e68a387489e90a289c0c9e795129f4b062afd6d22f11e4c9dd7f19c2f"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/37887e8c-da15-4192-923c-08fa390a176d/recording.mp4",
+      "size_bytes": 1908410,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "4127319a-8b79-4410-b58a-7a151e15f3d7": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4127319a-8b79-4410-b58a-7a151e15f3d7/receipt.json",
+      "size_bytes": 1439,
+      "sha256": "f625b23038ff735fbd6897bc8ae04930f20a81d0a6e8e224d1b90092d91e232e"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4127319a-8b79-4410-b58a-7a151e15f3d7/actor-result.json",
+      "size_bytes": 3942,
+      "sha256": "6f2b6cbe1c7c7de2b4c0ecf56d0bb8ac977b35d7630a83c09d8afa5247e198f9"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4127319a-8b79-4410-b58a-7a151e15f3d7/actor-output.tar.gz",
+      "size_bytes": 29836123,
+      "sha256": "ade59697d6911c66f2117e511b654c13d7941cb8edbec7055315ac55d3e50def"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4127319a-8b79-4410-b58a-7a151e15f3d7/initial.png",
+      "size_bytes": 1332938,
+      "sha256": "1723dc433256f11d4bd2d89fef201644628abf7779b790acb6be8d5f1b28d668"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4127319a-8b79-4410-b58a-7a151e15f3d7/final.png",
+      "size_bytes": 94819,
+      "sha256": "38d5f56a6ea9d22eb0111995628d371a0a1a21a21b038873490aeccd564c47eb"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4127319a-8b79-4410-b58a-7a151e15f3d7/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "3310565bd81798317fb531488c63758131ebd1a8313fef721464bbbe6b59d760"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4127319a-8b79-4410-b58a-7a151e15f3d7/recording.mp4",
+      "size_bytes": 2223465,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "4d117223-a354-47fb-8b45-62ab1390a95f": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4d117223-a354-47fb-8b45-62ab1390a95f/receipt.json",
+      "size_bytes": 1439,
+      "sha256": "c215fa6273388ab61cf6d404335e00321e2c2c29567d7ea497940dded9626da9"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4d117223-a354-47fb-8b45-62ab1390a95f/actor-result.json",
+      "size_bytes": 3583,
+      "sha256": "3db136927161c18a93daa54e475efa7149814b7bea0f438b76bd8e8dcacfd5cc"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4d117223-a354-47fb-8b45-62ab1390a95f/actor-output.tar.gz",
+      "size_bytes": 13021416,
+      "sha256": "c7e45c8306862c7805ac5c9dd396b8267a6853b4bee78d45516119c439992eed"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4d117223-a354-47fb-8b45-62ab1390a95f/initial.png",
+      "size_bytes": 1427562,
+      "sha256": "7d7ab32db7f0f4244f0cd050e8b14e778dbfa18c8d0d2d3039793b968052f674"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4d117223-a354-47fb-8b45-62ab1390a95f/final.png",
+      "size_bytes": 118638,
+      "sha256": "4184cb77e22922a9c18de4c243d8cf7b290a72974c427517589fab96fd044ef4"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4d117223-a354-47fb-8b45-62ab1390a95f/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "5cb06d81bd715e5a1e438796acf51ad5497d9d2867eb2f217fabd05cc215381c"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/4d117223-a354-47fb-8b45-62ab1390a95f/recording.mp4",
+      "size_bytes": 775492,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "6f56bf42-85b8-4fbb-8e06-6c44960184ba": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6f56bf42-85b8-4fbb-8e06-6c44960184ba/receipt.json",
+      "size_bytes": 1438,
+      "sha256": "41275dbc3e354a375ad642843635756e01cf1e9222738d359234771baae92e22"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6f56bf42-85b8-4fbb-8e06-6c44960184ba/actor-result.json",
+      "size_bytes": 3577,
+      "sha256": "6f79927d1d89bc1de366de32d8cede6151e6e44ab616d1737cfcec3b5f7c239a"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6f56bf42-85b8-4fbb-8e06-6c44960184ba/actor-output.tar.gz",
+      "size_bytes": 1440589,
+      "sha256": "eea5201871d2ed7e9323a080f3fee582e6495a52a5f394f16ec26bee6c6be3e6"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6f56bf42-85b8-4fbb-8e06-6c44960184ba/initial.png",
+      "size_bytes": 1425746,
+      "sha256": "47682263ee6943e79bed76870195bc95403ec10684445d15f4e9f3c06a625ef3"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6f56bf42-85b8-4fbb-8e06-6c44960184ba/final.png",
+      "size_bytes": 117873,
+      "sha256": "31d31b38b64ec09178e9e2c06183199e7484058cdaa2356eec4b6333d6e1b300"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6f56bf42-85b8-4fbb-8e06-6c44960184ba/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "fb4502a1467ed5d2b93567c9da8104e031761e200225a2eb5de48e4bae6746e1"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6f56bf42-85b8-4fbb-8e06-6c44960184ba/recording.mp4",
+      "size_bytes": 639112,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "0ed39f63-6049-43d4-ba4d-5fa2fe04a951": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0ed39f63-6049-43d4-ba4d-5fa2fe04a951/receipt.json",
+      "size_bytes": 1498,
+      "sha256": "664ac0cef4bbe023d609426e7c2b94131f7c2a9accdb1381c4f1b73bd0c485d9"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0ed39f63-6049-43d4-ba4d-5fa2fe04a951/actor-result.json",
+      "size_bytes": 3821,
+      "sha256": "3fc6d8c098c021e0b44d044caf7784df788a7b29e608250dc03ae89e3d09ab97"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0ed39f63-6049-43d4-ba4d-5fa2fe04a951/actor-output.tar.gz",
+      "size_bytes": 10167453,
+      "sha256": "5476e0b9ad6107b2c146c6252ee4a535b588db91f7211aa9f9f99b932f54f0ea"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0ed39f63-6049-43d4-ba4d-5fa2fe04a951/initial.png",
+      "size_bytes": 1672064,
+      "sha256": "b021259f4bb6be6d07278f285f659c6f5be281082f735799f18e11ef9b37d40b"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0ed39f63-6049-43d4-ba4d-5fa2fe04a951/final.png",
+      "size_bytes": 112553,
+      "sha256": "8937bc63deb18bc4009810ee7c950a7ebcd479cc14071c48dfbdfca45a401640"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0ed39f63-6049-43d4-ba4d-5fa2fe04a951/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "e0a9453b7a14e66c87848143583821504141fe8421fb896d86352800bef00a25"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/0ed39f63-6049-43d4-ba4d-5fa2fe04a951/recording.mp4",
+      "size_bytes": 1147539,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "ec71221e-ac43-46f9-89b8-ee7d80f7e1c5": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ec71221e-ac43-46f9-89b8-ee7d80f7e1c5/receipt.json",
+      "size_bytes": 1444,
+      "sha256": "22ae975a90afaab515e25ddb298ebcab67b257d0c2e09e14e2a825b52e46f38d"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ec71221e-ac43-46f9-89b8-ee7d80f7e1c5/actor-result.json",
+      "size_bytes": 5576,
+      "sha256": "628aa7056d5cddb30ca4344fe44cf2dc5af1f66ee881b1c7f10061dd6ff34ec2"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ec71221e-ac43-46f9-89b8-ee7d80f7e1c5/actor-output.tar.gz",
+      "size_bytes": 5878963,
+      "sha256": "800a1b5b434530a968463c74cefc8b092b04466f0573377bab6d9ba2c0d425d4"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ec71221e-ac43-46f9-89b8-ee7d80f7e1c5/initial.png",
+      "size_bytes": 109455,
+      "sha256": "bc2d32ca5a72ce430e72142d98fbd5c2f47c501742725c3a34569285f4bfc6d4"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ec71221e-ac43-46f9-89b8-ee7d80f7e1c5/final.png",
+      "size_bytes": 127109,
+      "sha256": "8c52fdd17188cbe536d577b9fefc12bca9c5a9083ed64f444fd70ae0ebefa171"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ec71221e-ac43-46f9-89b8-ee7d80f7e1c5/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "7dd2df296ea7a7bdedba54a10871cfcddee0402b778753c0c0989f235b1c0414"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/ec71221e-ac43-46f9-89b8-ee7d80f7e1c5/recording.mp4",
+      "size_bytes": 1817043,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ],
+  "57242fad-77ca-454f-b71b-f187181a9f23": [
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/57242fad-77ca-454f-b71b-f187181a9f23/receipt.json",
+      "size_bytes": 1443,
+      "sha256": "db53bbca58d7e2663cbec3dde2b7d0b454e24ebf3466eda6498f008ff48f60c1"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/57242fad-77ca-454f-b71b-f187181a9f23/actor-result.json",
+      "size_bytes": 5127,
+      "sha256": "40566ef64a86caa3cb402dcf344a44a59710050e47d51aa9384ba57b2d96f194"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/57242fad-77ca-454f-b71b-f187181a9f23/actor-output.tar.gz",
+      "size_bytes": 17451474,
+      "sha256": "9968a9216892f60c47b7625ca263e299d7529ad875cb13d150643f15d0ed0a33"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/57242fad-77ca-454f-b71b-f187181a9f23/initial.png",
+      "size_bytes": 75000,
+      "sha256": "dda6a3b3c897682367d33da955ac3794a914ac36e77f78b0d61eb6ce77e82136"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/57242fad-77ca-454f-b71b-f187181a9f23/final.png",
+      "size_bytes": 136600,
+      "sha256": "4ef5093332500c39050dae3363bfeaa9508ba63a4a91d7b31f71e5b9c17528bd"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/57242fad-77ca-454f-b71b-f187181a9f23/owned-container.json",
+      "size_bytes": 365,
+      "sha256": "a8893709bb579668519450c53816627da461c40db332c319b7e2126746c5b91f"
+    },
+    {
+      "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/57242fad-77ca-454f-b71b-f187181a9f23/recording.mp4",
+      "size_bytes": 2980657,
+      "sha256": null,
+      "hash_note": "Large video retained on 5090; not copied into Git"
+    }
+  ]
+}

@@ -26,7 +26,7 @@ OSWorld用独立生成的参考PDF比较Agent保存的PDF。2026-11-17首轮正�
 
 新准备的运行目录通过config的 `reference_getter_repair=reference-pdf-readiness-v1` 明确启用，回执记录修复代码SHA。`DesktopEnv.evaluate()`、原题、输出文件位置和 `compare_pdfs` 均不改；参考异常会向上传为 `evaluation_error`。**原比较函数返回0到1的文本相似度，不能将非零分数直接算作整题通过。**
 
-正在运行的v3仍使用d38423c冻结源码，不热改。对已确认参考损坏的这一题，[repair_pdf_reference.py](repair_pdf_reference.py)使用新VM运行原初始化，独立生成新参考，读取原Actor保存的PDF，调用原 `compare_pdfs`。不会运行Actor，也不读取模型密钥。原0分、原损坏参考、原实际PDF都保留；新 `correction.json`绑定原回执、输出、参考、修复源码和原metric的SHA。失败依旧无分，不能择优重试或更换输出。
+v3全程使用d38423c冻结源码，没有热改。对已确认参考损坏的这一题，[repair_pdf_reference.py](repair_pdf_reference.py)使用新VM运行原初始化，独立生成新参考，读取原Actor保存的PDF，调用原 `compare_pdfs`。不会运行Actor，也不读取模型密钥。原0分、原损坏参考、原实际PDF都保留；新 `correction.json`绑定原回执、输出、参考、修复源码和原metric的SHA。失败依旧无分，不能择优重试或更换输出。本页保留首次PDF补判的历史过程；后来并发上限提升至12，76题及全部补充记录均已完成，见[完整结果](RESULTS-v3.md)和[全部补判教程](SCORING_REPAIRS.md)。
 
 两种结果分开报告：原始官方回执，以及“官方原metric＋PDF参考修复v1”的技术补判结果。固定分母始终76；参考无效、技术错误和未完成单列，存在缺题时不报告完整76题均分。
 
@@ -64,7 +64,7 @@ RUN=/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe5
 FIX=/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-pdf-reference-v1
 ```
 
-补判需要一个VM位置，连同正式评测最多4个。不要直接在已有4个VM时启动第五个。可以对本轮控制器按Ctrl+C停止新派发，等待在途Actor保存完毕并清理，再执行下面命令；之后用原run命令续跑，已有回执自动保留。不要终止其他评测。
+PDF补判需要一个VM位置。首次补判发生在当时上限4个VM的阶段，补判与正式任务合计没有超过4个；后续按用户要求提高到12的过程见[独立并发覆盖](CONCURRENCY_OVERRIDE.md)。未来执行补判须计入当时已授权的总上限和实际资源准入，不能在位置已满时额外启动VM。可对自有控制器按Ctrl+C停止新派发，等待在途Actor保存完毕并清理，再执行下面命令；之后用原run命令续跑，已有回执自动保留。不要终止其他评测。本轮现已全部结束，核验已存在记录优先使用只读report命令，无需重新生成参考。
 
 ```bash
 sudo -u wf -g docker xvfb-run -a "$PY" "$BENCH/repair_pdf_reference.py" repair \

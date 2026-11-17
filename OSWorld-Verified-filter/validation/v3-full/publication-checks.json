@@ -1,0 +1,28 @@
+{
+  "checked_at": "2026-11-17T15:07:49.064900+00:00",
+  "task_ids": 76,
+  "raw_receipts_byte_hashes_verified": 76,
+  "original_task_byte_hashes_verified": 76,
+  "original_valid_numeric_scores": 72,
+  "original_null_scores": 4,
+  "supplementary_records_verified": 9,
+  "no_actor_rerun_corrections": 8,
+  "new_actor_technical_retry": 1,
+  "composite_score_sum": 60.472093479995934,
+  "composite_mean": 0.7956854405262623,
+  "composite_full_partial_zero_counts": [
+    58,
+    3,
+    15
+  ],
+  "current_python_sources_matching_passed_host_tests": 34,
+  "host_test_count": 206,
+  "host_test_skipped": 0,
+  "all_json_files_parsed": 198,
+  "local_markdown_file_links_checked": 574,
+  "missing_local_file_links": [],
+  "original_non_full_or_technical_explanations": 25,
+  "known_private_values_or_private_key_matches": 0,
+  "secret_values_not_exported": true,
+  "read_only_host_report_bytes_match_published_report": true
+}

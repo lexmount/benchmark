@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "kind": "task-scoped-address-heading-extraction-v1",
+  "repair_label": "task-scoped heading extraction repair",
+  "task_id": "7ff48d5b-2df2-49da-b500-a5150ffc7f18",
+  "run_dir": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3",
+  "status": "corrected",
+  "created_at": "2026-11-17T14:34:09.343228+00:00",
+  "original_score": 0.0,
+  "original_metric_reproduced_score": 0.0,
+  "score": 0.4734813573523251,
+  "actor_rerun": false,
+  "model_calls": 0,
+  "vm_starts": 0,
+  "getter_replayed": false,
+  "input_kind": "original_postconfig_official_vm_file",
+  "upstream_commit": "5123bfdbbc34b947bcffcff564abc62d0ab7072d",
+  "run_metadata_sha256": "78618a67a05802b47e40f55e37a31ed8e6c4776ef98c42b1ac1bd43f1b2fa0d6",
+  "task_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/harness/data/tasks/multi_apps/7ff48d5b-2df2-49da-b500-a5150ffc7f18.json",
+  "task_sha256": "22a705766872e96b937dd5a56f88b7909afa39bde28f99a5e6156b08c2ec04db",
+  "original_receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7ff48d5b-2df2-49da-b500-a5150ffc7f18/receipt.json",
+  "original_receipt_sha256": "c91b2747d4f88f5c2c7d0a15e46f101c9604c7604e616fa53b6ee6285b69b0aa",
+  "original_actual": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/7ff48d5b-2df2-49da-b500-a5150ffc7f18/official-cache/7ff48d5b-2df2-49da-b500-a5150ffc7f18/AllLocations.docx",
+  "original_actual_sha256": "97d43e8505191d8e790890ee31c0735967566bba1b1d88e84c5383e9ea2e3447",
+  "original_expected_rule": {
+    "expected": [
+      [
+        "深圳市福田区益田路5055号信息枢纽大厦西门一楼",
+        "福田区益田路5055号信息枢纽大厦西门一楼"
+      ],
+      [
+        "深圳市福田区福华三路111号北三门会展中心警务室"
+      ],
+      [
+        "深圳市福田区正义街1号",
+        "福田区正义街1号"
+      ],
+      [
+        "福田区莲科路18号莲花一村警务室"
+      ],
+      [
+        "深圳市福田区彩云路2-8长城盛世家园一期C座一楼一期管理处旁边",
+        "福田区彩云路2-8长城盛世家园一期C座一楼一期管理处旁边"
+      ],
+      [
+        "深圳市福田区香梅路2002-4号",
+        "福田区香梅路2002-4号"
+      ],
+      [
+        "福田区水围村龙景楼一楼"
+      ],
+      [
+        "深圳市福田区梅林路与梅康路交汇处卓悦汇4号、5号门对面",
+        "福田区梅林路与梅康路交汇处卓悦汇4号、5号门对面"
+      ],
+      [
+        "深圳市福田区福强路3028号金沙嘴大厦",
+        "福田区福强路3028号金沙嘴大厦"
+      ],
+      [
+        "深圳市福田区天安数码城昌泰公寓一楼",
+        "福田区天安数码城昌泰公寓一楼"
+      ],
+      [
+        "福田区泰然五路5号天安数码城9栋"
+      ],
+      [
+        "深圳市福田区振兴路108号",
+        "福田区振兴路108号"
+      ],
+      [
+        "深圳市福田区滨河大道2033号",
+        "福田区滨河大道2033号"
+      ],
+      [
+        "深圳市福田区上沙四十八栋一巷11",
+        "福田区上沙四十八栋一巷11"
+      ],
+      [
+        "深圳市福田区北环大道与香蜜湖路交汇处香蜜原著警务室",
+        "福田区北环大道与香蜜湖路交汇处香蜜原著警务室"
+      ],
+      [
+        "深圳市福田区八卦路38号八卦岭派出所",
+        "福田区八卦路38号八卦岭派出所"
+      ],
+      [
+        "深圳市福田区宝能城市公馆B栋一楼竹园警务室",
+        "福田区宝能城市公馆B栋一楼竹园警务室"
+      ],
+      [
+        "深圳市福田区竹子林五路12号",
+        "福田区竹子林五路12号"
+      ]
+    ],
+    "expected_entry_count": 5,
+    "require_distinct": true,
+    "identity_aliases": [
+      [
+        "益田路5055号",
+        "信息枢纽大厦"
+      ],
+      [
+        "福华三路111号",
+        "会展中心警务室"
+      ],
+      [
+        "正义街1号"
+      ],
+      [
+        "莲科路18号",
+        "莲花一村警务室"
+      ],
+      [
+        "彩云路2-8",
+        "长城盛世家园一期C座"
+      ],
+      [
+        "香梅路2002-4号"
+      ],
+      [
+        "水围村龙景楼"
+      ],
+      [
+        "梅林路与梅康路交汇处",
+        "卓悦汇4号、5号门"
+      ],
+      [
+        "福强路3028号",
+        "金沙嘴大厦"
+      ],
+      [
+        "昌泰公寓"
+      ],
+      [
+        "泰然五路5号",
+        "天安数码城9栋"
+      ],
+      [
+        "振兴路108号"
+      ],
+      [
+        "滨河大道2033号"
+      ],
+      [
+        "上沙四十八栋一巷11"
+      ],
+      [
+        "北环大道与香蜜湖路交汇处",
+        "香蜜原著警务室"
+      ],
+      [
+        "八卦路38号",
+        "八卦岭派出所"
+      ],
+      [
+        "宝能城市公馆B栋",
+        "竹园警务室"
+      ],
+      [
+        "竹子林五路12号"
+      ]
+    ]
+  },
+  "original_options": {},
+  "metric": "fuzzy_place_math/_fuzzy_distinct_place_score",
+  "metric_source_sha256": "da85cbad0241062f372455dd5ecb977ff780f018350910e9dbb506710d8f6284",
+  "metric_source_git_blob_sha1": "ccacfcb5789de5527d25fd3c634605ef83a52ee4",
+  "outer_metric_checks_preserved": [
+    "non-null existing original result path",
+    "valid integer expected_entry_count",
+    "originalDocumentloading",
+    "require_distinct=True",
+    "expected and identity_aliases unchanged"
+  ],
+  "helper_boundary": "Only first-heading extraction differs. All remaining original Paragraph objects are passed to the unchanged upstream helper; no document is rewritten and no text, references, count, identity checks or fuzzy formula are normalized beyond upstream behavior.",
+  "extraction": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-address-extraction-repair-v1/heading-extraction.json",
+  "extraction_sha256": "b7e61354dd2e27fe3a502f6f40879fe3bb885c1002ad5ad8322f2893114b9783",
+  "repair_sources_sha256": {
+    "address_reference_repair.py": "69ca75c7ab1ea6712ecb2f714ce3aa58247c3436e75ac34bdfbe90c010c3b9a3",
+    "repair_address_reference.py": "f6a451f80f706ca763aeb99c9f06c88a3738dab54e148b6ee5a9dbebd325e8aa"
+  },
+  "source_provenance": {
+    "latest_main_head_checked": "5123bfdbbc34b947bcffcff564abc62d0ab7072d",
+    "metric_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/desktop_env/evaluators/metrics/general.py#L166",
+    "tests_read": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/tests/test_fuzzy_place_math.py",
+    "PRs_read": [
+      "https://github.com/xlang-ai/OSWorld/pull/625",
+      "https://github.com/xlang-ai/OSWorld/pull/627"
+    ],
+    "research_result": "The merged five-place/identity fixes preserve exact address count but do not exclude non-address document headings. Current main and inspected tests have no heading-plus-five-address case.",
+    "reuse": "Official test AST loader and all five original metric functions; custom code is limited to a guarded read-only first-heading view.",
+    "unchanged": "Original document bytes, remaining paragraph text, expected address/identity groups, count, distinctness checks and maximum-ratio fuzzy arithmetic."
+  },
+  "evidence_errors": []
+}

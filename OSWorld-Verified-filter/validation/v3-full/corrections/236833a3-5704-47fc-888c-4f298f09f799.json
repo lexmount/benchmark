@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "kind": "archived-file-evaluation-recovery-v1",
+  "task_id": "236833a3-5704-47fc-888c-4f298f09f799",
+  "run_dir": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3",
+  "created_at": "2026-11-17T13:58:12.770395+00:00",
+  "status": "corrected",
+  "score": 1.0,
+  "original_status": "evaluation_error",
+  "original_score": null,
+  "model_calls": 0,
+  "vm_starts": 0,
+  "actor_rerun": false,
+  "getter_replayed": false,
+  "input_kind": "archived_byte_identical_last_known_desktop_snapshot",
+  "run_metadata_sha256": "78618a67a05802b47e40f55e37a31ed8e6c4776ef98c42b1ac1bd43f1b2fa0d6",
+  "task_sha256": "90d235cb7c84329eb6dcd4b3c34e79352d2284e75e686711a5fa20115755b234",
+  "original_receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/236833a3-5704-47fc-888c-4f298f09f799/receipt.json",
+  "original_receipt_sha256": "3a79bfc9c32e159edca4736370ba291f674aeca7dd6af06a4e168779171a0a44",
+  "actual": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-hfpapers-evaluation-recovery-v1/actual.docx",
+  "actual_sha256": "b9710c797c06bea9d66c8e838be5f3ec346470beba6e52444220b1713c161286",
+  "actual_source": {
+    "kind": "archived_byte_identical_last_known_desktop_snapshot",
+    "original_archive": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/236833a3-5704-47fc-888c-4f298f09f799/actor-output.tar.gz",
+    "original_archive_sha256": "37638d41510dfd77604b792a0663079eca336847f03088d22da1c1ee6687a4e6",
+    "archive_member": "actor-output/workspace/new_doc.docx",
+    "actual_VM_path": "/home/user/Desktop/paper_reading_2024_03_01.docx",
+    "actual_sha256": "b9710c797c06bea9d66c8e838be5f3ec346470beba6e52444220b1713c161286",
+    "evidence_sha256": "1e0f2a98fbf91076b53424dd205c884da2d053d9aa261f1c68eb61adf413e7a4",
+    "evidence_steps": [
+      36,
+      59,
+      60
+    ],
+    "boundary": "Not a retained vm_file getter result. Archived workspace bytes match the recorded final Desktop hash; no subsequent mutation tool is recorded. Unrecorded background autosave cannot be excluded."
+  },
+  "actual_evidence": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-hfpapers-evaluation-recovery-v1/actual-evidence.json",
+  "reference": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-hfpapers-evaluation-recovery-v1/reference.docx",
+  "reference_provenance": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-hfpapers-evaluation-recovery-v1/reference-provenance.json",
+  "metric": "compare_docx_paper_records",
+  "options": {
+    "weights": {
+      "title": 0.2,
+      "authors": 0.25,
+      "abstract": 0.35,
+      "arxiv": 0.2
+    },
+    "prefilled_titles": [
+      "StarCoder 2 and The Stack v2: The Next Generation",
+      "Beyond Language Models: Byte Models are Digital World Simulators"
+    ],
+    "title_align_threshold": 85,
+    "field_full_threshold": 95
+  },
+  "repair_sources_sha256": {
+    "repair_file_evaluation.py": "c707ffa634ed82874020f9f644b4c1c75c26c23b4c6f63163bca7231637e3245",
+    "repair_pdf_reference.py": "094b756b01d25fd23dc968fee705dfa090d31254fb34a2cf7a2ca22dfe7ac7c9"
+  },
+  "evidence_errors": [],
+  "reference_sha256": "e058d067a1dd67d894005a63b57561d361a0926a65ed6b7453912446c51317ef",
+  "reference_format": {
+    "bytes": 23226,
+    "sha256": "e058d067a1dd67d894005a63b57561d361a0926a65ed6b7453912446c51317ef",
+    "paper_titles": 11,
+    "paragraphs": 54
+  },
+  "reference_provenance_sha256": "8ddb498d35b64ea01bf05c5294d0c4ef8e95a79a9652d8ff9dbf593d47e12d7b",
+  "metric_source_sha256": "2345d3ae870a52d65e29c061e90c7b76981549545e1e7eda667ce25729d7de63",
+  "finished_at": "2026-11-17T13:58:15.659639+00:00"
+}

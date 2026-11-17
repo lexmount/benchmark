@@ -1,0 +1,105 @@
+{
+  "run_dir": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3",
+  "collected_at": "2026-11-17T14:44:40.599029+00:00",
+  "records": [
+    {
+      "task_id": "e1e75309-3ddb-4d09-92ec-de869c928143",
+      "kind": "pdf-reference-v1-original-output",
+      "original_score": 0.0,
+      "score": 0.9997920469511773,
+      "actor_rerun": false,
+      "server_record": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-pdf-reference-v1/correction.json",
+      "server_record_sha256": "a39016b30fc0b4c18ce0fd163fb503e79f4ee9f0f826e5d7612745c712b306dd",
+      "repository_record": "validation/v3-full/corrections/e1e75309-3ddb-4d09-92ec-de869c928143.json",
+      "repository_record_sha256": "a39016b30fc0b4c18ce0fd163fb503e79f4ee9f0f826e5d7612745c712b306dd"
+    },
+    {
+      "task_id": "f8cfa149-d1c1-4215-8dac-4a0932bad3c2",
+      "kind": "cell-search-reference-v1-terminal-evidence",
+      "original_score": 0.0,
+      "score": 1.0,
+      "actor_rerun": false,
+      "server_record": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-cell-search-reference-v1/correction.json",
+      "server_record_sha256": "cdeee32a593bf9c49ca167fc9f65a4216be608839d967c95ae87909ccc265b16",
+      "repository_record": "validation/v3-full/corrections/f8cfa149-d1c1-4215-8dac-4a0932bad3c2.json",
+      "repository_record_sha256": "cdeee32a593bf9c49ca167fc9f65a4216be608839d967c95ae87909ccc265b16"
+    },
+    {
+      "task_id": "df67aebb-fb3a-44fd-b75b-51b6012df509",
+      "kind": "archived-file-evaluation-recovery-v1",
+      "original_score": null,
+      "score": 1.0,
+      "actor_rerun": false,
+      "server_record": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-bib-reference-recovery-v1/correction.json",
+      "server_record_sha256": "b74345bfbdfae3047b37ab5828cb18d6aece16f3f6694296f3be87cba13ea34e",
+      "repository_record": "validation/v3-full/corrections/df67aebb-fb3a-44fd-b75b-51b6012df509.json",
+      "repository_record_sha256": "b74345bfbdfae3047b37ab5828cb18d6aece16f3f6694296f3be87cba13ea34e"
+    },
+    {
+      "task_id": "236833a3-5704-47fc-888c-4f298f09f799",
+      "kind": "archived-file-evaluation-recovery-v1",
+      "original_score": null,
+      "score": 1.0,
+      "actor_rerun": false,
+      "server_record": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-hfpapers-evaluation-recovery-v1/correction.json",
+      "server_record_sha256": "1e70289c9c75d7bf745a091b4525e5bee56fe7a8313924a05f13fa41ae97b4a7",
+      "repository_record": "validation/v3-full/corrections/236833a3-5704-47fc-888c-4f298f09f799.json",
+      "repository_record_sha256": "1e70289c9c75d7bf745a091b4525e5bee56fe7a8313924a05f13fa41ae97b4a7"
+    },
+    {
+      "task_id": "a82b78bb-7fde-4cb3-94a4-035baf10bcf0",
+      "kind": "bookmark-reference-yuke-alias-v1-retained-folder",
+      "original_score": 0.0,
+      "score": 1.0,
+      "actor_rerun": false,
+      "server_record": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-bookmark-reference-repair-v1/correction.json",
+      "server_record_sha256": "aae72ec6a4b1ce7755d0c4152db1979d495c9dfa84496991a6842143d428b61a",
+      "repository_record": "validation/v3-full/corrections/a82b78bb-7fde-4cb3-94a4-035baf10bcf0.json",
+      "repository_record_sha256": "aae72ec6a4b1ce7755d0c4152db1979d495c9dfa84496991a6842143d428b61a"
+    },
+    {
+      "task_id": "7ff48d5b-2df2-49da-b500-a5150ffc7f18",
+      "kind": "task-scoped-address-heading-extraction-v1",
+      "original_score": 0.0,
+      "score": 0.4734813573523251,
+      "actor_rerun": false,
+      "server_record": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-address-extraction-repair-v1/correction.json",
+      "server_record_sha256": "02677238686998581bb7e808b339f16634f1e5516d5c1299b4b86d7bc26735e1",
+      "repository_record": "validation/v3-full/corrections/7ff48d5b-2df2-49da-b500-a5150ffc7f18.json",
+      "repository_record_sha256": "02677238686998581bb7e808b339f16634f1e5516d5c1299b4b86d7bc26735e1"
+    },
+    {
+      "task_id": "5990457f-2adb-467b-a4af-5c857c92d762",
+      "kind": "scholar-reference-cross-official-source-v1",
+      "original_score": null,
+      "score": 1.0,
+      "actor_rerun": false,
+      "server_record": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-scholar-cross-source-reference-v1/correction.json",
+      "server_record_sha256": "7f87bd858f6f29d741d387c7b0aed22120835256cae6f5f9306f7b63c8d71c40",
+      "repository_record": "validation/v3-full/corrections/5990457f-2adb-467b-a4af-5c857c92d762.json",
+      "repository_record_sha256": "7f87bd858f6f29d741d387c7b0aed22120835256cae6f5f9306f7b63c8d71c40"
+    },
+    {
+      "task_id": "d1acdb87-bb67-4f30-84aa-990e56a09c92",
+      "kind": "task-scoped-current-google-maps-reference-v1",
+      "original_score": 0.0,
+      "score": 1.0,
+      "actor_rerun": false,
+      "server_record": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-restaurant-reference-repair-v1/correction.json",
+      "server_record_sha256": "eb86ebb3481c97ed350f9ce2f0e54d99cd5707f1fcb06451f9f1bd4e91d87771",
+      "repository_record": "validation/v3-full/corrections/d1acdb87-bb67-4f30-84aa-990e56a09c92.json",
+      "repository_record_sha256": "eb86ebb3481c97ed350f9ce2f0e54d99cd5707f1fcb06451f9f1bd4e91d87771"
+    },
+    {
+      "task_id": "0ed39f63-6049-43d4-ba4d-5fa2fe04a951",
+      "kind": "technical-actor-retry-v1",
+      "original_score": null,
+      "score": 1.0,
+      "actor_rerun": true,
+      "server_record": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-technical-retry-0ed39-v1/technical-retry-binding.json",
+      "server_record_sha256": "a19a83f3e2911be259b9c24d07bdd83b1dac8d69179256a81fe24792d6eafff6",
+      "repository_record": "validation/v3-full/corrections/0ed39f63-6049-43d4-ba4d-5fa2fe04a951.json",
+      "repository_record_sha256": "a19a83f3e2911be259b9c24d07bdd83b1dac8d69179256a81fe24792d6eafff6"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "task_id": "5990457f-2adb-467b-a4af-5c857c92d762",
+  "category": "browser_file",
+  "source_domain": "multi_apps",
+  "task_sha256": "08506eeb229896ae63a270e252f9bd5c3ce73e3ba044e9c88b416eab6ea3d847",
+  "started_at": "2026-11-17T12:49:10.674133+00:00",
+  "status": "evaluation_error",
+  "score": null,
+  "budget": {
+    "model": "deepseek-v4.1-flash",
+    "reasoning_effort": "max",
+    "mode": "default",
+    "max_steps": 300,
+    "timeout_seconds": 3600,
+    "request_timeout_seconds": 120
+  },
+  "evidence_errors": [],
+  "owned_container_ids": [
+    "27855b77233475ffd53e4795461d8988da043cd7674f3df4a2233c8ef9a10250"
+  ],
+  "docker_image": {
+    "id": "sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9",
+    "repo_digests": [
+      "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9"
+    ],
+    "required_repo_digest": "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9"
+  },
+  "vm": {
+    "host": "localhost",
+    "server_port": 5003,
+    "chromium_port": 9224,
+    "container_id": "27855b77233475ffd53e4795461d8988da043cd7674f3df4a2233c8ef9a10250"
+  },
+  "actor_status": "completed",
+  "agent_success": true,
+  "official_terminal_action": "DONE",
+  "owned_vm_closed": true,
+  "owned_container_removal_verified": true,
+  "error_type": "RuntimeError",
+  "error": "Reference unavailable: could not read https://scholar.google.com/citations?user=WLN3QrAAAAAJ&hl=en (TimeoutError: Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#gsc_oci_title_gg > div:nth-child(1) > a\")\n)",
+  "finished_at": "2026-11-17T13:03:20.883779+00:00",
+  "elapsed_seconds": 850.2096513389988
+}

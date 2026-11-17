@@ -1,6 +1,17 @@
 # OSWorld-Verified-filter：固定76题
 
-本目录评测 Lexmount Agent 的**浏览器操作、浏览器与文件交接、通用本地文件处理**。固定上游为 [`xlang-ai/OSWorld@5123bfdbbc34b947bcffcff564abc62d0ab7072d`](https://github.com/xlang-ai/OSWorld/tree/5123bfdbbc34b947bcffcff564abc62d0ab7072d)，保留原始题文、初始化配置、metric、参考资源和 `postconfig`。新准备的运行启用已披露的[PDF参考 getter 修复](REFERENCE_REPAIR.md)；正在执行的 v3 保持原冻结评分代码。
+**76题原始尝试已全部完成。** 产品 `efbe54895f289388d13842fd6fccc151ee1697ea` 在5090执行本集合，原始回执为72题有数字评分、4题技术异常且分数为`null`。随后完成8题无Actor重跑的参考修复／技术补判，以及1题经授权的独立技术重试；原始回执均保留。
+
+| 统计口径 | 有效覆盖 | 结果 |
+|---|---:|---|
+| 原始冻结运行 | 72/76；另4题`null` | 原始完整76题均分为`null`，不将技术异常记0 |
+| 独立修复与技术恢复后合成 | 76/76 | **58题满分、3题部分分、15题0分**；均分 **79.568544%**，严格满分率 **58/76＝76.315789%** |
+
+合成结果包含已披露的自定义参考修复和一次新的Actor尝试，不能称为未经修改的官方单轮成绩。完整逐题结果见 [RESULTS-v3.md](RESULTS-v3.md)，15个保留0分与3个部分分的证据见 [FAILURES-v3.md](FAILURES-v3.md)，修复范围、重试边界及复现命令见 [SCORING_REPAIRS.md](SCORING_REPAIRS.md)。可机读原始／合成报告分别在 [raw-official-report.json](validation/v3-full/raw-official-report.json) 和 [corrected-report.json](validation/v3-full/corrected-report.json)。
+
+[最终现场核查](validation/v3-full/final-live-cleanup.json)确认该benchmark无残留容器、原主运行无活跃进程、双调度锁已消失；[5090交付测试](validation/v3-full/host-tests.json)206项全部通过、0跳过。历史单题smoke与首批10题快照保留在[验证记录](VALIDATION.md)，不与完整成绩混算。
+
+本目录评测 Lexmount Agent 的**浏览器操作、浏览器与文件交接、通用本地文件处理**。固定上游为 [`xlang-ai/OSWorld@5123bfdbbc34b947bcffcff564abc62d0ab7072d`](https://github.com/xlang-ai/OSWorld/tree/5123bfdbbc34b947bcffcff564abc62d0ab7072d)，保留76个原始任务JSON。v3使用原冻结评分代码；之后的独立修复另存新代码、参考和回执。普通新运行目前只自动启用已配置的[PDF参考getter修复](REFERENCE_REPAIR.md)，**不会自动重现全部8项补判或技术重试**；其他修复需按独立流程明确执行。
 
 这是本项目确认的 **CDP＋持久 Python 自报子集**，不是官方发布或认证的新榜单。其分数不可直接替代 OSWorld 全量或纯 GUI 协议的成绩。当前入口复用产品原生 Agent，不开发新的规划器、浏览器框架或 LLM 裁判。
 
@@ -27,6 +38,7 @@
 - [原始任务](data/tasks/)：逐字节保留；包含完整 `config`、`evaluator` 和 `options`。
 - [名单与哈希](data/manifest.json)、[8题排除记录](data/exclusions.json)、[官方368／360清单](data/upstream/)。
 - [PDF参考故障、修复与技术补判](REFERENCE_REPAIR.md)：官方调研、修改范围、原分与补判分的区分，以及5090操作教程。
+- [完整76题结果](RESULTS-v3.md)、[失败与部分分分析](FAILURES-v3.md)、[全部独立修复与技术恢复](SCORING_REPAIRS.md)。
 
 每题详情说明目标、初始页面和文件、交付路径或网页终态、实际评分检查、保存后处理、指定应用或终端限制，以及评分器的覆盖边界。**题目要求和评分器实际检查不总是一样**，文档不把宽松检查当作解题捷径。例如网页打印PDF要求无边距，但原 `compare_pdfs` 主要比较抽取文字；有些文件题还检查终端输出、进程TTY或shell历史。
 
@@ -48,20 +60,20 @@ evaluate.py prepare：冻结76题、官方完整源码、产品源码、uv、配
 |---|---|
 | Actor | `deepseek-v4.1-flash`，`reasoning_effort=max`，`mode=default` |
 | 每题预算 | **300模型回合／3600秒**；一回合可执行多次浏览器操作 |
-| 正式并发上限 | **4个独立VM进程**；免费probe仍只开1个VM，不套用其他三套的32 Actor／4 Judge |
+| 正式并发 | 初始上限**4**；v3后经授权用独立入口提高为**12**，资源准入下实际最高**10题在途**，并非持续12个VM；免费probe只开1个VM |
 | 资源准入 | 每次派发读取实际MemAvailable与1分钟负载；预留12GiB，按每个在途／新VM额外6GiB保守准入，负载超过24暂停新派发 |
 | 安装准备 | 每题单独最多900秒，不计入原生Agent的3600秒任务预算 |
 | VM | 官方Ubuntu QCOW2，原Chrome、桌面应用和原题路径；1920×1080 |
 | 评分 | 官方 `DesktopEnv.evaluate()` 和原metric；新prepare启用PDF参考getter修复，不使用额外的LLM Judge |
 | 结束与恢复 | 每题回执独占写入；续跑保留已有结果，不择优重判 |
 
-并行调度复用官方[每题独立VM进程池模式](https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/scripts/python/run_multienv_autoglm.py#L513)。父进程独占整轮锁，spawn子进程各自持有VM、工作目录和评分状态；最多4题在途，完成后动态补位。资源不足时等候，不停止其他评测。自有VM清理失败或worker崩溃时停止新派发，保留原件，不自动把失败重新跑一遍。
+并行调度复用官方[每题独立VM进程池模式](https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/scripts/python/run_multienv_autoglm.py#L513)。父进程独占整轮锁，spawn子进程各自持有VM、工作目录和评分状态；默认config最多4题在途，完成后动态补位。资源不足时等候，不停止其他评测。自有VM清理失败或worker崩溃时停止新派发，保留原件，不自动把失败重新跑一遍。
 
 配置见 [config.json](config.json)。这些是本项目新集合的预算，不是OSWorld官方统一步数。原生Agent的模型回合、REPL调用、浏览器动作和OSWorld外层步骤应分开解释。修改产品、配置、任务、镜像或执行桥接后应创建新的运行目录，不能续跑并称作同一轮。
 
-用户后续明确将当前v3并发上限提高到12；使用[独立调度覆盖入口](CONCURRENCY_OVERRIDE.md)，不热改冻结Actor／grader，不重跑已在途或已有回执的题。该覆盖单独记录来源和派发过程，原config的4仍描述最初启动设置。实际并发继续受原内存／CPU准入限制。
+用户后续明确将v3并发上限提高到12；**2026-11-17 12:05 UTC**使用[独立调度覆盖入口](CONCURRENCY_OVERRIDE.md)，不热改冻结Actor／grader，不重跑已在途或已有回执的题。原4个在途worker继续完成，新控制器只补派剩余任务；实际最高10题在途，内存／CPU准入未放宽。该覆盖的来源与派发过程见[原始审计](validation/v3-full/concurrency-overrides.json)，原config的4仍描述最初启动设置。
 
-当前config明确设置 `reference_getter_repair=reference-pdf-readiness-v1`，仅影响之后新 `prepare` 冻结的运行。已启动的 v3 固定入口为 `d38423ca2f18c3c4b2be0be0957ec93baa0d0add`，仍使用官方5123原getter，不热改。该轮已确认的坏参考通过独立、无模型的技术补判处理；原回执、原输出和原损坏参考均保留，详见[参考修复说明](REFERENCE_REPAIR.md)。
+当前config明确设置 `reference_getter_repair=reference-pdf-readiness-v1`，仅影响之后新 `prepare` 冻结的运行。已完成的v3固定入口为 `d38423ca2f18c3c4b2be0be0957ec93baa0d0add`，使用官方5123原getter，未热改。该轮已确认的参考／评分问题通过独立、无模型的补判处理；原回执、原输出和原参考均保留，详见[全部修复说明](SCORING_REPAIRS.md)。
 
 Python REPL与Chrome都在VM内运行，避免“宿主机Python看不到远程下载文件”。VM内只发送当前任务指令、统一环境说明和初始截图，不发送完整task JSON、评分脚本、gold、其他75题或host凭据文件。模型密钥通过私密文件传输，不写进命令行、仓库或任务提示。
 
@@ -92,7 +104,9 @@ Python REPL与Chrome都在VM内运行，避免“宿主机Python看不到远程�
         └── tasks/<task_id>/                 # 每题回执、截图、录制、Actor原始输出
 ```
 
-正式 v3 已于 **2026-11-17 11:01 UTC** 启动，运行目录为 `/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3`，最多4题在途。其免费probe通过后才启动Actor。**11:35 UTC首批10题快照**的官方原回执为6个1分、4个0分；其中PDF参考故障经独立技术补判后为0.999792。因此技术修复口径为6个1、3个0、1个0.999792，其余66题尚无回执。Delta和Rentalcars的两份0分混有站点与终态兼容问题，Tripadvisor的0分对应Agent日期与官方规则不符，均保留原分。逐题证据见[首批审计](validation/v3-initial-observations.json)和[补判证据](REFERENCE_REPAIR.md#5090真实补判结果)。这只是运行中的快照，不是76题完成成绩。
+正式v3于 **2026-11-17 11:01 UTC** 启动，原始76题最后一份回执于 **13:44 UTC** 完成，运行目录为 `/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3`。免费probe通过后才启动Actor；并发经历初始上限4、随后上限12的独立覆盖，实际最高10题在途。
+
+保留的**历史首批10题快照（11:35 UTC）**：官方原回执为6个1分、4个0分；其中PDF参考故障经独立补判为0.999792，因此当时修复口径是6个1、3个0、1个0.999792，另66题当时无回执。该历史快照只用于追踪早期审计，完整结果以上方76题报告为准。逐题早期证据见[首批审计](validation/v3-initial-observations.json)和[PDF补判证据](REFERENCE_REPAIR.md#5090真实补判结果)。
 
 2026-11-17实际检查：5090为Ubuntu22.04／x86_64，KVM可读写，有官方QCOW2及Docker镜像缓存；**wf当前没有Docker socket权限，`sudo -n`也不可用**。详见 [HOST_READINESS.json](HOST_READINESS.json)。内存、其他在途任务和 `current` 指向是检查时的观察，不是未来容量保证。
 
@@ -277,7 +291,7 @@ python3 "$BENCH/evaluate.py" report --run-dir "$RUN" > "$RUN/report.json"
 - `initial.png`／`final.png`／`recording.mp4`：桌面证据；证据失败需披露。
 - `events.jsonl`：VM、准备、Actor、评分和清理各阶段，定位问题发生在哪一层。
 
-部分官方getter／metric会把内部网络或解析异常转为0。v3的 `e1e75309-3ddb-4d09-92ec-de869c928143` 已实测出现三次参考导航超时、14字节损坏占位PDF、`compare_pdfs()` 返回0；实际Agent输出为可读的21页PDF。原0分保留，但这次参考无效，不能据此评价Agent能力。**独立技术补判已完成：生成有效新参考后，同一原输出经原metric得到0.9997920469511773**，无Actor重跑／模型调用；[补判证据与10题初始结果](REFERENCE_REPAIR.md#5090真实补判结果)单列披露，未改成二元1分。新prepare启用可靠参考生成与解析验证，当前冻结v3继续运行；其他0分仍逐题结合日志和终态分析，不因这一个故障擅改。
+部分官方getter／metric会把内部网络或解析异常转为0。v3的 `e1e75309-3ddb-4d09-92ec-de869c928143` 已实测出现三次参考导航超时、14字节损坏占位PDF、`compare_pdfs()` 返回0；实际Agent输出为可读的21页PDF。原0分保留，但这次参考无效，不能据此评价Agent能力。**独立技术补判已完成：生成有效新参考后，同一原输出经原metric得到0.9997920469511773**，无Actor重跑／模型调用；[补判证据与历史10题快照](REFERENCE_REPAIR.md#5090真实补判结果)单列披露，未改成二元1分。新prepare启用可靠参考生成与解析验证；已完成v3的其他修复逐项见[独立流程](SCORING_REPAIRS.md)，未确认的问题保留原分。
 
 注意已有Writer／Calc／VS Code窗口：官方 `postconfig` 常会激活窗口并保存。后台直接改磁盘文件若没有同步打开的文档缓冲，修改可能被覆盖。终端题还可能检查GUI终端或真实shell历史；REPL打印不等于满足要求。不能删除这些检查来制造通过。
 
@@ -288,4 +302,4 @@ python3 "$BENCH/evaluate.py" report --run-dir "$RUN" > "$RUN/report.json"
 - 官方 [`run_cdp_on_vm()`](https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/mm_agents/pointer/tools.py#L445)：说明VM内代码连接Chrome的既有机制，不据此推断所有CDP操作都符合GUI榜单协议。
 - 原产品 `runner.run_task()`：复用原生Agent、持久Python、日志和结束状态；本目录只负责VM部署与评测衔接。
 
-数据静态检查、环境探针、正式Actor执行和有效官方评分是四种不同证据。实际已完成的验证与首轮状态见 [VALIDATION.md](VALIDATION.md)，原始大体积运行证据保存在5090结果目录，不把准备完成写成76题成绩。
+数据静态检查、环境探针、正式Actor执行和有效评分是四种不同证据。验证过程与保留的历史阶段见 [VALIDATION.md](VALIDATION.md)，完整成绩见 [RESULTS-v3.md](RESULTS-v3.md)。原始大体积运行证据保存在5090结果目录，仓库保留回执、脱敏摘要与SHA索引。

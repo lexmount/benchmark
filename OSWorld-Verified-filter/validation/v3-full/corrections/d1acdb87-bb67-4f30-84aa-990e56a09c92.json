@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "kind": "task-scoped-current-google-maps-reference-v1",
+  "task_id": "d1acdb87-bb67-4f30-84aa-990e56a09c92",
+  "run_dir": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3",
+  "created_at": "2026-11-17T14:39:00.488008+00:00",
+  "status": "corrected",
+  "score": 1.0,
+  "original_status": "scored",
+  "original_score": 0.0,
+  "original_score_unchanged": true,
+  "custom_reference_update": true,
+  "unmodified_official_scoring": false,
+  "actor_rerun": false,
+  "model_calls": 0,
+  "vm_starts": 0,
+  "getter_replayed": false,
+  "input_kind": "retained_original_postconfig_vm_file",
+  "upstream_commit": "5123bfdbbc34b947bcffcff564abc62d0ab7072d",
+  "run_metadata_sha256": "78618a67a05802b47e40f55e37a31ed8e6c4776ef98c42b1ac1bd43f1b2fa0d6",
+  "task_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/harness/data/tasks/multi_apps/d1acdb87-bb67-4f30-84aa-990e56a09c92.json",
+  "task_sha256": "993658835ec96d628ad6e47ed015c7ed4fd6af186086407662e9286ecaa541d9",
+  "original_receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/d1acdb87-bb67-4f30-84aa-990e56a09c92/receipt.json",
+  "original_receipt_sha256": "8435b49aa5463bbd51e48bf4ccc8bed7af50bdfd16f75a53b144becfce806704",
+  "original_actual": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/d1acdb87-bb67-4f30-84aa-990e56a09c92/official-cache/d1acdb87-bb67-4f30-84aa-990e56a09c92/MUST_VISIT.xlsx",
+  "original_actual_sha256": "0cf39e485a7a2e975775dfd0710609a6feac1358ad6906a59c392ad632ac72f4",
+  "original_reference": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/d1acdb87-bb67-4f30-84aa-990e56a09c92/official-cache/d1acdb87-bb67-4f30-84aa-990e56a09c92/MUST_VISIT-gt.xlsx",
+  "original_reference_sha256": "fd60eecfc60cac1be90b81aa83c5a3322f321e39ac1e516bc023d967195bdd54",
+  "metric_source_sha256": "9a17d8945a4d67c50947ae8ff79197de7506ed313507f2d8764cfb104b543346",
+  "metric_source_git_blob_sha1": "c9f5bf24ddeb1823f9701bbef8049257c5bf892d",
+  "metric": "compare_table",
+  "original_options": {
+    "rules": [
+      {
+        "type": "sheet_fuzzy",
+        "sheet_idx0": "RNSheet1",
+        "sheet_idx1": "ENSheet1",
+        "rules": [
+          {
+            "range": [
+              "A1:A6"
+            ],
+            "type": "exact_match"
+          },
+          {
+            "range": [
+              "B1:B6"
+            ],
+            "type": "exact_match",
+            "ignore_case": true,
+            "ignore_chars": " ,/-",
+            "preserve_numeric_tokens": true,
+            "normalization_regex": [
+              [
+                "(?<=\\d)\\s*[‐‑‒–—−]\\s*(?=\\d)",
+                "-"
+              ],
+              [
+                "(?i)\\bRd\\b\\.?",
+                "Road"
+              ],
+              [
+                "(?i)\\bSt\\b\\.?",
+                "Street"
+              ]
+            ]
+          },
+          {
+            "range": [
+              "C1:C6"
+            ],
+            "type": "phone_match",
+            "allow_missing_expected": true
+          },
+          {
+            "range": [
+              "D1:D6"
+            ],
+            "type": "domain_match"
+          }
+        ]
+      }
+    ]
+  },
+  "repaired_options": {
+    "rules": [
+      {
+        "type": "sheet_fuzzy",
+        "sheet_idx0": "RNSheet1",
+        "sheet_idx1": "ENSheet1",
+        "rules": [
+          {
+            "range": [
+              "A1:A6"
+            ],
+            "type": "exact_match"
+          },
+          {
+            "range": [
+              "B1:B6"
+            ],
+            "type": "exact_match",
+            "ignore_case": true,
+            "ignore_chars": " ,/-",
+            "preserve_numeric_tokens": true,
+            "normalization_regex": [
+              [
+                "(?<=\\d)\\s*[‐‑‒–—−]\\s*(?=\\d)",
+                "-"
+              ],
+              [
+                "(?i)\\bRd\\b\\.?",
+                "Road"
+              ],
+              [
+                "(?i)\\bSt\\b\\.?",
+                "Street"
+              ]
+            ]
+          },
+          {
+            "range": [
+              "C1:C6"
+            ],
+            "type": "phone_match",
+            "allow_missing_expected": true
+          },
+          {
+            "range": [
+              "D1:D5"
+            ],
+            "type": "domain_match"
+          },
+          {
+            "range": [
+              "D6"
+            ],
+            "type": "exact_match"
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-restaurant-reference-repair-v1/reference/current-reference.xlsx",
+  "reference_provenance": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-restaurant-reference-repair-v1/reference/provenance.json",
+  "repair_sources_sha256": {
+    "restaurant_reference_repair.py": "dc245cdf9798420f158b00b9fec129333011e32f0585504bcf5872caacf74c2b",
+    "repair_restaurant_reference.py": "b750ef67c5ee7bd87aec29d0cf6a52318035c5c3499f253f315477e537dbfd6f",
+    "repair_pdf_reference.py": "094b756b01d25fd23dc968fee705dfa090d31254fb34a2cf7a2ca22dfe7ac7c9"
+  },
+  "evidence_errors": [],
+  "boundary": "Reference B/C/D fields come from five independently captured current Google Maps listings, never the Actor workbook. Original comparison and address/numeric rules are unchanged. Only this task's D6 uses existing exact_match for the independently absent Niras website.",
+  "reference_sha256": "49994d9d7936bfa2f55adfe67cb29d7946c8d302393381e36ac5f0199b334071",
+  "reference_provenance_sha256": "d419dd5afec853430d5505754563dd45e5c6b00f4edbca072fcd4df37826ade9",
+  "finished_at": "2026-11-17T14:39:04.449091+00:00"
+}

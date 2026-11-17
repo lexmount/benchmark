@@ -1,0 +1,74 @@
+{
+  "collected_at": "2026-11-17T14:44:40.599029+00:00",
+  "run_dir": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3",
+  "run_metadata": {
+    "schema_version": 1,
+    "benchmark": "OSWorld-Verified-filter",
+    "task_count": 76,
+    "benchmark_commit": "d38423ca2f18c3c4b2be0be0957ec93baa0d0add",
+    "created_at": "2026-11-17T10:58:10.844693+00:00",
+    "upstream_commit": "5123bfdbbc34b947bcffcff564abc62d0ab7072d",
+    "agent_commit": "efbe54895f289388d13842fd6fccc151ee1697ea",
+    "config": {
+      "schema_version": 1,
+      "name": "OSWorld-Verified-filter",
+      "task_count": 76,
+      "protocol": "self-reported CDP + persistent Python; original OSWorld tasks and evaluators",
+      "actor": {
+        "model": "deepseek-v4.1-flash",
+        "reasoning_effort": "max",
+        "mode": "default",
+        "max_steps": 300,
+        "timeout_seconds": 3600,
+        "request_timeout_seconds": 120
+      },
+      "runtime": {
+        "provider": "docker",
+        "docker_image_digest": "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9",
+        "concurrency": 4,
+        "reserve_memory_gib": 12,
+        "per_vm_admission_gib": 6,
+        "max_load_average": 24,
+        "screen_size": [
+          1920,
+          1080
+        ],
+        "guest_python": "3.12.13",
+        "bootstrap_timeout_seconds": 900,
+        "actor_grace_seconds": 60,
+        "poll_interval_seconds": 2,
+        "recording_update": "off",
+        "enable_proxy": false
+      },
+      "scoring": {
+        "source": "DesktopEnv.evaluate() from the pinned official checkout",
+        "denominator": 76,
+        "preserve_fractional_scores": true,
+        "full_success_score": 1.0,
+        "technical_errors_are_scores": false
+      }
+    },
+    "osworld_root": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/upstream",
+    "harness_root": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/harness",
+    "bundle_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/runtime-bundle.tar.gz",
+    "bundle_sha256": "3f2266b0d71f14bf4f40cbf25e19d5bb2011a0214cf423106e37caf13b1f8220",
+    "uv_binary_sha256": "43c4151c9ab74781df70c46283715f02497dcbded3337c3b0592cd92e6b6c2de",
+    "uv_version": "uv 0.12.21 (x86_64-unknown-linux-musl)",
+    "vm_image": "/data/wf/sxh/workspace/osworld-browseruse-plus-20261028/vm_data/Ubuntu.qcow2",
+    "vm_image_sha256": "6bf667a852b3c307f61d9f09c42559351f45e0607e428b4997becf534cf4d313",
+    "vm_image_size": 24460197888,
+    "vm_image_mtime_ns": 1793156659488215766,
+    "guest_root": "/tmp/lexmount-osworld-d3321611d6d645caa58ca37cdd71b312",
+    "protocol": "self-reported CDP + persistent Python; original OSWorld tasks and evaluators",
+    "prepared_by": "/data/wf/sxh/workspace/lexmount/benchmark-osworld-verified-filter/OSWorld-Verified-filter",
+    "runtime_assets_sha256": "031c49809b0b13baf6b976223c7433942b42eb3445b26f06d36c28c061a22df8",
+    "runtime_assets_source": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/osworld76-runtime/offline-assets/runtime-assets.tar.gz"
+  },
+  "run_metadata_sha256": "78618a67a05802b47e40f55e37a31ed8e6c4776ef98c42b1ac1bd43f1b2fa0d6",
+  "frozen_files_sha256": "704cd8ce0cdaaa4b5dffb95b30e205663f16d4ef576d048e97d815b9c3842661",
+  "model_gateway": {
+    "base_url": "https://litellm.local.lexmount.net/v1",
+    "source_file": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/.private/osworld76-model.json",
+    "source_mtime_ns": 1794909669599539988
+  }
+}

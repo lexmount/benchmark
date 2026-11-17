@@ -122,7 +122,20 @@ def runtime(run_dir):
     exec(compile(ast.Module(body=nodes, type_ignores=[]), str(source), 'exec'), scope)
     return SimpleNamespace(**scope)
 
-def preflight_run(run_dir, *, for_execution=False):
+def matches_frozen_file(path, digest, *, historical_report):
+    path = Path(path)
+    if path.is_file() and sha(path) == digest:
+        return True
+    if historical_report:
+        # The first 5090 release recorded absolute paths in the original flat package.
+        for parent in path.parents:
+            if parent.name == 'online-mind2web-filter' and parent.is_symlink():
+                archive = parent.parent / '.archives' / 'online-mind2web-filter-flat'
+                original = archive / path.relative_to(parent)
+                return original.is_file() and sha(original) == digest
+    return False
+
+def preflight_run(run_dir, *, for_execution=False, historical_report=False):
     run_dir = Path(run_dir).resolve()
     plan = read(run_dir / 'plan.json')
     if for_execution and (plan.get('mode') != 'default'
@@ -132,7 +145,7 @@ def preflight_run(run_dir, *, for_execution=False):
     allowed = {t['id'] for t in tasks()}
     assert {j['task_id'] for j in plan['jobs']} == allowed
     for path, digest in plan['file_sha256'].items():
-        assert sha(path) == digest, path
+        assert matches_frozen_file(path, digest, historical_report=historical_report), path
     for job in plan['jobs']:
         assert job['suite'] == SUITE
         c = read(Path(job['source_folder']) / 'actor-config.json')
@@ -219,7 +232,7 @@ def prepare(run_dir, product_source, credentials, judge_python):
 
 def report(run_dir):
     run_dir = Path(run_dir).resolve()
-    plan = preflight_run(run_dir)
+    plan = preflight_run(run_dir, historical_report=True)
     totals = Counter()
     rows = []
     for job in sorted(plan['jobs'], key=lambda j: j['ordinal']):
@@ -252,10 +265,10 @@ def main(argv=None):
         prepare(args.run_dir, args.product, args.credentials, args.judge_python)
         return
     verify()
-    preflight_run(args.run_dir, for_execution=args.command in ('probe', 'run'))
     if args.command == 'report':
         report(args.run_dir)
         return
+    preflight_run(args.run_dir, for_execution=args.command in ('probe', 'run'))
     rt = runtime(args.run_dir)
     if args.command == 'probe':
         subprocess.run(rt.actor_command(args.run_dir.resolve() / 'probes/candidate', probe=True), check=True, timeout=100)

@@ -67,7 +67,7 @@ cd benchmark
 
 ```text
 /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current/bu-filter/evaluate.py
-/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/online-mind2web-filter/evaluate.py
+/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current/online-mind2web-filter/evaluate.py
 /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/odysseys-filter/evaluate.py
 ```
 

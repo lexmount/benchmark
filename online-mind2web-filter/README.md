@@ -43,7 +43,7 @@
 
 原实现函数可以直接查看：`legacy/code/full_benchmarks.py::worker/worker_impl/judge`、`legacy/online-mind2web/omw_adapter.py::prepare/native/judge`、`legacy/history/upstream/om/onlinemind2web_judge.py::build_trajectory/last_shot_message/parse_verdict`、`legacy/driver.py::actor_command/invoke/run`。
 
-新代码只负责数据选择、冻结运行目录和路径绑定。运行时从原driver提取7个执行函数，只有`run()`中的混合600题数量断言改成247；Actor和判分源码逐字节不变。历史`prepare`同时生成BU/Online/Odysseys，不能直接用于只含247题的分支，因此用专门的数据打包入口替代；它不改执行/判分方法。
+评测入口冻结 247 题和运行环境，运行时复用原 driver 的 7 个执行函数。`run()` 校验任务数、Actor 的 `default` 模式和 `max` 推理强度。Actor 启动前检查任务配置，完成后核对产品写入的运行记录。裁判沿用原取证与判分代码。
 
 原源码中的300/600断言属于未调用的历史加载器/prepare，不是新入口可选择的数据模式。校验依赖已迁到本文件夹，正式运行不依赖旧300题数据或旧归档目录。
 
@@ -69,6 +69,8 @@ uv pip sync --python .venv-judge/bin/python requirements-judge.txt
 ```
 
 日常使用该部署时，先`cd`到它的文件夹，再执行以下步骤。
+
+旧运行的 `report` 按计划中记录的 SHA-256 核验源码。5090 上首版平铺目录的原件保存在 `.archives/online-mind2web-filter-flat`，供旧报告核验。
 
 ## 创建一次评测
 

@@ -60,6 +60,23 @@ def streamed(request, text=FAILURE):
 
 
 class FixedActorMode(unittest.TestCase):
+    def test_archived_flat_package_can_verify_a_historical_report(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            host = Path(tmp)
+            package = host / 'release'
+            package.mkdir()
+            flat = host / 'online-mind2web-filter'
+            flat.symlink_to(package, target_is_directory=True)
+            old = host / '.archives' / 'online-mind2web-filter-flat'
+            old.mkdir(parents=True)
+            (old / 'config.json').write_text('old')
+            (flat / 'config.json').write_text('current')
+            digest = evaluate.sha(old / 'config.json')
+            self.assertTrue(evaluate.matches_frozen_file(flat / 'config.json', digest, historical_report=True))
+            self.assertFalse(evaluate.matches_frozen_file(flat / 'config.json', digest, historical_report=False))
+            (old / 'config.json').write_text('edited')
+            self.assertFalse(evaluate.matches_frozen_file(flat / 'config.json', digest, historical_report=True))
+
     def test_credentials_pin_default_and_reject_other_modes(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "model.json"

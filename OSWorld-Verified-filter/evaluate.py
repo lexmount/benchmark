@@ -280,6 +280,8 @@ def main() -> int:
             result = report(args.run_dir.resolve())
         else:
             run_dir = args.run_dir.resolve()
+            check(not (run_dir / "concurrency-override.lock").exists(),
+                  "A concurrency override owns this run; use its documented resume procedure")
             record = verify_run(run_dir)
             # Execute the frozen bridge, even if the caller later updates this checkout.
             sys.path.insert(0, record["harness_root"])

@@ -59,6 +59,8 @@ evaluate.py prepare：冻结76题、官方完整源码、产品源码、uv、配
 
 配置见 [config.json](config.json)。这些是本项目新集合的预算，不是OSWorld官方统一步数。原生Agent的模型回合、REPL调用、浏览器动作和OSWorld外层步骤应分开解释。修改产品、配置、任务、镜像或执行桥接后应创建新的运行目录，不能续跑并称作同一轮。
 
+用户后续明确将当前v3并发上限提高到12；使用[独立调度覆盖入口](CONCURRENCY_OVERRIDE.md)，不热改冻结Actor／grader，不重跑已在途或已有回执的题。该覆盖单独记录来源和派发过程，原config的4仍描述最初启动设置。实际并发继续受原内存／CPU准入限制。
+
 当前config明确设置 `reference_getter_repair=reference-pdf-readiness-v1`，仅影响之后新 `prepare` 冻结的运行。已启动的 v3 固定入口为 `d38423ca2f18c3c4b2be0be0957ec93baa0d0add`，仍使用官方5123原getter，不热改。该轮已确认的坏参考通过独立、无模型的技术补判处理；原回执、原输出和原损坏参考均保留，详见[参考修复说明](REFERENCE_REPAIR.md)。
 
 Python REPL与Chrome都在VM内运行，避免“宿主机Python看不到远程下载文件”。VM内只发送当前任务指令、统一环境说明和初始截图，不发送完整task JSON、评分脚本、gold、其他75题或host凭据文件。模型密钥通过私密文件传输，不写进命令行、仓库或任务提示。

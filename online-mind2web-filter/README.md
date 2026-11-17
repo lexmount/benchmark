@@ -26,7 +26,7 @@
 
 | 项目 | 固定行为 |
 |---|---|
-| Agent | `deepseek-v4.1-flash`，`max`，`ultrafast` |
+| Agent | `deepseek-v4.1-flash`，`max`，模式固定为 `default` |
 | 执行 | 原生Agent；独立本地无头Chrome；每题独立bwrap沙箱 |
 | 预算 | 100模型回合，3600秒；原Actor外层看门狗3900秒 |
 | 并发 | Actor32、Judge4，独立动态槽位 |
@@ -74,7 +74,7 @@ uv pip sync --python .venv-judge/bin/python requirements-judge.txt
 
 准备一个**干净、兼容原Observer API的产品Git checkout**，包含`src/`、`pyproject.toml`和`uv.lock`。本包不绑定一个“永远最新”的产品版本，也不修改产品；prepare把选定源码复制到本次运行目录，按其`uv.lock`创建独立环境，记录提交、引擎版本和源文件哈希。当前接入校验官方 1.0.4 引擎、`Session` 取证回调和产品 `run_task/AgentConfig` 接口。
 
-凭证沿用既有私有JSON格式，必须位于仓库外或忽略的`.private/`中：`api_key`、`base_url`、`model=deepseek-v4.1-flash`，以及原有`reasoning_effort=max`、`mode=ultrafast`。不要把真实凭证写入教程或Git。
+凭证沿用既有私有JSON格式，必须位于仓库外或忽略的`.private/`中：`api_key`、`base_url`、`model=deepseek-v4.1-flash`，准备阶段写入 `reasoning_effort=max` 和 `mode=default`。凭据文件可省略 mode，显式填写时只接受 `default`。不要把真实凭证写入教程或Git。
 
 ```bash
 # 改成你要测的干净产品checkout、既有凭证路径和全新运行目录。

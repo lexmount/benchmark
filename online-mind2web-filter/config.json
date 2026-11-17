@@ -8,7 +8,7 @@
   "judge_concurrency": 4,
   "agent_model": "deepseek-v4.1-flash",
   "agent_reasoning": "max",
-  "mode": "ultrafast",
+  "mode": "default",
   "feature_config": {},
   "fixed_viewport": false,
   "browser_executable": "/opt/google/chrome/chrome",

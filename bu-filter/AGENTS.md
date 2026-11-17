@@ -5,6 +5,7 @@
 - 本任务仅筛选任务、固定300回合并打包原评测器。不得改写Actor／Judge／取证／恢复函数或prompt；legacy原件必须通过来源SHA校验。
 - 只使用固定的88题；12个排除ID见data/exclusions.json。按SELECTION_REVIEW.md暂挂第19题、恢复第46和70题，不恢复旧100题；后续名单变化必须带证据并同步清单、校验和及题数断言。
 - 保持题文、参考答案、评分提示和证据协议原样。执行器只接收本题id/instruction/start_url，不能读取评测答案。
+- BU-filter 的 Actor 模式固定为 `default`。新计划、任务、沙箱探针和实际运行记录都须一致。
 - 默认300模型回合、3600秒、DeepSeek max；Judge为DeepSeek low，仅内容拒绝按既有协议使用GPT低推理补判。
 - 解释器与依赖见runtime-environment.json；测试依赖只装独立test环境，不混入Judge。
 - Actor32与Judge4独立动态补位。合法失败不重判；未知单列，不能自动填0或从分母删除。

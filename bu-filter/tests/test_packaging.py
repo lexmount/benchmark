@@ -31,6 +31,31 @@ def prepared_run(tmp_path):
     return run, plan
 
 
+def test_actor_mode_is_fixed_when_credentials_are_read(tmp_path):
+    path = tmp_path / "model.json"
+    for raw in ({}, {"mode": "default"}):
+        evaluate.write(path, raw)
+        assert evaluate.actor_credentials(path)["mode"] == "default"
+    for invalid in ("ultrafast", "", None):
+        evaluate.write(path, {"mode": invalid})
+        with pytest.raises(ValueError, match="default"):
+            evaluate.actor_credentials(path)
+
+
+def test_execution_rejects_incompatible_frozen_mode(tmp_path):
+    run, plan = prepared_run(tmp_path)
+    with pytest.raises(ValueError, match="default"):
+        evaluate.verify_run(run, for_execution=True)
+    plan["agent_mode"] = "default"
+    evaluate.write(run / "plan.json", plan)
+    evaluate.write(run / "support/.private/model.json", {"mode": "ultrafast"})
+    with pytest.raises(ValueError, match="default"):
+        evaluate.verify_run(run, for_execution=True)
+    evaluate.write(run / "support/.private/model.json", {"mode": "default"})
+    with pytest.raises(ValueError, match="every task"):
+        evaluate.verify_run(run, for_execution=True)
+
+
 def test_valid_88_task_packaging_passes_offline_validation(tmp_path):
     run, plan = prepared_run(tmp_path)
     assert evaluate.verify_run(run) == plan

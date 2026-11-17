@@ -72,7 +72,7 @@ evaluate.py：仅88题准备、文件路径绑定与独立汇总
 
 ## 5090安装与环境
 
-5090 日常入口为 `/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current/bu-filter`。该发布在 c9e3c6c 运行时上采用 PR #1 的 88 题名单，目录上一级的 `bu88-from-c9e3c6c.patch` 可在同一 Git 基线上复现文件。下列环境命令供新部署使用。
+5090 日常入口为 `/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current/bu-filter`。日常发布使用 PR #1 的 88 题名单。Actor 模式固定为 `default`，配置文件可省略 mode；显式填写时只接受 `default`。下列环境命令供新部署使用。
 
 ```bash
 ssh wf@10.2.131.41
@@ -167,7 +167,7 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current
 
 ## 其他参数保持原样
 
-- Actor：DeepSeek max，ultrafast，300回合／3600秒；本地headless独立Chrome，1440×900。
+- Actor：DeepSeek max，模式固定为 `default`，300回合／3600秒；本地headless独立Chrome，1440×900。
 - 调度：32 Actor／4 Judge独立动态补位；原继承进程计数、至少6GiB可用内存、0.75秒轮询。
 - 隔离：原bwrap挂载、clearenv、工作目录、stdin凭据。
 - 超时：Actor3900秒外层、Judge14400秒；TERM后5秒再KILL。

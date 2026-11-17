@@ -59,6 +59,28 @@ def streamed(request, text=FAILURE):
         "x-litellm-response-cost": "0.0123", "authorization": "must-not-be-recorded"}, stream=httpx.ByteStream(wire.encode()))
 
 
+class FixedActorMode(unittest.TestCase):
+    def test_credentials_pin_default_and_reject_other_modes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "model.json"
+            for raw in ({}, {"mode": "default"}):
+                evaluate.write(path, raw)
+                self.assertEqual(evaluate.actor_credentials(path)["mode"], "default")
+            for invalid in ("ultrafast", "", None):
+                evaluate.write(path, {"mode": invalid})
+                with self.assertRaisesRegex(ValueError, "default"):
+                    evaluate.actor_credentials(path)
+
+    def test_incompatible_frozen_mode_is_rejected_before_dispatch(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            run = Path(tmp)
+            for mode, private in (("ultrafast", "default"), ("default", "ultrafast")):
+                evaluate.write(run / "plan.json", {"mode": mode})
+                evaluate.write(run / "support/.private/model.json", {"mode": private})
+                with self.assertRaisesRegex(ValueError, "default"):
+                    evaluate.preflight_run(run, for_execution=True)
+
+
 class HistoricalSources(unittest.TestCase):
     def test_filtered_247_preserve_original_rows_and_exclusions(self):
         rows = evaluate.tasks()

@@ -76,20 +76,21 @@ def verify():
     for name, digest in read(PACKAGE / 'frozen-files.json').items():
         assert sha(PACKAGE / name) == digest, 'Package changed: ' + name
     provenance = read(PACKAGE / 'provenance.json')
-    for name, digest in (provenance['original_file_sha256'] | provenance['actor_max_files_sha256']).items():
+    for name, digest in (provenance['original_file_sha256'] | provenance['actor_max_files_sha256']
+                         | provenance['actor_default_files_sha256']).items():
         assert sha(PACKAGE / name) == digest, 'Original implementation changed: ' + name
     c = read(PACKAGE / 'config.json')
     assert (c['count'], c['max_steps'], c['timeout_seconds']) == (247, 100, 3600)
     assert (c['actor_concurrency'], c['judge_concurrency']) == (32, 4)
     assert c['fixed_viewport'] is False
     assert c['feature_config'] == {}
-    assert (c['agent_model'], c['agent_reasoning'], c['mode']) == ('deepseek-v4.1-flash', 'max', 'ultrafast')
+    assert (c['agent_model'], c['agent_reasoning'], c['mode']) == ('deepseek-v4.1-flash', 'max', 'default')
     rows = tasks()
     a = adapter()
     a.verify()
     print(json.dumps({'dataset': c['dataset'], 'tasks': len(rows), 'excluded': 53,
                       'max_steps': 100, 'timeout_seconds': 3600,
-                      'dataset_sha256': a.DATASET_SHA256, 'actor_effort': 'max'}))
+                      'dataset_sha256': a.DATASET_SHA256, 'actor_effort': 'max', 'actor_mode': c['mode']}))
 
 def runtime(run_dir):
     run_dir = Path(run_dir).resolve()
@@ -101,14 +102,18 @@ def runtime(run_dir):
     tree = ast.parse(source.read_text())
     nodes = [n for n in tree.body if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name in RUNTIME_FUNCTIONS]
     assert {n.name for n in nodes} == RUNTIME_FUNCTIONS
-    # The sole execution-body adaptation: mixed-suite count 600 -> filtered count 247.
+    # Bind the archived scheduler to the filtered task count and the supported Actor profile.
     run = next(n for n in nodes if n.name == 'run')
     counts = [n for n in ast.walk(run) if isinstance(n, ast.Constant) and n.value == 600]
     assert len(counts) == 1
     counts[0].value = 247
-    guard, = [node for node in run.body if isinstance(node, ast.Assert)
-              and ast.unparse(node.test) == "public_config.get('reasoning_effort', 'high') == 'high'"]
-    guard.test = ast.copy_location(ast.parse("public_config['reasoning_effort'] == 'max'", mode="eval").body, guard.test)
+    profile_checks = {
+        "public_config.get('reasoning_effort', 'high') == 'high'": "public_config['reasoning_effort'] == 'max'",
+        "public_config.get('mode', 'ultrafast') == 'ultrafast'": "public_config['mode'] == 'default'",
+    }
+    for original, required in profile_checks.items():
+        guard, = (node for node in run.body if isinstance(node, ast.Assert) and ast.unparse(node.test) == original)
+        guard.test = ast.copy_location(ast.parse(required, mode="eval").body, guard.test)
     scope = dict(globals(), RUN=run_dir, ROOT=support, PRODUCT=run_dir / 'product',
                  ENV=run_dir / 'product/.venv', SOURCE=run_dir / 'product/src',
                  CODE=support / 'code', DEPENDENCIES=support / 'code', LEGACY=None,
@@ -117,9 +122,12 @@ def runtime(run_dir):
     exec(compile(ast.Module(body=nodes, type_ignores=[]), str(source), 'exec'), scope)
     return SimpleNamespace(**scope)
 
-def preflight_run(run_dir):
+def preflight_run(run_dir, *, for_execution=False):
     run_dir = Path(run_dir).resolve()
     plan = read(run_dir / 'plan.json')
+    if for_execution and (plan.get('mode') != 'default'
+                          or read(run_dir/'support/.private/model.json').get('mode') != 'default'):
+        raise ValueError("Online requires a run prepared with Actor mode 'default'")
     assert plan['counts'] == {SUITE: 247} and len(plan['jobs']) == 247
     allowed = {t['id'] for t in tasks()}
     assert {j['task_id'] for j in plan['jobs']} == allowed
@@ -128,9 +136,17 @@ def preflight_run(run_dir):
     for job in plan['jobs']:
         assert job['suite'] == SUITE
         c = read(Path(job['source_folder']) / 'actor-config.json')
+        if for_execution and c.get('mode') != 'default':
+            raise ValueError("Online requires every task to use Actor mode 'default'")
         assert (c['max_steps'], c['timeout_seconds'], c['fixed_viewport']) == (100, 3600, False)
         assert c['feature_config'] == {}
     return plan
+
+def actor_credentials(path):
+    cfg = read(path)
+    if cfg.get('mode', 'default') != 'default':
+        raise ValueError("Online requires Actor mode 'default'")
+    return dict(cfg, mode='default', reasoning_effort='max')
 
 def prepare(run_dir, product_source, credentials, judge_python):
     verify()
@@ -139,9 +155,8 @@ def prepare(run_dir, product_source, credentials, judge_python):
     assert shutil.which('bwrap') and Path('/opt/google/chrome/chrome').is_file()
     commit = subprocess.check_output(['git', '-C', str(product_source), 'rev-parse', 'HEAD'], text=True).strip()
     assert not subprocess.check_output(['git', '-C', str(product_source), 'status', '--porcelain', '--', 'src', 'pyproject.toml', 'uv.lock'], text=True), 'Product source must be clean'
-    cfg = read(credentials)
+    cfg = actor_credentials(credentials)
     assert cfg['model'] == 'deepseek-v4.1-flash'
-    assert cfg.get('mode', 'ultrafast') == 'ultrafast'
     assert cfg.get('api_key') and cfg.get('base_url')
     assert Path(judge_python).is_file()
     run_dir.mkdir(parents=True)
@@ -161,7 +176,7 @@ def prepare(run_dir, product_source, credentials, judge_python):
     support = run_dir / 'support'
     shutil.copytree(PACKAGE / 'legacy/code', support / 'code')
     (support / '.private').mkdir(mode=0o700)
-    write(support / '.private/model.json', dict(cfg, reasoning_effort='max'))
+    write(support / '.private/model.json', cfg)
     (support / '.private/model.json').chmod(0o600)
     target_env = Path(judge_python).absolute().parent.parent
     # Preserve the original judge interpreter lookup, without depending on the old campaign tree.
@@ -182,7 +197,7 @@ def prepare(run_dir, product_source, credentials, judge_python):
         assert '/' not in tid and '..' not in tid
         folder = run_dir / 'runs' / SUITE / tid
         write(folder / 'task.json', {name: task.get(name) for name in ('id', 'instruction', 'start_url')})
-        write(folder / 'actor-config.json', {'source_folder': str(folder), 'max_steps': 100, 'timeout_seconds': 3600,
+        write(folder / 'actor-config.json', {'source_folder': str(folder), 'mode': 'default', 'max_steps': 100, 'timeout_seconds': 3600,
               'feature_config': config['feature_config'], 'fixed_viewport': False, 'product': build})
         pending.append({'arm': 'candidate', 'suite': SUITE, 'task_id': tid, 'ordinal': ordinals[tid],
                         'source_folder': str(folder), 'judge_folder': str(run_dir / 'judges' / SUITE / tid),
@@ -195,10 +210,10 @@ def prepare(run_dir, product_source, credentials, judge_python):
     write(run_dir / 'plan.json', {'product_commit': commit, 'created_at': time.time(), 'context_anchor': datetime.now(UTC).isoformat(),
           'actor_concurrency': 32, 'judge_concurrency': 4, 'counts': {SUITE: 247},
           'new_actor_runs': 247, 'reused_actor_runs': 0, 'old_actor_runs': 0,
-          'agent_model': 'deepseek-v4.1-flash', 'agent_reasoning': 'max', 'mode': 'ultrafast',
+          'agent_model': 'deepseek-v4.1-flash', 'agent_reasoning': 'max', 'mode': 'default',
           'judge_reasoning': 'low', 'judge_protocol': config['judge_protocol'], 'seed': config['seed'],
           'jobs': jobs, 'file_sha256': {str(q): sha(q) for q in frozen}})
-    write(run_dir / 'probes/candidate/actor-config.json', {'product': build})
+    write(run_dir / 'probes/candidate/actor-config.json', {'product': build, 'mode': 'default'})
     preflight_run(run_dir)
     print(json.dumps({'prepared': str(run_dir), 'jobs': 247, 'commit': commit, 'engine': engine}))
 
@@ -237,7 +252,7 @@ def main(argv=None):
         prepare(args.run_dir, args.product, args.credentials, args.judge_python)
         return
     verify()
-    preflight_run(args.run_dir)
+    preflight_run(args.run_dir, for_execution=args.command in ('probe', 'run'))
     if args.command == 'report':
         report(args.run_dir)
         return

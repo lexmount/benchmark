@@ -5,7 +5,7 @@ import argparse, asyncio, getpass, hashlib, json, os, shutil, subprocess, sys, t
 from pathlib import Path
 from datetime import datetime, timezone
 HERE = Path(__file__).resolve().parent
-CONFIG_SHA256 = 'ab2c6fa950bca5d3d54ba8eeb30d4b9fd510ce95300f46d75d18fa3b8a8d0e2e'
+CONFIG_SHA256 = 'e273e04bace54849f34a1f09cb9a11ac20a34f96c76390bdce347b050242b72c'
 sys.path.insert(0, str(HERE))
 from dataset import actor_task, load_judge_tasks, load_tasks, validate_dataset
 
@@ -41,6 +41,13 @@ def config(path=HERE/'config.json'):
     return value
 
 
+def actor_credentials(path):
+    credentials = read(path)
+    if credentials.get('mode', 'default') != 'default':
+        raise ValueError("BU-filter requires Actor mode 'default'")
+    return dict(credentials, mode='default', reasoning_effort='max')
+
+
 def product_probe(source, python):
     code=r'''import sys,json,hashlib,platform
 from pathlib import Path
@@ -49,7 +56,7 @@ p=Path(sys.argv[1]);sys.path.insert(0,str(p/'src'))
 import browser_use, lexmount_browser_agent
 from lexmount_browser_agent import AgentConfig
 from importlib.metadata import distribution
-cfg=AgentConfig(api_key='offline-probe-key',base_url='http://127.0.0.1/v1')
+cfg=AgentConfig(api_key='offline-probe-key',base_url='http://127.0.0.1/v1',mode='default')
 package=Path(lexmount_browser_agent.__file__).resolve().parent
 engine=Path(browser_use.__file__).resolve().parent
 assert package==p/'src/lexmount_browser_agent'
@@ -59,7 +66,7 @@ hashes={str(f.relative_to(engine)):hashlib.sha256(f.read_bytes()).hexdigest() fo
 fingerprint=hashlib.sha256(b''.join(k.encode()+bytes([0])+bytes.fromhex(v) for k,v in hashes.items())).hexdigest()
 # Python sources from the official 1.0.4 wheel locked in the product.
 assert fingerprint=='282b10117c542cd24815c98789be68e704f9b671b39103dc28220787dd449673'
-assert cfg.reasoning_effort=='max' and cfg.mode=='ultrafast' and cfg.model=='deepseek-v4.1-flash'
+assert cfg.reasoning_effort=='max' and cfg.mode=='default' and cfg.model=='deepseek-v4.1-flash'
 print(json.dumps({'python_version':platform.python_version(),'all_versions':{d.metadata['Name'].lower().replace('_','-'):d.version for d in distributions()},'product_import':str(package),'engine_source':str(engine),'engine_version':version('browser-use'),'engine_files':hashes,'model':cfg.model,'reasoning_effort':cfg.reasoning_effort,'mode':cfg.mode,'feature_config':{},'versions':{n:version(n) for n in ['browser-use','browser-harness','pydantic-ai-slim','pydantic','openai','httpx','cdp-use']}}))
 '''
     result=subprocess.run([str(executable(python)),'-c',code,str(source)],capture_output=True,text=True,timeout=60)
@@ -85,9 +92,8 @@ def preflight(args):
     judge_proof=json.loads(subprocess.check_output([str(executable(args.judge_python)),'-c',judge_code],text=True,timeout=60))
     assert judge_proof['python_version']==environment['judge']['python_version'], 'Judge Python differs from df93'
     assert judge_proof['all_versions']==environment['judge']['all_versions'], 'Judge dependencies differ from df93'
-    credentials=read(args.credentials_file)
+    credentials=actor_credentials(args.credentials_file)
     assert credentials['model']=='deepseek-v4.1-flash'
-    assert credentials.get('mode','ultrafast')=='ultrafast'
     return {'dataset':data,'product':proof,'controller_python_version':controller_version,'judge':judge_proof,'browser':{'path':str(browser),'version':browser_version,'sha256':sha(browser)},'bwrap':shutil.which('bwrap'),'model_requests':0}
 
 
@@ -118,8 +124,7 @@ def prepare(args):
     build={'commit':product_commit(source),'engine_version':installed['engine_version'],'engine_files':installed['engine_files'],'source_sha256':source_hashes(product)}
     write(run/'build.json',build)
     support=run/'support';support.mkdir()
-    credentials=read(args.credentials_file)
-    write(support/'.private/model.json',dict(credentials, reasoning_effort=cfg['agent']['reasoning_effort']))
+    write(support/'.private/model.json',actor_credentials(args.credentials_file))
     capacity=Path(args.capacity_file)
     if not capacity.is_file():raise FileNotFoundError('Capacity metadata is required; do not discard existing evaluators')
     inflight=read(capacity)['in_flight']
@@ -133,22 +138,25 @@ def prepare(args):
     for task in load_tasks():
         folder=run/'runs/bu_v1'/task['id'];folder.mkdir(parents=True)
         write(folder/'task.json',actor_task(task))
-        actor_cfg={'source_folder':str(folder),'max_steps':300,'timeout_seconds':3600,'fixed_viewport':True,'feature_config':dict(installed['feature_config']),'product':build}
+        actor_cfg={'source_folder':str(folder),'mode':'default','max_steps':300,'timeout_seconds':3600,'fixed_viewport':True,'feature_config':dict(installed['feature_config']),'product':build}
         write(folder/'actor-config.json',actor_cfg)
         jobs.append({'suite':'bu_v1','id':task['id'],'task_id':task['id'],'ordinal':task['ordinal'],'source_folder':str(folder),'judge_folder':str(run/'judges/bu_v1'/task['id']),'task_input_sha256':sha(folder/'task.json'),'actor_config_sha256':sha(folder/'actor-config.json'),'feature_config':actor_cfg['feature_config']})
     driver=run/'driver';driver.mkdir()
     shutil.copy2(harness/'actor.py',driver/'actor.py')
     bootstrap="import sys\nfrom pathlib import Path\nr=Path(__file__).resolve().parents[1]\nsys.path.insert(0,str(r/'frozen/harness'))\nfrom strict_runtime import main\nmain(r)\n"
     (driver/'run.py').write_text(bootstrap)
-    write(run/'probes/candidate/actor-config.json',{'product':build})
+    write(run/'probes/candidate/actor-config.json',{'product':build,'mode':'default'})
     frozen=[run/'build.json',run/'task-data.json',run/'settings.json',*driver.glob('*.py'),*[harness/p for p in source_hashes(harness)],*[product/p for p in build['source_sha256']],*[Path(j['source_folder'])/name for j in jobs for name in ['task.json','actor-config.json']]]
-    plan={'schema_version':1,'benchmark':'BU-filter','product_commit':build['commit'],'created_at':time.time(),'counts':{'bu_v1':88},'jobs':jobs,'new_actor_runs':88,'reused_actor_runs':0,'old_actor_runs':0,'actor_concurrency':32,'judge_concurrency':4,'identical_task_inputs':88,'agent_reasoning':'max','feature_config':{},'file_sha256':{str(p):sha(p) for p in frozen},'dataset_manifest_sha256':sha(harness/'data/manifest.json'),'source_df93_commit':'df93e28b9aa1013523f39391dd4cb8a269dae585'}
+    plan={'schema_version':1,'benchmark':'BU-filter','product_commit':build['commit'],'created_at':time.time(),'counts':{'bu_v1':88},'jobs':jobs,'new_actor_runs':88,'reused_actor_runs':0,'old_actor_runs':0,'actor_concurrency':32,'judge_concurrency':4,'identical_task_inputs':88,'agent_reasoning':'max','agent_mode':'default','feature_config':{},'file_sha256':{str(p):sha(p) for p in frozen},'dataset_manifest_sha256':sha(harness/'data/manifest.json'),'source_df93_commit':'df93e28b9aa1013523f39391dd4cb8a269dae585'}
     write(run/'plan.json',plan)
     return run
 
 
-def verify_run(run):
+def verify_run(run, *, for_execution=False):
     run=Path(run).resolve();plan=read(run/'plan.json')
+    if for_execution and (plan.get('agent_mode') != 'default'
+                          or read(run/'support/.private/model.json').get('mode') != 'default'):
+        raise ValueError("BU-filter requires a run prepared with Actor mode 'default'")
     allowed={t['id']:t for t in load_tasks()}
     if plan.get('benchmark')!='BU-filter' or plan.get('counts')!={'bu_v1':88} or len(plan['jobs'])!=88:
         raise ValueError('Only the fixed 88-task run is supported')
@@ -161,6 +169,8 @@ def verify_run(run):
         folder=Path(job['source_folder'])
         if folder!=run/'runs/bu_v1'/job['task_id'] or read(folder/'task.json')!=actor_task(task):raise ValueError('Task input changed')
         actor_cfg=read(folder/'actor-config.json')
+        if for_execution and actor_cfg.get('mode') != 'default':
+            raise ValueError("BU-filter requires every task to use Actor mode 'default'")
         if actor_cfg['max_steps']!=300 or actor_cfg['timeout_seconds']!=3600:raise ValueError('Task budget changed')
     for name,digest in plan['file_sha256'].items():
         if sha(name)!=digest:raise ValueError('Frozen source changed: '+name)
@@ -168,7 +178,7 @@ def verify_run(run):
 
 
 def probe(run):
-    run=Path(run).resolve();verify_run(run)
+    run=Path(run).resolve();verify_run(run, for_execution=True)
     code="import sys,subprocess;from pathlib import Path;r=Path(sys.argv[1]);sys.path.insert(0,str(r/'frozen/harness'));from strict_runtime import load_runtime;n=load_runtime(r);subprocess.run(n['actor_command'](r/'probes/candidate',probe=True),check=True,timeout=100)"
     subprocess.run([str(executable(sys.executable)),'-c',code,str(run)],check=True,timeout=110)
     write(run/'probe-passed.json',{'product_commit':read(run/'plan.json')['product_commit'],'at':time.time(),'model_requests':0,'benchmark_tasks':0})
@@ -217,7 +227,7 @@ def main():
         if path.exists():raise FileExistsError(path)
         key=os.environ.get('OPENAI_API_KEY') or getpass.getpass('Model API key (hidden): ')
         if not key:raise ValueError('Missing API key')
-        write(path,{'api_key':key,'base_url':args.base_url,'model':'deepseek-v4.1-flash'})
+        write(path,{'api_key':key,'base_url':args.base_url,'model':'deepseek-v4.1-flash','mode':'default'})
         print('Private credentials saved with mode0600')
     elif args.command=='preflight':print(json.dumps(preflight(args),ensure_ascii=False,indent=2))
     elif args.command in ['prepare','run']:
@@ -228,7 +238,7 @@ def main():
         print(json.dumps({'run':str(run),'prepared_tasks':88,'actor_steps':300,'timeout_seconds':3600}))
     elif args.command=='probe':probe(args.output)
     elif args.command=='resume':
-        run=Path(args.output).resolve();verify_run(run)
+        run=Path(args.output).resolve();verify_run(run, for_execution=True)
         subprocess.run([read(run/'settings.json')['controller_python'],str(run/'driver/run.py'),'run'],check=True)
     else:print(json.dumps(summarize(args.output),ensure_ascii=False,indent=2))
 

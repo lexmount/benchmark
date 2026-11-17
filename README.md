@@ -39,7 +39,7 @@ odysseys-filter/
 
 ## 执行与判分
 
-三套Actor配置均为`deepseek-v4.1-flash`、`max`、`ultrafast`，使用独立本地无头Chrome和原bwrap隔离。每套保持32个Actor、4个Judge的独立动态槽位；这是各套评测自己的并发配置。
+三套 Actor 使用 `deepseek-v4.1-flash` 和 `max`。BU-filter 与 Online-Mind2Web-filter 的 Actor 模式固定为 `default`，使用独立本地无头Chrome和原bwrap隔离。每套保持32个Actor、4个Judge的独立动态槽位；这是各套评测自己的并发配置。
 
 三套主Judge均沿用DeepSeek low；BU和Odysseys输出上限为16384，Online为4096。各套保留自己的证据与判分协议：
 

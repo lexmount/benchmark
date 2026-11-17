@@ -21,10 +21,13 @@
   },
   "source_dataset_sha256": "8343c23be98d6d63856e9b53ff3884222be099cc0f55ad5edb475176f54317ed",
   "path_binding_only": true,
-  "driver_runtime_change": "Only the run() job-count assertion changes from 600 mixed-suite jobs to 247 Online jobs; prepare is dataset/path packaging. All selected execution functions otherwise retain the original AST.",
+  "driver_runtime_change": "The archived run() checks the Online task count (247), the pinned max reasoning effort and the default Actor mode. The scheduler and judge bodies are otherwise unchanged.",
   "actor_max_files_sha256": {
     "legacy/actor.py": "86691c79d080da005c648ad569d695426de8eeb8de128e08df0ddd81682d828d",
     "legacy/code/full_benchmarks.py": "40c1584731d6022ccbcb911a981ef0febb6147dc33af9596e9bc308a1a0d02b9"
   },
-  "actor_max_changes": "Official 1.0.4 installation and worker checks, max-effort Actor. The legacy policy, observation and Judge protocols are retained."
+  "actor_max_changes": "Official 1.0.4 installation and worker checks, max-effort Actor. The legacy policy, observation and Judge protocols are retained.",
+  "actor_default_files_sha256": {
+    "legacy/actor.py": "20de1ae5b58c46256c8ebb5fb784cd6d8b0fa10257c975df3678dcbb842ecc83"
+  }
 }

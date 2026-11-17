@@ -50,6 +50,8 @@ policy = ('Evaluation on public websites. If a site shows an access denial, CAPT
 async def main():
     from browser_use.agent import loop
     source_config = json.load(sys.stdin)
+    if job.get('mode') != 'default' or source_config.get('mode') != 'default':
+        raise ValueError("Online requires Actor mode 'default'")
     original_read = baseline.read
     def read(path):
         return source_config if path == baseline.ROOT / '.private/model.json' else original_read(path)
@@ -70,6 +72,9 @@ async def main():
             if context and context.client:
                 try: await context.close()
                 except Exception: pass
+    actual = original_read(folder / 'agent/run.json')['config']
+    if actual.get('mode') != 'default':
+        raise ValueError("Online Actor recorded a mode other than 'default'")
 
 if __name__ == '__main__':
     if os.environ.get('PROBE_ONLY') == '1':
@@ -84,15 +89,18 @@ if __name__ == '__main__':
             repl = None
             try:
                 env = await browser.start()
-                repl = Repl(folder/'work', env, mode='ultrafast')
-                out = await repl.call('exec', "goto_url('data:text/html,<title>Probe</title><p>example row</p>'); wait_for_element('p'); print(find_text('example') if 'find_text' in globals() else page_info())", 45)
+                if job.get('mode') != 'default':
+                    raise ValueError("Online requires a default-mode probe")
+                repl = Repl(folder/'work', env, mode='default')
+                out = await repl.call('exec', "assert 'bu' not in globals(); goto_url('data:text/html,<title>Probe</title><p>example row</p>'); wait_for_element('p'); print(page_info())", 45)
                 print(out['error'] or out['output'], flush=True)
                 assert not out['error'] and 'Probe' in out['output']
                 assert not (baseline.ROOT/'.private/model.json').exists()
                 assert not (baseline.ROOT/'full-600-20261114').exists()
                 check = await repl.call('exec', "import hashlib, browser_use; from pathlib import Path; print(hashlib.sha256((Path(browser_use.__file__).parent/'repl/worker.py').read_bytes()).hexdigest())", 20)
                 assert '79172a7c6907d3a7efbda61eef64c0aff7b1c369c1d237ecec980663cb01af28' in check['output'], check
-                assert AgentConfig(api_key='offline', base_url='http://localhost').reasoning_effort == 'max'
+                cfg = AgentConfig(api_key='offline', base_url='http://localhost', mode='default')
+                assert cfg.mode == 'default' and cfg.reasoning_effort == 'max'
                 print('isolated browser probe passed',os.environ['EXPECTED_ARM'],flush=True)
             finally:
                 if repl: await repl.close()

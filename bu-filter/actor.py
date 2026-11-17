@@ -1,6 +1,7 @@
 """Run the frozen observer with a one-task plan; this process never loads evaluator data."""
 
 import asyncio
+import hashlib
 import json
 import os
 import sys
@@ -15,12 +16,12 @@ job = json.loads((folder / "actor-config.json").read_text())
 
 
 def verify_runtime():
-    import hashlib
     from importlib.metadata import distribution, version
 
     import browser_use
 
     import lexmount_browser_agent
+    from lexmount_browser_agent import runner
 
     expected = job["product"]
     engine = Path(browser_use.__file__).resolve().parent
@@ -35,6 +36,7 @@ def verify_runtime():
         assert actual[name] == digest, name
     assert engine == distribution("browser-use").locate_file("browser_use").resolve()
     assert engine.is_relative_to(Path(sys.prefix))
+    assert runner.Agent is browser_use.Agent and not (package / "delivery.py").exists()
     assert version("browser-use") == expected["engine_version"] == "1.0.4"
     for name, digest in expected["engine_files"].items():
         assert hashlib.sha256((engine / name).read_bytes()).hexdigest() == digest, name
@@ -44,6 +46,7 @@ def verify_runtime():
             "product_commit": expected["commit"],
             "engine_version": version("browser-use"),
             "engine_source": str(engine),
+            "agent_class": f"{runner.Agent.__module__}.{runner.Agent.__qualname__}",
             "launcher_source": str(package),
             "python_executable": sys.executable,
             "verified_source_sha256": actual,
@@ -69,6 +72,7 @@ policy = (
 
 async def main():
     from browser_use.agent import loop
+    from browser_use.agent.service import LOCAL_PROMPT
 
     from lexmount_browser_agent import AgentConfig
 
@@ -79,7 +83,7 @@ async def main():
         timeout_seconds=job["timeout_seconds"],
         **job["feature_config"],
     )
-    assert check_config.reasoning_effort == "max" and job["feature_config"] == {}
+    assert check_config.reasoning_effort == "max" and check_config.mode == "default" and job["feature_config"] == {}
     assert check_config.max_steps == 300 and check_config.timeout_seconds == 3600
     original_read = baseline.read
 
@@ -119,16 +123,21 @@ async def main():
                     print("viewport cleanup failed", type(error).__name__, flush=True)
     result = original_read(folder / "execution.json")
     config = original_read(folder / "agent/run.json")["config"]
-    assert config["reasoning_effort"] == "max"
+    assert config["reasoning_effort"] == "max" and config["mode"] == "default"
     turns = result.get("model_turns")
     assert turns is None or (isinstance(turns, int) and turns <= job["max_steps"] + 1)
 
     requests = folder / "agent/model_calls"
     logged = {baseline.read(p).get("reasoning_effort", "missing") for p in requests.glob("*.request.json")}
+    # build_agent() uses the official prompt plus the shared evaluation policy and local Chrome instructions.
+    first_system = baseline.read(requests / "0001.request.json")["messages"][0]
+    assert first_system["role"] == "system"
+    expected_system = (loop.SYSTEM_PROMPT + "\n\n" + policy + "\n" + LOCAL_PROMPT).strip()
+    assert first_system["content"] == expected_system
     baseline.write(folder / "request-accounting.json", {
         "product_commit": job["product"]["commit"], "model_turns": turns,
         "model_http_requests": result.get("model_http_requests"), "actor_efforts": sorted(logged),
-        "published_answer_exit": result.get("published_answer_exit"),
+        "mode": config["mode"], "first_system_sha256": hashlib.sha256(expected_system.encode()).hexdigest(),
     })
     assert not logged.difference({"max"}), logged
 
@@ -136,30 +145,28 @@ async def main():
 async def probe():
     from browser_use.repl import Repl
     from lexmount_browser_agent import AgentConfig
-    from lexmount_browser_agent.delivery import DELIVERY_FILE, PublishedAnswer
     import browser_use
 
     cfg = AgentConfig(base_url="https://unused.invalid/v1", api_key="offline")
-    assert cfg.reasoning_effort == "max"
+    assert cfg.reasoning_effort == "max" and cfg.mode == "default"
     assert not (baseline.ROOT / ".private/model.json").exists()
     assert not (baseline.ROOT / "full-600-20261114").exists()
     browser = Browser("chromium", headless=True, executable_path="/opt/google/chrome/chrome")
     repl = None
     try:
         workspace = folder / "work"
-        repl = Repl(workspace, await browser.start(), mode="ultrafast")
+        repl = Repl(workspace, await browser.start(), mode=cfg.mode)
         code = ("import browser_use, hashlib; from pathlib import Path\n"
                 "p=Path(browser_use.__file__).resolve().parent\n"
                 f"assert str(p)=={str(Path(browser_use.__file__).resolve().parent)!r}\n"
                 f"assert hashlib.sha256((p/'repl/worker.py').read_bytes()).hexdigest()=={job['product']['engine_files']['repl/worker.py']!r}\n"
                 "goto_url('data:text/html,<title>Probe</title><p>example row</p>'); wait_for_element('p')\n"
                 "assert js(\"document.querySelector('p').textContent\") == 'example row'\n"
-                f"checkpoint({DELIVERY_FILE!r}, {{'answer':'example row','complete':True}}, partial=True)")
+                "assert 'bu' not in globals()")
         reply = await repl.call("exec", code, 45)
         assert not reply["error"], reply["error"]
-        assert PublishedAnswer.read(workspace) == PublishedAnswer("example row", True)
         assert not list(folder.glob("**/*.request.json"))
-        print("isolated official engine and published answer verified")
+        print("isolated official default REPL and local Chrome verified")
     finally:
         if repl is not None:
             await repl.close()

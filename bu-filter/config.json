@@ -12,7 +12,7 @@
   "agent": {
     "model": "deepseek-v4.1-flash",
     "reasoning_effort": "max",
-    "mode": "ultrafast",
+    "mode": "default",
     "max_steps": 300,
     "timeout_seconds": 3600,
     "max_context_chars": null

@@ -1,6 +1,8 @@
-# BU-filter：87题，沿用df93e28原评测链路
+# 纯官方 Browser Use 1.0.4 的 BU 87 题 default 对照
 
-5090 使用新版时，从 `/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current` 运行下列命令。Actor 的每轮模型请求使用 DeepSeek max。
+此分支用于独立对照。Agent 直接运行官方 1.0.4 的 default 模式，每题首个系统提示与上游原文、共用网站规则及本地 Chrome 说明逐字比对。
+
+日常评测从 `/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current` 运行下列命令。Actor 的每轮模型请求使用 DeepSeek max。
 
 BU-filter 从 `df93e28b9aa1013523f39391dd4cb8a269dae585` 实际受测的BU-lexmount100题中，只删除用户指定的13个UUID，得到固定87题。剩余题文、起始URL、参考答案逐字保留，原题号不重排，第19题保留。
 
@@ -78,7 +80,7 @@ evaluate.py：仅87题准备、文件路径绑定与独立汇总
 ```bash
 ssh wf@10.2.131.41
 
-git clone --branch codex-is-a-fool --single-branch \
+git clone --branch codex/bu104-official-default-control --single-branch \
   https://github.com/lexmount/benchmark.git \
   /data/wf/sxh/workspace/lexmount/benchmark-bu-filter
 
@@ -132,13 +134,13 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current
 .venvs/bu-filter-test/bin/python -m pytest -q bu-filter/tests
 
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py preflight \
-  --agent-source /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool \
-  --agent-python /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool/.venv/bin/python \
+  --agent-source /data/wf/sxh/workspace/lexmount/agent-builds/bu104-official-default \
+  --agent-python /data/wf/sxh/workspace/lexmount/agent-builds/bu104-official-default/.venv/bin/python \
   --judge-python /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/.venvs/bu-filter-judge/bin/python
 
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py prepare \
-  --agent-source /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool \
-  --agent-python /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool/.venv/bin/python \
+  --agent-source /data/wf/sxh/workspace/lexmount/agent-builds/bu104-official-default \
+  --agent-python /data/wf/sxh/workspace/lexmount/agent-builds/bu104-official-default/.venv/bin/python \
   --judge-python /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/.venvs/bu-filter-judge/bin/python \
   --output /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/bu-filter-round1
 
@@ -175,7 +177,7 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current
 
 ## 其他参数保持原样
 
-- Actor：DeepSeek max，ultrafast，300回合／3600秒；本地headless独立Chrome，1440×900。
+- Actor：DeepSeek max，default，300回合／3600秒；本地headless独立Chrome，1440×900。
 - 调度：32 Actor／4 Judge独立动态补位；原继承进程计数、至少6GiB可用内存、0.75秒轮询。
 - 隔离：原bwrap挂载、clearenv、工作目录、stdin凭据。
 - 超时：Actor3900秒外层、Judge14400秒；TERM后5秒再KILL。

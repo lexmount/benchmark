@@ -5,7 +5,7 @@ import argparse, asyncio, getpass, hashlib, json, os, shutil, subprocess, sys, t
 from pathlib import Path
 from datetime import datetime, timezone
 HERE = Path(__file__).resolve().parent
-CONFIG_SHA256 = 'f9c7b483428901430e17434fe81a6725811f53ad6fc091fe37e4185ddda8a90d'
+CONFIG_SHA256 = 'c9007c22d094d1b90337c178031933164a93aaa2c51fa843c080013fba95dfef'
 sys.path.insert(0, str(HERE))
 from dataset import actor_task, load_judge_tasks, load_tasks, validate_dataset
 
@@ -47,7 +47,8 @@ from pathlib import Path
 from importlib.metadata import version,distributions
 p=Path(sys.argv[1]);sys.path.insert(0,str(p/'src'))
 import browser_use, lexmount_browser_agent
-from lexmount_browser_agent import AgentConfig
+from lexmount_browser_agent import AgentConfig, runner
+assert runner.Agent is browser_use.Agent and not (Path(lexmount_browser_agent.__file__).parent/'delivery.py').exists()
 from importlib.metadata import distribution
 cfg=AgentConfig(api_key='offline-probe-key',base_url='http://127.0.0.1/v1')
 package=Path(lexmount_browser_agent.__file__).resolve().parent
@@ -59,7 +60,7 @@ hashes={str(f.relative_to(engine)):hashlib.sha256(f.read_bytes()).hexdigest() fo
 fingerprint=hashlib.sha256(b''.join(k.encode()+bytes([0])+bytes.fromhex(v) for k,v in hashes.items())).hexdigest()
 # Python sources from the official 1.0.4 wheel locked in the product.
 assert fingerprint=='282b10117c542cd24815c98789be68e704f9b671b39103dc28220787dd449673'
-assert cfg.reasoning_effort=='max' and cfg.mode=='ultrafast' and cfg.model=='deepseek-v4.1-flash'
+assert cfg.reasoning_effort=='max' and cfg.mode=='default' and cfg.model=='deepseek-v4.1-flash'
 print(json.dumps({'python_version':platform.python_version(),'all_versions':{d.metadata['Name'].lower().replace('_','-'):d.version for d in distributions()},'product_import':str(package),'engine_source':str(engine),'engine_version':version('browser-use'),'engine_files':hashes,'model':cfg.model,'reasoning_effort':cfg.reasoning_effort,'mode':cfg.mode,'feature_config':{},'versions':{n:version(n) for n in ['browser-use','browser-harness','pydantic-ai-slim','pydantic','openai','httpx','cdp-use']}}))
 '''
     result=subprocess.run([str(executable(python)),'-c',code,str(source)],capture_output=True,text=True,timeout=60)
@@ -87,7 +88,6 @@ def preflight(args):
     assert judge_proof['all_versions']==environment['judge']['all_versions'], 'Judge dependencies differ from df93'
     credentials=read(args.credentials_file)
     assert credentials['model']=='deepseek-v4.1-flash'
-    assert credentials.get('mode','ultrafast')=='ultrafast'
     return {'dataset':data,'product':proof,'controller_python_version':controller_version,'judge':judge_proof,'browser':{'path':str(browser),'version':browser_version,'sha256':sha(browser)},'bwrap':shutil.which('bwrap'),'model_requests':0}
 
 
@@ -119,7 +119,7 @@ def prepare(args):
     write(run/'build.json',build)
     support=run/'support';support.mkdir()
     credentials=read(args.credentials_file)
-    write(support/'.private/model.json',dict(credentials, reasoning_effort=cfg['agent']['reasoning_effort']))
+    write(support/'.private/model.json',dict(credentials, mode=cfg['agent']['mode'], reasoning_effort=cfg['agent']['reasoning_effort']))
     capacity=Path(args.capacity_file)
     if not capacity.is_file():raise FileNotFoundError('Capacity metadata is required; do not discard existing evaluators')
     inflight=read(capacity)['in_flight']
@@ -142,7 +142,7 @@ def prepare(args):
     (driver/'run.py').write_text(bootstrap)
     write(run/'probes/candidate/actor-config.json',{'product':build})
     frozen=[run/'build.json',run/'task-data.json',run/'settings.json',*driver.glob('*.py'),*[harness/p for p in source_hashes(harness)],*[product/p for p in build['source_sha256']],*[Path(j['source_folder'])/name for j in jobs for name in ['task.json','actor-config.json']]]
-    plan={'schema_version':1,'benchmark':'BU-filter','product_commit':build['commit'],'created_at':time.time(),'counts':{'bu_v1':87},'jobs':jobs,'new_actor_runs':87,'reused_actor_runs':0,'old_actor_runs':0,'actor_concurrency':32,'judge_concurrency':4,'identical_task_inputs':87,'agent_reasoning':'max','feature_config':{},'file_sha256':{str(p):sha(p) for p in frozen},'dataset_manifest_sha256':sha(harness/'data/manifest.json'),'source_df93_commit':'df93e28b9aa1013523f39391dd4cb8a269dae585'}
+    plan={'schema_version':1,'benchmark':'BU-filter','product_commit':build['commit'],'created_at':time.time(),'counts':{'bu_v1':87},'jobs':jobs,'new_actor_runs':87,'reused_actor_runs':0,'old_actor_runs':0,'actor_concurrency':32,'judge_concurrency':4,'identical_task_inputs':87,'agent_reasoning':'max','agent_mode':'default','feature_config':{},'file_sha256':{str(p):sha(p) for p in frozen},'dataset_manifest_sha256':sha(harness/'data/manifest.json'),'source_df93_commit':'df93e28b9aa1013523f39391dd4cb8a269dae585'}
     write(run/'plan.json',plan)
     return run
 

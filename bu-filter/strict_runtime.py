@@ -57,12 +57,14 @@ def _extracted_module() -> tuple[ast.Module, dict]:
                             "expression": "len(plan['jobs'])", "before": 100, "after": 87})
     if len(changes) != 1:
         raise ValueError("Expected exactly one approved df93 100-to-87 task-count adaptation")
-    # Keep the original scheduler, admission and resume logic. Bind only the two product checks.
+    # Keep the original scheduler, admission and resume logic. Bind only the product profile checks.
     bindings = {
         "plan['review_answer'] and plan['request_budget_includes_answer_review']":
             "plan['feature_config'] == {} and plan['agent_reasoning'] == 'max'",
         "public_config.get('reasoning_effort', 'high') == 'high'":
             "public_config['reasoning_effort'] == 'max'",
+        "public_config.get('mode', 'ultrafast') == 'ultrafast'":
+            "public_config['mode'] == 'default'",
     }
     for statement in run.body:
         if isinstance(statement, ast.Assert) and (expression := ast.unparse(statement.test)) in bindings:
@@ -70,8 +72,8 @@ def _extracted_module() -> tuple[ast.Module, dict]:
             statement.test = ast.copy_location(new, statement.test)
             changes.append({"function": "run", "line": statement.lineno,
                             "before": expression, "after": bindings[expression]})
-    if len(changes) != 3:
-        raise ValueError("Expected the task count and two Actor profile checks")
+    if len(changes) != 4:
+        raise ValueError("Expected the task count and three Actor profile checks")
     extracted = ast.fix_missing_locations(ast.Module(body=selected, type_ignores=[]))
     audit = {
         "reference_sha256": REFERENCE_SHA256,

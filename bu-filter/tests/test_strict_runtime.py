@@ -38,7 +38,7 @@ def fixture(parent, completed=()):
                 "judge_python": str(Path(parent) / "judge-venv/bin/python")}
     write(run / "settings.json", settings)
     write(run / "support/.private/model.json", {"model": "deepseek-v4.1-flash",
-          "reasoning_effort": "max", "mode": "ultrafast", "api_key": "offline-fixture-key"})
+          "reasoning_effort": "max", "mode": "default", "api_key": "offline-fixture-key"})
     write(run / "support/previous-capacity/pause-bu-priority.json", {"in_flight": []})
     jobs = []
     for task in TASKS:
@@ -79,7 +79,7 @@ class SourceIdentityTests(unittest.TestCase):
                      if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))}
         extracted, audit = strict_runtime._extracted_module()
         self.assertEqual([node.name for node in extracted.body], list(strict_runtime.FUNCTIONS))
-        self.assertEqual(len(audit["approved_ast_changes"]), 3)
+        self.assertEqual(len(audit["approved_ast_changes"]), 4)
         self.assertEqual(audit["approved_ast_changes"][0]["before"], 100)
         self.assertEqual(audit["approved_ast_changes"][0]["after"], 87)
         for node in extracted.body:
@@ -95,6 +95,8 @@ class SourceIdentityTests(unittest.TestCase):
                     expression = ast.unparse(statement.test)
                     if expression == "public_config.get('reasoning_effort', 'high') == 'high'":
                         statement.test = ast.parse("public_config['reasoning_effort'] == 'max'", mode="eval").body
+                    elif expression == "public_config.get('mode', 'ultrafast') == 'ultrafast'":
+                        statement.test = ast.parse("public_config['mode'] == 'default'", mode="eval").body
                     elif expression == "plan['review_answer'] and plan['request_budget_includes_answer_review']":
                         statement.test = ast.parse("plan['feature_config'] == {} and plan['agent_reasoning'] == 'max'", mode="eval").body
             self.assertEqual(ast.dump(node, include_attributes=False), ast.dump(expected, include_attributes=False))

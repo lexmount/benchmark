@@ -7,6 +7,7 @@ import io
 import json
 import os
 from contextlib import contextmanager
+from contextlib import redirect_stdout
 from pathlib import Path
 import subprocess
 import sys
@@ -295,10 +296,15 @@ class HostRunFailureTests(unittest.TestCase):
         self.private.write_text(json.dumps({"base_url": "https://model.invalid/v1", "api_key": self.key}))
         self.folder = self.run_dir / "tasks" / self.item["task_id"]
         self.env = mock.Mock()
+        self.env.vm_ip = "127.0.0.1"
+        self.env.server_port = 15000
+        self.env.chromium_port = 19222
+        self.env.provider.container.id = "test-owned-container"
         self.env.evaluate.return_value = 0.625
         self.env.controller.end_recording.side_effect = lambda path: Path(path).write_bytes(b"fake video")
 
-    def invoke(self, *, reset_error=None, cdp_error=None, state=None, actor=None, wait_error=None):
+    def invoke(self, *, reset_error=None, cdp_error=None, state=None, actor=None, wait_error=None,
+               cleanup_ok=True, task_ids=None):
         if reset_error is not None:
             self.env.reset.side_effect = reset_error
 
@@ -307,7 +313,7 @@ class HostRunFailureTests(unittest.TestCase):
             try:
                 yield self.env
             finally:
-                receipt["owned_vm_closed"] = True
+                receipt["owned_vm_closed"] = cleanup_ok
 
         with mock.patch.object(runtime, "_environment", environment) as context, \
                 mock.patch.object(runtime, "_save_screenshot"), \
@@ -318,7 +324,7 @@ class HostRunFailureTests(unittest.TestCase):
                                   return_value=state or {"stage": "finished", "phase": "actor"}) as wait, \
                 mock.patch.object(runtime, "_collect", return_value=actor or {
                     "status": "finished", "result": {"status": "completed", "agent_success": True}}):
-            summary = runtime.run_tasks(self.run_dir, self.private, [self.item["task_id"]])
+            summary = runtime.run_tasks(self.run_dir, self.private, task_ids or [self.item["task_id"]])
         receipt = json.loads((self.folder / "receipt.json").read_text())
         return summary, receipt, launch, wait
 
@@ -423,6 +429,178 @@ class HostRunFailureTests(unittest.TestCase):
         self.assertIn("[REDACTED]", receipt["error"])
         launch.assert_not_called()
         self.assert_private_key_not_in_evidence()
+
+    def test_cleanup_failure_stops_dispatch_before_another_task(self):
+        tasks = json.loads((ROOT / "data/manifest.json").read_text())["tasks"][:2]
+        with self.assertRaisesRegex(RuntimeError, "cleanup failed"):
+            self.invoke(cleanup_ok=False, task_ids=[t["task_id"] for t in tasks])
+        receipt = json.loads((self.folder / "receipt.json").read_text())
+        self.assertFalse(receipt["owned_vm_closed"])
+        self.env.reset.assert_called_once()
+        self.assertFalse((self.run_dir / "tasks" / tasks[1]["task_id"]).exists())
+
+    def test_probe_uses_selected_original_chrome_setup_but_cleanup_failure_cannot_pass(self):
+        @contextmanager
+        def environment(metadata, folder, receipt):
+            yield self.env
+            receipt["owned_vm_closed"] = False
+
+        def reset(**kwargs):
+            self.env.server_port = 15111
+            self.env.chromium_port = 19333
+        self.env.reset.side_effect = reset
+        with mock.patch.object(runtime, "_environment", environment), \
+                mock.patch.object(runtime, "_save_screenshot"), \
+                mock.patch.object(runtime, "_ensure_cdp", return_value={"endpoint": "http://127.0.0.1:9222"}), \
+                mock.patch.object(runtime, "_launch_job", return_value=1234) as launch, \
+                mock.patch.object(runtime, "_wait_job", return_value={"stage": "finished"}), \
+                mock.patch.object(runtime, "_collect", return_value={"status": "passed"}):
+            result = runtime.probe(self.run_dir)
+        self.assertEqual(result["status"], "failed")
+        self.assertFalse(result["owned_vm_closed"])
+        self.assertEqual(result["probe_task_id"], self.item["task_id"])
+        original = json.loads((ROOT / self.item["task_path"]).read_text())
+        self.env.reset.assert_called_once_with(task_config=original)
+        self.assertEqual(result["vm"]["server_port"], 15111)
+        self.assertEqual(result["vm"]["chromium_port"], 19333)
+        self.assertEqual(launch.call_args.args[3], "probe")
+        self.assertIsNone(launch.call_args.args[5])
+        self.env.evaluate.assert_not_called()
+
+
+class OwnedDockerLifecycleTests(unittest.TestCase):
+    @contextmanager
+    def fake_upstream(self, *, remove_on_close):
+        with tempfile.TemporaryDirectory() as temporary:
+            upstream = Path(temporary)
+            captured, lookups, instances = {}, [], []
+            container = types.SimpleNamespace(id="only-this-owned-container")
+            container.image = types.SimpleNamespace(id="sha256:test-image", reload=lambda: None,
+                attrs={"RepoDigests": [runtime.DOCKER_IMAGE_DIGEST]})
+            container.removed = False
+            container.remove = lambda **kwargs: setattr(container, "removed", True)
+
+            class NotFound(Exception):
+                pass
+
+            def get(identifier):
+                lookups.append(identifier)
+                if identifier != container.id:
+                    raise AssertionError("Must never inspect or remove another evaluation's container")
+                if container.removed:
+                    raise NotFound(identifier)
+                return container
+
+            class Provider:
+                def _create_container(self, **kwargs):
+                    captured.update(kwargs)
+                    return container
+
+            class DesktopEnv:
+                def __init__(self, **kwargs):
+                    self.provider = Provider()
+                    self.provider.client = types.SimpleNamespace(containers=types.SimpleNamespace(get=get))
+                    self.provider.container = self.provider._create_container(ports={"5000/tcp": 15000})
+                    self.vm_ip, self.server_port, self.chromium_port = "127.0.0.1", 15000, 19222
+                    instances.append(self)
+                def close(self):
+                    # A provider can swallow its own Docker cleanup errors and return normally.
+                    if remove_on_close:
+                        container.removed = True
+
+            desktop_module = types.ModuleType("desktop_env.desktop_env")
+            desktop_module.DesktopEnv = DesktopEnv
+            provider_module = types.ModuleType("desktop_env.providers.docker.provider")
+            provider_module.DockerProvider = Provider
+            error_module = types.ModuleType("docker.errors")
+            error_module.NotFound = NotFound
+            metadata = {"osworld_root": str(upstream), "vm_image": str(upstream / "base.qcow2"),
+                        "guest_root": "/tmp/lexmount-test-owned-vm", "config": {
+                            "runtime": {"provider": "docker", "screen_size": [1920, 1080],
+                                        "docker_image_digest": runtime.DOCKER_IMAGE_DIGEST}}}
+            modules = {"desktop_env.desktop_env": desktop_module,
+                       "desktop_env.providers.docker.provider": provider_module,
+                       "docker.errors": error_module}
+            with mock.patch.dict(sys.modules, modules):
+                yield metadata, upstream, container, captured, lookups, instances
+
+    def test_close_is_verified_by_actual_owned_id_not_just_provider_return(self):
+        for remove in (False, True):
+            with self.subTest(provider_really_removed=remove), self.fake_upstream(remove_on_close=remove) as data:
+                metadata, folder, container, captured, lookups, instances = data
+                receipt = {"task_id": "sample-task", "evidence_errors": []}
+                previous = Path.cwd()
+                with runtime._environment(metadata, folder, receipt):
+                    self.assertEqual(receipt["vm"]["container_id"], container.id)
+                self.assertEqual(Path.cwd(), previous)
+                self.assertEqual(receipt["owned_vm_closed"], remove)
+                self.assertEqual(lookups, [container.id])
+                self.assertEqual(receipt["owned_container_ids"], [container.id])
+                self.assertEqual(captured["ports"]["5000/tcp"], ("127.0.0.1", 15000))
+                if remove:
+                    self.assertTrue(receipt["owned_container_removal_verified"])
+                else:
+                    self.assertTrue(any("remain after provider close" in e for e in receipt["evidence_errors"]))
+
+
+class ExistingChromeTests(unittest.TestCase):
+    def invoke_guest_cdp_code(self, *, reachable):
+        """Execute the real emitted guest inspection code against a fake /proc and CDP endpoint."""
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            emitted = {}
+            env = types.SimpleNamespace()
+            def capture(env, code, **kwargs):
+                emitted["code"] = code
+                return {}
+            with mock.patch.object(runtime, "_execute", side_effect=capture):
+                runtime._ensure_cdp(env, {"guest_root": str(root)})
+
+            class Process:
+                name = "217"
+                def __truediv__(self, name):
+                    return types.SimpleNamespace(read_bytes=lambda: b"/usr/bin/google-chrome\0--remote-debugging-port=1337\0")
+            fake_pathlib = types.ModuleType("pathlib")
+            fake_pathlib.Path = lambda value: (types.SimpleNamespace(iterdir=lambda: [Process()])
+                                              if value == "/proc" else Path(value))
+            fake_shutil = types.ModuleType("shutil")
+            fake_shutil.which = lambda name: "/usr/bin/" + name if name in {"xprop", "wmctrl", "google-chrome"} else None
+            fake_subprocess = types.ModuleType("subprocess")
+            fake_subprocess.run = mock.Mock(return_value=types.SimpleNamespace(
+                returncode=0, stdout="_NET_ACTIVE_WINDOW(WINDOW): window id # 0x41001\n"))
+            fake_subprocess.Popen = mock.Mock()
+            fake_subprocess.DEVNULL, fake_subprocess.STDOUT = -3, -2
+            request = types.ModuleType("urllib.request")
+            if reachable:
+                request.urlopen = mock.Mock(side_effect=lambda *a, **kw: io.StringIO(json.dumps({
+                    "webSocketDebuggerUrl": "ws://127.0.0.1:1337/devtools/browser/existing",
+                    "Browser": "Chrome/test"})))
+            else:
+                request.urlopen = mock.Mock(side_effect=OSError("CDP unavailable"))
+            urllib = types.ModuleType("urllib")
+            urllib.__path__ = []
+            urllib.request = request
+            modules = {"pathlib": fake_pathlib, "shutil": fake_shutil, "subprocess": fake_subprocess,
+                       "urllib": urllib, "urllib.request": request}
+            output = io.StringIO()
+            with mock.patch.dict(sys.modules, modules), redirect_stdout(output):
+                try:
+                    exec(compile(emitted["code"], "<real-guest-cdp-inspection>", "exec"), {})
+                finally:
+                    # Starting another Chrome would silently change profile/task state.
+                    fake_subprocess.Popen.assert_not_called()
+            return json.loads(output.getvalue())
+
+    def test_reachable_existing_original_chrome_is_attached_without_relaunch(self):
+        result = self.invoke_guest_cdp_code(reachable=True)
+        self.assertEqual(result["endpoint"], "http://127.0.0.1:1337")
+        self.assertEqual(result["existing_browser_pids"], [217])
+        self.assertFalse(result["started_additional_original_chrome"])
+        self.assertEqual(result["initial_active_window"], "0x41001")
+
+    def test_existing_chrome_without_cdp_is_rejected_without_relaunch(self):
+        with self.assertRaisesRegex(RuntimeError, "refusing to restart"):
+            self.invoke_guest_cdp_code(reachable=False)
 
 
 class GuestTransportTests(unittest.TestCase):

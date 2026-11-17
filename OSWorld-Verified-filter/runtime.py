@@ -138,6 +138,7 @@ def _environment(metadata: dict, folder: Path, receipt: dict):
                 raise RuntimeError("Created Docker image differs from the frozen expected digest")
             receipt["docker_image"] = {"id": image.id, "repo_digests": digests,
                                        "required_repo_digest": expected}
+            receipt.setdefault("owned_container_ids", []).append(container.id)
             return container
 
         DockerProvider._create_container = create_owned
@@ -148,15 +149,25 @@ def _environment(metadata: dict, folder: Path, receipt: dict):
                          cache_dir=str(folder / "official-cache"),
                          enable_proxy=settings.get("enable_proxy", False),
                          recording_update=settings.get("recording_update", "off"))
-        receipt["vm"] = {"host": env.vm_ip, "server_port": env.server_port,
-                         "chromium_port": env.chromium_port,
-                         "container_id": getattr(env.provider.container, "id", None)}
+        _record_vm(env, receipt)
         yield env
     finally:
         if env is not None:
             try:
                 env.close()
+                from docker.errors import NotFound
+
+                remaining = []
+                for container_id in receipt.get("owned_container_ids", []):
+                    try:
+                        env.provider.client.containers.get(container_id)
+                        remaining.append(container_id)
+                    except NotFound:
+                        pass
+                if remaining:
+                    raise RuntimeError("Owned containers remain after provider close: " + ",".join(remaining))
                 receipt["owned_vm_closed"] = True
+                receipt["owned_container_removal_verified"] = True
             except Exception as error:
                 receipt.setdefault("evidence_errors", []).append("owned_vm_cleanup: " + str(error))
                 receipt["owned_vm_closed"] = False
@@ -168,6 +179,12 @@ def _environment(metadata: dict, folder: Path, receipt: dict):
 
 def run_name(metadata: dict) -> str:
     return Path(metadata["guest_root"]).name
+
+
+def _record_vm(env, receipt: dict) -> None:
+    receipt["vm"] = {"host": env.vm_ip, "server_port": env.server_port,
+                     "chromium_port": env.chromium_port,
+                     "container_id": getattr(env.provider.container, "id", None)}
 
 
 def _execute(env, code: str, *, timeout: float = 30) -> dict:
@@ -206,9 +223,13 @@ def _ensure_cdp(env, metadata: dict) -> dict:
 import json,os,pathlib,re,shutil,subprocess,time,urllib.request
 root=pathlib.Path(ROOT);root.mkdir(parents=True,exist_ok=True);root.chmod(0o700)
 active=None
-if shutil.which('xdotool'):
- p=subprocess.run(['xdotool','getactivewindow'],capture_output=True,text=True)
- if p.returncode==0:active=p.stdout.strip()
+window_tools=bool(shutil.which('xprop') and shutil.which('wmctrl'))
+def active_window():
+ if not window_tools:return None
+ p=subprocess.run(['xprop','-root','_NET_ACTIVE_WINDOW'],capture_output=True,text=True,timeout=10)
+ match=re.search(r'0x[0-9a-fA-F]+',p.stdout)
+ return match.group(0) if p.returncode==0 and match and int(match.group(0),16)!=0 else None
+active=active_window()
 processes=[];ports=[]
 for directory in pathlib.Path('/proc').iterdir():
  if not directory.name.isdigit():continue
@@ -231,7 +252,7 @@ def detect():
 result=detect();started=False
 if result is None:
  if processes:raise RuntimeError('Existing Chrome has no reachable CDP; refusing to restart it')
- if not shutil.which('xdotool'):raise RuntimeError('xdotool is required to preserve the initial foreground window')
+ if not window_tools:raise RuntimeError('wmctrl and xprop are required to preserve the initial foreground window')
  executable=shutil.which('google-chrome') or shutil.which('chromium') or shutil.which('chromium-browser')
  if not executable:raise RuntimeError('Original guest Chrome executable is unavailable')
  with (root/'chrome-start.log').open('ab') as log:
@@ -244,10 +265,14 @@ if result is None:
  if result is None:raise RuntimeError('Original Chrome did not expose CDP')
 restored=None
 if started and active:
- p=subprocess.run(['xdotool','windowactivate','--sync',active],capture_output=True,text=True,timeout=10)
- restored=p.returncode==0
+ p=subprocess.run(['wmctrl','-ia',active],capture_output=True,text=True,timeout=10)
+ for _ in range(25):
+  current=active_window()
+  if current and int(current,16)==int(active,16):break
+  time.sleep(0.2)
+ restored=p.returncode==0 and current is not None and int(current,16)==int(active,16)
  if not restored:raise RuntimeError('Failed to restore initial foreground window')
-result.update(started_additional_original_chrome=started,initial_active_window=active,foreground_restored=restored,existing_browser_pids=processes)
+result.update(started_additional_original_chrome=started,initial_active_window=active,foreground_restored=restored,window_control='wmctrl+xprop' if window_tools else None,existing_browser_pids=processes)
 (root/'cdp.json').write_text(json.dumps(result,indent=2)+'\n')
 print(json.dumps(result))
 '''.replace("ROOT", repr(root), 1)
@@ -380,7 +405,15 @@ def probe(run_dir: Path) -> dict:
                    "evidence_errors": [], "attempt_dir": str(folder)}
         try:
             with _environment(metadata, folder, receipt) as env:
-                env.reset()
+                # Exercise an actual selected task's unchanged Chrome setup. An
+                # empty reset does not initialize the task browser/CDP services.
+                task = next(item for item in _tasks(metadata) if item["source_domain"] == "chrome")
+                source = Path(metadata["harness_root"]) / task["task_path"]
+                if _digest(source) != task["sha256"]:
+                    raise ValueError("Frozen probe task JSON hash mismatch")
+                receipt.update(probe_task_id=task["task_id"], probe_task_sha256=task["sha256"])
+                env.reset(task_config=_json(source))
+                _record_vm(env, receipt)
                 _save_screenshot(env, folder, "initial.png", receipt)
                 cdp = _ensure_cdp(env, metadata)
                 _write_json(folder / "cdp.json", cdp)
@@ -450,6 +483,7 @@ def run_tasks(run_dir: Path, model_config: Path, task_ids: list[str] | None = No
                 _event(folder, "task_started", task_id=task_id)
                 with _environment(metadata, folder, receipt) as env:
                     env.reset(task_config=example)
+                    _record_vm(env, receipt)
                     _save_screenshot(env, folder, "initial.png", receipt)
                     recording = False
                     try:

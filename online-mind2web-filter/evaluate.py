@@ -148,11 +148,17 @@ def preflight_run(run_dir, *, for_execution=False, historical_report=False):
         assert matches_frozen_file(path, digest, historical_report=historical_report), path
     for job in plan['jobs']:
         assert job['suite'] == SUITE
-        c = read(Path(job['source_folder']) / 'actor-config.json')
+        folder = Path(job['source_folder'])
+        actor_path = folder / 'actor-config.json'
+        c = read(actor_path)
         if for_execution and c.get('mode') != 'default':
             raise ValueError("Online requires every task to use Actor mode 'default'")
         assert (c['max_steps'], c['timeout_seconds'], c['fixed_viewport']) == (100, 3600, False)
-        assert c['feature_config'] == {}
+        if historical_report:
+            assert sha(actor_path) == job['actor_config_sha256'], actor_path
+            assert sha(folder / 'task.json') == job['task_input_sha256'], folder
+        else:
+            assert c['feature_config'] == {}
     return plan
 
 def actor_credentials(path):

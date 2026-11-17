@@ -24,7 +24,7 @@
 
 ## 先在5090核验已完成记录
 
-以下命令在**5090宿主机**执行，使用本轮已经安装的独立host环境。它读取原始run与补充目录，不启动VM、Actor或模型。`correction-candidate`是本轮实际部署的修复源码目录；若移动目录或换源码，应先检查记录绑定，而不是关闭校验。
+以下命令在**5090宿主机**执行，使用本轮已经安装的独立host环境。它读取原始run与补充目录，不启动VM、Actor或模型。只读合成按本机实测直接调用host Python，避免外层显示包装器将库诊断混入JSON标准输出；后面的参考生成VM仍使用Xvfb。`correction-candidate`是本轮实际部署的修复源码目录；若移动目录或换源码，应先检查记录绑定，而不是关闭校验。
 
 ```bash
 set -euo pipefail
@@ -46,7 +46,7 @@ RETRY="$RETRY_RUN/technical-retry-binding.json"
 
 cd "$SRC"
 CHECK_DIR=$(mktemp -d "$ROOT/results/osworld76-recheck.XXXXXX")
-xvfb-run -a "$PY" "$SRC/reference_report.py" --run-dir "$RUN" \
+"$PY" "$SRC/reference_report.py" --run-dir "$RUN" \
   --correction "$PDF" \
   --correction "$SEARCH" \
   --correction "$BIB" \

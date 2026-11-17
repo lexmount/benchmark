@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "task_id": "e1e75309-3ddb-4d09-92ec-de869c928143",
+  "run_dir": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3",
+  "status": "corrected",
+  "score": 0.9997920469511773,
+  "original_score": 0.0,
+  "model_calls": 0,
+  "actor_rerun": false,
+  "task_sha256": "b4e50fb023e16fff03a1e89f66a3f4140e4c6358a69113d63edb017062ec4c89",
+  "started_at": "2026-11-17T11:31:27.202216+00:00",
+  "binding": {
+    "run_metadata_sha256": "78618a67a05802b47e40f55e37a31ed8e6c4776ef98c42b1ac1bd43f1b2fa0d6",
+    "original_receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/receipt.json",
+    "original_receipt_sha256": "8e3402c3cfd59cdd2fd638be23ad31e0c4133bec4d0422c9da9899a25cd86020",
+    "original_actual": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/official-cache/e1e75309-3ddb-4d09-92ec-de869c928143/LLM Powered Autonomous Agents _ Lil'Log.pdf",
+    "original_actual_sha256": "e8a3362fa795d4a34a4e5db178aabc6b47a9d802643b8b4b7ee1dcd81884771d",
+    "invalid_reference": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/official-cache/e1e75309-3ddb-4d09-92ec-de869c928143/LLM Powered Autonomous Agents _ Lil'Log_gold.pdf",
+    "invalid_reference_sha256": "f246a0043abad99c6fe9964c6dbd54b20a506bdd2720b0bf7b14a21f9bc4aa61"
+  },
+  "actual_pdf": {
+    "sha256": "e8a3362fa795d4a34a4e5db178aabc6b47a9d802643b8b4b7ee1dcd81884771d",
+    "size_bytes": 3333036,
+    "pages": 21,
+    "text_chars": 43258
+  },
+  "evidence_errors": [],
+  "repair_sources_sha256": {
+    "reference_repair.py": "6239b671d99aa75ec1a1ae0519320fe221b5a655bacf256049895dd6db2ce882",
+    "repair_pdf_reference.py": "094b756b01d25fd23dc968fee705dfa090d31254fb34a2cf7a2ca22dfe7ac7c9"
+  },
+  "owned_container_ids": [
+    "67c4765a891582f1e8690280bc3f3f93943ce6ee989e69b5ce2ea3084256f7b9"
+  ],
+  "docker_image": {
+    "id": "sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9",
+    "repo_digests": [
+      "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9"
+    ],
+    "required_repo_digest": "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9"
+  },
+  "vm": {
+    "host": "localhost",
+    "server_port": 5000,
+    "chromium_port": 9230,
+    "container_id": "67c4765a891582f1e8690280bc3f3f93943ce6ee989e69b5ce2ea3084256f7b9"
+  },
+  "cdp": {
+    "endpoint": "http://127.0.0.1:1337",
+    "browser": "Chrome/130.0.6723.58",
+    "port": 1337,
+    "started_additional_original_chrome": false,
+    "initial_active_window": "0x3200004",
+    "foreground_restored": null,
+    "window_control": "wmctrl+xprop",
+    "existing_browser_pids": [
+      2235
+    ]
+  },
+  "reference": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3-pdf-reference-v1/official-cache/e1e75309-3ddb-4d09-92ec-de869c928143/LLM Powered Autonomous Agents _ Lil'Log_gold.pdf",
+  "reference_pdf": {
+    "sha256": "a0bb273fd2b388cd2ed9faa57f476d88fd50529bf35f5a08a636f24cef09fbb5",
+    "size_bytes": 6417177,
+    "pages": 22,
+    "text_chars": 43259
+  },
+  "reference_sha256": "a0bb273fd2b388cd2ed9faa57f476d88fd50529bf35f5a08a636f24cef09fbb5",
+  "metric": "compare_pdfs",
+  "metric_source_sha256": "0c3f983fe8cdc8905abb6558a963850237e201646ed4667df0428f88ef4593ef",
+  "owned_vm_closed": true,
+  "owned_container_removal_verified": true,
+  "finished_at": "2026-11-17T11:33:04.161351+00:00"
+}

@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "at": "2026-11-17T11:30:15.684121+00:00",
+      "event": "dispatcher_held",
+      "dispatcher_pid": 3067029,
+      "active_vms": 4
+    },
+    {
+      "at": "2026-11-17T11:31:25.910809+00:00",
+      "event": "repair_slot_available",
+      "active_formal_vms": 3,
+      "maximum_total_vms": 4
+    },
+    {
+      "at": "2026-11-17T11:33:04.738010+00:00",
+      "event": "repair_process_finished",
+      "returncode": 0,
+      "correction_exists": true
+    },
+    {
+      "at": "2026-11-17T11:33:04.741139+00:00",
+      "event": "dispatcher_resumed",
+      "dispatcher_pid": 3067029
+    }
+  ]
+}

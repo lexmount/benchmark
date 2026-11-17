@@ -2,7 +2,7 @@
   "schema_version": 1,
   "name": "OSWorld-Verified-filter",
   "task_count": 76,
-  "protocol": "self-reported CDP + persistent Python; original OSWorld tasks and evaluators",
+  "protocol": "self-reported CDP + persistent Python; original OSWorld tasks and metrics; disclosed PDF reference repair",
   "actor": {
     "model": "deepseek-v4.1-flash",
     "reasoning_effort": "max",
@@ -28,6 +28,7 @@
   },
   "scoring": {
     "source": "DesktopEnv.evaluate() from the pinned official checkout",
+    "reference_getter_repair": "reference-pdf-readiness-v1",
     "denominator": 76,
     "preserve_fractional_scores": true,
     "full_success_score": 1.0,

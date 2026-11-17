@@ -1,6 +1,6 @@
 # OSWorld-Verified-filter：固定76题
 
-本目录评测 Lexmount Agent 的**浏览器操作、浏览器与文件交接、通用本地文件处理**。固定上游为 [`xlang-ai/OSWorld@5123bfdbbc34b947bcffcff564abc62d0ab7072d`](https://github.com/xlang-ai/OSWorld/tree/5123bfdbbc34b947bcffcff564abc62d0ab7072d)，保留原始题文、初始化配置、评分函数、参考资源和 `postconfig`。
+本目录评测 Lexmount Agent 的**浏览器操作、浏览器与文件交接、通用本地文件处理**。固定上游为 [`xlang-ai/OSWorld@5123bfdbbc34b947bcffcff564abc62d0ab7072d`](https://github.com/xlang-ai/OSWorld/tree/5123bfdbbc34b947bcffcff564abc62d0ab7072d)，保留原始题文、初始化配置、metric、参考资源和 `postconfig`。新准备的运行启用已披露的[PDF参考 getter 修复](REFERENCE_REPAIR.md)；正在执行的 v3 保持原冻结评分代码。
 
 这是本项目确认的 **CDP＋持久 Python 自报子集**，不是官方发布或认证的新榜单。其分数不可直接替代 OSWorld 全量或纯 GUI 协议的成绩。当前入口复用产品原生 Agent，不开发新的规划器、浏览器框架或 LLM 裁判。
 
@@ -26,6 +26,7 @@
 - [27道浏览器与文件交接的逐题说明](TASKS-browser-file.md)。
 - [原始任务](data/tasks/)：逐字节保留；包含完整 `config`、`evaluator` 和 `options`。
 - [名单与哈希](data/manifest.json)、[8题排除记录](data/exclusions.json)、[官方368／360清单](data/upstream/)。
+- [PDF参考故障、修复与技术补判](REFERENCE_REPAIR.md)：官方调研、修改范围、原分与补判分的区分，以及5090操作教程。
 
 每题详情说明目标、初始页面和文件、交付路径或网页终态、实际评分检查、保存后处理、指定应用或终端限制，以及评分器的覆盖边界。**题目要求和评分器实际检查不总是一样**，文档不把宽松检查当作解题捷径。例如网页打印PDF要求无边距，但原 `compare_pdfs` 主要比较抽取文字；有些文件题还检查终端输出、进程TTY或shell历史。
 
@@ -39,7 +40,7 @@ evaluate.py prepare：冻结76题、官方完整源码、产品源码、uv、配
   → VM内原生Lexmount Agent／持久Python REPL／同一Chrome和文件系统
   → 取回原生Actor回执、日志、截图和产物
   → 官方终止动作
-  → 原DesktopEnv.evaluate()，保留postconfig、getter和metric
+  → 原DesktopEnv.evaluate()，保留postconfig和metric；PDF参考getter修复按冻结配置披露
 → report：固定76题覆盖、原始浮点分和技术错误分别统计
 ```
 
@@ -51,12 +52,14 @@ evaluate.py prepare：冻结76题、官方完整源码、产品源码、uv、配
 | 资源准入 | 每次派发读取实际MemAvailable与1分钟负载；预留12GiB，按每个在途／新VM额外6GiB保守准入，负载超过24暂停新派发 |
 | 安装准备 | 每题单独最多900秒，不计入原生Agent的3600秒任务预算 |
 | VM | 官方Ubuntu QCOW2，原Chrome、桌面应用和原题路径；1920×1080 |
-| 评分 | 官方 `DesktopEnv.evaluate()`；不使用额外的LLM Judge |
+| 评分 | 官方 `DesktopEnv.evaluate()` 和原metric；新prepare启用PDF参考getter修复，不使用额外的LLM Judge |
 | 结束与恢复 | 每题回执独占写入；续跑保留已有结果，不择优重判 |
 
 并行调度复用官方[每题独立VM进程池模式](https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/scripts/python/run_multienv_autoglm.py#L513)。父进程独占整轮锁，spawn子进程各自持有VM、工作目录和评分状态；最多4题在途，完成后动态补位。资源不足时等候，不停止其他评测。自有VM清理失败或worker崩溃时停止新派发，保留原件，不自动把失败重新跑一遍。
 
 配置见 [config.json](config.json)。这些是本项目新集合的预算，不是OSWorld官方统一步数。原生Agent的模型回合、REPL调用、浏览器动作和OSWorld外层步骤应分开解释。修改产品、配置、任务、镜像或执行桥接后应创建新的运行目录，不能续跑并称作同一轮。
+
+当前config明确设置 `reference_getter_repair=reference-pdf-readiness-v1`，仅影响之后新 `prepare` 冻结的运行。已启动的 v3 固定入口为 `d38423ca2f18c3c4b2be0be0957ec93baa0d0add`，仍使用官方5123原getter，不热改。该轮已确认的坏参考通过独立、无模型的技术补判处理；原回执、原输出和原损坏参考均保留，详见[参考修复说明](REFERENCE_REPAIR.md)。
 
 Python REPL与Chrome都在VM内运行，避免“宿主机Python看不到远程下载文件”。VM内只发送当前任务指令、统一环境说明和初始截图，不发送完整task JSON、评分脚本、gold、其他75题或host凭据文件。模型密钥通过私密文件传输，不写进命令行、仓库或任务提示。
 
@@ -86,6 +89,8 @@ Python REPL与Chrome都在VM内运行，避免“宿主机Python看不到远程�
         ├── probe.json                       # 免费探针回执
         └── tasks/<task_id>/                 # 每题回执、截图、录制、Actor原始输出
 ```
+
+正式 v3 已于 **2026-11-17 11:01 UTC** 启动，运行目录为 `/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3`，最多4题在途。其免费probe通过后才启动Actor。**11:35 UTC首批10题快照**的官方原回执为6个1分、4个0分；其中PDF参考故障经独立技术补判后为0.999792。因此技术修复口径为6个1、3个0、1个0.999792，其余66题尚无回执。Delta和Rentalcars的两份0分混有站点与终态兼容问题，Tripadvisor的0分对应Agent日期与官方规则不符，均保留原分。逐题证据见[首批审计](validation/v3-initial-observations.json)和[补判证据](REFERENCE_REPAIR.md#5090真实补判结果)。这只是运行中的快照，不是76题完成成绩。
 
 2026-11-17实际检查：5090为Ubuntu22.04／x86_64，KVM可读写，有官方QCOW2及Docker镜像缓存；**wf当前没有Docker socket权限，`sudo -n`也不可用**。详见 [HOST_READINESS.json](HOST_READINESS.json)。内存、其他在途任务和 `current` 指向是检查时的观察，不是未来容量保证。
 
@@ -261,16 +266,16 @@ sudo -u wf -g docker -- xvfb-run -a -s '-screen 0 1920x1080x24' \
 python3 "$BENCH/evaluate.py" report --run-dir "$RUN" > "$RUN/report.json"
 ```
 
-主成绩是全部76题的**官方原始分数之和／76**；同时报告原分数等于1的整题数／76。部分metric为连续分数，不能统一改成二元分数。
+原始官方汇总保留每题原始数字；完整有效评测的分母固定为**76**，同时报告分数等于1的整题数／76。部分metric为连续分数，不能统一改成二元分数。
 
-未判、缺失或技术无效回执单列。当合法评分不足76题时，`full_76_mean_score`为`null`，仅给出已合法评分样本的平均分和覆盖率，不能把缺失当0或缩分母声称完整成绩。逐题查看：
+未判、缺失或技术无效回执单列。当合法评分不足76题时，`full_76_mean_score`为`null`，仅给出已合法评分样本的平均分和覆盖率，不能把缺失当0或缩分母声称完整成绩。外层原始report无法自动识别原getter吞掉的内部异常；对已确诊的PDF参考故障，还须按[独立审计／技术补判教程](REFERENCE_REPAIR.md#5090操作教程)查看有效覆盖，不能把原始report中的0当成有效能力结论，也不能把补判结果写回原回执。逐题查看：
 
 - `receipt.json`：原题SHA、产品状态、官方终止动作、原score、错误类别和时间。
 - `actor-result.json`与原生Actor输出包：模型回合、耗时、费用、任务回答、程序和浏览器轨迹。
 - `initial.png`／`final.png`／`recording.mp4`：桌面证据；证据失败需披露。
 - `events.jsonl`：VM、准备、Actor、评分和清理各阶段，定位问题发生在哪一层。
 
-部分官方getter／metric会把内部网络或解析异常转为0，例如 `get_pdf_from_url()` 参考生成失败后可能留下占位PDF，随后 `compare_pdfs()` 返回0。本入口保留原grader，不擅自改分；因此外层可捕获的技术无分与官方返回的0仍需结合原日志、缓存和证据分析，不能声称所有0都已排除基础设施影响。
+部分官方getter／metric会把内部网络或解析异常转为0。v3的 `e1e75309-3ddb-4d09-92ec-de869c928143` 已实测出现三次参考导航超时、14字节损坏占位PDF、`compare_pdfs()` 返回0；实际Agent输出为可读的21页PDF。原0分保留，但这次参考无效，不能据此评价Agent能力。**独立技术补判已完成：生成有效新参考后，同一原输出经原metric得到0.9997920469511773**，无Actor重跑／模型调用；[补判证据与10题初始结果](REFERENCE_REPAIR.md#5090真实补判结果)单列披露，未改成二元1分。新prepare启用可靠参考生成与解析验证，当前冻结v3继续运行；其他0分仍逐题结合日志和终态分析，不因这一个故障擅改。
 
 注意已有Writer／Calc／VS Code窗口：官方 `postconfig` 常会激活窗口并保存。后台直接改磁盘文件若没有同步打开的文档缓冲，修改可能被覆盖。终端题还可能检查GUI终端或真实shell历史；REPL打印不等于满足要求。不能删除这些检查来制造通过。
 

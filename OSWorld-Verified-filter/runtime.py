@@ -1,6 +1,7 @@
 """Small bridge to the pinned OSWorld environment and the unchanged guest product.
 
-The official task setup, postconfig, getters and metrics remain authoritative.
+The official task setup, postconfig and metrics remain authoritative. The PDF
+reference getter repair is enabled only by an explicit frozen configuration.
 Only this process's single owned VM is created and closed.
 """
 from __future__ import annotations
@@ -122,6 +123,13 @@ def _environment(metadata: dict, folder: Path, receipt: dict):
     try:
         from desktop_env.desktop_env import DesktopEnv
         from desktop_env.providers.docker.provider import DockerProvider
+
+        repair_version = metadata["config"].get("scoring", {}).get("reference_getter_repair")
+        if repair_version:
+            from reference_repair import REPAIR_VERSION, install_getter_patch
+            if repair_version != REPAIR_VERSION:
+                raise ValueError("Unknown reference getter repair version")
+            receipt["reference_getter_repair"] = install_getter_patch()
 
         if metadata["config"]["runtime"]["provider"] != "docker":
             raise ValueError("This initial bridge supports only the pinned Docker provider")

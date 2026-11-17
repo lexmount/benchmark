@@ -1,0 +1,12 @@
+{
+  "pages": 22,
+  "page_size_points": [
+    595.9199829101562,
+    841.9199829101562
+  ],
+  "title": "LLM Powered Autonomous Agents",
+  "author": "Lilian Weng",
+  "article_date": "2023-06-23",
+  "first_page_visual_review": "Title, author/date, table of contents and article sections rendered; no error/challenge page",
+  "full_pdf_location": "See correction.json reference field on the 5090; full PDF retained there"
+}

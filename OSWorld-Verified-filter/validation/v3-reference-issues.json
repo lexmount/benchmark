@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "audit_type": "read_only_reference_integrity",
+  "observed_at_utc": "2026-11-17T11:20:33Z",
+  "run": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3",
+  "product_commit": "efbe54895f289388d13842fd6fccc151ee1697ea",
+  "upstream_repository": "https://github.com/xlang-ai/OSWorld",
+  "upstream_commit": "5123bfdbbc34b947bcffcff564abc62d0ab7072d",
+  "benchmark_commit_frozen_for_run": "d38423ca2f18c3c4b2be0be0957ec93baa0d0add",
+  "fixed_task_denominator": 76,
+  "original_receipts_modified": false,
+  "model_or_vm_rerun_for_audit": false,
+  "issues": [
+    {
+      "task_id": "e1e75309-3ddb-4d09-92ec-de869c928143",
+      "source_domain": "chrome",
+      "original_status": "scored",
+      "original_score": 0.0,
+      "issue": "invalid_reference_pdf",
+      "valid_for_agent_scoring": false,
+      "conclusion": "The original numeric zero is preserved. A malformed reference makes this evaluation unsuitable for attributing failure to the Agent. No replacement or counterfactual score is assigned.",
+      "receipt": {
+        "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/receipt.json",
+        "sha256": "8e3402c3cfd59cdd2fd638be23ad31e0c4133bec4d0422c9da9899a25cd86020",
+        "byte_size": 1442,
+        "started_at": "2026-11-17T11:01:07.441859+00:00",
+        "finished_at": "2026-11-17T11:10:29.840882+00:00"
+      },
+      "inspection": {
+        "python": "3.12.13",
+        "pymupdf_version_bind": "2.0",
+        "operation": "Read frozen cache files with fitz.open; join per-page get_text output with a newline. No metric was rerun.",
+        "actual": {
+          "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/official-cache/e1e75309-3ddb-4d09-92ec-de869c928143/LLM Powered Autonomous Agents _ Lil'Log.pdf",
+          "guest_source_path": "/home/user/Desktop/LLM Powered Autonomous Agents _ Lil'Log.pdf",
+          "sha256": "e8a3362fa795d4a34a4e5db178aabc6b47a9d802643b8b4b7ee1dcd81884771d",
+          "byte_size": 3333036,
+          "pymupdf_opens": true,
+          "page_count": 21,
+          "text_characters": 43299,
+          "document_title": "LLM Powered Autonomous Agents | Lil'Log"
+        },
+        "reference": {
+          "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/official-cache/e1e75309-3ddb-4d09-92ec-de869c928143/LLM Powered Autonomous Agents _ Lil'Log_gold.pdf",
+          "sha256": "f246a0043abad99c6fe9964c6dbd54b20a506bdd2720b0bf7b14a21f9bc4aa61",
+          "byte_size": 14,
+          "exact_bytes_utf8": "%PDF-1.4\n%EOF\n",
+          "pymupdf_opens": false,
+          "page_count": null,
+          "text_characters": null,
+          "error_type": "FileDataError",
+          "error_summary": "Failed to open file as type pdf."
+        }
+      },
+      "generation_evidence": {
+        "log": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/osworld76-runtime/formal-v3-full.log",
+        "attempts": [
+          {"attempt": 1, "timeout_line": 22, "call_log_line": 24, "error": "Page.goto: Timeout 60000ms exceeded.", "wait_until": "networkidle"},
+          {"attempt": 2, "timeout_line": 31, "call_log_line": 33, "error": "Page.goto: Timeout 60000ms exceeded.", "wait_until": "networkidle"},
+          {"attempt": 3, "timeout_line": 36, "call_log_line": 38, "error": "Page.goto: Timeout 60000ms exceeded.", "wait_until": "networkidle"}
+        ],
+        "all_attempts_failed_line": 41,
+        "placeholder_created_line": 42,
+        "placeholder_created_message": "[PDF_FROM_URL] Created empty PDF file as fallback"
+      },
+      "original_code_path": {
+        "getter": "get_pdf_from_url",
+        "getter_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/desktop_env/evaluators/getters/chrome.py#L1424-L1544",
+        "metric": "compare_pdfs",
+        "metric_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/desktop_env/evaluators/metrics/chrome.py#L210-L235",
+        "behavior": "The getter retries networkidle navigation three times and returns a 14-byte placeholder after failure. compare_pdfs catches PDF parsing exceptions, leaving the numeric score at zero."
+      },
+      "actor_evidence": {
+        "archive": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/actor-output.tar.gz",
+        "archive_sha256": "f5af6a6ce96bcb6fef11cbc44c2f726e48d70ceb651753ec50584614349b9262",
+        "messages_member": "actor-output/messages.json",
+        "step_numbering": "One-based tool-call order; reasoning parts excluded from this audit.",
+        "observations": [
+          {"step": 23, "fact": "Chrome print-preview margins select maps value 1 to None."},
+          {"step": 24, "fact": "Actor sets select to 1 and dispatches input/change; observation confirms marginValue=1 and marginSetFromUi=true."},
+          {"step": 26, "fact": "Embedded screenshot visually confirms Save as PDF, A4, Margins None and 21 pages."},
+          {"step": 29, "fact": "Embedded desktop screenshot shows the save dialog in Desktop with the unchanged default filename."},
+          {"step": 30, "fact": "After clicking Save, the Desktop listing contains the required PDF."},
+          {"step": 34, "fact": "Actor's observed SHA256 and byte size match the frozen host-side actual PDF."}
+        ],
+        "observed_unmet_instruction_items": [],
+        "limits": "This audit establishes reference corruption, a readable actual PDF for the requested article, the requested path/default filename and the None print setting. It does not prove a numerical similarity against a valid reference or assign full success."
+      }
+    }
+  ],
+  "upstream_research": {
+    "latest_main_checked_online": "5123bfdbbc34b947bcffcff564abc62d0ab7072d",
+    "latest_main_commit_date": "2026-11-12T16:40:37Z",
+    "specific_searches": ["repo:xlang-ai/OSWorld e1e75309", "repo:xlang-ai/OSWorld get_pdf_from_url", "repo:xlang-ai/OSWorld PDF fallback", "repo:xlang-ai/OSWorld PDF timeout", "repo:xlang-ai/OSWorld networkidle", "repo:xlang-ai/OSWorld LilianWeng"],
+    "finding": "No upstream patch for this specific malformed-reference fallback was found in these searches; current main still contains it.",
+    "related_changes_read": [
+      {"url": "https://github.com/xlang-ai/OSWorld/pull/695", "merged": true, "merge_commit": "31c29c42bdbcfc55ec15c15ea566eb99b447af9b", "applies": "Already included: A4 and zero margins for this task.", "does_not_fix": "networkidle timeout, malformed fallback, or PDF validity checking", "test_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/tests/test_pdf_from_url_print_options.py", "test_limit": "Mocks navigation and returns a 14-byte fake PDF; asserts print parameters and file existence only."},
+      {"url": "https://github.com/xlang-ai/OSWorld/issues/112", "finding": "Closed after explanation of a missing actual result file (404), not this reference-generation failure; both comments read."},
+      {"url": "https://github.com/xlang-ai/OSWorld/pull/438", "merge_commit": "287d834ca389db151c245346f1da4fe05519cf16", "reusable_precedent": "For Recreation.gov, replaces dependence on networkidle with navigation/DOM readiness and load."},
+      {"url": "https://github.com/xlang-ai/OSWorld/pull/703", "merge_commit": "dcc0f9081e27a28be741969f473890b4cb879fb0", "reusable_precedent": "Unavailable dynamic references raise RuntimeError instead of returning a stale fallback.", "test_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/tests/test_info_from_website_unavailable.py"}
+    ]
+  }
+}

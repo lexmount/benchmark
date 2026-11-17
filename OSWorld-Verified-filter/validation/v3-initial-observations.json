@@ -1,0 +1,606 @@
+{
+  "schema_version": 1,
+  "audit_type": "read_only_initial_observations",
+  "snapshot_at_utc": "2026-11-17T11:35:00.961788+00:00",
+  "run": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3",
+  "product_commit": "efbe54895f289388d13842fd6fccc151ee1697ea",
+  "upstream_commit": "5123bfdbbc34b947bcffcff564abc62d0ab7072d",
+  "benchmark_commit_frozen_for_run": "d38423ca2f18c3c4b2be0be0957ec93baa0d0add",
+  "fixed_task_denominator": 76,
+  "completed_receipts_at_snapshot": 10,
+  "audited_tasks": 10,
+  "method": "Read original task JSON, original getter/metric source, frozen receipt, public Actor tool calls/returns and necessary screenshots. No reasoning text is reproduced. No VM/model/metric rerun; no run artifacts modified.",
+  "score_policy": "Keep all original numeric scores. Reference corruption and the separately recorded, evidence-bound technical correction are annotated without overwriting original receipts or scores. This snapshot is incomplete and not the final 76-task result.",
+  "tasks": [
+    {
+      "task_id": "a96b564e-dbe9-42c3-9ccf-b4498073438a",
+      "source_domain": "chrome",
+      "original_status": "scored",
+      "original_score": 1.0,
+      "actor_status": "completed",
+      "agent_success": true,
+      "receipt_sha256": "601b687fdcba99fe6317f69155443cdaba6fa620e3607a901926e62d1b00f58e",
+      "finding": "observed_success",
+      "evidence": {
+        "receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a96b564e-dbe9-42c3-9ccf-b4498073438a/receipt.json",
+        "actor_archive": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a96b564e-dbe9-42c3-9ccf-b4498073438a/actor-output.tar.gz",
+        "messages_member": "actor-output/messages.json",
+        "final_screenshot": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/a96b564e-dbe9-42c3-9ccf-b4498073438a/final.png"
+      },
+      "actor_archive_sha256": "92878d321f1a695da334e0cc021be33c5cb0e7eca7dba16b58f6f61f234f93e0",
+      "observed_actions": [
+        {
+          "tool_step": 2,
+          "fact": "Switched to the original FlightAware tab and navigated to its discussions forum."
+        },
+        {
+          "tool_step": 3,
+          "fact": "Opened the FlightAware > General category."
+        },
+        {
+          "tool_step": 7,
+          "fact": "Clicked Replies; observed category URL ascending=false&order=posts and the top row with 5.5k replies."
+        },
+        {
+          "tool_step": 9,
+          "fact": "Opened that row; page_info observed the expected topic URL and title."
+        }
+      ],
+      "original_grading": {
+        "func": "is_expected_active_tab",
+        "getter": "active_tab_info",
+        "source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/desktop_env/evaluators/metrics/chrome.py#L19",
+        "observed_final_url": "https://discussions.flightaware.com/t/the-banter-thread/4412"
+      },
+      "limits": "The original metric checks the active topic URL; the trajectory separately supports that it was reached through the requested category and reply sorting."
+    },
+    {
+      "task_id": "fc6d8143-9452-4171-9459-7f515143419a",
+      "source_domain": "chrome",
+      "original_status": "scored",
+      "original_score": 0.0,
+      "actor_status": "completed",
+      "agent_success": true,
+      "receipt_sha256": "deaafc7d89c191698af2df7a631bb292173ce5782563548ca2e5854bc46d802c",
+      "finding": "site_unavailable_and_terminal_state_mismatch",
+      "agent_failure_attribution": "limited_by_observed_site_failure_and_site_specific_grading",
+      "reference_corruption_confirmed": false,
+      "evidence": {
+        "receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/fc6d8143-9452-4171-9459-7f515143419a/receipt.json",
+        "actor_archive": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/fc6d8143-9452-4171-9459-7f515143419a/actor-output.tar.gz",
+        "messages_member": "actor-output/messages.json",
+        "final_screenshot": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/fc6d8143-9452-4171-9459-7f515143419a/final.png"
+      },
+      "actor_archive_sha256": "47086b391a886fbfcbb389f72a1f02ee396e6b8e6128b8cbd9f199c4867e57d8",
+      "initial_screenshot_sha256": "458d08c1b723e9a8b255f6dce54c9e0e74df47f76c4af539103f4867a502853e",
+      "final_screenshot_sha256": "dac1cb8bff948ca919525555a6a3a68de9ff245b64813945283c6f4d868397bb",
+      "observed_actions": [
+        {
+          "tool_step": 1,
+          "fact": "Actor saw about:blank as current; another tab was https://www.delta.com/ with about:blank title."
+        },
+        {
+          "tool_step": 3,
+          "fact": "Opened Google Flights in a new tab."
+        },
+        {
+          "tool_step": 26,
+          "fact": "CDP observation reported JFK to ORD search for 2026-11-18, with ten result rows and a Google Flights search URL. Actor wrote a local flight summary."
+        }
+      ],
+      "native_desktop_final_state": "final.png visually shows www.delta.com: This site cannot be reached; ERR_CONNECTION_TIMED_OUT. It does not show the Google Flights result page.",
+      "original_grading": {
+        "func": "check_direct_json_object",
+        "getter": "active_tab_html_parse",
+        "task_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/evaluation_examples/examples/chrome/fc6d8143-9452-4171-9459-7f515143419a.json",
+        "getter_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/desktop_env/evaluators/getters/chrome.py#L2071",
+        "tab_matching_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/desktop_env/evaluators/getters/chrome.py#L1139-L1178",
+        "required_fields": [
+          "start",
+          "end",
+          "time"
+        ],
+        "xpath_scope": "Delta flight-context-info-airport-codes and flight-context-info-date data-testid attributes",
+        "observed_active_tab_url_from_accessibility_tree": "https://www.delta.com",
+        "available_tab_logged_by_grader": "https://www.delta.com/cn/en",
+        "direct_failure": "The getter could not match the active URL to an available tab and returns an empty object at this branch. The metric cannot match the required fields."
+      },
+      "log_evidence": {
+        "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/osworld76-runtime/formal-v3-full.log",
+        "setup_timeout_line": 13,
+        "could_not_find_target_line": 16,
+        "available_tab_line": 17,
+        "expected_tab_line": 18,
+        "active_url_line": 20,
+        "expected_relative_date_line": 21
+      },
+      "instruction_boundary": "The instruction asks for flights and does not explicitly require Delta. Setup opens Delta and the original evaluator assumes Delta-specific DOM. This matters when interpreting a fallback to another flight site.",
+      "limits": [
+        "Do not infer the network cause (routing, DNS, server blocking, etc.) from the timeout alone.",
+        "A Google Flights summary does not establish that the native active page satisfied the original site-specific evaluator.",
+        "No malformed reference artifact is confirmed for this task; no replacement score or success is assigned.",
+        "Observed site failure and empty getter output mean this zero is not a clean standalone measure of flight-search capability."
+      ],
+      "upstream_related_fix": {
+        "issue": "https://github.com/xlang-ai/OSWorld/issues/685",
+        "pr": "https://github.com/xlang-ai/OSWorld/pull/690",
+        "merge_commit": "4da8ddd7f0f81e02113a68fde20a69b10ed6dfa3",
+        "finding": "The old-selector bug is already fixed in pinned 5123. The observed failure occurs before XPath extraction, so the old issue is not the demonstrated cause here."
+      }
+    },
+    {
+      "task_id": "e1e75309-3ddb-4d09-92ec-de869c928143",
+      "source_domain": "chrome",
+      "original_status": "scored",
+      "original_score": 0.0,
+      "actor_status": "completed",
+      "agent_success": null,
+      "finding": "invalid_reference_pdf",
+      "valid_for_agent_scoring": false,
+      "evidence": {
+        "receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/receipt.json",
+        "actor_archive": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/actor-output.tar.gz",
+        "messages_member": "actor-output/messages.json",
+        "final_screenshot": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/e1e75309-3ddb-4d09-92ec-de869c928143/final.png"
+      },
+      "details_file": "v3-reference-issues.json",
+      "facts": [
+        "Actual PDF is readable, 3333036 bytes, 21 pages, 43299 extracted text characters.",
+        "Original reference is a 14-byte malformed placeholder; PyMuPDF raises FileDataError.",
+        "Three official reference navigation attempts time out; the official getter then writes that placeholder.",
+        "Actor print-preview DOM and embedded screenshot confirm A4 / Margins None; the save-dialog screenshot confirms Desktop / default filename."
+      ],
+      "limits": "Original zero and invalid reference are preserved. A separate completed reference correction now exists and is linked here; it uses the unchanged actual PDF and original continuous metric and is not a binary full success.",
+      "separate_reference_correction": {
+        "evidence": "v3-pdf-reference-v1/correction.json",
+        "sha256": "a39016b30fc0b4c18ce0fd163fb503e79f4ee9f0f826e5d7612745c712b306dd",
+        "status": "corrected",
+        "score": 0.9997920469511773,
+        "original_score_preserved": true,
+        "actor_rerun": false,
+        "model_calls": 0,
+        "metric": "compare_pdfs",
+        "metric_source_sha256": "0c3f983fe8cdc8905abb6558a963850237e201646ed4667df0428f88ef4593ef",
+        "original_actual_sha256": "e8a3362fa795d4a34a4e5db178aabc6b47a9d802643b8b4b7ee1dcd81884771d",
+        "reference_sha256": "a0bb273fd2b388cd2ed9faa57f476d88fd50529bf35f5a08a636f24cef09fbb5",
+        "owned_container_removal_verified": true,
+        "finished_at": "2026-11-17T11:33:04.161351+00:00"
+      }
+    },
+    {
+      "task_id": "f3b19d1e-2d48-44e9-b4e1-defcae1a0197",
+      "source_domain": "chrome",
+      "original_status": "scored",
+      "original_score": 1.0,
+      "actor_status": "completed",
+      "agent_success": true,
+      "receipt_sha256": "4031f4d9bf2f15d382fd46ea45894bd2f92a0f770681376d38e53ea7536618cb",
+      "finding": "observed_success",
+      "evidence": {
+        "receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f3b19d1e-2d48-44e9-b4e1-defcae1a0197/receipt.json",
+        "actor_archive": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f3b19d1e-2d48-44e9-b4e1-defcae1a0197/actor-output.tar.gz",
+        "messages_member": "actor-output/messages.json",
+        "final_screenshot": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f3b19d1e-2d48-44e9-b4e1-defcae1a0197/final.png"
+      },
+      "actor_archive_sha256": "fc6825e8a2a30c8f3ab2c792000528dfda2238d738738a92559b9ec162dd976d",
+      "observed_actions": [
+        {
+          "tool_step": 26,
+          "fact": "Read the canonical and og:url for Ticketek Australia Ticket Delivery Information & FAQs."
+        },
+        {
+          "tool_step": 27,
+          "fact": "page_info reports that article URL as active; wrote a summary."
+        },
+        {
+          "tool_step": 29,
+          "fact": "finish_from_repl reports success."
+        }
+      ],
+      "original_grading": {
+        "func": "is_expected_url_pattern_match",
+        "getter": "active_tab_info",
+        "source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/desktop_env/evaluators/metrics/chrome.py#L71",
+        "observed_final_url": "https://help.ticketek.com.au/hc/en-us/articles/360001877308-Ticket-Delivery-Information-FAQs",
+        "rule": "(?i)ticket-delivery(?:-faqs)?"
+      },
+      "limits": "The original evaluator checks a URL regex; audit supports that the reached page is the delivery FAQ. No broader content correctness score was computed."
+    },
+    {
+      "task_id": "1704f00f-79e6-43a7-961b-cedd3724d5fd",
+      "source_domain": "chrome",
+      "original_status": "scored",
+      "original_score": 0.0,
+      "actor_status": "completed",
+      "agent_success": true,
+      "receipt_sha256": "fc442432e9eb903e837f27e783e349699bc6bbded647aeebaa08a8b6f79e2b88",
+      "finding": "site_country_block_and_alternative_site_not_supported_by_grader",
+      "agent_failure_attribution": "limited_by_observed_country_block_and_site_specific_URL_rules",
+      "reference_corruption_confirmed": false,
+      "evidence": {
+        "receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/1704f00f-79e6-43a7-961b-cedd3724d5fd/receipt.json",
+        "actor_archive": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/1704f00f-79e6-43a7-961b-cedd3724d5fd/actor-output.tar.gz",
+        "messages_member": "actor-output/messages.json",
+        "final_screenshot": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/1704f00f-79e6-43a7-961b-cedd3724d5fd/final.png"
+      },
+      "actor_archive_sha256": "b29c6b25ff63c4c579fd0ff7fffb26abe59dcedbd6d02d696d48f234c15b687d",
+      "final_screenshot_sha256": "df83fbf46493d3235d810e897106391a7b004fd9639abdbc29ea0e6c8a1a23dd",
+      "observed_actions": [
+        {
+          "tool_step": 3,
+          "fact": "Original Rentalcars tab already has ERROR: The request could not be satisfied as title."
+        },
+        {
+          "tool_step": 11,
+          "fact": "HTTP request to Rentalcars /en/ returns 403 Forbidden."
+        },
+        {
+          "tool_step": 119,
+          "fact": "Browser response body from Rentalcars search API reports 403 and a CloudFront distribution configured to block access from the current country."
+        },
+        {
+          "tool_step": 124,
+          "fact": "Switched back to DiscoverCars results; observed active Large cars filter, Price sort and 261 of 635 offers."
+        },
+        {
+          "tool_step": 132,
+          "fact": "Screenshot shows Zurich, Monday Nov 23 to Friday Nov 27 at 11:00, Large cars filter, Price sorting."
+        },
+        {
+          "tool_step": 134,
+          "fact": "Extracted seven visible result prices and observed ascending=True."
+        }
+      ],
+      "native_desktop_final_state": "final.png visually confirms DiscoverCars results with Zurich, Mon Nov 23 / Fri Nov 27 11:00, Large cars and Sort by Price.",
+      "original_grading": {
+        "func": [
+          "check_direct_json_object",
+          "check_direct_json_object"
+        ],
+        "conj": "or",
+        "getter": "active_tab_url_parse",
+        "getter_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/desktop_env/evaluators/getters/chrome.py#L2948",
+        "required_query_keys": [
+          "locationName",
+          "dropLocationName",
+          "filterCriteria_carCategory",
+          "filterCriteria_sortBy",
+          "puDay",
+          "puMonth",
+          "puYear",
+          "doDay",
+          "doMonth",
+          "doYear"
+        ],
+        "direct_failure": "The observed DiscoverCars URL contains sq and searchVersion; the Rentalcars-specific required query keys are absent. The original parser fills absent keys with empty strings and cannot match either expected date range.",
+        "accepted_dates_at_run": [
+          [
+            "2026-11-23",
+            "2026-11-27"
+          ],
+          [
+            "2026-11-30",
+            "2026-12-04"
+          ]
+        ]
+      },
+      "log_evidence": {
+        "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/osworld76-runtime/formal-v3-full.log",
+        "actual_active_url_lines": [
+          56,
+          59
+        ],
+        "expected_date_rule_lines": [
+          57,
+          60
+        ]
+      },
+      "instruction_boundary": "The instruction does not explicitly name Rentalcars. Setup opens Rentalcars; its original grader only understands Rentalcars URL state.",
+      "limits": [
+        "No replacement score is assigned for the alternate site.",
+        "CloudFront reports a country restriction, but this audit does not independently locate or diagnose the network route.",
+        "The alternate site labels its active category Large cars while individual vehicles may say Intermediate; the trajectory preserves that distinction."
+      ],
+      "upstream_search": {
+        "queries": [
+          "repo:xlang-ai/OSWorld 1704f00f",
+          "repo:xlang-ai/OSWorld rentalcars"
+        ],
+        "finding": "No matching issue or PR was returned by these specific searches."
+      }
+    },
+    {
+      "task_id": "47543840-672a-467d-80df-8f7c3b9788c9",
+      "source_domain": "chrome",
+      "original_status": "scored",
+      "original_score": 1.0,
+      "actor_status": "completed",
+      "agent_success": true,
+      "receipt_sha256": "18b5c1baa337f1f9533c51923ad9435ebaa360007e77e366f49ec1b5d3d839b4",
+      "finding": "observed_success",
+      "evidence": {
+        "receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/47543840-672a-467d-80df-8f7c3b9788c9/receipt.json",
+        "actor_archive": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/47543840-672a-467d-80df-8f7c3b9788c9/actor-output.tar.gz",
+        "messages_member": "actor-output/messages.json",
+        "final_screenshot": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/47543840-672a-467d-80df-8f7c3b9788c9/final.png"
+      },
+      "actor_archive_sha256": "68d32f0f388a7339f66f13d6da132a99267f8984f63c1627b5d6214a0e095114",
+      "observed_actions": [
+        {
+          "tool_step": 54,
+          "fact": "Checked the unavailable vehicle section; the 15-seat van is marked unavailable."
+        },
+        {
+          "tool_step": 58,
+          "fact": "Confirmed the unavailable vehicle block is hidden again."
+        },
+        {
+          "tool_step": 59,
+          "fact": "Final DOM observation shows Budget vehicles URL, BOS pickup Dec 10, Number of Seats (High to Low), with visible first vehicle capacities 12, 7, 7, 7."
+        }
+      ],
+      "original_grading": {
+        "func": [
+          "is_expected_url_pattern_match",
+          "check_direct_json_object",
+          "check_direct_json_object"
+        ],
+        "conj": "and",
+        "required_state": "Budget reservation#/vehicles URL; BOS pickup and return Dec 10-11 next month at noon; Number of Seats (High to Low).",
+        "task_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/evaluation_examples/examples/chrome/47543840-672a-467d-80df-8f7c3b9788c9.json",
+        "log_active_url_lines": [
+          65,
+          67,
+          70
+        ],
+        "log_expected_dates_line": 68
+      },
+      "limits": "The original three conjuncts returned success. No separate availability or price accuracy score was computed."
+    },
+    {
+      "task_id": "c1fa57f3-c3db-4596-8f09-020701085416",
+      "source_domain": "chrome",
+      "original_status": "scored",
+      "original_score": 1.0,
+      "actor_status": "completed",
+      "agent_success": true,
+      "receipt_sha256": "17bb77ce67c7f26edf264057a65b91e49dabc71336d2a37594884939828076de",
+      "finding": "observed_success",
+      "evidence": {
+        "receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c1fa57f3-c3db-4596-8f09-020701085416/receipt.json",
+        "actor_archive": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c1fa57f3-c3db-4596-8f09-020701085416/actor-output.tar.gz",
+        "messages_member": "actor-output/messages.json",
+        "final_screenshot": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/c1fa57f3-c3db-4596-8f09-020701085416/final.png"
+      },
+      "actor_archive_sha256": "fd1dfe1bc3eaa4c3951dde8a963d209978bc5a13416fcf5ecd22d27242d2c556",
+      "observed_actions": [
+        {
+          "tool_step": 10,
+          "fact": "Click opened the United checked-bag-fee-calculator/any-flights URL and the calculator heading/form."
+        },
+        {
+          "tool_step": 12,
+          "fact": "DOM observation confirms calculator title/H1, Any flights selected, route/date fields and enabled View bag charges button."
+        }
+      ],
+      "original_grading": {
+        "func": "is_expected_url_pattern_match",
+        "getter": "active_tab_info",
+        "observed_active_url": "https://www.united.com/en/us/checked-bag-fee-calculator/any-flights",
+        "task_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/evaluation_examples/examples/chrome/c1fa57f3-c3db-4596-8f09-020701085416.json",
+        "log_active_url_line": 75
+      },
+      "limits": "The task asks to open the calculator; it does not ask to submit or compute a baggage charge."
+    },
+    {
+      "task_id": "f79439ad-3ee8-4f99-a518-0eb60e5652b0",
+      "source_domain": "chrome",
+      "original_status": "scored",
+      "original_score": 1.0,
+      "actor_status": "completed",
+      "agent_success": true,
+      "receipt_sha256": "4a66f2d506cb05d5451c821f24261b672518b292a0d481f4b635354091e14792",
+      "finding": "observed_success",
+      "evidence": {
+        "receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f79439ad-3ee8-4f99-a518-0eb60e5652b0/receipt.json",
+        "actor_archive": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f79439ad-3ee8-4f99-a518-0eb60e5652b0/actor-output.tar.gz",
+        "messages_member": "actor-output/messages.json",
+        "final_screenshot": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/f79439ad-3ee8-4f99-a518-0eb60e5652b0/final.png"
+      },
+      "actor_archive_sha256": "7f7c46b70b0affb4a5861f1b623c54e1ce7a4167ab5e4c1ea51121bbf90bd991",
+      "observed_actions": [
+        {
+          "tool_step": 26,
+          "fact": "Clicked the adult passenger increment; observed Adults=2."
+        },
+        {
+          "tool_step": 27,
+          "fact": "Accessibility observation shows Passengers 2 Adults and Depart Thu, 10 Dec."
+        },
+        {
+          "tool_step": 28,
+          "fact": "Clicked Search; the resulting Ryanair URL contains DUB, VIE, isReturn=false, tpAdults=2 and tpStartDate=2026-12-10. Page text shows Dublin to Vienna, One way, 10 Dec, 2 passengers and two flights."
+        },
+        {
+          "tool_step": 32,
+          "fact": "Observed recent-searches state confirms oneWay, two adults, DUB to VIE and 2026-12-10."
+        }
+      ],
+      "original_grading": {
+        "func": "check_direct_json_object",
+        "getter": "active_tab_url_parse",
+        "task_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/evaluation_examples/examples/chrome/f79439ad-3ee8-4f99-a518-0eb60e5652b0.json",
+        "expected_state": {
+          "originIata": "DUB",
+          "destinationIata": "VIE",
+          "tpAdults": "2",
+          "tpTeens": "0",
+          "tpChildren": "0",
+          "time": "2026-12-10",
+          "isReturn": "false"
+        }
+      },
+      "limits": "The original metric checks search URL parameters; the trajectory also shows the submitted result page. No independent fare accuracy score was computed."
+    },
+    {
+      "task_id": "6c4c23a1-42a4-43cc-9db1-2f86ff3738cc",
+      "source_domain": "chrome",
+      "original_status": "scored",
+      "original_score": 1.0,
+      "actor_status": "completed",
+      "agent_success": true,
+      "receipt_sha256": "b9707ef95a58d73302b21c5230652655a4b6cf366a8275c44851c01975cb1baa",
+      "finding": "observed_success",
+      "evidence": {
+        "receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6c4c23a1-42a4-43cc-9db1-2f86ff3738cc/receipt.json",
+        "actor_archive": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6c4c23a1-42a4-43cc-9db1-2f86ff3738cc/actor-output.tar.gz",
+        "messages_member": "actor-output/messages.json",
+        "final_screenshot": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/6c4c23a1-42a4-43cc-9db1-2f86ff3738cc/final.png"
+      },
+      "actor_archive_sha256": "d33d8a8084982791f814d6c8730b23d4c831004f08db28b3ca9d358be40cac72",
+      "observed_actions": [
+        {
+          "tool_step": 68,
+          "fact": "Final DOM observation reports the Delta flight-results URL, 20 flight cards, and Miles price tab aria-selected=true."
+        },
+        {
+          "tool_step": 69,
+          "fact": "Saved the observed SEA to NYC, Dec 5 award search summary."
+        }
+      ],
+      "original_grading": {
+        "func": "check_direct_json_object",
+        "getter": "active_tab_html_parse",
+        "task_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/evaluation_examples/examples/chrome/6c4c23a1-42a4-43cc-9db1-2f86ff3738cc.json",
+        "expected_state": {
+          "start": "SEA",
+          "end": "NYC",
+          "time": "Sat, Dec 05, 2026",
+          "category": "Miles"
+        },
+        "log_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/osworld76-runtime/formal-v3-full.log",
+        "actual_active_url_line": 86,
+        "expected_rule_line": 87
+      },
+      "limits": "The original route/date/Miles conditions returned success. No independent fare or award availability score was computed."
+    },
+    {
+      "task_id": "b7895e80-f4d1-4648-bee0-4eb45a6f1fa8",
+      "source_domain": "chrome",
+      "original_status": "scored",
+      "original_score": 0.0,
+      "actor_status": "completed",
+      "agent_success": true,
+      "receipt_sha256": "0277224e0fb9ae1b75a0dc5f7e40a72681a8de3960f173fe1873b1631f597d35",
+      "finding": "date_selection_does_not_match_official_next_weekend_rules",
+      "reference_corruption_confirmed": false,
+      "evidence": {
+        "receipt": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b7895e80-f4d1-4648-bee0-4eb45a6f1fa8/receipt.json",
+        "actor_archive": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b7895e80-f4d1-4648-bee0-4eb45a6f1fa8/actor-output.tar.gz",
+        "messages_member": "actor-output/messages.json",
+        "final_screenshot": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/osworld76-efbe548-20261117-v3/tasks/b7895e80-f4d1-4648-bee0-4eb45a6f1fa8/final.png"
+      },
+      "actor_archive_sha256": "c6189391f40facdef7a6fdbfe5e1998f3c46695aba474c8628f2b20fcd0ca8f6",
+      "final_screenshot_sha256": "6d6bf4b06163c9944aaba2217e6210d07b5c255d9d6276eba62ddacea2c7ac6c",
+      "observed_actions": [
+        {
+          "tool_step": 4,
+          "fact": "The original Tripadvisor website loaded normally."
+        },
+        {
+          "tool_step": 6,
+          "fact": "VM date observed as Tuesday Nov 17, 2026."
+        },
+        {
+          "tool_step": 19,
+          "fact": "Selected search dates are Sat Nov 21 and Sun Nov 22."
+        },
+        {
+          "tool_step": 21,
+          "fact": "Submitted the date search; page shows NYC, Nov 21-22, one room and two guests."
+        },
+        {
+          "tool_step": 25,
+          "fact": "Clicked Price (low to high); URL and observed result list reflect that ordering."
+        },
+        {
+          "tool_step": 36,
+          "fact": "Final form observation still reports Nov 21-22 and one room/two guests, price ascending."
+        },
+        {
+          "tool_step": 46,
+          "fact": "Reported completion; native final screenshot confirms the same dates and sorting."
+        }
+      ],
+      "native_desktop_final_state": "NYC hotel results page is open with Sat Nov 21 check-in, Sun Nov 22 checkout, 1 Room / 2 Guests and Price (low to high).",
+      "original_grading": {
+        "func": [
+          "check_direct_json_object",
+          "check_direct_json_object",
+          "check_direct_json_object",
+          "check_direct_json_object"
+        ],
+        "conj": "or",
+        "getter": "active_tab_html_parse",
+        "task_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/evaluation_examples/examples/chrome/b7895e80-f4d1-4648-bee0-4eb45a6f1fa8.json",
+        "date_getter_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/desktop_env/evaluators/getters/misc.py#L292-L320",
+        "test_source": "https://github.com/xlang-ai/OSWorld/blob/5123bfdbbc34b947bcffcff564abc62d0ab7072d/tests/test_tripadvisor_b7895e80_xpaths.py",
+        "observed_date_range": [
+          "2026-11-21",
+          "2026-11-22"
+        ],
+        "expected_date_ranges_at_run": [
+          [
+            "2026-11-28",
+            "2026-11-29"
+          ],
+          [
+            "2026-11-27",
+            "2026-11-29"
+          ],
+          [
+            "2026-12-05",
+            "2026-12-06"
+          ],
+          [
+            "2026-12-04",
+            "2026-12-06"
+          ]
+        ],
+        "direct_mismatch": "The selected date range is absent from all four official OR alternatives. get_rule_relativeTime computes next week Saturday from next Monday plus five days.",
+        "test_boundary": "test_next_weekend_and_week_after accepts the following-week and week-after date ranges; test_wrong_dates explicitly rejects the current-week weekend in its Friday fixture."
+      },
+      "log_evidence": {
+        "path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/osworld76-runtime/formal-v3-full.log",
+        "actual_active_url_lines": [
+          89,
+          92,
+          95,
+          98
+        ],
+        "expected_date_rule_lines": [
+          90,
+          93,
+          96,
+          99
+        ]
+      },
+      "upstream_related_fix": {
+        "pr": "https://github.com/xlang-ai/OSWorld/pull/693",
+        "merged": true,
+        "merge_commit": "fbb8d31c56d708827e383df848da133b06151e53",
+        "finding": "The obsolete Wh-wrapper XPath requirement is already removed in pinned 5123. The current mismatch is demonstrated by dates; the old selector bug is not established as its cause."
+      },
+      "limits": [
+        "The original wording only says next weekend; this audit reports a disagreement with official date semantics and does not silently rewrite the requirement or expected dates.",
+        "No damaged reference or site outage is established for this task.",
+        "Not every original extracted field is stored in the public log; the confirmed date mismatch is sufficient to explain failure under the original rule, but is not a claim that all other fields passed.",
+        "No model, VM or metric rerun was performed for this audit; the original zero remains unchanged."
+      ]
+    }
+  ],
+  "original_score_distribution_of_audited_tasks": {
+    "score_1": 6,
+    "score_0": 4
+  }
+}

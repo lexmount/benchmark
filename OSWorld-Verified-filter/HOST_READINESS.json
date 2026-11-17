@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-11-17T17:39:16.892161+08:00",
+  "scope": "Read-only SSH host inspection and review of prior public preflight receipts. No VM, Actor, paid model call or formal evaluation was started during this inspection.",
+  "host": {
+    "ssh_target": "wf@10.2.131.41",
+    "architecture": "x86_64",
+    "os": "Ubuntu 22.04; Linux 6.2.0-26-generic",
+    "logical_cpus": 32,
+    "memory_total_gib": 125,
+    "memory_available_gib_observed": 51,
+    "data_available_observed": "8.3 TiB",
+    "root_available_observed": "105 GiB",
+    "kvm_device": "/dev/kvm",
+    "kvm_readable": true,
+    "kvm_writable": true,
+    "user_in_kvm_group": true,
+    "user_in_docker_group": false
+  },
+  "current_release": {
+    "symlink": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current",
+    "resolved_path": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/releases/c9e3c6c-bu88-788ca32",
+    "note": "Observed path at inspection time, not a stable release pin and not changed by this task."
+  },
+  "shared_workloads": {
+    "active_online_evaluation_observed": true,
+    "active_run_directory": "/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/online-hard123-v1-e24039c5-20261117",
+    "other_docker_services_running": true,
+    "note": "Do not assume the server is idle. Existing processes, containers and three benchmark environments were not stopped or modified. Process counts are deliberately omitted because bwrap parents and workers must not be double counted."
+  },
+  "docker": {
+    "version": "29.4.3",
+    "root_directory": "/var/lib/docker",
+    "storage_driver": "overlayfs",
+    "unprivileged_socket_access": false,
+    "sudo_noninteractive_access": false,
+    "authenticated_sudo_read_only_queries_succeeded": true,
+    "image_cached": true,
+    "image_reference": "happysixd/osworld-docker:latest",
+    "inspected_repo_digest": "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9",
+    "note": "The current wf login cannot access docker.sock directly. sudo -n fails because authentication is required. A tutorial must arrange Docker access explicitly; it must not silently rely on successful unprivileged Docker operations. No group membership, socket permissions, daemon settings or Docker images were changed."
+  },
+  "existing_assets": {
+    "historical_root": "/data/wf/sxh/workspace/osworld-browseruse-plus-20261028",
+    "upstream_checkout": "/data/wf/sxh/workspace/osworld-browseruse-plus-20261028/OSWorld",
+    "upstream_commit": "044bc33901cb893808e3f91ebc9a17ed8e54b44c",
+    "host_python": "/data/wf/sxh/workspace/osworld-browseruse-plus-20261028/.venv/bin/python",
+    "host_python_version": "3.12.13",
+    "host_packages_observed": {
+      "docker": "7.2.0",
+      "gymnasium": "0.28.1",
+      "requests": "2.34.2",
+      "websocket-client": "1.9.2",
+      "playwright": "1.64.1",
+      "browser-use": null
+    },
+    "qcow2_path": "/data/wf/sxh/workspace/osworld-browseruse-plus-20261028/vm_data/Ubuntu.qcow2",
+    "qcow2_bytes": 24460197888,
+    "qcow2_sha256": null,
+    "qcow2_hash_verification_status": "A read-only sha256sum attempt exceeded the 90-second SSH timeout; no current QCOW2 checksum is claimed. Verify and record it during independent environment preparation.",
+    "archive_sha256_recorded_by_prior_verification": "b795b6cd4c69b252c1b4f10150a347795555032501b60fd031751ed09b896712",
+    "archive_verification_receipt": "/data/wf/sxh/workspace/osworld-browseruse-plus-20261028/vm_data/verified.json",
+    "archive_hash_note": "This is the previously recorded ZIP archive hash, not the current QCOW2 file hash. The archive was not re-downloaded or rehashed during this inspection."
+  },
+  "prior_preflight_evidence": {
+    "date": "2026-10-28",
+    "formal_tasks_executed": 0,
+    "valid_official_task_scores": 0,
+    "original_vm_reset_completed": true,
+    "original_chrome_version": "130.0.6723.58",
+    "original_setup_negative_control_score": 0.0,
+    "original_receipt": "/data/wf/sxh/workspace/osworld-browseruse-plus-20261028/controls/environment/result.json",
+    "historical_ace_browser_replacement_test": {
+      "chrome_version": "149.0.7827.3",
+      "ace_protocol_available": true,
+      "desktop_url_getter_result": null,
+      "full_original_evaluator_compatibility_passed": false,
+      "receipt": "/data/wf/sxh/workspace/osworld-browseruse-plus-20261028/controls/ace-browser-v3/result.json"
+    },
+    "note": "Historical source and dataset use a different commit and 161-task selection. They are background evidence only, not proof the current 76-task subset or browser-use 1.0.4 Actor has run. Do not replace the original browser with the prior ACE experiment."
+  },
+  "current_integration_requirements": [
+    "Use a complete checkout of xlang-ai/OSWorld at 5123bfdbbc34b947bcffcff564abc62d0ab7072d as the host working directory, retaining local evaluator resources and original metric code.",
+    "Use the current fixed 76-task manifest and original task JSON; the historical 161-task selection is not a source for this task list.",
+    "The Lexmount product requires Python >=3.12 and browser-use==1.0.4. The historical host environment has no browser-use installation; no current guest Actor installation or model execution was verified.",
+    "Run the Actor/REPL against the same VM filesystem and existing Chrome profile, rather than assuming remote CDP shares downloaded files with the host.",
+    "Read provider-assigned server_port/chromium_port after every reset; do not assume 5000/9222 on the host.",
+    "The guest /execute endpoint has a 120-second execution limit. A full Actor must be launched as a background process through the official launch mechanism and polled, with logs and a completion receipt.",
+    "Keep the official postconfig and evaluator. File edits may be overwritten by an existing Office window saving stale content; this must be validated without deleting evaluator steps.",
+    "Distinguish Actor completion from infrastructure failure. Installation errors and timeouts must not become an infeasible-task FAIL success.",
+    "Validate Docker permissions, free resources and one VM before selecting concurrency. The three existing suites’ 32-Actor setting is not an OSWorld VM capacity measurement."
+  ],
+  "local_public_evidence_copy": "/tmp/osworld-existing-5090",
+  "verification_limits": [
+    "No current OSWorld VM was started during this task.",
+    "No current 76-task initialization, browser-use 1.0.4 guest Actor, or end-to-end score was verified.",
+    "No current QCOW2 checksum was obtained.",
+    "Host resources and current symlink are observations that may change."
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "upstream": {
+    "repository": "https://github.com/xlang-ai/OSWorld",
+    "commit": "5123bfdbbc34b947bcffcff564abc62d0ab7072d",
+    "manifest": "evaluation_examples/test_all.json",
+    "manifest_sha256": "47c54203369bd438abf279f6b9836bffc5aa43de6cbaccdfed546993f3fe9149"
+  },
+  "license": "Apache-2.0; see UPSTREAM_LICENSE",
+  "copied_originals": "data/tasks/**/*.json 与固定上游commit逐字节一致；未改题文、config、evaluator或参考资源URL。",
+  "selection_origin": "用户确认2026-11-17对368题全量研究后形成的84题候选，排除8道Google Drive，固定76题。",
+  "source_semantics": "web、browser_file、local_file是本项目人工能力标签，不是OSWorld官方domain；当前Agent是否完成需合法实测。",
+  "official_counts": {
+    "test_all": 368,
+    "test_nogdrive": 360
+  },
+  "task_files": 76,
+  "validation_scope": "数据与源码静态核对；不是76题Actor执行结果。"
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "name": "OSWorld-Verified-filter",
+  "task_count": 76,
+  "protocol": "self-reported CDP + persistent Python; original OSWorld tasks and evaluators",
+  "actor": {
+    "model": "deepseek-v4.1-flash",
+    "reasoning_effort": "max",
+    "mode": "default",
+    "max_steps": 300,
+    "timeout_seconds": 3600,
+    "request_timeout_seconds": 120
+  },
+  "runtime": {
+    "provider": "docker",
+    "docker_image_digest": "happysixd/osworld-docker@sha256:0e6497a9295647cf05bf2b2af522fdd79bdeba2737595259cab310a3bcf6baa9",
+    "concurrency": 1,
+    "screen_size": [1920, 1080],
+    "guest_python": "3.12.13",
+    "bootstrap_timeout_seconds": 900,
+    "actor_grace_seconds": 60,
+    "poll_interval_seconds": 2,
+    "recording_update": "off",
+    "enable_proxy": false
+  },
+  "scoring": {
+    "source": "DesktopEnv.evaluate() from the pinned official checkout",
+    "denominator": 76,
+    "preserve_fractional_scores": true,
+    "full_success_score": 1.0,
+    "technical_errors_are_scores": false
+  }
+}

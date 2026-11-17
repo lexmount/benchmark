@@ -1,6 +1,6 @@
-# Three Filtered Benchmarks
+# Filtered Benchmarks
 
-集中提供三套筛选后的浏览器Agent评测集：BU-filter、Online-Mind2Web-filter、Odysseys-filter，共503个评测任务。
+提供原三套浏览器Agent评测集（BU-filter、Online-Mind2Web-filter、Odysseys-filter，共503题），并新增独立的 **[OSWorld-Verified-filter](OSWorld-Verified-filter/README.md)，固定76题**。四套共579题；各套协议、环境和成绩分别报告。
 
 本分支合入三个来源分支的完整目录。BU-filter 后续根据既有证据修订名单：暂挂第19题、恢复第46和70题，共88题；详见[修订依据](bu-filter/SELECTION_REVIEW.md)。其题文、prompt与判分流程保持原样，另外两个子目录保持来源版本原样，分别使用各自的评测入口。
 
@@ -11,6 +11,7 @@
 | BU-filter | 100 | 12 | **88** | **300** | **3600秒** | [BU-filter README](bu-filter/README.md) |
 | Online-Mind2Web-filter | 300 | 53 | **247** | **100** | **3600秒** | [Online-Mind2Web-filter README](online-mind2web-filter/README.md) |
 | Odysseys-filter（V1） | 200 | 32 | **168** | **300** | **3600秒** | [Odysseys-filter README](odysseys-filter/README.md) |
+| OSWorld-Verified-filter | 人工候选84（官方全集368） | 8道Google Drive | **76** | **300** | **3600秒** | [76题详情与5090教程](OSWorld-Verified-filter/README.md) |
 
 Online-Mind2Web-filter保持100回合；其余两套为300回合。模型回合数与浏览器点击次数不同，一次模型工具调用可以执行多个浏览器动作。3600秒是每题任务预算，外层进程看门狗沿用各套原配置。
 
@@ -25,6 +26,7 @@ README.md
 bu-filter/
 online-mind2web-filter/
 odysseys-filter/
+OSWorld-Verified-filter/
 ```
 
 每个子目录独立包含评测代码、固定配置、任务数据、来源记录、免费检查及5090教程。
@@ -34,8 +36,11 @@ odysseys-filter/
 | BU-filter | [config.json](bu-filter/config.json) | [data/](bu-filter/data/)；88题采用上游防索引加密格式 | [evaluate.py](bu-filter/evaluate.py) |
 | Online-Mind2Web-filter | [config.json](online-mind2web-filter/config.json) | [data/](online-mind2web-filter/data/)；247条原始JSONL记录 | [evaluate.py](online-mind2web-filter/evaluate.py) |
 | Odysseys-filter | [config.json](odysseys-filter/config.json) | [data/](odysseys-filter/data/)；168题及原rubric | [evaluate.py](odysseys-filter/evaluate.py) |
+| OSWorld-Verified-filter | [config.json](OSWorld-Verified-filter/config.json) | [76题原件与哈希](OSWorld-Verified-filter/data/manifest.json)；[逐题目录](OSWorld-Verified-filter/TASKS.md) | [evaluate.py](OSWorld-Verified-filter/evaluate.py) |
 
 ## 执行与判分
+
+**OSWorld新增集合独立运行**：原生Lexmount Agent、`deepseek-v4.1-flash / max / default`、单VM串行、官方Ubuntu／Chrome、VM内持久Python、官方执行评分。不是将下述原三套的32／4并发或LLM裁判套用给OSWorld。它是自报CDP＋Python子集，不代表官方GUI榜单全量成绩。完整上游固定为`5123bfdb`，逐字节保留76题。
 
 三套Actor配置均为`deepseek-v4.1-flash`、`high`、`ultrafast`，使用独立本地无头Chrome和原bwrap隔离。每套保持32个Actor、4个Judge的独立动态槽位；这是各套评测自己的并发配置。
 
@@ -90,3 +95,9 @@ cd benchmark
 - Odysseys-filter：[14项离线检查及隔离探针](odysseys-filter/validation.json)。
 
 初次聚合验证的是目录与来源版本一致性；BU 的本次名单修订仅执行离线核验，未运行新的503题评测。
+
+## OSWorld-Verified-filter使用入口
+
+新增目录提供[76题逐题索引](OSWorld-Verified-filter/TASKS.md)、[任务与评分细节](OSWorld-Verified-filter/TASKS-web-local.md)、[浏览器文件交接细节](OSWorld-Verified-filter/TASKS-browser-file.md)、[5090安装、免费探针、正式执行与续跑教程](OSWorld-Verified-filter/README.md)，以及[实际验证与首轮结果状态](OSWorld-Verified-filter/VALIDATION.md)。
+
+5090使用独立 `exclusive-agent-eval/osworld76-runtime/` 和新的 `results/osworld76-.../`；不修改现有 `current` 发布链接。任务原件来自完整官方OSWorld固定commit，84题候选去掉官方8道Google Drive题后固定76；不是368−8＝76。

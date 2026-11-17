@@ -1,0 +1,89 @@
+{
+  "id": "aad10cd7-9337-4b62-b704-a857848cedf2",
+  "snapshot": "chrome",
+  "instruction": "I want to obtain an editable local copy of the preserved Apple Human Interface Guidelines article opened in Chrome (file:///home/user/searching_reference_v1.html). Please retain the primary content, from \"Searching\" to just before \"Resources\", and save it as \"notes.docx\" on the desktop. Use this preserved copy for this task; the current online article may differ.",
+  "source": "authors",
+  "config": [
+    {
+      "type": "download",
+      "parameters": {
+        "files": [
+          {
+            "url": "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/e28460ae734cb1b33901d232cef8747c20ccd677/multi_apps/aad10cd7-9337-4b62-b704-a857848cedf2/searching_reference_v1.html",
+            "path": "/home/user/searching_reference_v1.html"
+          }
+        ]
+      }
+    },
+    {
+      "type": "launch",
+      "parameters": {
+        "command": [
+          "google-chrome",
+          "--remote-debugging-port=1337",
+          "file:///home/user/searching_reference_v1.html"
+        ]
+      }
+    },
+    {
+      "type": "launch",
+      "parameters": {
+        "command": [
+          "socat",
+          "tcp-listen:9222,fork",
+          "tcp:localhost:1337"
+        ]
+      }
+    }
+  ],
+  "trajectory": "trajectories/aad10cd7-9337-4b62-b704-a857848cedf2",
+  "related_apps": [
+    "os",
+    "chrome"
+  ],
+  "evaluator": {
+    "postconfig": [
+      {
+        "type": "activate_window",
+        "parameters": {
+          "window_name": "notes.docx - LibreOffice Writer",
+          "strict": true
+        }
+      },
+      {
+        "type": "sleep",
+        "parameters": {
+          "seconds": 0.5
+        }
+      },
+      {
+        "type": "execute",
+        "parameters": {
+          "command": [
+            "python",
+            "-c",
+            "import pyautogui; import time; pyautogui.hotkey('ctrl', 's'); time.sleep(0.5); "
+          ]
+        }
+      }
+    ],
+    "func": "compare_docx_files",
+    "expected": {
+      "type": "cloud_file",
+      "path": "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/e28460ae734cb1b33901d232cef8747c20ccd677/multi_apps/aad10cd7-9337-4b62-b704-a857848cedf2/notes.docx",
+      "dest": "notes_reference_v1.docx"
+    },
+    "result": {
+      "type": "vm_file",
+      "path": "/home/user/Desktop/notes.docx",
+      "dest": "notes.docx"
+    },
+    "options": {
+      "fuzzy_match": true,
+      "strict_fuzzy": true
+    }
+  },
+  "proxy": false,
+  "fixed_ip": false,
+  "possibility_of_env_change": "low"
+}

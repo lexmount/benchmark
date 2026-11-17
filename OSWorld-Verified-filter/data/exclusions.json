@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "candidate_count": 84,
+  "exclusion_count": 8,
+  "retained_count": 76,
+  "upstream": {
+    "repository": "https://github.com/xlang-ai/OSWorld",
+    "commit": "5123bfdbbc34b947bcffcff564abc62d0ab7072d",
+    "manifest": "evaluation_examples/test_all.json",
+    "manifest_sha256": "47c54203369bd438abf279f6b9836bffc5aa43de6cbaccdfed546993f3fe9149"
+  },
+  "excluded": [
+    {
+      "source_domain": "multi_apps",
+      "source_ordinal": 5,
+      "task_id": "46407397-a7d5-4c6b-92c6-dbe038b1457b",
+      "category": "browser_file",
+      "sha256": "ee66690f64c167267fffd5948a665ac87934c7fed5e83cfb659e971eedbc766c",
+      "instruction_sha256": "8de0ef35686f49697836ccc1fde01c72e0683cfe2b73916e015ae11d5c2ebb3f",
+      "reason": "官方 test_nogdrive.json 排除的 Google Drive 任务；任务初始化依赖账号、OAuth或网络/IP配置。仅从已确认84题候选中排除，不扩展到其他任务。",
+      "upstream_task_path": "evaluation_examples/examples/multi_apps/46407397-a7d5-4c6b-92c6-dbe038b1457b.json"
+    },
+    {
+      "source_domain": "multi_apps",
+      "source_ordinal": 6,
+      "task_id": "4e9f0faf-2ecc-4ae8-a804-28c9a75d1ddc",
+      "category": "browser_file",
+      "sha256": "15be01d3fbb9f2660d36466f0eb3f88589a1cf687fb9281eaf0d61c8c7a611ff",
+      "instruction_sha256": "39a7eb5e81fdef71ac97f8023812d3074d009ebd85da210ed3c341afc9b9b87b",
+      "reason": "官方 test_nogdrive.json 排除的 Google Drive 任务；任务初始化依赖账号、OAuth或网络/IP配置。仅从已确认84题候选中排除，不扩展到其他任务。",
+      "upstream_task_path": "evaluation_examples/examples/multi_apps/4e9f0faf-2ecc-4ae8-a804-28c9a75d1ddc.json"
+    },
+    {
+      "source_domain": "multi_apps",
+      "source_ordinal": 10,
+      "task_id": "78aed49a-a710-4321-a793-b611a7c5b56b",
+      "category": "browser_file",
+      "sha256": "5329a340d74196cab63c9f59840950d06cb9b3a2be11afd2a22b3198c7806c2b",
+      "instruction_sha256": "5d42e2d0edc2f12c3bc87fcc6c4821205d248aaaac25ebfcde5a5b41d643e709",
+      "reason": "官方 test_nogdrive.json 排除的 Google Drive 任务；任务初始化依赖账号、OAuth或网络/IP配置。仅从已确认84题候选中排除，不扩展到其他任务。",
+      "upstream_task_path": "evaluation_examples/examples/multi_apps/78aed49a-a710-4321-a793-b611a7c5b56b.json"
+    },
+    {
+      "source_domain": "multi_apps",
+      "source_ordinal": 11,
+      "task_id": "897e3b53-5d4d-444b-85cb-2cdc8a97d903",
+      "category": "browser_file",
+      "sha256": "badad00d2b6d7942ec415d35783a3792f8a5446ad85577161fbe0cefd53502eb",
+      "instruction_sha256": "c764151170395513700d4d7982741143ec8412774155cd0a5abb527d76054f5d",
+      "reason": "官方 test_nogdrive.json 排除的 Google Drive 任务；任务初始化依赖账号、OAuth或网络/IP配置。仅从已确认84题候选中排除，不扩展到其他任务。",
+      "upstream_task_path": "evaluation_examples/examples/multi_apps/897e3b53-5d4d-444b-85cb-2cdc8a97d903.json"
+    },
+    {
+      "source_domain": "multi_apps",
+      "source_ordinal": 13,
+      "task_id": "a0b9dc9c-fc07-4a88-8c5d-5e3ecad91bcb",
+      "category": "browser_file",
+      "sha256": "e02d7d493810ceaeb8b412776c66e29c6b1752bd8f9a9bf05c5a66a680feb049",
+      "instruction_sha256": "5c4ce9b81e8096201d6b8633cb98766f71d2507843501656f5ff78b2cb964d3e",
+      "reason": "官方 test_nogdrive.json 排除的 Google Drive 任务；任务初始化依赖账号、OAuth或网络/IP配置。仅从已确认84题候选中排除，不扩展到其他任务。",
+      "upstream_task_path": "evaluation_examples/examples/multi_apps/a0b9dc9c-fc07-4a88-8c5d-5e3ecad91bcb.json"
+    },
+    {
+      "source_domain": "multi_apps",
+      "source_ordinal": 14,
+      "task_id": "b52b40a5-ad70-4c53-b5b0-5650a8387052",
+      "category": "browser_file",
+      "sha256": "517fa5115887a8e4419e65bb2b3d418d1de1fdbfb44c13bb00046f9d57c14cb7",
+      "instruction_sha256": "1cbd26f9cf5cffdf66ca0b983f54b124029cdfee9b6ccb408c041cacff2e45f4",
+      "reason": "官方 test_nogdrive.json 排除的 Google Drive 任务；任务初始化依赖账号、OAuth或网络/IP配置。仅从已确认84题候选中排除，不扩展到其他任务。",
+      "upstream_task_path": "evaluation_examples/examples/multi_apps/b52b40a5-ad70-4c53-b5b0-5650a8387052.json"
+    },
+    {
+      "source_domain": "multi_apps",
+      "source_ordinal": 33,
+      "task_id": "0c825995-5b70-4526-b663-113f4c999dd2",
+      "category": "browser_file",
+      "sha256": "769aa8395e5ecc5a4f7d9305c8a110b9d169d59998358a4cf4830fbfcad976ff",
+      "instruction_sha256": "ffce188c6eaeae190651ebbb896b35f1c11611dae67742a44e7cf24d9d2f9416",
+      "reason": "官方 test_nogdrive.json 排除的 Google Drive 任务；任务初始化依赖账号、OAuth或网络/IP配置。仅从已确认84题候选中排除，不扩展到其他任务。",
+      "upstream_task_path": "evaluation_examples/examples/multi_apps/0c825995-5b70-4526-b663-113f4c999dd2.json"
+    },
+    {
+      "source_domain": "multi_apps",
+      "source_ordinal": 99,
+      "task_id": "22a4636f-8179-4357-8e87-d1743ece1f81",
+      "category": "browser_file",
+      "sha256": "46ac3741d55402ac967b66960ed18edef758f461ceff5e1d99f1e74a709129c7",
+      "instruction_sha256": "9b0da9a082d527d6b6f507f33d2b2e01a47d8caf0fddef22315f01c92615215a",
+      "reason": "官方 test_nogdrive.json 排除的 Google Drive 任务；任务初始化依赖账号、OAuth或网络/IP配置。仅从已确认84题候选中排除，不扩展到其他任务。",
+      "upstream_task_path": "evaluation_examples/examples/multi_apps/22a4636f-8179-4357-8e87-d1743ece1f81.json"
+    }
+  ]
+}

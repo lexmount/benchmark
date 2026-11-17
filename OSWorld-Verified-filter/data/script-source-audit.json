@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-17",
+  "purpose": "逐题说明编写时读取的公开初始化/评分脚本；此清单仅记录阅读时字节，不改变原JSON URL，也不声称其已被运行或所有远程资源已冻结。",
+  "entries": [
+    {
+      "task_id": "5c1075ca-bb34-46a3-a7a0-029bd7463e79",
+      "ordinal": 68,
+      "phase": "setup",
+      "url": "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/os/5c1075ca-bb34-46a3-a7a0-029bd7463e79/setup.sh",
+      "sha256": "7e0eb76f38e9b891420fd4f469d4944c600db00cc0869b8781dc9ed8a7ede340",
+      "bytes": 497
+    },
+    {
+      "task_id": "5c1075ca-bb34-46a3-a7a0-029bd7463e79",
+      "ordinal": 68,
+      "phase": "eval",
+      "url": "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/os/5c1075ca-bb34-46a3-a7a0-029bd7463e79/eval.sh",
+      "sha256": "ce6c816c9c29c78a9b0d8434f6ed8d8d94b0183db400397e3620f2b7feb2a692",
+      "bytes": 2107
+    },
+    {
+      "task_id": "5ced85fc-fa1a-4217-95fd-0fb530545ce2",
+      "ordinal": 69,
+      "phase": "eval",
+      "url": "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/os/5ced85fc-fa1a-4217-95fd-0fb530545ce2/eval.sh",
+      "sha256": "780725f3d8642b18f7d0641e874cfa3948050c3cedbaca3fc1e93a351ee352bb",
+      "bytes": 436
+    },
+    {
+      "task_id": "37887e8c-da15-4192-923c-08fa390a176d",
+      "ordinal": 70,
+      "phase": "setup",
+      "url": "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/os/37887e8c-da15-4192-923c-08fa390a176d/setup.sh",
+      "sha256": "c8ce69c15d5a7e741b2696da0e09294fdd89aac63696c79ea7f2705597eecfcd",
+      "bytes": 746
+    },
+    {
+      "task_id": "37887e8c-da15-4192-923c-08fa390a176d",
+      "ordinal": 70,
+      "phase": "eval",
+      "url": "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/os/37887e8c-da15-4192-923c-08fa390a176d/eval_20250703.sh",
+      "sha256": "41f156a67b45bcbd4eac0b44c1d997d9679d48d7a18e8e13b47c204ddb32f64c",
+      "bytes": 5916
+    },
+    {
+      "task_id": "4127319a-8b79-4410-b58a-7a151e15f3d7",
+      "ordinal": 71,
+      "phase": "setup",
+      "url": "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/os/4127319a-8b79-4410-b58a-7a151e15f3d7/setup.sh",
+      "sha256": "da618b6625232a439e5bf4a0d64ab10a249d798674161f60f1dca9f032565e47",
+      "bytes": 1233
+    },
+    {
+      "task_id": "4d117223-a354-47fb-8b45-62ab1390a95f",
+      "ordinal": 72,
+      "phase": "setup",
+      "url": "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/os/4d117223-a354-47fb-8b45-62ab1390a95f/setup.sh",
+      "sha256": "66d5f82285fb184699f607f6127568509ae2c4d7d08aac91dda972ac6ba93254",
+      "bytes": 436
+    },
+    {
+      "task_id": "4d117223-a354-47fb-8b45-62ab1390a95f",
+      "ordinal": 72,
+      "phase": "eval",
+      "url": "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/os/4d117223-a354-47fb-8b45-62ab1390a95f/eval.sh",
+      "sha256": "cad4de489a969620400ccc393d91dfc8430ed0548aa0b6176beec2a8c725c991",
+      "bytes": 634
+    },
+    {
+      "task_id": "6f56bf42-85b8-4fbb-8e06-6c44960184ba",
+      "ordinal": 73,
+      "phase": "setup",
+      "url": "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/os/6f56bf42-85b8-4fbb-8e06-6c44960184ba/setup.sh",
+      "sha256": "ce197a77cc0e1600c4a381bb8560bcaf5c292a5388519d7424b782493c90fb57",
+      "bytes": 291
+    },
+    {
+      "task_id": "6f56bf42-85b8-4fbb-8e06-6c44960184ba",
+      "ordinal": 73,
+      "phase": "eval",
+      "url": "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/os/6f56bf42-85b8-4fbb-8e06-6c44960184ba/eval.sh",
+      "sha256": "890c6ee5b51d7b63dd53453eade5a48f9b95caece583da54507a4c568e28fe6f",
+      "bytes": 364
+    }
+  ]
+}

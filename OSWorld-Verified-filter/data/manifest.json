@@ -1,0 +1,786 @@
+{
+  "schema_version": 1,
+  "name": "OSWorld-Verified-filter",
+  "upstream": {
+    "repository": "https://github.com/xlang-ai/OSWorld",
+    "commit": "5123bfdbbc34b947bcffcff564abc62d0ab7072d",
+    "manifest": "evaluation_examples/test_all.json",
+    "manifest_sha256": "47c54203369bd438abf279f6b9836bffc5aa43de6cbaccdfed546993f3fe9149"
+  },
+  "task_count": 76,
+  "category_counts": {
+    "browser_file": 27,
+    "web": 25,
+    "local_file": 24
+  },
+  "selection": {
+    "source_total": 368,
+    "research_candidate_count": 84,
+    "excluded_google_drive_count": 8,
+    "retained_count": 76,
+    "definition": "已确认人工能力候选：在线网站25＋浏览器文件交接35＋通用本地文件24；只排除候选中的8道Google Drive，得到25＋27＋24。不是将官方368题只删8题得到76。",
+    "order": "保留上游test_all.json的domain顺序及每个domain内相对顺序；ordinal为本子集索引，source_ordinal为原domain内序号。"
+  },
+  "tasks": [
+    {
+      "ordinal": 1,
+      "source_domain": "chrome",
+      "source_ordinal": 4,
+      "task_id": "e1e75309-3ddb-4d09-92ec-de869c928143",
+      "category": "browser_file",
+      "task_path": "data/tasks/chrome/e1e75309-3ddb-4d09-92ec-de869c928143.json",
+      "sha256": "b4e50fb023e16fff03a1e89f66a3f4140e4c6358a69113d63edb017062ec4c89",
+      "instruction_sha256": "2ded4daafbca0e9e0092a6f98c0fa97a286fbeb4da7ddbb779fc5c8abf423f85"
+    },
+    {
+      "ordinal": 2,
+      "source_domain": "chrome",
+      "source_ordinal": 20,
+      "task_id": "fc6d8143-9452-4171-9459-7f515143419a",
+      "category": "web",
+      "task_path": "data/tasks/chrome/fc6d8143-9452-4171-9459-7f515143419a.json",
+      "sha256": "e879c131dea281c47cc11e45b9667efe06996e90fb3350e5fa753cc1eb16c067",
+      "instruction_sha256": "c71759c131d06b1c05b05d6ddd00ddb7bd46736592188fd773543d04a98fd0a6"
+    },
+    {
+      "ordinal": 3,
+      "source_domain": "chrome",
+      "source_ordinal": 21,
+      "task_id": "a96b564e-dbe9-42c3-9ccf-b4498073438a",
+      "category": "web",
+      "task_path": "data/tasks/chrome/a96b564e-dbe9-42c3-9ccf-b4498073438a.json",
+      "sha256": "0e626dde4e8b62be0268a95376ccb99abb2f629866a20ba7820374435389ccf4",
+      "instruction_sha256": "25fbf665bdfa928241b97628ef217233127344636daa5fb4dbc2ef6426ef2cff"
+    },
+    {
+      "ordinal": 4,
+      "source_domain": "chrome",
+      "source_ordinal": 22,
+      "task_id": "1704f00f-79e6-43a7-961b-cedd3724d5fd",
+      "category": "web",
+      "task_path": "data/tasks/chrome/1704f00f-79e6-43a7-961b-cedd3724d5fd.json",
+      "sha256": "5040849bc4866e69665de468e594782383f870ac39b62ecfefaf1b9784f71650",
+      "instruction_sha256": "2f886375d0fdf17f53469f18b77beb5467d3065a92834766fdc21919beb5951c"
+    },
+    {
+      "ordinal": 5,
+      "source_domain": "chrome",
+      "source_ordinal": 23,
+      "task_id": "f3b19d1e-2d48-44e9-b4e1-defcae1a0197",
+      "category": "web",
+      "task_path": "data/tasks/chrome/f3b19d1e-2d48-44e9-b4e1-defcae1a0197.json",
+      "sha256": "4d7e03838dd2db8511dd104ff4a45250e3a3dba6ad7dc89612b94ccf8f32a719",
+      "instruction_sha256": "fac54d7ce3937ba5cc96f87b2b3295cb57831fd7eccd2b9d5a55c419569b26c8"
+    },
+    {
+      "ordinal": 6,
+      "source_domain": "chrome",
+      "source_ordinal": 24,
+      "task_id": "82bc8d6a-36eb-4d2d-8801-ef714fb1e55a",
+      "category": "web",
+      "task_path": "data/tasks/chrome/82bc8d6a-36eb-4d2d-8801-ef714fb1e55a.json",
+      "sha256": "dfa727d604583a7ba964d4a56d6f2978427c231cbccdda34a81e52a8d269e8f0",
+      "instruction_sha256": "230fe8de16f7b5936bc7c2e8fd5ff77f0279febd7acf82155ddf9e204ef1fd85"
+    },
+    {
+      "ordinal": 7,
+      "source_domain": "chrome",
+      "source_ordinal": 25,
+      "task_id": "47543840-672a-467d-80df-8f7c3b9788c9",
+      "category": "web",
+      "task_path": "data/tasks/chrome/47543840-672a-467d-80df-8f7c3b9788c9.json",
+      "sha256": "693e25cf0f6192928c835fdb767e651273d2a46498055308768939d7d337cfe1",
+      "instruction_sha256": "dc042e27d3f104549f99999242e6125e042fed6e8addc3de1abd7be98f17b4f9"
+    },
+    {
+      "ordinal": 8,
+      "source_domain": "chrome",
+      "source_ordinal": 26,
+      "task_id": "c1fa57f3-c3db-4596-8f09-020701085416",
+      "category": "web",
+      "task_path": "data/tasks/chrome/c1fa57f3-c3db-4596-8f09-020701085416.json",
+      "sha256": "e0266df5214e1cb42eadb97a060912fcff4081aa4f7ca068c4948778a81ce06c",
+      "instruction_sha256": "5c7a85c8cb493c3f2b6b98695637339c9637db058def18b8f6dfcc93cec60319"
+    },
+    {
+      "ordinal": 9,
+      "source_domain": "chrome",
+      "source_ordinal": 27,
+      "task_id": "6c4c23a1-42a4-43cc-9db1-2f86ff3738cc",
+      "category": "web",
+      "task_path": "data/tasks/chrome/6c4c23a1-42a4-43cc-9db1-2f86ff3738cc.json",
+      "sha256": "8a28aa3c4aa9ef52fb5e7fa6548275fcb93be33b8eccaf048a93cdb33b6368fc",
+      "instruction_sha256": "0610baf747aeb072e351124b9dd7b92d174c3469493e62bdc659fb5540198977"
+    },
+    {
+      "ordinal": 10,
+      "source_domain": "chrome",
+      "source_ordinal": 28,
+      "task_id": "f79439ad-3ee8-4f99-a518-0eb60e5652b0",
+      "category": "web",
+      "task_path": "data/tasks/chrome/f79439ad-3ee8-4f99-a518-0eb60e5652b0.json",
+      "sha256": "9a1450a29736bb15643b96d38dddf08810d35f838c0a7f000b779630974eb054",
+      "instruction_sha256": "46cef0ac393a169db8a85ca5793dad5fbb399e1cb649fc4525acaed2ccc6ee55"
+    },
+    {
+      "ordinal": 11,
+      "source_domain": "chrome",
+      "source_ordinal": 29,
+      "task_id": "b7895e80-f4d1-4648-bee0-4eb45a6f1fa8",
+      "category": "web",
+      "task_path": "data/tasks/chrome/b7895e80-f4d1-4648-bee0-4eb45a6f1fa8.json",
+      "sha256": "807ce4cc6abfa92b3bcc363ef8aa27f4172879671581ceadd053d35abcd40fd1",
+      "instruction_sha256": "309c6e9d6f69420c0506ac33b21f06674d8c834209d5bb3f6ba09639d60b45ba"
+    },
+    {
+      "ordinal": 12,
+      "source_domain": "chrome",
+      "source_ordinal": 30,
+      "task_id": "9f3f70fc-5afc-4958-a7b7-3bb4fcb01805",
+      "category": "web",
+      "task_path": "data/tasks/chrome/9f3f70fc-5afc-4958-a7b7-3bb4fcb01805.json",
+      "sha256": "4a9f289382782a26d203e1d3269f4d2bc20ccd366cad0ac2414560cb8dc18249",
+      "instruction_sha256": "189915292b98ba9c30d874218d0f50223c4bfebe7ebade413fab5b30dec3e141"
+    },
+    {
+      "ordinal": 13,
+      "source_domain": "chrome",
+      "source_ordinal": 31,
+      "task_id": "7f52cab9-535c-4835-ac8c-391ee64dc930",
+      "category": "web",
+      "task_path": "data/tasks/chrome/7f52cab9-535c-4835-ac8c-391ee64dc930.json",
+      "sha256": "0c4a020a1aaf967d1e29093c7cf9d3a198b54cb6926adc0135ccf1e6ade9a4c5",
+      "instruction_sha256": "5b35cef4e6c6a5bec29db3d724f18da85621987e85f0d84d82b6ae1936fc6049"
+    },
+    {
+      "ordinal": 14,
+      "source_domain": "chrome",
+      "source_ordinal": 32,
+      "task_id": "82279c77-8fc6-46f6-9622-3ba96f61b477",
+      "category": "web",
+      "task_path": "data/tasks/chrome/82279c77-8fc6-46f6-9622-3ba96f61b477.json",
+      "sha256": "634c991551fef3ed745555306dc67d81fa86fcbfddcaa33b60b483c5acf39254",
+      "instruction_sha256": "acc130c38352fb70ae3c06b41f7a34300e3676e8454c912f502526e16bbf5ad6"
+    },
+    {
+      "ordinal": 15,
+      "source_domain": "chrome",
+      "source_ordinal": 33,
+      "task_id": "2888b4e6-5b47-4b57-8bf5-c73827890774",
+      "category": "web",
+      "task_path": "data/tasks/chrome/2888b4e6-5b47-4b57-8bf5-c73827890774.json",
+      "sha256": "c11641afa87520ef90d1840e1dab4b47619169c1d916ca5b93bf2dd13a74fe8f",
+      "instruction_sha256": "446f33faeec9e2c45f9260ab6eb9e063bf059d53fdef08b1cf1422918b50d74b"
+    },
+    {
+      "ordinal": 16,
+      "source_domain": "chrome",
+      "source_ordinal": 34,
+      "task_id": "b4f95342-463e-4179-8c3f-193cd7241fb2",
+      "category": "web",
+      "task_path": "data/tasks/chrome/b4f95342-463e-4179-8c3f-193cd7241fb2.json",
+      "sha256": "1c98d3c1d2e232e997c8331902e80d169bcc652e208e49877461bd1c5182e25b",
+      "instruction_sha256": "5423c8e6de7155e9e8ff9a0a48a6da85dc0d8172c42a144765c7af9e745f7d30"
+    },
+    {
+      "ordinal": 17,
+      "source_domain": "chrome",
+      "source_ordinal": 35,
+      "task_id": "f5d96daf-83a8-4c86-9686-bada31fc66ab",
+      "category": "web",
+      "task_path": "data/tasks/chrome/f5d96daf-83a8-4c86-9686-bada31fc66ab.json",
+      "sha256": "68abeca81ab76725c1903917f7d2ac0d9192babe6c2835741c4b85f221bd2c6f",
+      "instruction_sha256": "8a3560df586dfaf635d23f72849ce3f20e84b517564aab45187b7569f6cbe973"
+    },
+    {
+      "ordinal": 18,
+      "source_domain": "chrome",
+      "source_ordinal": 36,
+      "task_id": "121ba48f-9e17-48ce-9bc6-a4fb17a7ebba",
+      "category": "web",
+      "task_path": "data/tasks/chrome/121ba48f-9e17-48ce-9bc6-a4fb17a7ebba.json",
+      "sha256": "1365de9973cce2c272c0aa16a3e1e34c8f969720ea04b81d986e099af8e8d028",
+      "instruction_sha256": "b0feca8257822f36c0509d9b5c63f1f1298a9859cf55c26918cc4f68304491d7"
+    },
+    {
+      "ordinal": 19,
+      "source_domain": "chrome",
+      "source_ordinal": 37,
+      "task_id": "368d9ba4-203c-40c1-9fa3-da2f1430ce63",
+      "category": "web",
+      "task_path": "data/tasks/chrome/368d9ba4-203c-40c1-9fa3-da2f1430ce63.json",
+      "sha256": "9c1cda14c053a66bf443bbe066505f922b89654cb7514ed803e628c99b71889e",
+      "instruction_sha256": "76a9c4eca77fbac48ef749a11289813f21bb29356f68cc5b9b59e39d9e7625aa"
+    },
+    {
+      "ordinal": 20,
+      "source_domain": "chrome",
+      "source_ordinal": 38,
+      "task_id": "59155008-fe71-45ec-8a8f-dc35497b6aa8",
+      "category": "web",
+      "task_path": "data/tasks/chrome/59155008-fe71-45ec-8a8f-dc35497b6aa8.json",
+      "sha256": "a6a72fba81abf0fb88e517b8fe66351ea1583160f421f64b4f8cd137e6a0b7d3",
+      "instruction_sha256": "7b364be8c8ba9751621b5ebbe7753ddd4bfb6b0e140dbb1b147d96336b7dc766"
+    },
+    {
+      "ordinal": 21,
+      "source_domain": "chrome",
+      "source_ordinal": 39,
+      "task_id": "a728a36e-8bf1-4bb6-9a03-ef039a5233f0",
+      "category": "web",
+      "task_path": "data/tasks/chrome/a728a36e-8bf1-4bb6-9a03-ef039a5233f0.json",
+      "sha256": "e61e8dbfff69afff70f48a782e84495eef6f3e7112c062c8cd1057fdc7ec4423",
+      "instruction_sha256": "7ec3f2a67f06b929678123bd0128cc35882d9b6b4766894499107014eca5194b"
+    },
+    {
+      "ordinal": 22,
+      "source_domain": "chrome",
+      "source_ordinal": 40,
+      "task_id": "b070486d-e161-459b-aa2b-ef442d973b92",
+      "category": "web",
+      "task_path": "data/tasks/chrome/b070486d-e161-459b-aa2b-ef442d973b92.json",
+      "sha256": "c734fb1a2d177ac112ada4302687112f27bac248ac4f93fc741deb690558e1c4",
+      "instruction_sha256": "4eb43409a12a4df4ff648458df036da53d38fa5434af9f1696b175a45ec92e26"
+    },
+    {
+      "ordinal": 23,
+      "source_domain": "chrome",
+      "source_ordinal": 41,
+      "task_id": "0d8b7de3-e8de-4d86-b9fd-dd2dce58a217",
+      "category": "web",
+      "task_path": "data/tasks/chrome/0d8b7de3-e8de-4d86-b9fd-dd2dce58a217.json",
+      "sha256": "a0edec172f263e9018483551c2c70d8c8dd3e5b4061ca557fa52c465cc929231",
+      "instruction_sha256": "a9858ae3c9955054bd7a9d15378ad24d9969ea14742d2d3458e7a632ec88f272"
+    },
+    {
+      "ordinal": 24,
+      "source_domain": "chrome",
+      "source_ordinal": 42,
+      "task_id": "9f935cce-0a9f-435f-8007-817732bfc0a5",
+      "category": "web",
+      "task_path": "data/tasks/chrome/9f935cce-0a9f-435f-8007-817732bfc0a5.json",
+      "sha256": "dc5a80cac1ab832e7607e8330ec3938aa9ada0f5e718323bd9aaa8332471950e",
+      "instruction_sha256": "a5cf49f47c9f0f809a3359be2bf1ce92372b89a1f96a7380444e2d9091f1b973"
+    },
+    {
+      "ordinal": 25,
+      "source_domain": "chrome",
+      "source_ordinal": 43,
+      "task_id": "f0b971a1-6831-4b9b-a50e-22a6e47f45ba",
+      "category": "web",
+      "task_path": "data/tasks/chrome/f0b971a1-6831-4b9b-a50e-22a6e47f45ba.json",
+      "sha256": "9f4ff54ae2e3e92111345adaeb1ebd8ce53c903cb4b8f234a42998f84129065a",
+      "instruction_sha256": "f9c16de5d7c3da70c1b7d7ab565e0f1f1b334518f1934a95c6b7a2f2cd24fd95"
+    },
+    {
+      "ordinal": 26,
+      "source_domain": "chrome",
+      "source_ordinal": 44,
+      "task_id": "cabb3bae-cccb-41bd-9f5d-0f3a9fecd825",
+      "category": "web",
+      "task_path": "data/tasks/chrome/cabb3bae-cccb-41bd-9f5d-0f3a9fecd825.json",
+      "sha256": "982463f9c4b5536742aa6ee0b44d9c1811cfae01ddf4578970d0caa1d6c90cf2",
+      "instruction_sha256": "cfdd8c65c999b758fb5070fbe525f20a0e80664f10ecf17f8b483afe17ee9204"
+    },
+    {
+      "ordinal": 27,
+      "source_domain": "multi_apps",
+      "source_ordinal": 4,
+      "task_id": "3680a5ee-6870-426a-a997-eba929a0d25c",
+      "category": "local_file",
+      "task_path": "data/tasks/multi_apps/3680a5ee-6870-426a-a997-eba929a0d25c.json",
+      "sha256": "8da6e5b54a47d475b0e93dd498cfd4729c637706a016ca76d8946b2de06e53f9",
+      "instruction_sha256": "7af318f2f3ef38c356c6c009b24a0f8eea1fb4e4ff97958781b37a68ea272815"
+    },
+    {
+      "ordinal": 28,
+      "source_domain": "multi_apps",
+      "source_ordinal": 17,
+      "task_id": "e135df7c-7687-4ac0-a5f0-76b74438b53e",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/e135df7c-7687-4ac0-a5f0-76b74438b53e.json",
+      "sha256": "154017c96f7286e09049a0425e274ffcfcfa9caca613bf64a6299845a9155d1e",
+      "instruction_sha256": "faff3fde8aad6e19787e808681611fc735fdde9ddef236de6103e071cb4c3c58"
+    },
+    {
+      "ordinal": 29,
+      "source_domain": "multi_apps",
+      "source_ordinal": 18,
+      "task_id": "ee9a3c83-f437-4879-8918-be5efbb9fac7",
+      "category": "local_file",
+      "task_path": "data/tasks/multi_apps/ee9a3c83-f437-4879-8918-be5efbb9fac7.json",
+      "sha256": "a09e3c8d8ef9e0df2b5f182c338e59b82eaf6593fe460ecc784f8a66e1267419",
+      "instruction_sha256": "136c54143ba75f431ef9b4141a1987911e47c22ee46bc618c4980a2dd9038ba2"
+    },
+    {
+      "ordinal": 30,
+      "source_domain": "multi_apps",
+      "source_ordinal": 19,
+      "task_id": "f7dfbef3-7697-431c-883a-db8583a4e4f9",
+      "category": "local_file",
+      "task_path": "data/tasks/multi_apps/f7dfbef3-7697-431c-883a-db8583a4e4f9.json",
+      "sha256": "b27d852e5cb57eb26dc8403a19d5340401401c71453de47c6b017b7d2f3ee8eb",
+      "instruction_sha256": "e513f5d9f9778b23e647c9b44d5107f9c6f457cf17d26b5785e6c25a12d81874"
+    },
+    {
+      "ordinal": 31,
+      "source_domain": "multi_apps",
+      "source_ordinal": 20,
+      "task_id": "f8cfa149-d1c1-4215-8dac-4a0932bad3c2",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/f8cfa149-d1c1-4215-8dac-4a0932bad3c2.json",
+      "sha256": "9c5172cd3b9e401f25264d2c7fe162b14549df1cb75015c1f00c37aa863232a9",
+      "instruction_sha256": "9fad53f4b41a646f5472deb4ca8da2b2e01de68087a20d2b37f48522aff0ba58"
+    },
+    {
+      "ordinal": 32,
+      "source_domain": "multi_apps",
+      "source_ordinal": 23,
+      "task_id": "da52d699-e8d2-4dc5-9191-a2199e0b6a9b",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/da52d699-e8d2-4dc5-9191-a2199e0b6a9b.json",
+      "sha256": "8f692ca1aab95f07b8e4f85672e7340156e0157936aa773118f0a882906eccf6",
+      "instruction_sha256": "cdc6a7885bcec8c1a287cd81876bdfc4ae9405f0e2132b34b020d0953fcb2d09"
+    },
+    {
+      "ordinal": 33,
+      "source_domain": "multi_apps",
+      "source_ordinal": 25,
+      "task_id": "74d5859f-ed66-4d3e-aa0e-93d7a592ce41",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/74d5859f-ed66-4d3e-aa0e-93d7a592ce41.json",
+      "sha256": "452eed028d487007b831bd7e60ab1f5f3c9e82e520edaff9adaf6eec8e58fe8e",
+      "instruction_sha256": "b7b201584aa9f96f8976dabd0b389a433273c45da9b8fcf5069234fc85f3cef0"
+    },
+    {
+      "ordinal": 34,
+      "source_domain": "multi_apps",
+      "source_ordinal": 28,
+      "task_id": "acb0f96b-e27c-44d8-b55f-7cb76609dfcd",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/acb0f96b-e27c-44d8-b55f-7cb76609dfcd.json",
+      "sha256": "edbc13bed6fcb511c7d9367336da163cf250d5124d18bc9c6194a8fe6431c9ae",
+      "instruction_sha256": "c741c8f4f569e19de9e7e2d0334fca3c813d79fbd60d5032a07b4f483c56cba2"
+    },
+    {
+      "ordinal": 35,
+      "source_domain": "multi_apps",
+      "source_ordinal": 31,
+      "task_id": "68a25bd4-59c7-4f4d-975e-da0c8509c848",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/68a25bd4-59c7-4f4d-975e-da0c8509c848.json",
+      "sha256": "214b37fbc19ff3877bcf4cdb751d72854250322336c1539b42e8866b67de6ecc",
+      "instruction_sha256": "43e0efece377052923c4a310af25d1f3c92ba84824310d34fcb1f8fea6724d1c"
+    },
+    {
+      "ordinal": 36,
+      "source_domain": "multi_apps",
+      "source_ordinal": 34,
+      "task_id": "c7c1e4c3-9e92-4eba-a4b8-689953975ea4",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/c7c1e4c3-9e92-4eba-a4b8-689953975ea4.json",
+      "sha256": "6f5537bd536bf3320538724c97f85deb99259a1be6f356e0b848e11329ca15de",
+      "instruction_sha256": "a5e39a515787184174962a589dee4231074660cd9e32d1aa549c6ad8a16e51d5"
+    },
+    {
+      "ordinal": 37,
+      "source_domain": "multi_apps",
+      "source_ordinal": 35,
+      "task_id": "d1acdb87-bb67-4f30-84aa-990e56a09c92",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/d1acdb87-bb67-4f30-84aa-990e56a09c92.json",
+      "sha256": "993658835ec96d628ad6e47ed015c7ed4fd6af186086407662e9286ecaa541d9",
+      "instruction_sha256": "9a2ee86808bc5bd4cad10f5208d87f48f0c78a6f7d9f68902c4b17a692e87683"
+    },
+    {
+      "ordinal": 38,
+      "source_domain": "multi_apps",
+      "source_ordinal": 36,
+      "task_id": "deec51c9-3b1e-4b9e-993c-4776f20e8bb2",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/deec51c9-3b1e-4b9e-993c-4776f20e8bb2.json",
+      "sha256": "361bb26ff05bea836e82664b33356af010b56fe50a29bc1ec428793694e81149",
+      "instruction_sha256": "421d10395f97e7d922d47e8b595d3b5f6031630494d327b162d8672601fbfad8"
+    },
+    {
+      "ordinal": 39,
+      "source_domain": "multi_apps",
+      "source_ordinal": 38,
+      "task_id": "337d318b-aa07-4f4f-b763-89d9a2dd013f",
+      "category": "local_file",
+      "task_path": "data/tasks/multi_apps/337d318b-aa07-4f4f-b763-89d9a2dd013f.json",
+      "sha256": "02e102559831c7533af334e25348c35b021cef5fecdf034240d0cd2ff25ec167",
+      "instruction_sha256": "ec6cf400f478871843dec61ec584eaa7de43fa34eca83b94c13ee1a69c06197f"
+    },
+    {
+      "ordinal": 40,
+      "source_domain": "multi_apps",
+      "source_ordinal": 39,
+      "task_id": "82e3c869-49f6-4305-a7ce-f3e64a0618e7",
+      "category": "local_file",
+      "task_path": "data/tasks/multi_apps/82e3c869-49f6-4305-a7ce-f3e64a0618e7.json",
+      "sha256": "c20485ff82dfce20f5554dd61ef8d8a07954c131fa43770d4921df11b744f888",
+      "instruction_sha256": "b9d25497f5495dcf40245a9bf2a00fe78b13e594dd3374f62dfae9d568277bf1"
+    },
+    {
+      "ordinal": 41,
+      "source_domain": "multi_apps",
+      "source_ordinal": 41,
+      "task_id": "869de13e-bef9-4b91-ba51-f6708c40b096",
+      "category": "local_file",
+      "task_path": "data/tasks/multi_apps/869de13e-bef9-4b91-ba51-f6708c40b096.json",
+      "sha256": "a6ba3f8f836a5a5c2b2674d9ff4b403c9225c643d12c702affea3466bc89a4d8",
+      "instruction_sha256": "5a0c498a6d80fe07e81aa0250b474e91bb3784c4062ec124c3365d8eda974bdd"
+    },
+    {
+      "ordinal": 42,
+      "source_domain": "multi_apps",
+      "source_ordinal": 49,
+      "task_id": "e2392362-125e-4f76-a2ee-524b183a3412",
+      "category": "local_file",
+      "task_path": "data/tasks/multi_apps/e2392362-125e-4f76-a2ee-524b183a3412.json",
+      "sha256": "d83a02a18487f472e0718cbfddc28a716367914b9503b4e4411642e0c8daa90f",
+      "instruction_sha256": "7a93014c8f357bb577fa631652fdaafec2f4fc44d9f469052048dcf3633f006a"
+    },
+    {
+      "ordinal": 43,
+      "source_domain": "multi_apps",
+      "source_ordinal": 51,
+      "task_id": "26660ad1-6ebb-4f59-8cba-a8432dfe8d38",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/26660ad1-6ebb-4f59-8cba-a8432dfe8d38.json",
+      "sha256": "a2707d2b34a90c9147e133c6e36782c6ea646fe9ae274cbe2b1c5f6ddac70b9d",
+      "instruction_sha256": "917c90cd5f74e155552379442b8cc4a30b7ec27d08d4f51a62584169783400c4"
+    },
+    {
+      "ordinal": 44,
+      "source_domain": "multi_apps",
+      "source_ordinal": 52,
+      "task_id": "a82b78bb-7fde-4cb3-94a4-035baf10bcf0",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/a82b78bb-7fde-4cb3-94a4-035baf10bcf0.json",
+      "sha256": "291a5194b255ba22f157d4f0cf24144e221f4bd5b28cd60fce28a687918e0097",
+      "instruction_sha256": "395e6226b95cf57459668a2e4d884d49b93bc5abf573876c477bd81c5ce8b7b1"
+    },
+    {
+      "ordinal": 45,
+      "source_domain": "multi_apps",
+      "source_ordinal": 53,
+      "task_id": "36037439-2044-4b50-b9d1-875b5a332143",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/36037439-2044-4b50-b9d1-875b5a332143.json",
+      "sha256": "165b68f0f734343de0ca972cb9938f60b64c9a161d009379975b19c6d1b5b2fb",
+      "instruction_sha256": "6bd83d7f1a1f91e2c1962b91421e529ee8722a0f036139d271b22066cdfefb58"
+    },
+    {
+      "ordinal": 46,
+      "source_domain": "multi_apps",
+      "source_ordinal": 54,
+      "task_id": "716a6079-22da-47f1-ba73-c9d58f986a38",
+      "category": "local_file",
+      "task_path": "data/tasks/multi_apps/716a6079-22da-47f1-ba73-c9d58f986a38.json",
+      "sha256": "0342f13aa0acba3349f69fb5d389cc37702d55a1b225e3c9c2ea55400ea4fb46",
+      "instruction_sha256": "9327825310b9c20b9d41b87776453040cb74b22e9187524393690819124955f7"
+    },
+    {
+      "ordinal": 47,
+      "source_domain": "multi_apps",
+      "source_ordinal": 57,
+      "task_id": "6f4073b8-d8ea-4ade-8a18-c5d1d5d5aa9a",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/6f4073b8-d8ea-4ade-8a18-c5d1d5d5aa9a.json",
+      "sha256": "638c8f7c4fee554adca83d627f726864dac8ad9b984b3cd9c640eb250833d85a",
+      "instruction_sha256": "d9c1a8d82e1fa133815190b427325c4a44fb1266d1ec7b05906836102c2b8775"
+    },
+    {
+      "ordinal": 48,
+      "source_domain": "multi_apps",
+      "source_ordinal": 58,
+      "task_id": "da922383-bfa4-4cd3-bbad-6bebab3d7742",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/da922383-bfa4-4cd3-bbad-6bebab3d7742.json",
+      "sha256": "f9fbf35a02ecfbbd2421cd67d65f956b6588d5cb7b6a618c771e26f6584b4d78",
+      "instruction_sha256": "f165a9b14ae8e374cf97f4668230779e5831a92e969227377fc655c2d30ea913"
+    },
+    {
+      "ordinal": 49,
+      "source_domain": "multi_apps",
+      "source_ordinal": 65,
+      "task_id": "8df7e444-8e06-4f93-8a1a-c5c974269d82",
+      "category": "local_file",
+      "task_path": "data/tasks/multi_apps/8df7e444-8e06-4f93-8a1a-c5c974269d82.json",
+      "sha256": "947232c27d3c8ed3068826932e9a51d957d97304a4470dc9d61c05c993a94019",
+      "instruction_sha256": "8508af6aed469a6901043d999055060edbcd38fb0448d340dd3ae8b11f253773"
+    },
+    {
+      "ordinal": 50,
+      "source_domain": "multi_apps",
+      "source_ordinal": 66,
+      "task_id": "aad10cd7-9337-4b62-b704-a857848cedf2",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/aad10cd7-9337-4b62-b704-a857848cedf2.json",
+      "sha256": "281e565148eee799c05f83e30c56b9846b4c503103541bec247fa699d0be87a6",
+      "instruction_sha256": "acbf52ebe28bccfced704130371a3c2eb3d688ede2612a1053bf4154a3dd4260"
+    },
+    {
+      "ordinal": 51,
+      "source_domain": "multi_apps",
+      "source_ordinal": 71,
+      "task_id": "3e3fc409-bff3-4905-bf16-c968eee3f807",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/3e3fc409-bff3-4905-bf16-c968eee3f807.json",
+      "sha256": "e7d692a748638f40cad01f7b1dc69451a0a6daf16259f77921f8b2ba969d6eb6",
+      "instruction_sha256": "18297be3f1b113dbb17e0a22bc88a9070ed49ede58c61accd26ed7dcf186d3f0"
+    },
+    {
+      "ordinal": 52,
+      "source_domain": "multi_apps",
+      "source_ordinal": 73,
+      "task_id": "5990457f-2adb-467b-a4af-5c857c92d762",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/5990457f-2adb-467b-a4af-5c857c92d762.json",
+      "sha256": "08506eeb229896ae63a270e252f9bd5c3ce73e3ba044e9c88b416eab6ea3d847",
+      "instruction_sha256": "a72a28e400cca49f077bfb5e776342e0156bf1873530f5db10f40b6be347395e"
+    },
+    {
+      "ordinal": 53,
+      "source_domain": "multi_apps",
+      "source_ordinal": 75,
+      "task_id": "7ff48d5b-2df2-49da-b500-a5150ffc7f18",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/7ff48d5b-2df2-49da-b500-a5150ffc7f18.json",
+      "sha256": "22a705766872e96b937dd5a56f88b7909afa39bde28f99a5e6156b08c2ec04db",
+      "instruction_sha256": "2d3861750bbdf55e1a7d8bb541eb41fbdc27f17b8fc83de3dd9b6c6253dda892"
+    },
+    {
+      "ordinal": 54,
+      "source_domain": "multi_apps",
+      "source_ordinal": 77,
+      "task_id": "dd60633f-2c72-42ba-8547-6f2c8cb0fdb0",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/dd60633f-2c72-42ba-8547-6f2c8cb0fdb0.json",
+      "sha256": "ba5d1313e4239278db2cb1b24ec5ec1faeea8fd57732d3db8f8b34e19dca3abc",
+      "instruction_sha256": "b558f22cf525e2a59f4d2b168570e0d87340cb78e1f6c3738d25b77e87bad873"
+    },
+    {
+      "ordinal": 55,
+      "source_domain": "multi_apps",
+      "source_ordinal": 78,
+      "task_id": "ce2b64a2-ddc1-4f91-8c7d-a88be7121aac",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/ce2b64a2-ddc1-4f91-8c7d-a88be7121aac.json",
+      "sha256": "721ff49b8a44d2a052ec3447ce70370113df3fe2299931bd50bcd3c70ad1f840",
+      "instruction_sha256": "ce258510c84b8b0e42c923e27e07bab158494d0583cd0c9952e80c31030d4fcb"
+    },
+    {
+      "ordinal": 56,
+      "source_domain": "multi_apps",
+      "source_ordinal": 85,
+      "task_id": "788b3701-3ec9-4b67-b679-418bfa726c22",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/788b3701-3ec9-4b67-b679-418bfa726c22.json",
+      "sha256": "ab9b95769d1b2233bda7003a2ea284491ba6be1c14a621377139638bdf93496a",
+      "instruction_sha256": "50f8faa2b5e964ec0dcacb751d4d523bb1831d0087cd0b09e7c30f88891492da"
+    },
+    {
+      "ordinal": 57,
+      "source_domain": "multi_apps",
+      "source_ordinal": 87,
+      "task_id": "42d25c08-fb87-4927-8b65-93631280a26f",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/42d25c08-fb87-4927-8b65-93631280a26f.json",
+      "sha256": "33e021e9124556c757835cea2d952a4da1510ea04c837035a439f5c3d4fa2432",
+      "instruction_sha256": "3e58b68aa63ef4aeb05923714145b198dfa0ad20739251021d66db6fc2f1d9d4"
+    },
+    {
+      "ordinal": 58,
+      "source_domain": "multi_apps",
+      "source_ordinal": 93,
+      "task_id": "7f35355e-02a6-45b5-b140-f0be698bcf85",
+      "category": "local_file",
+      "task_path": "data/tasks/multi_apps/7f35355e-02a6-45b5-b140-f0be698bcf85.json",
+      "sha256": "f558c11047d967923de2091816e8117dad4c7f3f9329a58de2426c5b896024f3",
+      "instruction_sha256": "4512ea583379e28575f9063d3c293b32ecb95d3619ac2da30337e0dd2e4a09de"
+    },
+    {
+      "ordinal": 59,
+      "source_domain": "multi_apps",
+      "source_ordinal": 95,
+      "task_id": "0e5303d4-8820-42f6-b18d-daf7e633de21",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/0e5303d4-8820-42f6-b18d-daf7e633de21.json",
+      "sha256": "0c6c785d131ae3f0b893c2ad991e41821c4b98f57a6ee4f13a88680bb6be4c63",
+      "instruction_sha256": "e191745d27b3bc46766e3fbb1d5727b854d242491f7aac3e7e2b2a44e0180af2"
+    },
+    {
+      "ordinal": 60,
+      "source_domain": "multi_apps",
+      "source_ordinal": 96,
+      "task_id": "df67aebb-fb3a-44fd-b75b-51b6012df509",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/df67aebb-fb3a-44fd-b75b-51b6012df509.json",
+      "sha256": "251bbe40cfd9918577f18a93c50c6d301d232c436ebd1f8284e625aa186cdecc",
+      "instruction_sha256": "582bf94512635be746d27d8093b1fabe63db90739f40de388515a2a9f1c74a7a"
+    },
+    {
+      "ordinal": 61,
+      "source_domain": "multi_apps",
+      "source_ordinal": 97,
+      "task_id": "5df7b33a-9f77-4101-823e-02f863e1c1ae",
+      "category": "local_file",
+      "task_path": "data/tasks/multi_apps/5df7b33a-9f77-4101-823e-02f863e1c1ae.json",
+      "sha256": "0f7240b14418a71e36f08a8423762c54381f558b0c358561110a57386d484d3c",
+      "instruction_sha256": "3e781d315c73c0439e81d8a4a1e2b0851a6812ed01c95a45fd05187e1c9b0fcf"
+    },
+    {
+      "ordinal": 62,
+      "source_domain": "multi_apps",
+      "source_ordinal": 100,
+      "task_id": "236833a3-5704-47fc-888c-4f298f09f799",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/236833a3-5704-47fc-888c-4f298f09f799.json",
+      "sha256": "90d235cb7c84329eb6dcd4b3c34e79352d2284e75e686711a5fa20115755b234",
+      "instruction_sha256": "facac135a1481ce33616ff8dcf5fcbc7334f41ed992720fdf6b5c0cf4ef77314"
+    },
+    {
+      "ordinal": 63,
+      "source_domain": "multi_apps",
+      "source_ordinal": 101,
+      "task_id": "67890eb6-6ce5-4c00-9e3d-fb4972699b06",
+      "category": "browser_file",
+      "task_path": "data/tasks/multi_apps/67890eb6-6ce5-4c00-9e3d-fb4972699b06.json",
+      "sha256": "160556cd1a0227c40637f20207f4f731d34f89d5d6d7a4925d5fbad220410318",
+      "instruction_sha256": "ea47db3a8083e4b96f2e3e5921bcb2dcad57eb62eec779607e6162fd2dffcc95"
+    },
+    {
+      "ordinal": 64,
+      "source_domain": "os",
+      "source_ordinal": 7,
+      "task_id": "5ea617a3-0e86-4ba6-aab2-dac9aa2e8d57",
+      "category": "local_file",
+      "task_path": "data/tasks/os/5ea617a3-0e86-4ba6-aab2-dac9aa2e8d57.json",
+      "sha256": "4235cb5cf42f47c15c28a4c601592ded5f99bba7ffa89666b2c583adfbeea97a",
+      "instruction_sha256": "106cd1db7a4bc52e6efd7f1dce4383b2f3c14789d755cf8f57fd77d84ed0caec"
+    },
+    {
+      "ordinal": 65,
+      "source_domain": "os",
+      "source_ordinal": 8,
+      "task_id": "e0df059f-28a6-4169-924f-b9623e7184cc",
+      "category": "local_file",
+      "task_path": "data/tasks/os/e0df059f-28a6-4169-924f-b9623e7184cc.json",
+      "sha256": "a507ec6c35284c1413efe0d8a325b41a1626522221efc14f153742a865f1c04d",
+      "instruction_sha256": "4b5497349b4c66fb85025100ccbde6375828e0843c0c3ac586f6d587b10d0dae"
+    },
+    {
+      "ordinal": 66,
+      "source_domain": "os",
+      "source_ordinal": 15,
+      "task_id": "23393935-50c7-4a86-aeea-2b78fd089c5c",
+      "category": "local_file",
+      "task_path": "data/tasks/os/23393935-50c7-4a86-aeea-2b78fd089c5c.json",
+      "sha256": "9682045d7f9f3e73ecd29dafd485aa4376b02d75de13502d2a3eeb0f42341bf5",
+      "instruction_sha256": "a72ba1bef4a5635006a58ae04f7ef96ddc38a0cddc2b90484594959ccdac710a"
+    },
+    {
+      "ordinal": 67,
+      "source_domain": "os",
+      "source_ordinal": 18,
+      "task_id": "4783cc41-c03c-4e1b-89b4-50658f642bd5",
+      "category": "local_file",
+      "task_path": "data/tasks/os/4783cc41-c03c-4e1b-89b4-50658f642bd5.json",
+      "sha256": "02e927fcb3d37fba1e9dbf410fcf80a1a485c5d8addb5e61bc06702cd6bb408d",
+      "instruction_sha256": "314a32b97c60c2b4bf1ab9f9d03382404f57ef617c3bdd5bcb6a8f2072c4b77f"
+    },
+    {
+      "ordinal": 68,
+      "source_domain": "os",
+      "source_ordinal": 19,
+      "task_id": "5c1075ca-bb34-46a3-a7a0-029bd7463e79",
+      "category": "local_file",
+      "task_path": "data/tasks/os/5c1075ca-bb34-46a3-a7a0-029bd7463e79.json",
+      "sha256": "6b57e8b32c048a252d8076fc280bf029f869e99e2938530ff78087aa7fdce410",
+      "instruction_sha256": "744a4c47b0b73217ad158f13ca012c4fb509ccc4f23d2cc79f124426e8d0cd13"
+    },
+    {
+      "ordinal": 69,
+      "source_domain": "os",
+      "source_ordinal": 20,
+      "task_id": "5ced85fc-fa1a-4217-95fd-0fb530545ce2",
+      "category": "local_file",
+      "task_path": "data/tasks/os/5ced85fc-fa1a-4217-95fd-0fb530545ce2.json",
+      "sha256": "a088d914f987dcc9cdeb9b4a3a632c57d5aab0be62cc8ce63dcf9fd1531d3587",
+      "instruction_sha256": "17a3af7fa58ea8365511ded2b94c375d426c880fde0f37805f483edaf976eebd"
+    },
+    {
+      "ordinal": 70,
+      "source_domain": "os",
+      "source_ordinal": 21,
+      "task_id": "37887e8c-da15-4192-923c-08fa390a176d",
+      "category": "local_file",
+      "task_path": "data/tasks/os/37887e8c-da15-4192-923c-08fa390a176d.json",
+      "sha256": "a1f0241bac2ec5aab2bc2a08a33c160f54ef099804430bc931466aaceb967a3a",
+      "instruction_sha256": "9c6b3e688f27ebce5adc461994911e4a0a7e0a8a7732da8c88eca4db8bfa64b6"
+    },
+    {
+      "ordinal": 71,
+      "source_domain": "os",
+      "source_ordinal": 22,
+      "task_id": "4127319a-8b79-4410-b58a-7a151e15f3d7",
+      "category": "local_file",
+      "task_path": "data/tasks/os/4127319a-8b79-4410-b58a-7a151e15f3d7.json",
+      "sha256": "ebfa1d3284675a98ec44b2ba8cc873dad35b4996ed6ea681288d9e2613fe753d",
+      "instruction_sha256": "c0ac622ccfe4a472b84594ef661acf369181b06462fc1bde5172cc25d9cf6ff7"
+    },
+    {
+      "ordinal": 72,
+      "source_domain": "os",
+      "source_ordinal": 23,
+      "task_id": "4d117223-a354-47fb-8b45-62ab1390a95f",
+      "category": "local_file",
+      "task_path": "data/tasks/os/4d117223-a354-47fb-8b45-62ab1390a95f.json",
+      "sha256": "015c77ef82775babe8040ff0785ffc26d4a0f311e53e32eef0270d7fd81ad4f2",
+      "instruction_sha256": "a776db855539567e1221f9a38f5c3580595a6f42219eb287c74cee57eb3c3792"
+    },
+    {
+      "ordinal": 73,
+      "source_domain": "os",
+      "source_ordinal": 24,
+      "task_id": "6f56bf42-85b8-4fbb-8e06-6c44960184ba",
+      "category": "local_file",
+      "task_path": "data/tasks/os/6f56bf42-85b8-4fbb-8e06-6c44960184ba.json",
+      "sha256": "11d47ceae5cacadb018f9748a9da71da6cb9dd489eb31650a967c3162963c812",
+      "instruction_sha256": "c028c21052aa7a334c83a3264d068c64b342f40a2b2270954eca37eacd94a46c"
+    },
+    {
+      "ordinal": 74,
+      "source_domain": "vs_code",
+      "source_ordinal": 1,
+      "task_id": "0ed39f63-6049-43d4-ba4d-5fa2fe04a951",
+      "category": "local_file",
+      "task_path": "data/tasks/vs_code/0ed39f63-6049-43d4-ba4d-5fa2fe04a951.json",
+      "sha256": "ba53fb30a0d1064b46a68babbad9b082bb79b7228788c4643fca828c17c075ff",
+      "instruction_sha256": "72f9e204754aff5aeb8d6edcbc148994c3dee7141ea6595770449cd5c1626e8a"
+    },
+    {
+      "ordinal": 75,
+      "source_domain": "vs_code",
+      "source_ordinal": 14,
+      "task_id": "ec71221e-ac43-46f9-89b8-ee7d80f7e1c5",
+      "category": "local_file",
+      "task_path": "data/tasks/vs_code/ec71221e-ac43-46f9-89b8-ee7d80f7e1c5.json",
+      "sha256": "b9f50a23a983d7c339cf6169804073020cf3a5151ab8bb9c16d202071655adcf",
+      "instruction_sha256": "a12738addcdf7bfa6854d1f6762e0855b04aadd8d5629b433ffee3b70aa8cb26"
+    },
+    {
+      "ordinal": 76,
+      "source_domain": "vs_code",
+      "source_ordinal": 16,
+      "task_id": "57242fad-77ca-454f-b71b-f187181a9f23",
+      "category": "local_file",
+      "task_path": "data/tasks/vs_code/57242fad-77ca-454f-b71b-f187181a9f23.json",
+      "sha256": "71332c545e997c9f27afbfbde4a239b4b8e45c54fbe53268af5cd096519ac154",
+      "instruction_sha256": "92fd0431919f16c027a0287a8802a8fdb2db53fd64f5eaabb09fee9f53dc0d26"
+    }
+  ]
+}

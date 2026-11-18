@@ -120,6 +120,11 @@ def runtime(run_dir):
                  COMMIT=read(run_dir / 'plan.json')['product_commit'],
                  __file__=str(run_dir / 'driver/run.py'))
     exec(compile(ast.Module(body=nodes, type_ignores=[]), str(source), 'exec'), scope)
+    build = read(run_dir / 'build.json')
+    if 'actor_runtime' in build:
+        sys.path.insert(0, str(PACKAGE.parent))
+        from shared_actor_runtime import bind_actor
+        bind_actor(scope, build['actor_runtime'])
     return SimpleNamespace(**scope)
 
 def matches_frozen_file(path, digest, *, historical_report):
@@ -167,7 +172,7 @@ def actor_credentials(path):
         raise ValueError("Online requires Actor mode 'default'")
     return dict(cfg, mode='default', reasoning_effort='max')
 
-def prepare(run_dir, product_source, credentials, judge_python):
+def prepare(run_dir, product_source, credentials, judge_python, actor_runtime=None):
     verify()
     run_dir, product_source = Path(run_dir).resolve(), Path(product_source).resolve()
     assert not run_dir.exists(), 'Use a new run directory; existing evidence is preserved'
@@ -184,13 +189,23 @@ def prepare(run_dir, product_source, credentials, judge_python):
     shutil.copytree(product_source / 'src', product / 'src', ignore=shutil.ignore_patterns('__pycache__', '*.pyc', '*.egg-info'))
     for name in ('pyproject.toml', 'uv.lock'):
         shutil.copyfile(product_source / name, product / name)
-    subprocess.run(['uv', 'sync', '--frozen', '--no-dev', '--python', '3.12'], cwd=product, check=True)
-    engine = subprocess.check_output([str(product / '.venv/bin/python'), '-c', 'from importlib.metadata import version; print(version("browser-use"))'], text=True).strip()
+    frozen_actor = None
+    if actor_runtime:
+        sys.path.insert(0, str(PACKAGE.parent))
+        from shared_actor_runtime import binding
+        frozen_actor = binding(actor_runtime, commit)
+        actor_root = Path(frozen_actor['manifest']).parent
+    else:
+        subprocess.run(['uv', 'sync', '--frozen', '--no-dev', '--python', '3.12'], cwd=product, check=True)
+        actor_root = product
+    engine = subprocess.check_output([str(actor_root / '.venv/bin/python'), '-c', 'from importlib.metadata import version; print(version("browser-use"))'], text=True).strip()
     assert engine == '1.0.4', 'Expected the locked official Browser Use 1.0.4 product'
     frozen_product = sorted(q for q in (product / 'src').rglob('*') if q.is_file() and '__pycache__' not in q.parts and not q.name.endswith('.pyc'))
     frozen_product += [product / 'pyproject.toml', product / 'uv.lock']
     build = {'commit': commit, 'engine_version': engine,
              'source_sha256': {str(q.relative_to(product)): sha(q) for q in frozen_product}}
+    if frozen_actor:
+        build['actor_runtime'] = frozen_actor
     write(run_dir / 'build.json', build)
     support = run_dir / 'support'
     shutil.copytree(PACKAGE / 'legacy/code', support / 'code')
@@ -259,6 +274,7 @@ def main(argv=None):
     parser.add_argument('job', nargs='*')
     parser.add_argument('--run-dir', type=Path)
     parser.add_argument('--product', type=Path)
+    parser.add_argument('--actor-runtime', type=Path)
     parser.add_argument('--credentials', type=Path)
     parser.add_argument('--judge-python', type=Path, default=PACKAGE / '.venv-judge/bin/python')
     args = parser.parse_args(argv)
@@ -268,7 +284,7 @@ def main(argv=None):
     assert args.run_dir, '--run-dir is required'
     if args.command == 'prepare':
         assert args.product and args.credentials, '--product and --credentials are required'
-        prepare(args.run_dir, args.product, args.credentials, args.judge_python)
+        prepare(args.run_dir, args.product, args.credentials, args.judge_python, args.actor_runtime)
         return
     verify()
     if args.command == 'report':

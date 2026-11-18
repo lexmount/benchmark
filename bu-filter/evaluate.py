@@ -110,6 +110,13 @@ def product_commit(source):
 
 def prepare(args):
     proof=preflight(args);cfg=config(args.config)
+    frozen_actor = None
+    if getattr(args, 'actor_runtime', None):
+        sys.path.insert(0, str(HERE.parent))
+        from shared_actor_runtime import binding
+        frozen_actor = binding(args.actor_runtime, product_commit(args.agent_source))
+        if executable(args.agent_python) != Path(frozen_actor['manifest']).parent / '.venv/bin/python':
+            raise ValueError('BU must use the Python executable from the supplied Actor release')
     run=Path(args.output).expanduser().resolve();run.mkdir(parents=True,exist_ok=False,mode=0o700)
     harness=run/'frozen/harness'
     shutil.copytree(HERE,harness,ignore=shutil.ignore_patterns('__pycache__','*.pyc','.venv*','results','.git','.private'))
@@ -117,9 +124,13 @@ def prepare(args):
     shutil.copytree(source/'src',product/'src',ignore=shutil.ignore_patterns('__pycache__','*.pyc','*.egg-info'))
     for name in ['pyproject.toml','uv.lock','README.md','.source-commit']:
         if (source/name).is_file():shutil.copy2(source/name,product/name)
-    # Same dedicated product/.venv and src layout as the original run; no editable path outside bwrap.
-    subprocess.run(['uv','sync','--frozen','--python',str(executable(args.agent_python))],cwd=product,check=True)
-    installed=product_probe(product,product/'.venv/bin/python')
+    if frozen_actor:
+        shutil.copy2(HERE.parent / 'shared_actor_runtime.py', harness / 'shared_actor_runtime.py')
+        actor_root = Path(frozen_actor['manifest']).parent
+    else:
+        subprocess.run(['uv','sync','--frozen','--python',str(executable(args.agent_python))],cwd=product,check=True)
+        actor_root = product
+    installed=product_probe(actor_root,actor_root/'.venv/bin/python')
     assert installed['versions']==proof['product']['versions'] and installed['all_versions']==proof['product']['all_versions'] and installed['python_version']==proof['product']['python_version'],'Product dependency versions changed while installing the frozen build'
     build={'commit':product_commit(source),'engine_version':installed['engine_version'],'engine_files':installed['engine_files'],'source_sha256':source_hashes(product)}
     write(run/'build.json',build)
@@ -129,7 +140,9 @@ def prepare(args):
     if not capacity.is_file():raise FileNotFoundError('Capacity metadata is required; do not discard existing evaluators')
     inflight=read(capacity)['in_flight']
     write(support/'previous-capacity/pause-bu-priority.json',{'in_flight':inflight})
-    settings={'controller_python':cfg['controller_python'],'product_source':str(product),'agent_python':str(product/'.venv/bin/python'),'judge_python':str(executable(args.judge_python)),'credentials_file':str(support/'.private/model.json'),'agent':cfg['agent'],'judge':cfg['judge'],'browser_executable':cfg['browser_executable'],'viewport':cfg['viewport']}
+    settings={'controller_python':cfg['controller_python'],'product_source':str(product),'agent_python':str(actor_root/'.venv/bin/python'),'judge_python':str(executable(args.judge_python)),'credentials_file':str(support/'.private/model.json'),'agent':cfg['agent'],'judge':cfg['judge'],'browser_executable':cfg['browser_executable'],'viewport':cfg['viewport']}
+    if frozen_actor:
+        settings['actor_runtime'] = frozen_actor
     write(run/'settings.json',settings)
     tasks=[{k:t[k] for k in ['id','instruction','start_url','answer']} for t in load_judge_tasks()]
     write(run/'task-data.json',{'bu_v1':tasks})
@@ -201,6 +214,7 @@ def runtime_args(p):
     p.add_argument('--config',default=str(HERE/'config.json'))
     p.add_argument('--agent-source',required=True)
     p.add_argument('--agent-python',required=True)
+    p.add_argument('--actor-runtime', type=Path)
     p.add_argument('--judge-python',required=True)
     p.add_argument('--credentials-file',default=str(HERE.parent/'.private/bu-filter-model.json'))
     p.add_argument('--capacity-file',default=str(HERE.parent/'.private/bu-filter-capacity.json'))

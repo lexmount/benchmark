@@ -123,6 +123,9 @@ def load_runtime(run_dir) -> dict:
     }
     tree, audit = _extracted_module()
     exec(compile(tree, str(REFERENCE), "exec"), namespace)
+    if 'actor_runtime' in settings:
+        from shared_actor_runtime import bind_actor
+        bind_actor(namespace, settings['actor_runtime'])
     _install_environment(run, root, code, judge_python)
     namespace["SOURCE_AUDIT"] = audit
     return namespace

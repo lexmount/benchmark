@@ -147,6 +147,9 @@ def preflight_run(run_dir, *, for_execution=False, historical_report=False):
                           or read(run_dir/'support/.private/model.json').get('mode') != 'default'):
         raise ValueError("Online requires a run prepared with Actor mode 'default'")
     assert plan['counts'] == {SUITE: 247} and len(plan['jobs']) == 247
+    expected_steps = plan.get('max_steps', read(PACKAGE / 'config.json')['max_steps'])
+    if type(expected_steps) is not int or expected_steps <= 0:
+        raise ValueError('Frozen max_steps must be a positive integer')
     allowed = {t['id'] for t in tasks()}
     assert {j['task_id'] for j in plan['jobs']} == allowed
     for path, digest in plan['file_sha256'].items():
@@ -158,7 +161,7 @@ def preflight_run(run_dir, *, for_execution=False, historical_report=False):
         c = read(actor_path)
         if for_execution and c.get('mode') != 'default':
             raise ValueError("Online requires every task to use Actor mode 'default'")
-        assert (c['max_steps'], c['timeout_seconds'], c['fixed_viewport']) == (100, 3600, False)
+        assert (c['max_steps'], c['timeout_seconds'], c['fixed_viewport']) == (expected_steps, 3600, False)
         if historical_report:
             assert sha(actor_path) == job['actor_config_sha256'], actor_path
             assert sha(folder / 'task.json') == job['task_input_sha256'], folder
@@ -172,8 +175,12 @@ def actor_credentials(path):
         raise ValueError("Online requires Actor mode 'default'")
     return dict(cfg, mode='default', reasoning_effort='max')
 
-def prepare(run_dir, product_source, credentials, judge_python, actor_runtime=None):
+def prepare(run_dir, product_source, credentials, judge_python, actor_runtime=None, max_steps=None):
     verify()
+    if max_steps is None:
+        max_steps = read(PACKAGE / 'config.json')['max_steps']
+    if type(max_steps) is not int or max_steps <= 0:
+        raise ValueError('max_steps must be a positive integer')
     run_dir, product_source = Path(run_dir).resolve(), Path(product_source).resolve()
     assert not run_dir.exists(), 'Use a new run directory; existing evidence is preserved'
     assert shutil.which('bwrap')
@@ -229,7 +236,7 @@ def prepare(run_dir, product_source, credentials, judge_python, actor_runtime=No
         assert '/' not in tid and '..' not in tid
         folder = run_dir / 'runs' / SUITE / tid
         write(folder / 'task.json', {name: task.get(name) for name in ('id', 'instruction', 'start_url')})
-        write(folder / 'actor-config.json', {'source_folder': str(folder), 'mode': 'default', 'max_steps': 100, 'timeout_seconds': 3600,
+        write(folder / 'actor-config.json', {'source_folder': str(folder), 'mode': 'default', 'max_steps': max_steps, 'timeout_seconds': 3600,
               'feature_config': config['feature_config'], 'fixed_viewport': False, 'product': build})
         pending.append({'arm': 'candidate', 'suite': SUITE, 'task_id': tid, 'ordinal': ordinals[tid],
                         'source_folder': str(folder), 'judge_folder': str(run_dir / 'judges' / SUITE / tid),
@@ -240,7 +247,7 @@ def prepare(run_dir, product_source, credentials, judge_python, actor_runtime=No
     frozen += [PACKAGE / name for name in read(PACKAGE / 'frozen-files.json')]
     frozen += [PACKAGE / 'frozen-files.json', *frozen_product]
     write(run_dir / 'plan.json', {'product_commit': commit, 'created_at': time.time(), 'context_anchor': datetime.now(UTC).isoformat(),
-          'actor_concurrency': 32, 'judge_concurrency': 4, 'counts': {SUITE: 247},
+          'actor_concurrency': 32, 'judge_concurrency': 4, 'counts': {SUITE: 247}, 'max_steps': max_steps,
           'new_actor_runs': 247, 'reused_actor_runs': 0, 'old_actor_runs': 0,
           'agent_model': 'deepseek-v4.1-flash', 'agent_reasoning': 'max', 'mode': 'default',
           'judge_reasoning': 'low', 'judge_protocol': config['judge_protocol'], 'seed': config['seed'],
@@ -274,15 +281,18 @@ def main(argv=None):
     parser.add_argument('--product', type=Path)
     parser.add_argument('--actor-runtime', type=Path)
     parser.add_argument('--credentials', type=Path)
+    parser.add_argument('--max-steps', type=int, help='Freeze an explicitly requested turn budget at prepare time')
     parser.add_argument('--judge-python', type=Path, default=PACKAGE / '.venv-judge/bin/python')
     args = parser.parse_args(argv)
+    if args.max_steps is not None and args.command != 'prepare':
+        parser.error('--max-steps can only be supplied for prepare')
     if args.command == 'verify':
         verify()
         return
     assert args.run_dir, '--run-dir is required'
     if args.command == 'prepare':
         assert args.product and args.credentials, '--product and --credentials are required'
-        prepare(args.run_dir, args.product, args.credentials, args.judge_python, args.actor_runtime)
+        prepare(args.run_dir, args.product, args.credentials, args.judge_python, args.actor_runtime, args.max_steps)
         return
     verify()
     if args.command == 'report':

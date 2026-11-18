@@ -74,6 +74,8 @@ uv pip sync --python .venv-judge/bin/python requirements-judge.txt
 
 ## 创建一次评测
 
+运行前在 `prepare` 冻结回合预算。247 题通用配置为 100。复用 Online-123 归档口径时，在准备命令中传入 `--max-steps 200`。实际派发和复核均读取新计划及逐题配置。
+
 提供干净产品 checkout 或已发布的产品目录。新运行按产品提交读取 5090 的 `/data/wf/sxh/workspace/lexmount/agent-runtimes/<commit>/actor-runtime.json`。可用 `LEXMOUNT_ACTOR_RUNTIME_STORE` 或 `--actor-runtime` 指定其他位置。准备阶段保存源码快照和运行环境指纹，工作进程直接挂载与 BU 相同的产品文件。当前接入校验官方 1.0.4 引擎、`Session` 取证回调与产品入口。
 
 凭证沿用既有私有JSON格式，必须位于仓库外或忽略的`.private/`中：`api_key`、`base_url`、`model=deepseek-v4.1-flash`，准备阶段写入 `reasoning_effort=max` 和 `mode=default`。凭据文件可省略 mode，显式填写时只接受 `default`。不要把真实凭证写入教程或Git。

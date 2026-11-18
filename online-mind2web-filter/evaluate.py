@@ -176,9 +176,17 @@ def prepare(run_dir, product_source, credentials, judge_python, actor_runtime=No
     verify()
     run_dir, product_source = Path(run_dir).resolve(), Path(product_source).resolve()
     assert not run_dir.exists(), 'Use a new run directory; existing evidence is preserved'
-    assert shutil.which('bwrap') and Path('/opt/google/chrome/chrome').is_file()
-    commit = subprocess.check_output(['git', '-C', str(product_source), 'rev-parse', 'HEAD'], text=True).strip()
-    assert not subprocess.check_output(['git', '-C', str(product_source), 'status', '--porcelain', '--', 'src', 'pyproject.toml', 'uv.lock'], text=True), 'Product source must be clean'
+    assert shutil.which('bwrap')
+    published = product_source/'actor-runtime.json'
+    if published.is_file():
+        commit = read(published)['product_commit']
+    else:
+        commit = subprocess.check_output(['git', '-C', str(product_source), 'rev-parse', 'HEAD'], text=True).strip()
+        assert not subprocess.check_output(['git', '-C', str(product_source), 'status', '--porcelain', '--', 'src', 'pyproject.toml', 'uv.lock'], text=True), 'Product source must be clean'
+    sys.path.insert(0, str(PACKAGE.parent))
+    from shared_actor_runtime import select_release
+    frozen_actor = select_release(product_source, commit, actor_runtime)
+    actor_root = Path(frozen_actor['manifest']).parent
     cfg = actor_credentials(credentials)
     assert cfg['model'] == 'deepseek-v4.1-flash'
     assert cfg.get('api_key') and cfg.get('base_url')
@@ -186,26 +194,16 @@ def prepare(run_dir, product_source, credentials, judge_python, actor_runtime=No
     run_dir.mkdir(parents=True)
     product = run_dir / 'product'
     product.mkdir()
-    shutil.copytree(product_source / 'src', product / 'src', ignore=shutil.ignore_patterns('__pycache__', '*.pyc', '*.egg-info'))
+    shutil.copytree(actor_root / 'src', product / 'src', ignore=shutil.ignore_patterns('__pycache__', '*.pyc', '*.egg-info'))
     for name in ('pyproject.toml', 'uv.lock'):
-        shutil.copyfile(product_source / name, product / name)
-    frozen_actor = None
-    if actor_runtime:
-        sys.path.insert(0, str(PACKAGE.parent))
-        from shared_actor_runtime import binding
-        frozen_actor = binding(actor_runtime, commit)
-        actor_root = Path(frozen_actor['manifest']).parent
-    else:
-        subprocess.run(['uv', 'sync', '--frozen', '--no-dev', '--python', '3.12'], cwd=product, check=True)
-        actor_root = product
+        shutil.copyfile(actor_root / name, product / name)
     engine = subprocess.check_output([str(actor_root / '.venv/bin/python'), '-c', 'from importlib.metadata import version; print(version("browser-use"))'], text=True).strip()
     assert engine == '1.0.4', 'Expected the locked official Browser Use 1.0.4 product'
     frozen_product = sorted(q for q in (product / 'src').rglob('*') if q.is_file() and '__pycache__' not in q.parts and not q.name.endswith('.pyc'))
     frozen_product += [product / 'pyproject.toml', product / 'uv.lock']
     build = {'commit': commit, 'engine_version': engine,
              'source_sha256': {str(q.relative_to(product)): sha(q) for q in frozen_product}}
-    if frozen_actor:
-        build['actor_runtime'] = frozen_actor
+    build['actor_runtime'] = frozen_actor
     write(run_dir / 'build.json', build)
     support = run_dir / 'support'
     shutil.copytree(PACKAGE / 'legacy/code', support / 'code')

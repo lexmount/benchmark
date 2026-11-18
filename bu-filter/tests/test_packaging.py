@@ -122,3 +122,35 @@ def test_bu_archive_preserves_other_benchmarks():
         "task_count": 88, "max_steps": 300, "timeout_seconds": 3600,
         "entry": "bu-filter/evaluate.py",
     }
+
+def test_published_actor_is_selected_by_commit_before_creating_a_run(tmp_path, monkeypatch):
+    import hashlib
+    monkeypatch.syspath_prepend(str(ROOT.parent))
+    from shared_actor_runtime import bind_actor, select_release
+
+    commit = 'a' * 40
+    store = tmp_path / 'registry'
+    root = store / commit
+    monkeypatch.setenv('LEXMOUNT_ACTOR_RUNTIME_STORE', str(store))
+    with pytest.raises(FileNotFoundError, match='Publish Agent'):
+        select_release(tmp_path, commit)
+    for name in ('uv.lock', '.venv/bin/python', 'src/lexmount_browser_agent/__init__.py', 'chrome/chrome', 'cpython/bin/python3'):
+        f = root / name
+        f.parent.mkdir(parents=True, exist_ok=True)
+        f.write_text(name)
+    manifest = root / 'actor-runtime.json'
+    manifest.write_text(json.dumps({'product_commit': commit, 'uv_lock_sha256': hashlib.sha256(b'uv.lock').hexdigest()}))
+    auto = select_release(tmp_path, commit)
+    assert auto == select_release(root, commit) == select_release(tmp_path, commit, manifest)
+    scope = {'COMMIT': commit}
+    def actor_command():
+        return ['bwrap', '--ro-bind', '/opt/google/chrome', '/opt/google/chrome', '--ro-bind',
+                '/home/wf/.local/share/uv/python', '/home/wf/.local/share/uv/python', '--', str(scope['ENV']/'bin/python')]
+    scope['actor_command'] = actor_command
+    bind_actor(scope, auto)
+    args = scope['actor_command']()
+    assert str(root/'chrome') in args and str(root/'cpython') in args and args[-1] == str(root/'.venv/bin/python')
+    assert scope['SOURCE'] == root/'src'
+    manifest.write_text(manifest.read_text()+' ')
+    with pytest.raises(ValueError, match='changed'):
+        bind_actor(scope, auto)

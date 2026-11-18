@@ -85,7 +85,7 @@ uv venv --python 3.12.13 .venvs/bu-filter-test
 uv pip sync --python .venvs/bu-filter-test/bin/python bu-filter/requirements-tests.txt
 ```
 
-主机需要原评测使用的 `bwrap` 和 `/opt/google/chrome/chrome`。缺失会明确报错，不降级为宿主直接执行。裁判环境独立使用 `browser-use==0.13.14` 的消息类型，不覆盖产品环境。
+主机提供 `bwrap`；Actor 使用 Agent 发布目录里固定的 Chrome 副本。裁判环境独立使用 `browser-use==0.13.14` 的消息类型，不覆盖产品环境。
 
 原df93的实际运行环境已逐项核对并保留：
 
@@ -102,7 +102,7 @@ uv pip sync --python .venvs/bu-filter-test/bin/python bu-filter/requirements-tes
 
 **当前产品接入使用官方 browser-use 1.0.4。** 预检核验官方发行包的 Python 源文件、产品源文件及冻结安装后的依赖。内层 Python worker 的导入另在隔离探针中核查。Actor 的 DeepSeek 动作和上下文压缩统一使用 max，实际发送值保存在每题请求日志。裁判继续使用 low。
 
-使用当前产品分支的干净 checkout 作为下文的 `--agent-source`，并用 Python 3.14.5 执行 `uv sync --frozen`。准备阶段会在本轮目录建立独立产品环境。
+使用干净产品 checkout 或已发布的产品目录作为 `--agent-source`。新运行按产品提交从 5090 的 `/data/wf/sxh/workspace/lexmount/agent-runtimes/<commit>/actor-runtime.json` 选择运行环境，也可用 `LEXMOUNT_ACTOR_RUNTIME_STORE` 或 `--actor-runtime` 指定位置。Agent 发布程序一次冻结 Python、uv.lock、Chrome 和 OCR。BU 与 Online 均只读挂载该版本，任务目录保存源码和配置证据快照。
 
 ## 私密配置
 
@@ -123,14 +123,13 @@ cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py verify
 .venvs/bu-filter-test/bin/python -m pytest -q bu-filter/tests
 
+PRODUCT_CHECKOUT=/absolute/path/to/LexmountBrowserAgent
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py preflight \
-  --agent-source /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool \
-  --agent-python /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool/.venv/bin/python \
+  --agent-source "$PRODUCT_CHECKOUT" \
   --judge-python /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/.venvs/bu-filter-judge/bin/python
 
 .venvs/bu-filter-control/bin/python bu-filter/evaluate.py prepare \
-  --agent-source /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool \
-  --agent-python /data/wf/sxh/workspace/lexmount/agent-builds/codex-is-a-fool/.venv/bin/python \
+  --agent-source "$PRODUCT_CHECKOUT" \
   --judge-python /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/.venvs/bu-filter-judge/bin/python \
   --output /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/results/bu-filter-round1
 

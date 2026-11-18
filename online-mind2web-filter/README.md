@@ -49,7 +49,7 @@
 
 ## 5090环境与安装
 
-目标环境：Linux x86_64、Python3.12、`uv`、`bwrap`、`/opt/google/chrome/chrome`。模型通过既有API调用，不需要在5090显存内装载模型。机器已有Chrome/bwrap/uv时直接复用，不修改代理或GPU配置。
+评测控制和 Judge 环境使用 Linux x86_64、Python 3.12 和 `bwrap`。Actor 的 Python、库、Chrome 和 OCR 来自给定 Agent 提交的发布目录，模型使用配置中的 API。
 
 ```bash
 cd /data/wf/sxh/workspace/lexmount/exclusive-agent-eval/current
@@ -74,7 +74,7 @@ uv pip sync --python .venv-judge/bin/python requirements-judge.txt
 
 ## 创建一次评测
 
-准备一个**干净、兼容原Observer API的产品Git checkout**，包含`src/`、`pyproject.toml`和`uv.lock`。本包不绑定一个“永远最新”的产品版本，也不修改产品；prepare把选定源码复制到本次运行目录，按其`uv.lock`创建独立环境，记录提交、引擎版本和源文件哈希。当前接入校验官方 1.0.4 引擎、`Session` 取证回调和产品 `run_task/AgentConfig` 接口。
+提供干净产品 checkout 或已发布的产品目录。新运行按产品提交读取 5090 的 `/data/wf/sxh/workspace/lexmount/agent-runtimes/<commit>/actor-runtime.json`。可用 `LEXMOUNT_ACTOR_RUNTIME_STORE` 或 `--actor-runtime` 指定其他位置。准备阶段保存源码快照和运行环境指纹，工作进程直接挂载与 BU 相同的产品文件。当前接入校验官方 1.0.4 引擎、`Session` 取证回调与产品入口。
 
 凭证沿用既有私有JSON格式，必须位于仓库外或忽略的`.private/`中：`api_key`、`base_url`、`model=deepseek-v4.1-flash`，准备阶段写入 `reasoning_effort=max` 和 `mode=default`。凭据文件可省略 mode，显式填写时只接受 `default`。不要把真实凭证写入教程或Git。
 
@@ -89,7 +89,7 @@ RUN_DIR=/data/wf/sxh/workspace/lexmount/exclusive-agent-eval/online-mind2web-fil
 .venv-judge/bin/python evaluate.py probe --run-dir "$RUN_DIR"
 ```
 
-`verify`、离线测试和`probe`不访问模型。probe会启动真实Chrome，只打开本地data页面，检查原产品加载、沙箱和浏览器能力。prepare安装依赖但不调用模型。正式run前应确认probe出现`isolated browser probe passed candidate`。
+`verify`、离线测试和`probe`不访问模型。probe会启动真实Chrome，只打开本地data页面，检查原产品加载、沙箱和浏览器能力。prepare冻结已发布的 Agent 环境和本轮题目。正式run前应确认probe出现`isolated browser probe passed candidate`。
 
 ## 执行与查看结果
 

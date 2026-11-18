@@ -78,13 +78,22 @@ print(json.dumps({'python_version':platform.python_version(),'all_versions':{d.m
 def preflight(args):
     cfg=config(args.config); data=validate_dataset()
     source=Path(args.agent_source).expanduser().resolve()
-    proof=product_probe(source,args.agent_python)
+    sys.path.insert(0, str(HERE.parent))
+    from shared_actor_runtime import select_release
+    frozen_actor = select_release(source, product_commit(source), getattr(args, 'actor_runtime', None))
+    manifest = Path(frozen_actor['manifest'])
+    release = read(manifest)
+    python = manifest.parent / '.venv/bin/python'
+    if getattr(args, 'agent_python', None) and executable(args.agent_python) != python:
+        raise ValueError('The supplied --agent-python differs from the published Agent runtime')
+    proof = product_probe(manifest.parent, python)
     environment=read(HERE/'runtime-environment.json')
-    assert proof['python_version']==environment['actor']['python_version'], 'Actor Python differs from df93'
+    assert proof['python_version'] == release['python'], 'Actor Python differs from its Agent release'
     # Product dependencies are frozen by its own uv.lock; record and compare them again after installation.
     controller_version=subprocess.check_output([cfg['controller_python'],'-c','import platform;print(platform.python_version())'],text=True,timeout=20).strip()
     assert controller_version==environment['controller']['python_version'], 'Controller Python differs from df93'
-    browser=Path(cfg['browser_executable'])
+    browser = manifest.parent / 'chrome/chrome'
+    assert sha(browser) == release['chrome_binary_sha256'], 'Chrome differs from its Agent release'
     if not shutil.which('bwrap'):
         raise RuntimeError('Original df93 bwrap isolation is required')
     browser_version=subprocess.check_output([str(browser),'--version'],text=True,timeout=20).strip()
@@ -94,7 +103,7 @@ def preflight(args):
     assert judge_proof['all_versions']==environment['judge']['all_versions'], 'Judge dependencies differ from df93'
     credentials=actor_credentials(args.credentials_file)
     assert credentials['model']=='deepseek-v4.1-flash'
-    return {'dataset':data,'product':proof,'controller_python_version':controller_version,'judge':judge_proof,'browser':{'path':str(browser),'version':browser_version,'sha256':sha(browser)},'bwrap':shutil.which('bwrap'),'model_requests':0}
+    return {'actor_runtime':frozen_actor,'dataset':data,'product':proof,'controller_python_version':controller_version,'judge':judge_proof,'browser':{'path':str(browser),'version':browser_version,'sha256':sha(browser)},'bwrap':shutil.which('bwrap'),'model_requests':0}
 
 
 def source_hashes(source):
@@ -103,6 +112,8 @@ def source_hashes(source):
 
 
 def product_commit(source):
+    manifest = Path(source)/'actor-runtime.json'
+    if manifest.is_file():return read(manifest)['product_commit']
     stamp=Path(source)/'.source-commit'
     if stamp.is_file():return stamp.read_text().strip()
     return subprocess.check_output(['git','-C',str(source),'rev-parse','HEAD'],text=True).strip()
@@ -110,28 +121,17 @@ def product_commit(source):
 
 def prepare(args):
     proof=preflight(args);cfg=config(args.config)
-    frozen_actor = None
-    if getattr(args, 'actor_runtime', None):
-        sys.path.insert(0, str(HERE.parent))
-        from shared_actor_runtime import binding
-        frozen_actor = binding(args.actor_runtime, product_commit(args.agent_source))
-        if executable(args.agent_python) != Path(frozen_actor['manifest']).parent / '.venv/bin/python':
-            raise ValueError('BU must use the Python executable from the supplied Actor release')
+    frozen_actor = proof['actor_runtime']
+    actor_root = Path(frozen_actor['manifest']).parent
     run=Path(args.output).expanduser().resolve();run.mkdir(parents=True,exist_ok=False,mode=0o700)
     harness=run/'frozen/harness'
     shutil.copytree(HERE,harness,ignore=shutil.ignore_patterns('__pycache__','*.pyc','.venv*','results','.git','.private'))
-    source=Path(args.agent_source).resolve();product=run/'product';product.mkdir()
+    source=actor_root;product=run/'product';product.mkdir()
     shutil.copytree(source/'src',product/'src',ignore=shutil.ignore_patterns('__pycache__','*.pyc','*.egg-info'))
     for name in ['pyproject.toml','uv.lock','README.md','.source-commit']:
         if (source/name).is_file():shutil.copy2(source/name,product/name)
-    if frozen_actor:
-        shutil.copy2(HERE.parent / 'shared_actor_runtime.py', harness / 'shared_actor_runtime.py')
-        actor_root = Path(frozen_actor['manifest']).parent
-    else:
-        subprocess.run(['uv','sync','--frozen','--python',str(executable(args.agent_python))],cwd=product,check=True)
-        actor_root = product
-    installed=product_probe(actor_root,actor_root/'.venv/bin/python')
-    assert installed['versions']==proof['product']['versions'] and installed['all_versions']==proof['product']['all_versions'] and installed['python_version']==proof['product']['python_version'],'Product dependency versions changed while installing the frozen build'
+    shutil.copy2(HERE.parent / 'shared_actor_runtime.py', harness / 'shared_actor_runtime.py')
+    installed = proof['product']
     build={'commit':product_commit(source),'engine_version':installed['engine_version'],'engine_files':installed['engine_files'],'source_sha256':source_hashes(product)}
     write(run/'build.json',build)
     support=run/'support';support.mkdir()
@@ -141,8 +141,7 @@ def prepare(args):
     inflight=read(capacity)['in_flight']
     write(support/'previous-capacity/pause-bu-priority.json',{'in_flight':inflight})
     settings={'controller_python':cfg['controller_python'],'product_source':str(product),'agent_python':str(actor_root/'.venv/bin/python'),'judge_python':str(executable(args.judge_python)),'credentials_file':str(support/'.private/model.json'),'agent':cfg['agent'],'judge':cfg['judge'],'browser_executable':cfg['browser_executable'],'viewport':cfg['viewport']}
-    if frozen_actor:
-        settings['actor_runtime'] = frozen_actor
+    settings['actor_runtime'] = frozen_actor
     write(run/'settings.json',settings)
     tasks=[{k:t[k] for k in ['id','instruction','start_url','answer']} for t in load_judge_tasks()]
     write(run/'task-data.json',{'bu_v1':tasks})
@@ -213,7 +212,7 @@ def summarize(run):
 def runtime_args(p):
     p.add_argument('--config',default=str(HERE/'config.json'))
     p.add_argument('--agent-source',required=True)
-    p.add_argument('--agent-python',required=True)
+    p.add_argument('--agent-python',help='Optional check against the published Agent interpreter')
     p.add_argument('--actor-runtime', type=Path)
     p.add_argument('--judge-python',required=True)
     p.add_argument('--credentials-file',default=str(HERE.parent/'.private/bu-filter-model.json'))

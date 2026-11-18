@@ -2,10 +2,14 @@
 from functools import wraps
 import hashlib
 import json
+import os
+import re
 from pathlib import Path
 
 
 def binding(manifest, commit):
+    if not re.fullmatch(r'[0-9a-f]{40}', commit):
+        raise ValueError('Actor runtime needs a full product commit')
     path = Path(manifest).resolve(strict=True)
     blob = path.read_bytes()
     release = json.loads(blob)
@@ -17,6 +21,18 @@ def binding(manifest, commit):
         if not (path.parent / name).is_file():
             raise FileNotFoundError(path.parent / name)
     return {'manifest': str(path), 'sha256': hashlib.sha256(blob).hexdigest()}
+
+
+def select_release(source, commit, explicit=None):
+    """Find the Agent-owned release before a suite creates a run directory."""
+    if explicit is not None:
+        return binding(explicit, commit)
+    local = Path(source) / 'actor-runtime.json'
+    store = Path(os.environ.get('LEXMOUNT_ACTOR_RUNTIME_STORE', '/data/wf/sxh/workspace/lexmount/agent-runtimes'))
+    manifest = local if local.is_file() else store / commit / 'actor-runtime.json'
+    if not manifest.is_file():
+        raise FileNotFoundError(f'Publish Agent {commit} with its runtime publisher or pass --actor-runtime: {manifest}')
+    return binding(manifest, commit)
 
 
 def bind_actor(scope, frozen):
